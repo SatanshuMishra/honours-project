@@ -6,7 +6,7 @@ import RegisterSVG from "../../public/unDraw_Register.svg";
 function UserAuth() {
   return (
     <section className="flex flex-row justify-evenly items-center w-screen h-screen">
-      <div className="w-full flex flex-col justify-center items-center shadow-2xl rounded-lg p-10 min-w-[20rem] mx-10">
+      <div className="w-full max-w-3xl flex flex-col justify-center items-center shadow-2xl rounded-lg p-10 min-w-[20rem] mx-10">
         <div className="w-full flex flex-col justify-center items-start">
           <h1 className="text-5xl font-bold my-10">SIGN IN</h1>
           <form className="w-full flex flex-col justify-center items-start text-black text-xl mb-5">
