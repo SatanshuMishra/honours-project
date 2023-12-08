@@ -8,10 +8,11 @@ import Cookies from "js-cookie";
 import QuestionPill from "../components/quizComponents/QuestionPill";
 import "remixicon/fonts/remixicon.css";
 
+import shuffle from "../scripts/shuffle";
 
 function Sandbox() {
   const router = useRouter();
-
+  let dataDummy = dummyData;
   useEffect(() => {
     const token = Cookies.get("token");
 
@@ -39,6 +40,10 @@ function Sandbox() {
     validateToken();
   }, [router]);
 
+  useEffect(() => {
+    dataDummy = shuffle(dataDummy);
+  }, []);
+
   const [chosenOption, setChosenOption] = useState(999);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [correctAnswer, setCorrectAnswer] = useState(999);
@@ -46,7 +51,7 @@ function Sandbox() {
 
   const handleChosenOption = (optionIndex: number) => {
     setChosenOption(optionIndex);
-    setCorrectAnswer(dummyData[currentIndex].correct);
+    setCorrectAnswer(dataDummy[currentIndex].correct);
   };
 
   const handleCheckAnswer = () => {
@@ -58,20 +63,22 @@ function Sandbox() {
     setBlockChanges(false);
     setChosenOption(999);
     setBlockChanges(false);
-    setCurrentIndex(currentIndex + 1 < dummyData.length ? currentIndex + 1 : 0);
+    setCurrentIndex(currentIndex + 1 < dataDummy.length ? currentIndex + 1 : 0);
     console.log(blockChanges);
   };
 
   useEffect(() => {
-    setCorrectAnswer(dummyData[currentIndex].correct);
+    setCorrectAnswer(dataDummy[currentIndex].correct);
   }, [currentIndex]);
   // 06F
   return (
     <>
       <div className="flex flex-row-reverse bg-[#141a33]">
         <i
-          className="ri-close-fill text-white text-4xl mx-2 p-2 cursor-pointer"
-          onClick={() => {}}
+          className="ri-close-fill text-white text-4xl mx-2 p-2 hover:cursor-pointer"
+          onClick={() => {
+            router.push("/dashboard");
+          }}
         ></i>
       </div>
 
@@ -82,13 +89,13 @@ function Sandbox() {
             style={
               {
                 "--progress-width":
-                  (currentIndex / dummyData.length) * 100 + "%",
+                  (currentIndex / dataDummy.length) * 100 + "%",
               } as any
             }
           >
             <div className="h-full bg-green-500 w-[--progress-width] rounded-lg"></div>
             <div className="text-white font-semibold">
-              {currentIndex + 1} / {dummyData.length}
+              {currentIndex + 1} / {dataDummy.length}
             </div>
             {/* <div>
             <QuestionPill />
@@ -100,13 +107,13 @@ function Sandbox() {
             <div>
               <h2 className="font-bold text-xl text-black">
                 <span className="text-blue-500">
-                  Question {currentIndex + 1} / {dummyData.length}
+                  Question {currentIndex + 1} / {dataDummy.length}
                 </span>
                 <br />
                 {/* {currentIndex + 1 + ". "} */}
-                {dummyData[currentIndex].question}
+                {dataDummy[currentIndex].question}
               </h2>
-              {dummyData[currentIndex].answers.map((option, optIndex) => {
+              {dataDummy[currentIndex].answers.map((option, optIndex) => {
                 return (
                   <QuizOption
                     key={optIndex}
@@ -114,7 +121,7 @@ function Sandbox() {
                     optionText={option}
                     setChosenOption={handleChosenOption}
                     isSelectedOpt={chosenOption === optIndex}
-                    explanation={dummyData[currentIndex].explanations[optIndex]}
+                    explanation={dataDummy[currentIndex].explanations[optIndex]}
                     blockChange={blockChanges}
                     isCorrectChoice={optIndex === correctAnswer}
                   />
