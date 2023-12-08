@@ -81,7 +81,7 @@ function QuizOption({
       }
     >
       <div
-        className="bg-[--option-color] p-2 shadow-lg my-2 flex rounded-lg w-full max-w-2xl text-lg"
+        className="bg-[--option-color] p-2 shadow-lg my-2 flex rounded-lg w-full max-w-2xl text-lg flex-row"
         onClick={() => {
           if (!allowChange) return;
           setIsSelected(!isSelected);
