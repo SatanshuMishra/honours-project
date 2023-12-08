@@ -2,8 +2,39 @@
 import React, { useEffect, useState } from "react";
 import { dummyData } from "../data/dummyData";
 import QuizOption from "../components/quizComponents/QuizOption";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 function Sandbox() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+
+    if (!token) {
+      router.replace("/user-auth");
+      return;
+    }
+
+    // Validate the token by making an API call
+    const validateToken = async () => {
+      try {
+        const res = await fetch("./dashboard/api/validateToken", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) throw new Error("Token validation failed");
+      } catch (error) {
+        console.error(error);
+        router.replace("/");
+      }
+    };
+
+    validateToken();
+  }, [router]);
+
   const [chosenOption, setChosenOption] = useState(999);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [correctAnswer, setCorrectAnswer] = useState(999);
