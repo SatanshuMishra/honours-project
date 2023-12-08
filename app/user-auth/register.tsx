@@ -4,7 +4,12 @@ import LoginSVG from "../../public/unDraw_Login.svg";
 import RegisterSVG from "../../public/unDraw_Register.svg";
 import { useFormik } from "formik";
 
-function SignUp() {
+type AuthProps = {
+  setSignIn: (arg0: boolean) => void;
+  displaySignIn: boolean;
+};
+
+function SignUp({ setSignIn, displaySignIn }: AuthProps) {
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -83,12 +88,22 @@ function SignUp() {
         <p className="text-xl w-full text-left">
           Already have an account? You can access login below:
         </p>
-        <button className="text-xl p-2 text-white rounded-lg w-full font-bold my-5 bg-[#82D400]">
+        <button
+          className="text-xl p-2 text-white rounded-lg w-full font-bold my-5 bg-[#82D400]"
+          onClick={() => {
+            setSignIn(!displaySignIn);
+          }}
+        >
           LOG IN
         </button>
       </div>
       <div className="hidden w-full xl:flex flex-col justify-center items-center mx-10">
-        <Image src={LoginSVG} alt="LoginSVG" className="h-fit w-auto" />
+        <Image
+          src={LoginSVG}
+          alt="LoginSVG"
+          className="h-fit w-auto"
+          priority={true}
+        />
       </div>
     </section>
   );

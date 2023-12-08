@@ -9,7 +9,15 @@ import Register from "./register";
 
 function UserAuth() {
   const [isSignIn, setIsSignIn] = useState(true);
-  return <>{isSignIn ? <LogIn /> : <Register />}</>;
+  return (
+    <>
+      {isSignIn ? (
+        <LogIn setSignIn={setIsSignIn} displaySignIn={isSignIn} />
+      ) : (
+        <Register setSignIn={setIsSignIn} displaySignIn={isSignIn} />
+      )}
+    </>
+  );
 }
 
 export default UserAuth;

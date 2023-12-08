@@ -3,12 +3,19 @@ import React from "react";
 import LoginSVG from "../../public/unDraw_Login.svg";
 import RegisterSVG from "../../public/unDraw_Register.svg";
 import { useFormik } from "formik";
+import { useRouter } from "next/navigation";
 
-export default function LogIn() {
+type AuthProps = {
+  setSignIn: (arg0: boolean) => void;
+  displaySignIn: boolean;
+};
+
+export default function LogIn({ setSignIn, displaySignIn }: AuthProps) {
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
-      username: "",
-      password: "",
+      reqUsername: "",
+      reqPassword: "",
     },
     onSubmit: (values) => {
       console.log("Brrr");
@@ -17,8 +24,8 @@ export default function LogIn() {
   });
 
   const handleSignIn = async (values: {
-    username: string;
-    password: string;
+    reqUsername: string;
+    reqPassword: string;
   }) => {
     console.log(values);
     const response = await fetch(`./user-auth/api/login`, {
@@ -28,13 +35,15 @@ export default function LogIn() {
       cache: "no-cache",
     });
     let res: {
-      data: {
-        username: string;
-      } | null;
+      token: any;
       status: number;
     } = JSON.parse(await response.text());
-    if (res.data?.username) {
-      console.log(res.data.username);
+    if (res.token) {
+      console.log(res.token);
+      document.cookie = `token=${res.token}; path=/`;
+      router.push("/dashboard");
+    } else {
+      console.log("Error - No Token");
     }
   };
   return (
@@ -46,21 +55,21 @@ export default function LogIn() {
             className="w-full flex flex-col justify-center items-start text-black text-xl mb-5"
             onSubmit={formik.handleSubmit}
           >
-            <label className="font-bold my-2" htmlFor="username">
+            <label className="font-bold my-2" htmlFor="reqUsername">
               USERNAME
             </label>
             <input
               className="p-2 border-2 border-black rounded-lg w-full"
-              id="username"
+              id="reqUsername"
               type="username"
               onChange={formik.handleChange}
             />
-            <label className="font-bold my-2" htmlFor="password">
+            <label className="font-bold my-2" htmlFor="reqPassword">
               PASSWORD
             </label>
             <input
               className="p-2 border-2 border-black rounded-lg w-full"
-              id="password"
+              id="reqPassword"
               type="password"
               onChange={formik.handleChange}
             />
@@ -76,12 +85,22 @@ export default function LogIn() {
         <p className="text-xl w-full text-left">
           If you do not have an account, you can access registration below:
         </p>
-        <button className="text-xl p-2 text-white rounded-lg w-full font-bold my-5 bg-[#82D400]">
+        <button
+          className="text-xl p-2 text-white rounded-lg w-full font-bold my-5 bg-[#82D400]"
+          onClick={() => {
+            setSignIn(!displaySignIn);
+          }}
+        >
           REGISTER
         </button>
       </div>
       <div className="hidden w-full xl:flex flex-col justify-center items-center mx-10">
-        <Image src={LoginSVG} alt="LoginSVG" className="h-fit w-auto" />
+        <Image
+          src={LoginSVG}
+          alt="LoginSVG"
+          className="h-fit w-auto"
+          priority={true}
+        />
       </div>
     </section>
   );
