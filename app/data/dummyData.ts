@@ -194,6 +194,70 @@ export const dummyData: {
 		],
 	},
 	{
+		difficulty: "easy",
+		question:
+			"In Java, what does the term 'recursive call' refer to in a recursive method?",
+		answers: [
+			"A call to a different method",
+			"A call to the same method within itself",
+			"A call to the main method",
+			"A call to an external library",
+		],
+		correct: 1,
+		explanations: [
+			"A recursive call is not a call to a different method.",
+			"In recursion, the method calls itself; this is the recursive call.",
+			"Calling the main method is not recursion.",
+			"A recursive call does not involve calling external libraries.",
+		],
+	},
+	{
+		difficulty: "easy",
+		question:
+			"In Java, what is the result of using recursion to calculate the sum of numbers from 1 to n?",
+		answers: ["n(n + 1) / 2", "n!", "2^n", "n^2"],
+		correct: 0,
+		explanations: [
+			"The sum of numbers from 1 to n is given by the formula n(n + 1) / 2.",
+			"n! is the factorial of n, not the sum.",
+			"2^n represents exponential growth, not the sum of a series.",
+			"n^2 is the square of n, not the sum from 1 to n.",
+		],
+	},
+	{
+		difficulty: "easy",
+		question:
+			"In Java, what will be the output of this recursive method if it's called with `printNumbers(5)`?",
+		code: 'void printNumbers(int n) {\n  if (n > 0) {\n    printNumbers(n - 1);\n    System.out.print(n + " ");\n  }\n}',
+		answers: [
+			"5 4 3 2 1",
+			"1 2 3 4 5",
+			"Stack Overflow Error",
+			"Compilation Error",
+		],
+		correct: 1,
+		explanations: [
+			"The numbers are printed in ascending order due to the position of the print statement.",
+			"The method prints in ascending order, not descending.",
+			"There is no stack overflow since there is a base case.",
+			"The code compiles and runs correctly.",
+		],
+	},
+	{
+		difficulty: "medium",
+		question:
+			"In Java, what will be the result of calling `factorial(5)` with this recursive method?",
+		code: "int factorial(int n) {\n  return n == 0 ? 1 : n * factorial(n - 1);\n}",
+		answers: ["120", "24", "5", "None of the above"],
+		correct: 0,
+		explanations: [
+			"5 factorial (5!) is 120, which is correctly calculated by this method.",
+			"24 is the factorial of 4, not 5.",
+			"The method calculates factorial, not the input number itself.",
+			"120 is the correct result, so the correct answer is not 'None of the above'.",
+		],
+	},
+	{
 		difficulty: "medium",
 		question:
 			"What is the issue with this method for reversing a string using recursion?",
@@ -367,6 +431,74 @@ export const dummyData: {
 			"Stacks are LIFO structures without inherent recursion.",
 			"Queues are FIFO structures without inherent recursion.",
 			"Trees have a recursive nature, with each subtree being a smaller instance of a tree.",
+		],
+	},
+	{
+		difficulty: "hard",
+		question:
+			'In Java, what is the output of the following recursive method when called with `reversePrint("hello")`?',
+		code: "void reversePrint(String s) {\n  if (!s.isEmpty()) {\n    reversePrint(s.substring(1));\n    System.out.print(s.charAt(0));\n  }\n}",
+		answers: ["hello", "olleh", "ehllo", "A Stack Overflow Error"],
+		correct: 1,
+		explanations: [
+			"The method does not print the string in its original order.",
+			"The method prints the string in reverse order.",
+			"Characters are not rearranged; they're printed in reverse.",
+			"There is a base case to prevent a stack overflow.",
+		],
+	},
+	{
+		difficulty: "hard",
+		question: "In Java, identify the error in this recursive method:",
+		code: "int sumArray(int[] arr, int n) {\n  return n <= 0 ? 0 : sumArray(arr, n) + arr[n - 1];\n}",
+		answers: [
+			"Array index out of bounds",
+			"Infinite recursion leading to Stack Overflow Error",
+			"Incorrect calculation of the sum",
+			"Syntax error",
+		],
+		correct: 1,
+		explanations: [
+			"The array index is correctly handled, so no out of bounds error.",
+			"The method calls itself with the same value of n, leading to infinite recursion.",
+			"While the sum calculation logic is correct, the recursive call causes an error.",
+			"The syntax is correct, but the logic leads to infinite recursion.",
+		],
+	},
+	{
+		difficulty: "easy",
+		question: "In Java, which statement about recursion is true?",
+		answers: [
+			"Recursion always leads to better performance than iteration.",
+			"Every recursive function must have a return type of void.",
+			"Recursion can sometimes be less efficient due to overheads.",
+			"Recursive methods cannot be used to solve sorting problems.",
+		],
+		correct: 2,
+		explanations: [
+			"Recursion does not always lead to better performance; in some cases, iteration is more efficient.",
+			"Recursive functions can have any return type, not just void.",
+			"Due to overheads like stack memory usage, recursion can be less efficient than iteration.",
+			"Recursive methods can be used in sorting algorithms like merge sort and quicksort.",
+		],
+	},
+	{
+		difficulty: "hard",
+		question:
+			"In Java, what error does this recursive function have? `int power(int base, int exp) { return exp < 1 ? 1 : base * power(base, exp); }`",
+		code: "int power(int base, int exp) {\n  return exp < 1 ? 1 : base * power(base, exp);\n}",
+		answers: [
+			"Compilation Error",
+			"Arithmetic Error",
+			"Infinite Recursion",
+			"Logic Error",
+		],
+		correct: 2,
+		explanations: [
+			"The function compiles without errors.",
+			"There is no arithmetic error in the operations performed.",
+			"The function causes infinite recursion because the exponent is not decremented in the recursive call.",
+			"While the logic is incorrect, the specific error is infinite recursion.",
 		],
 	},
 	{
