@@ -104,6 +104,96 @@ export const dummyData: {
 		],
 	},
 	{
+		difficulty: "easy",
+		question: "What signifies the end of recursion in a program?",
+		answers: [
+			"A loop condition",
+			"An if-statement",
+			"A base case",
+			"A function call",
+		],
+		correct: 2,
+		explanations: [
+			"A loop condition signifies repetition, not the end of recursion.",
+			"An if-statement is a conditional check, not specific to ending recursion.",
+			"A base case is a condition that ends the recursion by not making further calls.",
+			"A function call in recursion typically leads to further recursive calls unless it's a base case.",
+		],
+	},
+	{
+		difficulty: "easy",
+		question:
+			"What problem can occur if the base case in recursion is not correctly defined?",
+		answers: [
+			"Slow execution",
+			"Infinite recursion",
+			"Syntax error",
+			"Compiler warning",
+		],
+		correct: 1,
+		explanations: [
+			"Slow execution is a performance issue, not directly related to the absence of a proper base case.",
+			"Incorrectly defining or missing a base case can lead to infinite recursion.",
+			"Syntax errors are related to code structure, not specifically to the logic of recursion.",
+			"Compiler warnings usually indicate potential issues, not logical errors like an incorrect base case.",
+		],
+	},
+	{
+		difficulty: "easy",
+		question:
+			"In a recursive function for calculating the sum of numbers, what would be a suitable base case?",
+		answers: [
+			"Sum equals 10",
+			"Sum equals 0",
+			"Number of elements equals 0",
+			"Number of elements equals 10",
+		],
+		correct: 2,
+		explanations: [
+			"Having a sum equal to 10 is not a general base case for sum calculation.",
+			"Sum equaling 0 is not a suitable base case for this scenario.",
+			"When there are no more elements to add, it's a suitable base case for stopping recursion.",
+			"The number of elements being 10 is arbitrary and not a suitable base case.",
+		],
+	},
+	{
+		difficulty: "easy",
+		question:
+			"What does a recursive function typically return in the base case?",
+		answers: [
+			"A new function call",
+			"A specific, predetermined value",
+			"The same input argument",
+			"Nothing",
+		],
+		correct: 1,
+		explanations: [
+			"Returning a new function call would extend, not terminate, the recursion.",
+			"In the base case, a recursive function typically returns a specific, known value to terminate the recursion.",
+			"Returning the same input argument would likely lead to infinite recursion.",
+			"Returning nothing is not typical in recursion, as each call usually contributes to the final result.",
+		],
+	},
+	{
+		difficulty: "easy",
+		question:
+			"How does a recursive function differ from an iterative function?",
+		answers: [
+			"By using a loop",
+			"By calling itself",
+			"By executing faster",
+			"By using more memory",
+		],
+		correct: 1,
+		explanations: [
+			"Using a loop is characteristic of an iterative function, not a recursive one.",
+			"The defining feature of a recursive function is that it calls itself.",
+			"Recursive functions don't necessarily execute faster than iterative ones.",
+			"While recursive functions can use more memory due to the call stack, this is a consequence, not a defining feature.",
+		],
+	},
+
+	{
 		difficulty: "medium",
 		question:
 			"In a recursive approach to the binary search algorithm, what acts as the 'smaller problem'?",
@@ -121,7 +211,6 @@ export const dummyData: {
 			"The search key remains constant in binary search.",
 		],
 	},
-
 	{
 		difficulty: "medium",
 		question:
