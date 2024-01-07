@@ -227,6 +227,24 @@ export const dummyData: {
 	{
 		difficulty: "easy",
 		question:
+			"In Java, how does a recursive method differ from a regular method call?",
+		answers: [
+			"Recursive methods use more CPU resources.",
+			"Recursive methods are only used for mathematical calculations.",
+			"Recursive methods call themselves with modified parameters.",
+			"Recursive methods cannot return values.",
+		],
+		correct: 2,
+		explanations: [
+			"Using more CPU resources is not a defining characteristic of recursive methods.",
+			"Recursive methods are not limited to mathematical calculations.",
+			"The key aspect of recursion is that the method calls itself with modified parameters.",
+			"Recursive methods can return values, just like regular methods.",
+		],
+	},
+	{
+		difficulty: "easy",
+		question:
 			"In Java, what will be the output of this recursive method if it's called with `printNumbers(5)`?",
 		code: 'void printNumbers(int n) {\n  if (n > 0) {\n    printNumbers(n - 1);\n    System.out.print(n + " ");\n  }\n}',
 		answers: [
@@ -255,6 +273,25 @@ export const dummyData: {
 			"24 is the factorial of 4, not 5.",
 			"The method calculates factorial, not the input number itself.",
 			"120 is the correct result, so the correct answer is not 'None of the above'.",
+		],
+	},
+	{
+		difficulty: "medium",
+		question:
+			"In Java, what error will occur in this recursive code if the input is a negative number? `int countDown(int n) { return n <= 0 ? n : countDown(n - 1); }`",
+		code: "int countDown(int n) {\n  return n <= 0 ? n : countDown(n - 1);\n}",
+		answers: [
+			"Syntax Error",
+			"Arithmetic Error",
+			"Stack Overflow Error",
+			"No Error",
+		],
+		correct: 2,
+		explanations: [
+			"The syntax of the code is correct.",
+			"There is no arithmetic error in the code.",
+			"For negative numbers, the base case is never reached, leading to a Stack Overflow Error.",
+			"There is an error; the method will cause a stack overflow with negative input.",
 		],
 	},
 	{
