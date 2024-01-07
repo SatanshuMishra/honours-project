@@ -192,6 +192,23 @@ export const dummyData: {
 			"While recursive functions can use more memory due to the call stack, this is a consequence, not a defining feature.",
 		],
 	},
+	{
+		difficulty: "medium",
+		question: "What is the primary disadvantage of using recursion?",
+		answers: [
+			"Increased memory usage",
+			"Slower execution time",
+			"Increased code complexity",
+			"Incompatibility with certain programming languages",
+		],
+		correct: 0,
+		explanations: [
+			"Recursion can lead to increased memory usage due to the stack space required for each function call.",
+			"While some recursive algorithms may be slower, this is not the primary disadvantage.",
+			"Recursion can actually reduce code complexity for certain problems.",
+			"Recursion is compatible with most programming languages, so incompatibility is not a primary concern.",
+		],
+	},
 
 	{
 		difficulty: "medium",
@@ -342,6 +359,24 @@ export const dummyData: {
 			"Not all 'divide and conquer' algorithms return a single answer.",
 			"The hallmark of 'divide and conquer' is decomposing the problem and then combining solutions.",
 			"External libraries aren't inherently tied to 'divide and conquer'.",
+		],
+	},
+	{
+		difficulty: "hard",
+		question:
+			"What is the result of a recursive function call that does not have a proper termination condition?",
+		answers: [
+			"A syntax error",
+			"An optimized execution",
+			"An infinite loop",
+			"A faster result",
+		],
+		correct: 2,
+		explanations: [
+			"A syntax error would be due to incorrect code structure, not the logic of recursion.",
+			"An optimized execution is not the result of missing a termination condition.",
+			"Without a proper termination condition, a recursive function can result in an infinite loop.",
+			"A faster result is not achieved by lacking a termination condition; it usually leads to problems like infinite loops.",
 		],
 	},
 ];
