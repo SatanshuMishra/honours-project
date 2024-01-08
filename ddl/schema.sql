@@ -31,3 +31,17 @@ CREATE TABLE answer (
 	isCorrect BOOLEAN NOT NULL,
 	FOREIGN KEY (questionID) REFERENCES question(questionID)
 ) ENGINE = InnoDB;
+
+CREATE TABLE statistic (
+	statID BINARY(36) NOT NULL PRIMARY KEY,
+	studentID BINARY(36) NOT NULL,
+	questionID BINARY(36) NOT NULL,
+	chosenAnswerID BINARY(36) NOT NULL,
+	isCorrect BOOLEAN NOT NULL,
+	timeToAnswer DECIMAL NOT NULL,
+	recordedDifficulty INTEGER,
+	CONSTRAINT RecDiff_Consrt CHECK (recordedDifficulty IN (1, 2, 3)),
+	FOREIGN KEY (studentID) REFERENCES student(studentID),
+	FOREIGN KEY (questionID) REFERENCES question(questionID),
+	FOREIGN KEY (chosenAnswerID) REFERENCES answer(answerID)
+) ENGINE = InnoDB;
