@@ -38,7 +38,7 @@ CREATE TABLE statistic (
 	questionID BINARY(36) NOT NULL,
 	chosenAnswerID BINARY(36) NOT NULL,
 	isCorrect BOOLEAN NOT NULL,
-	timeToAnswer BOOLEAN NOT NULL,
+	timeToAnswer DECIMAL NOT NULL,
 	recordedDifficulty INTEGER,
 	CONSTRAINT RecDiff_Consrt CHECK (recordedDifficulty IN (1, 2, 3)),
 	FOREIGN KEY (studentID) REFERENCES student(studentID),
