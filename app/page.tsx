@@ -1,8 +1,10 @@
 import Image from "next/image";
 import UserAuth from "./user-auth/page";
+import parseJSON from "./scripts/parseJSON";
 
 export default function Home() {
-  return (
+//parseJSON();
+	return (
     <main>
       <UserAuth />
     </main>
