@@ -1,16 +1,13 @@
 export const dummyData: {
-	difficulty: string;
+	difficulty: number;
 	question: string;
 	code?: string;
 	answers: string[];
 	correct: number;
 	explanations: string[];
-	// lessonID: string;
-	// ID: string;
-	// type: number;
 }[] = [
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question: "What is the primary idea behind recursion in programming?",
 		answers: [
 			"Looping a fixed number of times.",
@@ -27,7 +24,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question: "What is the base case in a recursive function?",
 		answers: [
 			"The most complex version of the problem.",
@@ -44,7 +41,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question:
 			"In a recursive algorithm for calculating factorials, what would be a suitable base case?",
 		answers: ["n = 1 or n = 0.", "n = 2.", "n is negative.", "n = 10."],
@@ -57,7 +54,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question:
 			"Which of the following is NOT a component of a recursive algorithm?",
 		answers: [
@@ -75,7 +72,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question:
 			"When using recursion, the system uses which data structure internally to manage function calls?",
 		answers: ["Queue.", "Linked List.", "Stack.", "Heap."],
@@ -88,7 +85,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question: "What is a common risk associated with recursion?",
 		answers: [
 			"Algorithm becoming too fast.",
@@ -105,7 +102,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question: "What signifies the end of recursion in a program?",
 		answers: [
 			"A loop condition",
@@ -122,7 +119,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question:
 			"What problem can occur if the base case in recursion is not correctly defined?",
 		answers: [
@@ -140,7 +137,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question:
 			"In a recursive function for calculating the sum of numbers, what would be a suitable base case?",
 		answers: [
@@ -158,7 +155,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question:
 			"What does a recursive function typically return in the base case?",
 		answers: [
@@ -176,7 +173,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question:
 			"How does a recursive function differ from an iterative function?",
 		answers: [
@@ -194,7 +191,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question:
 			"In Java, what does the term 'recursive call' refer to in a recursive method?",
 		answers: [
@@ -212,7 +209,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question:
 			"In Java, what is the result of using recursion to calculate the sum of numbers from 1 to n?",
 		answers: ["n(n + 1) / 2", "n!", "2^n", "n^2"],
@@ -225,7 +222,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question:
 			"In Java, how does a recursive method differ from a regular method call?",
 		answers: [
@@ -243,7 +240,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question:
 			"In Java, what will be the output of this recursive method if it's called with `printNumbers(5)`?",
 		code: 'void printNumbers(int n) {\n  if (n > 0) {\n    printNumbers(n - 1);\n    System.out.print(n + " ");\n  }\n}',
@@ -262,7 +259,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "medium",
+		difficulty: 2,
 		question:
 			"In Java, what will be the result of calling `factorial(5)` with this recursive method?",
 		code: "int factorial(int n) {\n  return n == 0 ? 1 : n * factorial(n - 1);\n}",
@@ -276,7 +273,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "medium",
+		difficulty: 2,
 		question:
 			"In Java, what error will occur in this recursive code if the input is a negative number? `int countDown(int n) { return n <= 0 ? n : countDown(n - 1); }`",
 		code: "int countDown(int n) {\n  return n <= 0 ? n : countDown(n - 1);\n}",
@@ -295,7 +292,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "medium",
+		difficulty: 2,
 		question:
 			"What is the issue with this method for reversing a string using recursion?",
 		code: "public static String reverseString(String str) {\n    if (str.isEmpty()) {\n        return str;\n    } else {\n        return reverseString(str.substring(1)) + str.charAt(0);\n    }\n}",
@@ -314,7 +311,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "medium",
+		difficulty: 2,
 		question:
 			"Complete the code for a recursive method that checks if an array is sorted",
 		code: "public static boolean isArraySorted(int[] arr, int index) {\n    if (index == arr.length - 1) {\n        return true;\n    }\n    return ____ && isArraySorted(arr, index + 1);\n}",
@@ -333,7 +330,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "medium",
+		difficulty: 2,
 		question: "What is the primary disadvantage of using recursion?",
 		answers: [
 			"Increased memory usage",
@@ -351,7 +348,7 @@ export const dummyData: {
 	},
 
 	{
-		difficulty: "medium",
+		difficulty: 2,
 		question:
 			"In a recursive approach to the binary search algorithm, what acts as the 'smaller problem'?",
 		answers: [
@@ -369,7 +366,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "medium",
+		difficulty: 2,
 		question:
 			"In which scenario might a recursive solution be less efficient than an iterative one?",
 		answers: [
@@ -387,7 +384,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "medium",
+		difficulty: 2,
 		question: 'What does the term "tail recursion" mean?',
 		answers: [
 			"It's the first recursive call in a function.",
@@ -404,7 +401,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "medium",
+		difficulty: 2,
 		question:
 			"Which of these problems is NOT typically solved using recursion?",
 		answers: [
@@ -422,7 +419,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "medium",
+		difficulty: 2,
 		question:
 			"Which of the following might be a side effect of deep recursion without a proper base case?",
 		answers: [
@@ -440,7 +437,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "medium",
+		difficulty: 2,
 		question:
 			"Why is tail recursion considered advantageous in some programming languages?",
 		answers: [
@@ -458,7 +455,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "medium",
+		difficulty: 2,
 		question:
 			"Which of the following data structures fundamentally relies on the principle of recursion?",
 		answers: ["Array.", "Stack.", "Queue.", "Tree."],
@@ -471,7 +468,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "hard",
+		difficulty: 3,
 		question:
 			'In Java, what is the output of the following recursive method when called with `reversePrint("hello")`?',
 		code: "void reversePrint(String s) {\n  if (!s.isEmpty()) {\n    reversePrint(s.substring(1));\n    System.out.print(s.charAt(0));\n  }\n}",
@@ -485,7 +482,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "hard",
+		difficulty: 3,
 		question: "In Java, identify the error in this recursive method:",
 		code: "int sumArray(int[] arr, int n) {\n  return n <= 0 ? 0 : sumArray(arr, n) + arr[n - 1];\n}",
 		answers: [
@@ -503,7 +500,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "easy",
+		difficulty: 1,
 		question: "In Java, which statement about recursion is true?",
 		answers: [
 			"Recursion always leads to better performance than iteration.",
@@ -520,7 +517,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "hard",
+		difficulty: 3,
 		question:
 			"In Java, what error does this recursive function have? `int power(int base, int exp) { return exp < 1 ? 1 : base * power(base, exp); }`",
 		code: "int power(int base, int exp) {\n  return exp < 1 ? 1 : base * power(base, exp);\n}",
@@ -539,7 +536,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "hard",
+		difficulty: 3,
 		question:
 			"Identify the problem in this method for finding the minimum element in a binary search tree",
 		code: "class TreeNode {\n    int value;\n    TreeNode left, right;\n\n    TreeNode(int value) {\n        this.value = value;\n        left = right = null;\n    }\n}\n\npublic static int findMin(TreeNode root) {\n    if (root == null) {\n        return Integer.MAX_VALUE;\n    } else {\n        return Math.min(root.value, findMin(root.left));\n    }\n}",
@@ -558,7 +555,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "hard",
+		difficulty: 3,
 		question:
 			"Complete the code for a recursive method that calculates the sum of all digits in a number",
 		code: "public static int sumOfDigits(int n) {\n    if (n == 0) {\n        return 0;\n    } else {\n        return ____ + sumOfDigits(____);\n    }\n}",
@@ -577,7 +574,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "hard",
+		difficulty: 3,
 		question:
 			"Review this method for checking if a string is a palindrome. What is the issue?",
 		code: "public static boolean isPalindrome(String str, int start, int end) {\n    if (start >= end) {\n        return true;\n    }\n    if (str.charAt(start) != str.charAt(end)) {\n        return false;\n    }\n    return isPalindrome(str, start + 1, end - 1);\n}",
@@ -596,7 +593,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "hard",
+		difficulty: 3,
 		question:
 			"Identify the error in this method for computing the power of a number",
 		code: "public static double power(double base, int exponent) {\n    if (exponent == 0) {\n        return 1;\n    } else {\n        return base * power(base, exponent - 1);\n    }\n}",
@@ -615,7 +612,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "hard",
+		difficulty: 3,
 		question:
 			"A recursive function to compute Fibonacci numbers would have how many recursive calls for an input of n (ignoring the base cases)?",
 		answers: ["n", "2", "n-1", "2^n"],
@@ -628,7 +625,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "hard",
+		difficulty: 3,
 		question:
 			"What distinguishes a 'divide and conquer' algorithm from other recursive algorithms?",
 		answers: [
@@ -646,7 +643,7 @@ export const dummyData: {
 		],
 	},
 	{
-		difficulty: "hard",
+		difficulty: 3,
 		question:
 			"What is the result of a recursive function call that does not have a proper termination condition?",
 		answers: [

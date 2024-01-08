@@ -4,9 +4,11 @@ import React, { useEffect } from "react";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Domino from "@/public/domino.svg";
+import parseJSON from "../scripts/parseJSON";
 
 function Dashboard() {
   const router = useRouter();
+	parseJSON();
 
   useEffect(() => {
     const token = Cookies.get("token");

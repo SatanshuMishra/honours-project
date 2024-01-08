@@ -15,6 +15,14 @@ CREATE TABLE student (
   completedBonusContent BOOLEAN NOT NULL DEFAULT FALSE
 ) ENGINE = InnoDB;
 
+CREATE TABLE profile (
+	profileID BINARY(36) NOT NULL PRIMARY KEY,
+	studentID BINARY(36) NOT NULL,
+	previousProgrammingExperience INTEGER NOT NULL,
+	CONSTRAINT PrevExp_Consrt CHECK (previousProgrammingExperience IN (1, 2, 3, 4, 5)),
+	FOREIGN KEY (studentID) REFERENCES student(studentID)
+) ENGINE = InnoDB;
+
 CREATE TABLE question (
 	questionID BINARY(36) NOT NULL PRIMARY KEY,
 	difficulty INTEGER NOT NULL,
