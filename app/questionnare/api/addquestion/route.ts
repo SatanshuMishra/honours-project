@@ -12,12 +12,9 @@ export async function POST(request: NextRequest) {
 
 		await prisma.$queryRaw`INSERT INTO question (questionId, difficulty, question, code) VALUES (${newUuid}, ${requestBody.difficulty}, ${requestBody.question}, ${requestBody.code})`;
 
-		const insertedRow =
-			await prisma.$queryRaw`SELECT questionId FROM question WHERE questionId = ${newUuid}`;
-
 		return new Response(
 			JSON.stringify({
-				data: { insertedRow },
+				data: { questionID: newUuid },
 				status: 201,
 			})
 		);

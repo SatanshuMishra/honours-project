@@ -50,6 +50,27 @@ async function insertQuestion (difficulty: number, question: string, code?: stri
 	}
 }
 
-//async function insertAnswer (questionID: string, answer: string, explanation: string, isCorrect: boolean){
-//	return ""
-//}
+async function insertAnswer (questionID: string, answer: string, explanation: string, isCorrect: boolean){
+	const values = {
+		questionID,
+		answer,
+		explanation,
+		isCorrect
+	}
+	const response = await fetch(`./questionnare/api/addanswer`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+      cache: "no-cache",
+    });
+
+	let res: {
+      data: null;
+      status: number;
+    } = JSON.parse(await response.text());
+	if(res.status == 200){
+		return;
+	} else {
+		console.log(`Error Inserting Answer for Question with ID ${questionID}.`);
+	}
+}
