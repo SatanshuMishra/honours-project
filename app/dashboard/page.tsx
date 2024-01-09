@@ -8,7 +8,6 @@ import parseJSON from "../scripts/parseJSON";
 
 function Dashboard() {
   const router = useRouter();
-	parseJSON();
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -42,6 +41,9 @@ function Dashboard() {
       <section className="flex flex-row-reverse m-4 sticky">
         <button className="text-lg p-2 text-white rounded-lg w-fit font-normal bg-pink-600">
           SIGN OUT
+        </button>
+		<button className="text-lg p-2 text-white rounded-lg w-fit font-normal bg-green-600" onClick={() => parseJSON()}>
+          LOAD DATA
         </button>
       </section>
       <section className="m-10 p-2">
