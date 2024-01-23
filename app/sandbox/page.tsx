@@ -42,7 +42,23 @@ function Sandbox() {
 
   useEffect(() => {
     dataDummy = shuffle(dataDummy);
+	getRows();
   }, []);
+
+	async function getRows() {
+		try {
+			const response = await fetch(`./questionnare/api/fetchquestions`);
+			if(!response.ok){
+				throw new Error(`Error: ${response.status}`);
+			}
+			const data = await response.json();
+			console.log(data); // Handle the data
+		} catch (error) {
+			console.error('Failed to fetch random rows:', error);
+		}
+
+		}
+	}
 
   const [chosenOption, setChosenOption] = useState(999);
   const [currentIndex, setCurrentIndex] = useState(0);
