@@ -47,7 +47,12 @@ export default function Sandbox() {
 
 	async function getRows() {
 		try {
-			const response = await fetch(`./questionnare/api/fetchquestions`);
+			const response = await fetch(`./questionnare/api/fetchquestions`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: null,
+				cache: "no-cache",
+			});
 			if (!response.ok) {
 				throw new Error(`Error: ${response.status}`);
 			}

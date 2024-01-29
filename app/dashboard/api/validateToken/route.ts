@@ -8,8 +8,9 @@ export async function GET() {
     const authHeader = headersInstance.get("authorization") ?? "";
 
     const token = authHeader.split(" ")[1];
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+	//process.env.JWT_SECRET
+    const decoded = jwt.verify(token, 'Hny2onndyOidLxzeMM1K6DQLK+6ce+sLuphrIAfuHU4=');
+	console.log(decoded);
     if (!decoded) {
       return NextResponse.json(
         { message: "Expired" },
