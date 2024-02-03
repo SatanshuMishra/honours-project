@@ -8,9 +8,61 @@ datasource db {
 }
 
 model student {
-  studentID             Bytes   @id @db.Binary(36)
-  name                  String  @db.VarChar(255)
-  username              String  @db.VarChar(255)
-  password              String  @db.VarChar(255)
-  completedBonusContent Boolean @default(false)
+  studentID             Bytes       @id @db.Binary(36)
+  name                  String      @db.VarChar(255)
+  username              String      @db.VarChar(255)
+  password              String      @db.VarChar(255)
+  completedBonusContent Boolean     @default(false)
+  profile               profile[]
+  statistic             statistic[]
+}
+
+model answer {
+  answerID          Bytes       @id @db.Binary(36)
+  questionID        Bytes       @db.Binary(36)
+  answerDescription String      @db.Text
+  answerExplanation String      @db.Text
+  isCorrect         Boolean
+  question          question    @relation(fields: [questionID], references: [questionID], onDelete: NoAction, onUpdate: NoAction, map: "answer_ibfk_1")
+  statistic         statistic[]
+
+  @@index([questionID], map: "questionID")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model profile {
+  profileID                     Bytes   @id @db.Binary(36)
+  studentID                     Bytes   @db.Binary(36)
+  previousProgrammingExperience Int
+  student                       student @relation(fields: [studentID], references: [studentID], onDelete: NoAction, onUpdate: NoAction, map: "profile_ibfk_1")
+
+  @@index([studentID], map: "studentID")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model question {
+  questionID Bytes       @id @db.Binary(36)
+  difficulty Int
+  question   String      @db.Text
+  code       String?     @db.Text
+  answer     answer[]
+  statistic  statistic[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model statistic {
+  statID             Bytes    @id @db.Binary(36)
+  studentID          Bytes    @db.Binary(36)
+  questionID         Bytes    @db.Binary(36)
+  chosenAnswerID     Bytes    @db.Binary(36)
+  isCorrect          Boolean
+  timeToAnswer       Decimal  @db.Decimal(10, 0)
+  recordedDifficulty Int?
+  student            student  @relation(fields: [studentID], references: [studentID], onDelete: NoAction, onUpdate: NoAction, map: "statistic_ibfk_1")
+  question           question @relation(fields: [questionID], references: [questionID], onDelete: NoAction, onUpdate: NoAction, map: "statistic_ibfk_2")
+  answer             answer   @relation(fields: [chosenAnswerID], references: [answerID], onDelete: NoAction, onUpdate: NoAction, map: "statistic_ibfk_3")
+
+  @@index([chosenAnswerID], map: "chosenAnswerID")
+  @@index([questionID], map: "questionID")
+  @@index([studentID], map: "studentID")
 }
