@@ -1,45 +1,46 @@
 import jwt from "jsonwebtoken";
-import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 
-export async function GET() {
-  try {
-    const headersInstance = headers();
-    const authHeader = headersInstance.get("authorization") ?? "";
+export async function POST() {
+	try {
+		const headersInstance = headers();
+		const authHeader = headersInstance.get("authorization") ?? "";
 
-    const token = authHeader.split(" ")[1];
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    if (!decoded) {
-      return NextResponse.json(
-        { message: "Expired" },
-        {
-          status: 400,
-        }
-      );
-    } else if (decoded.exp < Math.floor(Date.now() / 1000)) {
-      return NextResponse.json(
-        { message: "Expired" },
-        {
-          status: 400,
-        }
-      );
-    } else {
-      // If the token is valid, return some protected data.
-      return NextResponse.json(
-        { data: "Protected data" },
-        {
-          status: 200,
-        }
-      );
-    }
-  } catch (error) {
-    console.error("Token verification failed", error);
-    return NextResponse.json(
-      { message: "Unauthorized" },
-      {
-        status: 400,
-      }
-    );
-  }
+		const token = authHeader.split(" ")[1];
+		console.log("Token: ", token);
+		//process.env.JWT_SECRET
+		const decoded = jwt.verify(
+			token,
+			"Hny2onndyOidLxzeMM1K6DQLK+6ce+sLuphrIAfuHU4="
+		);
+		// IF CODE REACHES THIS POINT, THE TOKEN HAS BEEN SUCCESSFULLY VERIFIED. ELSE, THE AN ERROR WILL BE THROWN BY THE jwt.verify FUNCTION ABOVE
+		return new Response(
+			JSON.stringify({
+				data: decoded,
+				message: "Token Verified",
+				status: 200,
+				jwtError: null,
+			})
+		);
+	} catch (error) {
+		if (error instanceof jwt.TokenExpiredError) {
+			return new Response(
+				JSON.stringify({
+					data: null,
+					message: "Token has Expired!",
+					status: 401,
+					jwtError: error,
+				})
+			);
+		} else {
+			return new Response(
+				JSON.stringify({
+					data: null,
+					message: "Unauthorized Access!",
+					status: 401,
+					jwtError: error,
+				})
+			);
+		}
+	}
 }
