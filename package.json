@@ -22,7 +22,8 @@
     "remixicon": "^3.6.0",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.6",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "uuid-parse": "^1.1.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
