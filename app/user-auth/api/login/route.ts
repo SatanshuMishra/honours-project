@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
           { studentID: studentID },
           process.env.JWT_SECRET,
           {
-            expiresIn: "5s",
+            expiresIn: "20m",
           }
         );
 

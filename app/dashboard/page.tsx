@@ -1,17 +1,19 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect , useState} from "react";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Domino from "@/public/domino.svg";
 import parseJSON from "../scripts/parseJSON";
+import validateToken from "../scripts/validateToken";
 
 function Dashboard() {
 	const router = useRouter();
+	const [studentID, setStudentID] = useState();
 
 	useEffect(() => {
 		const token = Cookies.get("token");
-
+			
 		// CHECK IF JWT TOKEN EXISTS. IF NOT, RETURN TO AUTH.
 		if (!token) {
 			router.replace("/user-auth");
@@ -19,40 +21,51 @@ function Dashboard() {
 		}
 
 		// VALIDATE JWT TOKEN
-		const validateToken = async () => {
-			try {
-				const res = await fetch("./dashboard/api/validateToken", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
-					},
-					body: null,
-					cache: "no-cache",
-					credentials: "include",
-				});
-				let resBody: {
-					data: any | null;
-					message: string;
-					status: number;
-					jwtError: any | null;
-				} = JSON.parse(await res.text());
-				if (resBody.status === 401) {
-					console.log(resBody);
-					Cookies.remove("token");
-					router.push("/user-auth");
-					//throw new Error("JWT Token Expired! Please log-in again!");
-				} else {
-					console.log(resBody);
-				}
-			} catch (error) {
-				console.error(error);
-				//router.replace("/");
-			}
-		};
+		// const validateToken = async () => {
+		// 	try {
+		// 		const res = await fetch("./user-auth/api/validateToken", {
+		// 			method: "POST",
+		// 			headers: {
+		// 				"Content-Type": "application/json",
+		// 				Authorization: `Bearer ${token}`,
+		// 			},
+		// 			body: null,
+		// 			cache: "no-cache",
+		// 			credentials: "include",
+		// 		});
+		// 		let resBody: {
+		// 			data: {
+		// 				exp: number;
+		// 				iat: number;
+		// 				studentID: any;
+		// 			} | null;
+		// 			message: string;
+		// 			status: number;
+		// 			jwtError: any | null;
+		// 		} = JSON.parse(await res.text());
+		// 		if (resBody.status === 401) {
+		// 			console.log(resBody);
+		// 			Cookies.remove("token");
+		// 			router.push("/user-auth");
+		// 		} else {
+		// 			console.log(resBody.data?.studentID);
+		// 		}
+		// 	} catch (error) {
+		// 		console.error(error);
+		// 		router.push("/user-auth");
+		// 	}
+		// };
+		// validateToken();
 
-		validateToken();
-	}, [router]);
+		validateToken(token).then((response) => {
+			if(!response)
+				router.push("/user-auth");
+			else
+				setStudentID(response);
+		});	
+	}, []);
+
+	console.log("StudentID:\n", studentID);
 
 	return (
 		<>
