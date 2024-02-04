@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { dummyData } from "../data/dummyData";
 import QuizOption from "../components/quizComponents/QuizOption";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
@@ -15,7 +14,8 @@ import Loading from "../components/loading/loading";
 
 function Questionnaire() {
 	const router = useRouter();
-	let dataDummy: any = dummyData;
+	// QUIZ DATA
+	const [score, setScore] = useState<number>(0);
 
 	// STORE USER DATA
 	const [studentID, setStudentID] = useState<any>();
@@ -25,12 +25,15 @@ function Questionnaire() {
 	const [currentIndex, setCurrentIndex] = useState<number>(0);
 
 	// STORE QUESTION DATA
-	const [questions, setQuestions] = useState<Question[]>();
-	const [answers, setAnswers] = useState<Answer[]>();
-	const [correctAnswer, setCorrectAnswer] = useState<number>(999);
+	const [questions, setQuestions] = useState<Question[] | undefined>();
+	const [answers, setAnswers] = useState<Answer[] | undefined>();
+	const [correctAnswerIdx, setCorrectAnswer] = useState<number | undefined>();
 
-	const [chosenOption, setChosenOption] = useState<number>(999);
-	const [blockChanges, setBlockChanges] = useState<boolean>(false);
+	// QUIZ STATE CONTROLLER
+	const [selectedOptionIdx, setSelectedOptionIdx] = useState<
+		number | undefined
+	>();
+	const [submitted, setSubmitted] = useState<boolean>(false);
 
 	useEffect(() => {
 		const token = Cookies.get("token");
@@ -50,7 +53,7 @@ function Questionnaire() {
 			}
 
 			setStudentID(
-				Buffer.from(response.data)
+				Buffer?.from(response.data)
 					.toString("hex")
 					.match(/.{1,8}/g)
 					?.join("")
@@ -161,6 +164,7 @@ function Questionnaire() {
 		}
 	}
 
+	// FETCHES THE ANSWERS FOR A SPECIFIC QUESTION
 	useEffect(() => {
 		if (questions && questions.length !== 0) {
 			fetchAnswers().then((response) => {
@@ -171,6 +175,7 @@ function Questionnaire() {
 		}
 	}, [questions, currentIndex]);
 
+	// LOOPS THROW ANSWERS AND SETS THE IDX OF THE CORRECT OPTION TO correctAnswerIdx
 	useEffect(() => {
 		if (!answers || answers.length === 0) {
 			console.log("Answers array is empty!");
@@ -185,6 +190,19 @@ function Questionnaire() {
 			}
 		}
 	}, [answers]);
+
+	const handleSelectOption = (idx) => {
+		setSelectedOptionIdx(idx);
+		checkCorrectAnswer();
+	};
+
+	const handleSubmit = () => {
+		selectedOptionIdx && setSubmitted(!submitted);
+	};
+
+	const checkCorrectAnswer = () => {
+		selectedOptionIdx == correctAnswerIdx;
+	};
 
 	return (
 		<>
@@ -218,13 +236,19 @@ function Questionnaire() {
 								<div>
 									<h2 className="font-bold text-xl text-black">
 										<span className="text-blue-500 text-[25px]">
-											QUESTION <span className="text-[30px]">{(currentIndex + 1).toString().padStart(2, '0')}</span>
+											QUESTION{" "}
+											<span className="text-[30px]">
+												{(currentIndex + 1)
+													.toString()
+													.padStart(2, "0")}
+											</span>
 										</span>
 										<br />
 
 										{questions[currentIndex].question}
 									</h2>
 									{answers.map((answer, answerIdx) => {
+										console.log("Answer:", answer);
 										return (
 											<QuizOption
 												key={answerIdx}
@@ -232,16 +256,18 @@ function Questionnaire() {
 												optionText={
 													answer.answerDescription
 												}
-												setChosenOption={() => {}}
+												onSubmit={handleSelectOption}
 												isSelectedOpt={
-													chosenOption === answerIdx
+													selectedOptionIdx ===
+													answerIdx
 												}
 												explanation={
-													answer.answerExplaination
+													answer.answerExplanation
 												}
-												blockChange={blockChanges}
+												blockChange={submitted}
 												isCorrectChoice={
-													answerIdx === correctAnswer
+													answerIdx ===
+													correctAnswerIdx
 												}
 											/>
 										);
@@ -249,12 +275,15 @@ function Questionnaire() {
 								</div>
 							}
 							<div>
-								{!blockChanges && (
-									<button className="w-full bg-green-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg">
+								{!submitted && (
+									<button
+										className="w-full bg-green-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg"
+										onClick={() => handleSubmit()}
+									>
 										Submit
 									</button>
 								)}
-								{blockChanges && (
+								{submitted && (
 									<button className="w-full bg-green-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg">
 										Continue
 									</button>

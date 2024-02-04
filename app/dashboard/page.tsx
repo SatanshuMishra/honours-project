@@ -83,7 +83,7 @@ function Dashboard() {
 				</div>
 			</section>
 			<section className="m-10 p-2">
-				<a href="/sandbox" className="block w-fit">
+				<a href="/questionnaire" className="block w-fit">
 					<div className="shadow-lg drop-shadow-md hover:shadow-2xl transition-all duration-300 w-fit p-8 rounded-xl flex flex-col justify-between items-center cursor-pointer">
 						<Image
 							src={Domino}

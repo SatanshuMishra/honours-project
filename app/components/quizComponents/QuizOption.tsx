@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 type props = {
   optionIndex: number;
   optionText: string;
-  setChosenOption: (optionIndex: number) => void;
+  onSubmit: (idx: number) => void;
   isSelectedOpt: boolean;
   explanation: string;
   blockChange: boolean;
@@ -12,13 +12,13 @@ type props = {
 };
 
 type explanationProps = {
-  explanatin: string;
+  explanation: string;
 };
 
 function QuizOption({
   optionIndex,
   optionText,
-  setChosenOption,
+  onSubmit,
   isSelectedOpt,
   explanation,
   blockChange,
@@ -49,14 +49,16 @@ function QuizOption({
     }
   }, [blockChange]);
 
-  function Explanation({ explanatin }: explanationProps) {
+  function Explanation({ explanation }: explanationProps) {
     return (
       <section className="my-2">
         <h4 className="text-[#55BB05] font-semibold">Explanation:</h4>
-        <p>{explanatin}</p>
+        <p>{explanation}</p>
       </section>
     );
   }
+
+	console.log("COMPONENT:", explanation);
 
   return (
     <div
@@ -81,11 +83,11 @@ function QuizOption({
       }
     >
       <div
-        className="bg-[--option-color] p-2 shadow-lg my-2 flex rounded-lg w-full max-w-2xl text-lg flex-row"
+        className="bg-[--option-color] p-2 shadow-lg my-2 flex items-center rounded-lg w-full max-w-full text-lg flex-row"
         onClick={() => {
           if (!allowChange) return;
           setIsSelected(!isSelected);
-          setChosenOption(optionIndex);
+          onSubmit(optionIndex);
         }}
       >
         <div className="bg-[--index-color] py-2 px-4 rounded shadow-[gray] shadow-md mr-2 text-[--text-color] font-bold h-fit">
@@ -94,7 +96,7 @@ function QuizOption({
         <section className="px-2">
           <div>{optionText}</div>
           {isSelected && showExplanation && (
-            <Explanation explanatin={explanation} />
+            <Explanation explanation={explanation} />
           )}
         </section>
       </div>
