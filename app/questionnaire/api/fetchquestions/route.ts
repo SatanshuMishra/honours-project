@@ -6,8 +6,8 @@ export async function POST() {
 		let questions: [Question[]] =
 			await prisma.$queryRaw`SELECT * FROM question ORDER BY RAND() LIMIT 20`;
 
-		if (questions.length > 20)
-			throw new Error("Too many questions generated!");
+		if (!questions || questions.length > 20)
+			throw new Error("Incorrect Question Query.");
 
 		return new Response(
 			JSON.stringify({

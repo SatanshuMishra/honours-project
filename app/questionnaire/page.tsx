@@ -18,7 +18,7 @@ function Questionnaire() {
 	const [score, setScore] = useState<number>(0);
 
 	// STORE USER DATA
-	const [studentID, setStudentID] = useState<any>();
+	const [studentID, setStudentID] = useState<string | undefined>();
 	const [studentName, setStudentName] = useState("");
 	const [studentUsername, setStudentUsername] = useState("");
 
@@ -64,16 +64,19 @@ function Questionnaire() {
 
 	// FETCH STUDENT INFORMATION ONCE STUDENT ID HAS BEEN UPDATED
 	useEffect(() => {
-		if (studentID) {
-			fetchStudent(studentID).then((response) => {
-				if (!response) {
-					throw new Error("No Student Found!");
-				}
-				console.log("Student:\n", response);
-				setStudentName(response.name);
-				setStudentUsername(response.username);
-			});
+		if (!studentID) {
+			console.log("[Error]: StudentID is undefined.");
+			return;
 		}
+
+		fetchStudent(studentID).then((response) => {
+			if (!response) {
+				throw new Error("No Student Found!");
+			}
+			console.log("Student Object:", response);
+			setStudentName(response.name);
+			setStudentUsername(response.username);
+		});
 	}, [studentID]);
 
 	// FETCH QUESTIONS
@@ -106,14 +109,18 @@ function Questionnaire() {
 
 	// FETCH AND ASSIGN QUESTIONS ONCE STUDENT ID IS SET
 	useEffect(() => {
-		studentID &&
-			fetchQuestions().then((response) => {
-				if (!response)
-					throw new Error("No questions have been fetched!");
-				console.log("Questions:\n", response);
-				setQuestions(response);
-				setCurrentIndex(0);
-			});
+		if (!studentID) {
+			console.log("[Error]: StudentID is undefined.");
+			return;
+		}
+
+		fetchQuestions().then((response) => {
+			if (!response) throw new Error("No questions have been fetched!");
+			console.log("Questions Object:\n", response);
+
+			setQuestions(response);
+			setCurrentIndex(0);
+		});
 	}, [studentID]);
 
 	// FETCH ANSWERS FOR CURRENT QUESTION
@@ -166,25 +173,27 @@ function Questionnaire() {
 
 	// FETCHES THE ANSWERS FOR A SPECIFIC QUESTION
 	useEffect(() => {
-		if (questions && questions.length !== 0) {
-			fetchAnswers().then((response) => {
-				if (!response) throw new Error("No answers have been fetched.");
-				console.log("Answers:\n", response);
-				setAnswers(response);
-			});
+		if (!questions || questions.length === 0) {
+			console.log("Error: Questions is undefined or empty.");
+			return;
 		}
+
+		fetchAnswers().then((response) => {
+			if (!response) throw new Error("No answers have been fetched.");
+			console.log("[FA] Answers:\n", response);
+			setAnswers(response);
+		});
 	}, [questions, currentIndex]);
 
 	// LOOPS THROW ANSWERS AND SETS THE IDX OF THE CORRECT OPTION TO correctAnswerIdx
 	useEffect(() => {
 		if (!answers || answers.length === 0) {
-			console.log("Answers array is empty!");
+			console.log("Answers array is undefined or empty.");
 			return;
 		}
 
 		for (let i = 0; i < answers.length; i++) {
 			if (answers[i].isCorrect) {
-				// console.log("SETTER:\n", answers[i].isCorrect)
 				setCorrectAnswer(i);
 				break;
 			}
@@ -215,9 +224,9 @@ function Questionnaire() {
 		<>
 			{studentID &&
 			questions &&
-			questions.length > 0 &&
+			questions.length !== 0 &&
 			answers &&
-			answers.length > 0 ? (
+			answers.length !== 0 ? (
 				<>
 					<div className="bg-[#3A86FF] h-screen w-screen p-4 flex justify-evenly">
 						<div className="w-full bg-transparent rounded-lg p-6 h-full max-w-[50%] mr-2">

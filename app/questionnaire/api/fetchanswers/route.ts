@@ -17,6 +17,8 @@ export async function POST(request: NextRequest) {
 										SUBSTR(HEX(answer.questionID), 17, 4),
 										SUBSTR(HEX(answer.questionID), 21)
 									)) AS qID, answer.answerDescription, answer.answerExplanation, answer.isCorrect FROM answer) AS s WHERE s.qID = ${requestBody.questionID}`;
+		if(!answers || answers.length !== 4)
+			throw new Error(`Answers query failed for questiondID: ${requestBody.questionID}.`);
 
 		return new Response(
 			JSON.stringify({
