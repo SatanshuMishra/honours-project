@@ -103,12 +103,14 @@ function Questionnaire() {
 
 	// FETCH AND ASSIGN QUESTIONS ONCE STUDENT ID IS SET
 	useEffect(() => {
-		studentID && fetchQuestions().then((response) => {
-			if (!response) throw new Error("No questions have been fetched!");
-			console.log("Questions:\n", response);
-			setQuestions(response);
-			setCurrentIndex(0);
-		});
+		studentID &&
+			fetchQuestions().then((response) => {
+				if (!response)
+					throw new Error("No questions have been fetched!");
+				console.log("Questions:\n", response);
+				setQuestions(response);
+				setCurrentIndex(0);
+			});
 	}, [studentID]);
 
 	// FETCH ANSWERS FOR CURRENT QUESTION
@@ -170,9 +172,9 @@ function Questionnaire() {
 	}, [questions, currentIndex]);
 
 	useEffect(() => {
-		if (!answers || answers.length === 0){
+		if (!answers || answers.length === 0) {
 			console.log("Answers array is empty!");
-			return;	
+			return;
 		}
 
 		for (let i = 0; i < answers.length; i++) {
@@ -182,105 +184,88 @@ function Questionnaire() {
 				break;
 			}
 		}
-	
 	}, [answers]);
 
 	return (
 		<>
-			{ studentID && questions && questions.length > 0 && answers && answers.length > 0 ? 
-		(<>
-			{/* CLOSE BUTTON */}
-			<div className="flex flex-row-reverse bg-[#141a33]">
-				<i
-					className="ri-close-fill text-white text-4xl mx-2 p-2 hover:cursor-pointer"
-					onClick={() => {
-						router.push("/dashboard");
-					}}
-				></i>
-			</div>
-
-			<div className="bg-[#141a33] h-screen w-screen m-0 px-6 flex justify-evenly">
-				<div className="w-full bg-transparent rounded-lg p-6 h-full max-w-[50%] mr-2">
-					<div
-						className="w-full h-8 rounded-lg bg-white"
-						style={
-							{
-								"--progress-width":
-									(currentIndex / questions.length) * 100 +
-									"%",
-							} as any
-						}
-					>
-						<div className="h-full bg-green-500 w-[--progress-width] rounded-lg"></div>
-						<div className="text-white font-semibold">
-							{currentIndex + 1} / {dataDummy.length}
-						</div>
-						{/* <div>
-            <QuestionPill />
-          </div> */}
-					</div>
-				</div>
-				<div className="flex flex-col justify-between w-full bg-white rounded-lg p-6 h-full max-w-[50%] ml-2">
-					{
-						<div>
-							<h2 className="font-bold text-xl text-black">
-								<span className="text-blue-500">
-									Question {currentIndex + 1} /{" "}
-									{dataDummy.length}
-								</span>
-								<br />
-								{/* {currentIndex + 1 + ". "} */}
-								{dataDummy[currentIndex].question}
-							</h2>
-							{dataDummy[currentIndex].answers.map(
-								(option, optIndex) => {
-									return (
-										<QuizOption
-											key={optIndex}
-											optionIndex={optIndex}
-											optionText={option}
-											setChosenOption={() => {
-
-													}}
-											isSelectedOpt={
-												chosenOption === optIndex
-											}
-											explanation={
-												dataDummy[currentIndex]
-													.explanations[optIndex]
-											}
-											blockChange={blockChanges}
-											isCorrectChoice={
-												optIndex === correctAnswer
-											}
-										/>
-									);
+			{studentID &&
+			questions &&
+			questions.length > 0 &&
+			answers &&
+			answers.length > 0 ? (
+				<>
+					<div className="bg-[#3A86FF] h-screen w-screen p-4 flex justify-evenly">
+						<div className="w-full bg-transparent rounded-lg p-6 h-full max-w-[50%] mr-2">
+							<div
+								className="w-full h-8 rounded-lg bg-white"
+								style={
+									{
+										"--progress-width":
+											(currentIndex / questions.length) *
+												100 +
+											"%",
+									} as any
 								}
-							)}
+							>
+								<div className="h-full bg-green-500 w-[--progress-width] rounded-lg"></div>
+								<div className="text-white font-semibold">
+									{currentIndex + 1} / {questions.length}
+								</div>
+							</div>
 						</div>
-					}
-					<div>
-						{!blockChanges && (
-							<button
-								className="w-full bg-green-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg"
-							>
-								Submit
-							</button>
-						)}
-						{blockChanges && (
-							<button
-								className="w-full bg-green-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg"
+						<div className="flex flex-col justify-between rounded-lg p-6 w-full h-auto max-w-[50%] bg-white m-6">
+							{
+								<div>
+									<h2 className="font-bold text-xl text-black">
+										<span className="text-blue-500 text-[25px]">
+											QUESTION <span className="text-[30px]">{(currentIndex + 1).toString().padStart(2, '0')}</span>
+										</span>
+										<br />
 
-							>
-								Continue
-							</button>
-						)}
+										{questions[currentIndex].question}
+									</h2>
+									{answers.map((answer, answerIdx) => {
+										return (
+											<QuizOption
+												key={answerIdx}
+												optionIndex={answerIdx}
+												optionText={
+													answer.answerDescription
+												}
+												setChosenOption={() => {}}
+												isSelectedOpt={
+													chosenOption === answerIdx
+												}
+												explanation={
+													answer.answerExplaination
+												}
+												blockChange={blockChanges}
+												isCorrectChoice={
+													answerIdx === correctAnswer
+												}
+											/>
+										);
+									})}
+								</div>
+							}
+							<div>
+								{!blockChanges && (
+									<button className="w-full bg-green-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg">
+										Submit
+									</button>
+								)}
+								{blockChanges && (
+									<button className="w-full bg-green-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg">
+										Continue
+									</button>
+								)}
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-		</>) : (
-		<Loading />
-		)}
+				</>
+			) : (
+				<Loading />
+			)}
 		</>
 	);
 }
