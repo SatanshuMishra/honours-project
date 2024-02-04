@@ -6,6 +6,7 @@ import Image from "next/image";
 import Domino from "@/public/domino.svg";
 import parseJSON from "../scripts/parseJSON";
 import validateToken from "../scripts/validateToken";
+import fetchStudent from "../scripts/fetchStudent";
 import Student from "../types/student";
 import Loading from "../components/loading/loading";
 
@@ -33,7 +34,7 @@ function Dashboard() {
 			}
 
 			setStudentID(
-				Buffer.from(response.data)
+				Buffer?.from(response.data)
 					.toString("hex")
 					.match(/.{1,8}/g)
 					?.join("")
@@ -42,40 +43,10 @@ function Dashboard() {
 		});
 	}, []);
 
-	// FUNCTION TO FETCH STUDENT INFORMATION (NON-CRITICAL)
-	async function fetchStudent() {
-		try {
-			const res = await fetch("../user-auth/api/fetchStudentInfo", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					studentID,
-				}),
-				cache: "no-cache",
-				credentials: "include",
-			});
-
-			let resBody: {
-				data: Student;
-				status: number;
-			} = JSON.parse(await res.text());
-
-			if (resBody.status === 400) {
-				return false;
-			}
-
-			return resBody.data;
-		} catch (error) {
-			console.error("[FETCH STUDENT] Error:\n", error);
-		}
-	}
-
 	// FETCH STUDENT INFORMATION ONCE STUDENT ID HAS BEEN UPDATED
 	useEffect(() => {
 		if (studentID) {
-			fetchStudent().then((response) => {
+			fetchStudent(studentID).then((response) => {
 				if (!response) {
 					throw new Error("No Student Found!");
 				}
@@ -112,7 +83,7 @@ function Dashboard() {
 				</div>
 			</section>
 			<section className="m-10 p-2">
-				<a href="/sandbox" className="block w-fit">
+				<a href="/questionnaire" className="block w-fit">
 					<div className="shadow-lg drop-shadow-md hover:shadow-2xl transition-all duration-300 w-fit p-8 rounded-xl flex flex-col justify-between items-center cursor-pointer">
 						<Image
 							src={Domino}

@@ -2,6 +2,6 @@ export default interface Answer {
 	answerID: string,
 	questionID: string,
 	answerDescription: string,
-	answerExplaination: string,
+	answerExplanation: string,
 	isCorrect: boolean
 }

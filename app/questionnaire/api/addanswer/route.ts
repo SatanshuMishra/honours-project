@@ -1,6 +1,5 @@
 import prisma from "../../../lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
-import { Prisma } from "@prisma/client";
+import { NextRequest} from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
 export async function POST(request: NextRequest) {
@@ -10,11 +9,11 @@ export async function POST(request: NextRequest) {
 
 		const newUuid = uuidv4();
 
-		await prisma.$queryRaw`INSERT INTO question (questionId, difficulty, question, code) VALUES (${newUuid}, ${requestBody.difficulty}, ${requestBody.question}, ${requestBody.code})`;
+		await prisma.$queryRaw`INSERT INTO answer (answerID, questionID, answerDescription, answerExplanation, isCorrect) VALUES (${newUuid}, ${requestBody.questionID}, ${requestBody.answer}, ${requestBody.explanation}, ${requestBody.isCorrect})`;
 
 		return new Response(
 			JSON.stringify({
-				data: { questionID: newUuid },
+				data: null,
 				status: 201,
 			})
 		);

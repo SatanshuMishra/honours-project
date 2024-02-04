@@ -3,22 +3,16 @@ import {dummyData} from "../data/dummyData";
 export default async function parseJSON() {
 	for(const el of dummyData){
 		try {
-			//(el) => {
-			let questionID = "";
-			questionID =  await insertQuestion(el.difficulty, el.question, el.code);
-				
-			console.log(questionID);
-
+			let questionID =  await insertQuestion(el.difficulty, el.question, el.code);	
+			console.log("QuestionID: " + questionID);
 			el.answers.forEach(
 				(answer, idx) => {
 					insertAnswer(questionID, answer, el.explanations[idx], el.correct == idx ? true : false);
 				}
 			)
-			//}
 		} catch (error) {
 			console.error('Error processing element:', error);
 		}
-	// let questionID = await insertQuestion(2, "This is a sample.", "Weee!");
 	}
 }
 
@@ -28,7 +22,7 @@ async function insertQuestion (difficulty: number, question: string, code?: stri
 		question,
 		code
 	}
-	const response = await fetch(`./questionnare/api/addquestion`, {
+	const response = await fetch(`./questionnaire/api/addquestion`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
@@ -55,7 +49,7 @@ async function insertAnswer (questionID: string, answer: string, explanation: st
 		explanation,
 		isCorrect
 	}
-	const response = await fetch(`./questionnare/api/addanswer`, {
+	const response = await fetch(`./questionnaire/api/addanswer`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
