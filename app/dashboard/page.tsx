@@ -7,6 +7,7 @@ import Domino from "@/public/domino.svg";
 import parseJSON from "../scripts/parseJSON";
 import validateToken from "../scripts/validateToken";
 import Student from "../types/student";
+import Loading from "../components/loading/loading";
 
 function Dashboard() {
 	const router = useRouter();
@@ -86,7 +87,7 @@ function Dashboard() {
 	}, [studentID]);
 
 	return (
-		<>
+		<section className="w-full h-full">
 			{studentID && studentName && studentUsername ? 
 			(
 			<>		
@@ -124,10 +125,10 @@ function Dashboard() {
 			</section>
 			</>
 			) : (
-			<h1>Loading...</h1>
+			<Loading />
 			) 
 			}
-		</>
+		</section>
 	);
 }
 
