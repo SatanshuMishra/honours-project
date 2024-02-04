@@ -191,17 +191,24 @@ function Questionnaire() {
 		}
 	}, [answers]);
 
-	const handleSelectOption = (idx) => {
+	const handleSelectOption = (idx: number) => {
 		setSelectedOptionIdx(idx);
-		checkCorrectAnswer();
 	};
 
 	const handleSubmit = () => {
-		selectedOptionIdx && setSubmitted(!submitted);
+		if (selectedOptionIdx !== undefined) {
+			setSubmitted(!submitted);
+		}
 	};
 
-	const checkCorrectAnswer = () => {
-		selectedOptionIdx == correctAnswerIdx;
+	const onContinue = () => {
+		if (submitted) {
+			setCorrectAnswer(undefined);
+			setSelectedOptionIdx(undefined);
+			setAnswers(undefined);
+			setSubmitted(false);
+			setCurrentIndex(currentIndex + 1);
+		}
 	};
 
 	return (
@@ -248,20 +255,24 @@ function Questionnaire() {
 										{questions[currentIndex].question}
 									</h2>
 									{answers.map((answer, answerIdx) => {
-										console.log("Answer:", answer);
 										return (
 											<QuizOption
 												key={answerIdx}
-												optionIndex={answerIdx}
-												optionText={
+												// ANSWER INDEX
+												answerIdx={answerIdx}
+												// ANSWER TEXT
+												answerText={
 													answer.answerDescription
 												}
-												onSubmit={handleSelectOption}
-												isSelectedOpt={
+												// HANLDE SELECTED OPTION
+												handleSelectOption={
+													handleSelectOption
+												}
+												isSelectedAnswer={
 													selectedOptionIdx ===
 													answerIdx
 												}
-												explanation={
+												answerExplanation={
 													answer.answerExplanation
 												}
 												blockChange={submitted}
@@ -284,7 +295,10 @@ function Questionnaire() {
 									</button>
 								)}
 								{submitted && (
-									<button className="w-full bg-green-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg">
+									<button
+										className="w-full bg-green-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg"
+										onClick={() => onContinue()}
+									>
 										Continue
 									</button>
 								)}
