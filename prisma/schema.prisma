@@ -10,7 +10,7 @@ datasource db {
 model student {
   studentID             Bytes       @id @db.Binary(36)
   name                  String      @db.VarChar(255)
-  username              String      @db.VarChar(255)
+  username              String      @unique(map: "username") @db.VarChar(255)
   password              String      @db.VarChar(255)
   completedBonusContent Boolean     @default(false)
   profile               profile[]
@@ -65,4 +65,9 @@ model statistic {
   @@index([chosenAnswerID], map: "chosenAnswerID")
   @@index([questionID], map: "questionID")
   @@index([studentID], map: "studentID")
+}
+
+model uuidMapping {
+  id   Int   @id @default(autoincrement())
+  uuid Bytes @unique(map: "uuid") @db.Binary(36)
 }
