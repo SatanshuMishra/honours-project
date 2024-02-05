@@ -1,5 +1,5 @@
 export default interface Student {
-	studentID: string;
+	studentID: any;
 	name: string;
 	username: string;
 	password?: string;

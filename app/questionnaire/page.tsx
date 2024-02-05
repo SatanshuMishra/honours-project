@@ -16,11 +16,15 @@ function Questionnaire() {
 	const router = useRouter();
 	// QUIZ DATA
 	const [score, setScore] = useState<number>(0);
+	const [startTime, setStartTime] = useState<number | null>(null);
+	const [duration, setDuration] = useState<number | null>(null);
 
 	// STORE USER DATA
-	const [studentID, setStudentID] = useState<string | undefined>();
-	const [studentName, setStudentName] = useState("");
-	const [studentUsername, setStudentUsername] = useState("");
+	const [studentID, setStudentID] = useState<any | undefined>();
+	const [studentName, setStudentName] = useState<string | undefined>();
+	const [studentUsername, setStudentUsername] = useState<
+		string | undefined
+	>();
 
 	const [currentIndex, setCurrentIndex] = useState<number>(0);
 
@@ -33,7 +37,27 @@ function Questionnaire() {
 	const [selectedOptionIdx, setSelectedOptionIdx] = useState<
 		number | undefined
 	>();
+	const [loadingState, setLoadingState] = useState<boolean>(false);
 	const [submitted, setSubmitted] = useState<boolean>(false);
+
+	const startTimer = (): void => {
+		setDuration(null);
+		setStartTime(Date.now());
+		console.log("Timer Started!");
+	};
+
+	const stopTimer = (): void => {
+		if (startTime !== null) {
+			const endTime = Date.now();
+			const timeTaken = endTime - startTime;
+			setDuration(timeTaken);
+			console.log("Timer Completed!");
+		}
+	};
+
+	useEffect(() => {
+		console.log("Duration:", duration);
+	}, [duration]);
 
 	useEffect(() => {
 		const token = Cookies.get("token");
@@ -53,11 +77,12 @@ function Questionnaire() {
 			}
 
 			setStudentID(
-				Buffer?.from(response.data)
-					.toString("hex")
-					.match(/.{1,8}/g)
-					?.join("")
-					.trim()
+				response
+				// Buffer.from(response?.data)
+				// 	.toString("hex")
+				// 	.match(/.{1,8}/g)
+				// 	?.join("")
+				// 	.trim()
 			);
 		});
 	}, []);
@@ -204,11 +229,72 @@ function Questionnaire() {
 		setSelectedOptionIdx(idx);
 	};
 
+	// ADD STATS FOR CURRENT QUESTION
+	async function addStatistics() {
+		try {
+			if (!submitted) throw new Error("No submission detected!");
+
+			console.log("TEST: ", questions, answers, selectedOptionIdx);
+
+			if (!questions || !answers || selectedOptionIdx === undefined)
+				throw new Error("[AS] Missing values!");
+
+			let values = {
+				studentID: studentID.data,
+				questionID: questions[currentIndex].questionID.data,
+				answerID: answers[selectedOptionIdx].answerID.data,
+				isCorrect: selectedOptionIdx === correctAnswerIdx,
+				timeToAnswer: duration,
+				recordedDifficulty: null,
+			};
+
+			console.log("VALS: ", values);
+
+			const res = await fetch(
+				"./questionnaire/api/addperformancestatistics",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(values),
+					cache: "no-cache",
+					credentials: "include",
+				}
+			);
+
+			let resBody: {
+				data: null;
+				status: number;
+			} = JSON.parse(await res.text());
+
+			if (resBody.status === 400) {
+				return false;
+			}
+
+			return resBody.data;
+		} catch (error) {
+			console.error("[ADD STATS] Error:\n", error);
+		}
+	}
+
 	const handleSubmit = () => {
 		if (selectedOptionIdx !== undefined) {
-			setSubmitted(!submitted);
+			setSubmitted(true);
+			stopTimer();
+			selectedOptionIdx === correctAnswerIdx && setScore(score + 1);
 		}
 	};
+
+	useEffect(() => {
+		if (!submitted) {
+			console.log("[UE] No submission detected.");
+			return;
+		}
+		addStatistics().then((response) => {
+			console.log("Statistics Added!");
+		});
+	});
 
 	const onContinue = () => {
 		if (submitted) {
@@ -219,6 +305,21 @@ function Questionnaire() {
 			setCurrentIndex(currentIndex + 1);
 		}
 	};
+
+	useEffect(() => {
+		setLoadingState(
+			(studentID &&
+				questions &&
+				questions.length !== 0 &&
+				answers &&
+				answers.length !== 0) ||
+				false
+		);
+	}, [studentID, questions, answers]);
+
+	useEffect(() => {
+		loadingState && startTimer();
+	}, [loadingState]);
 
 	return (
 		<>
