@@ -5,7 +5,7 @@ import parseJSON from "./scripts/parseJSON";
 export default function Home() {
 //parseJSON();
 	return (
-    <main>
+    <main className="h-screen w-screen">
       <UserAuth />
     </main>
   );

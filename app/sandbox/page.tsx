@@ -13,32 +13,32 @@ import shuffle from "../scripts/shuffle";
 export default function Sandbox() {
 	const router = useRouter();
 	let dataDummy = dummyData;
-	useEffect(() => {
-		const token = Cookies.get("token");
-
-		if (!token) {
-			router.replace("/user-auth");
-			return;
-		}
-
-		// Validate the token by making an API call
-		const validateToken = async () => {
-			try {
-				const res = await fetch("./dashboard/api/validateToken", {
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				});
-
-				if (!res.ok) throw new Error("Token validation failed");
-			} catch (error) {
-				console.error(error);
-				router.replace("/");
-			}
-		};
-
-		validateToken();
-	}, [router]);
+	// useEffect(() => {
+	// 	const token = Cookies.get("token");
+	//
+	// 	if (!token) {
+	// 		router.replace("/user-auth");
+	// 		return;
+	// 	}
+	//
+	// 	// Validate the token by making an API call
+	// 	const validateToken = async () => {
+	// 		try {
+	// 			const res = await fetch("./dashboard/api/validateToken", {
+	// 				headers: {
+	// 					Authorization: `Bearer ${token}`,
+	// 				},
+	// 			});
+	//
+	// 			if (!res.ok) throw new Error("Token validation failed");
+	// 		} catch (error) {
+	// 			console.error(error);
+	// 			router.replace("/");
+	// 		}
+	// 	};
+	//
+	// 	validateToken();
+	// }, [router]);
 
 	useEffect(() => {
 		dataDummy = shuffle(dataDummy);

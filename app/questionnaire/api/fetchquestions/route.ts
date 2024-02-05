@@ -1,16 +1,18 @@
+import Question from "@/app/types/question";
 import prisma from "../../../lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
-import { student } from "@prisma/client";
 
-export async function POST(request: NextRequest) {
+export async function POST() {
 	try {
-		let questions =
+		let questions: [Question[]] =
 			await prisma.$queryRaw`SELECT * FROM question ORDER BY RAND() LIMIT 20`;
+
+		if (!questions || questions.length > 20)
+			throw new Error("Incorrect Question Query.");
 
 		return new Response(
 			JSON.stringify({
-				data: { questions },
-				status: 201,
+				data: questions,
+				status: 200,
 			})
 		);
 	} catch (e) {
@@ -18,7 +20,7 @@ export async function POST(request: NextRequest) {
 		return new Response(
 			JSON.stringify({
 				data: null,
-				status: 501,
+				status: 400,
 			})
 		);
 	}

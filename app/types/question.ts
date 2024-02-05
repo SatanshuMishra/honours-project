@@ -1,5 +1,5 @@
 export default interface Question {
-	questionID: string,
+	questionID: any,
 	difficulty: number,
 	question: string,
 	code?: string

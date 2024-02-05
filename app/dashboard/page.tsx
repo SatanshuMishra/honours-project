@@ -1,13 +1,20 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Domino from "@/public/domino.svg";
 import parseJSON from "../scripts/parseJSON";
+import validateToken from "../scripts/validateToken";
+import fetchStudent from "../scripts/fetchStudent";
+import Student from "../types/student";
+import Loading from "../components/loading/loading";
 
 function Dashboard() {
 	const router = useRouter();
+	const [studentID, setStudentID] = useState<any>();
+	const [studentName, setStudentName] = useState("");
+	const [studentUsername, setStudentUsername] = useState("");
 
 	useEffect(() => {
 		const token = Cookies.get("token");
@@ -18,44 +25,43 @@ function Dashboard() {
 			return;
 		}
 
-		// VALIDATE JWT TOKEN
-		const validateToken = async () => {
-			try {
-				const res = await fetch("./dashboard/api/validateToken", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
-					},
-					body: null,
-					cache: "no-cache",
-					credentials: "include",
-				});
-				let resBody: {
-					data: any | null;
-					message: string;
-					status: number;
-					jwtError: any | null;
-				} = JSON.parse(await res.text());
-				if (resBody.status === 401) {
-					console.log(resBody);
-					Cookies.remove("token");
-					router.push("/user-auth");
-					//throw new Error("JWT Token Expired! Please log-in again!");
-				} else {
-					console.log(resBody);
-				}
-			} catch (error) {
-				console.error(error);
-				//router.replace("/");
+		// VALIDATE TOKEN AND SET PARSED STUDENT ID
+		validateToken(token).then((response) => {
+			console.log(response);
+			if (!response) {
+				Cookies.remove("token");
+				router.push("/user-auth");
 			}
-		};
 
-		validateToken();
-	}, [router]);
+			setStudentID(
+				Buffer.from(response?.data)
+					.toString("hex")
+					.match(/.{1,8}/g)
+					?.join("")
+					.trim()
+			);
+		});
+	}, []);
+
+	// FETCH STUDENT INFORMATION ONCE STUDENT ID HAS BEEN UPDATED
+	useEffect(() => {
+		if (studentID) {
+			fetchStudent(studentID).then((response) => {
+				if (!response) {
+					throw new Error("No Student Found!");
+				}
+				console.log("Response: ", response);
+				setStudentName(response.name);
+				setStudentUsername(response.username);
+			});
+		}
+	}, [studentID]);
 
 	return (
-		<>
+		<section className="w-full h-full">
+			{studentID && studentName && studentUsername ? 
+			(
+			<>		
 			<section className="flex flex-row-reverse m-4 sticky">
 				<button className="text-lg p-2 text-white rounded-lg w-fit font-normal bg-pink-600">
 					SIGN OUT
@@ -72,12 +78,12 @@ function Dashboard() {
 					<h1 className="font-bold text-4xl">
 						Welcome,
 						<br />
-						<span className="font-normal">Satanshu Mishra</span>
+						<span className="font-normal">{studentName}</span>
 					</h1>
 				</div>
 			</section>
 			<section className="m-10 p-2">
-				<a href="/sandbox" className="block w-fit">
+				<a href="/questionnaire" className="block w-fit">
 					<div className="shadow-lg drop-shadow-md hover:shadow-2xl transition-all duration-300 w-fit p-8 rounded-xl flex flex-col justify-between items-center cursor-pointer">
 						<Image
 							src={Domino}
@@ -88,7 +94,12 @@ function Dashboard() {
 					</div>
 				</a>
 			</section>
-		</>
+			</>
+			) : (
+			<Loading />
+			) 
+			}
+		</section>
 	);
 }
 
