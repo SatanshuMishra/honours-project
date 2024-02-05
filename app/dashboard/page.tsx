@@ -34,7 +34,7 @@ function Dashboard() {
 			}
 
 			setStudentID(
-				Buffer?.from(response.data)
+				Buffer.from(response?.data)
 					.toString("hex")
 					.match(/.{1,8}/g)
 					?.join("")
