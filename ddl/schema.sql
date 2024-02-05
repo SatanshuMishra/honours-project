@@ -53,3 +53,9 @@ CREATE TABLE statistic (
 	FOREIGN KEY (questionID) REFERENCES question(questionID),
 	FOREIGN KEY (chosenAnswerID) REFERENCES answer(answerID)
 ) ENGINE = InnoDB;
+
+CREATE TABLE uuidMapping (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    uuid BINARY(36) UNIQUE NOT NULL
+);
+
