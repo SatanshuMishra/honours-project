@@ -8,13 +8,13 @@ export async function POST(request: NextRequest) {
 		const requestText = await request.text();
 		const requestBody = JSON.parse(requestText);
 
-		const newUuid = uuidv4();
+		const uuid = uuidv4();
 
-		await prisma.$queryRaw`INSERT INTO question (questionID, difficulty, question, code) VALUES (${newUuid}, ${requestBody.difficulty}, ${requestBody.question}, ${requestBody.code})`;
+		await prisma.$queryRaw`INSERT INTO question (questionID, difficulty, question, code) VALUES (UUID_TO_BIN(${uuid}), ${requestBody.difficulty}, ${requestBody.question}, ${requestBody.code})`;
 
 		return new Response(
 			JSON.stringify({
-				data: { questionID: newUuid },
+				data: { questionID: uuid },
 				status: 201,
 			})
 		);

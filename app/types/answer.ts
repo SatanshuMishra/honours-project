@@ -1,5 +1,5 @@
 export default interface Answer {
-	answerID: any,
+	answerID: string,
 	questionID: string,
 	answerDescription: string,
 	answerExplanation: string,

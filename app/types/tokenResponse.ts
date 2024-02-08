@@ -1,8 +1,10 @@
 export default interface TokenRes {
 	data: {
+		studentID: string;
+		name: string;
+		username: string;
 		exp: number;
-		iat: number;
-		studentID: any;
+		iat: number;	
 	} | null;
 	message: string;
 	status: number;

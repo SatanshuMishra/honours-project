@@ -6,23 +6,19 @@ export async function POST(request: NextRequest) {
 	try {
 		const requestText = await request.text();
 		const requestBody: {
-			studentID: any;
-			questionID: any;
-			chosenAnswerID: any;
+			studentID: string;
+			questionID: string;
+			chosenAnswerID: string;
 			isCorrect: boolean;
 			timeToAnswer: number;
 			recordedDifficulty: number | null;
 		} = JSON.parse(requestText);
 
-		const newUuid = uuidv4();
+		console.log(requestBody);
 
-		const uuidStudentID: any = requestBody.studentID.map(code => String.fromCharCode(code)).join('');
-		const uuidQuestionID: any = requestBody.questionID.map(code => String.fromCharCode(code)).join('');
-		const uuidChosenAnswer: any = requestBody.answerID.map(code => String.fromCharCode(code)).join('');
+		const uuid = uuidv4()
 
-		console.log('VAAAA: ', uuidStudentID, uuidQuestionID, uuidChosenAnswer);
-
-		await prisma.$queryRaw`INSERT INTO statistic (statID, studentID, questionID, chosenAnswerID, isCorrect, timeToAnswer, recordedDifficulty) VALUES (${newUuid}, ${uuidStudentID}, ${uuidQuestionID}, ${uuidChosenAnswer}, ${requestBody.isCorrect}, ${requestBody.timeToAnswer}, ${requestBody.recordedDifficulty})`;
+		await prisma.$queryRaw`INSERT INTO statistic (statID, studentID, questionID, chosenAnswerID, isCorrect, timeToAnswer, recordedDifficulty) VALUES (UUID_TO_BIN(${uuid}), UUID_TO_BIN(${requestBody.studentID}), UUID_TO_BIN(${requestBody.questionID}), UUID_TO_BIN(${requestBody.chosenAnswerID}), ${requestBody.isCorrect}, ${requestBody.timeToAnswer}, ${requestBody.recordedDifficulty})`;
 
 		return new Response(
 			JSON.stringify({

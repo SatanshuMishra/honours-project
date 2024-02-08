@@ -10,10 +10,11 @@ export async function POST(request: NextRequest) {
     const requestText = await request.text();
     const requestBody = JSON.parse(requestText);
 
-	const newUuid = uuidv4();
+	// const uuid = Buffer.from(uuidv4().replace(/-/g, ''), 'hex');
+	const uuid = uuidv4();
 
     const result =
-      await prisma.$queryRaw`INSERT INTO student (studentId, name, username, password, completedBonusContent) VALUES (${newUuid}, ${
+      await prisma.$queryRaw`INSERT INTO student (studentId, name, username, password, completedBonusContent) VALUES (UUID_TO_BIN(${uuid}), ${
         requestBody.name
       }, ${requestBody.username}, ${bcrypt.hashSync(
         requestBody.password,

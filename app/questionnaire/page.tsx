@@ -1,254 +1,226 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import QuizOption from "../components/quizComponents/QuizOption";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import validateToken from "../scripts/validateToken";
 import fetchStudent from "../scripts/fetchStudent";
+import fetchQuestions from "../scripts/fetchQuestions";
+import fetchAnswers from "../scripts/fetchAnswers";
 
-import QuestionPill from "../components/quizComponents/QuestionPill";
 import "remixicon/fonts/remixicon.css";
 import Question from "../types/question";
 import Answer from "../types/answer";
 import Loading from "../components/loading/loading";
 
+interface QuizState {
+	loading: boolean;
+	error: string | null;
+	score: number;
+	startTime: number | null;
+	duration: number | null;
+	studentInfo: {
+		studentID: string | null;
+		name: string | null;
+		username: string | null;
+	};
+	questions: Question[];
+	answers: Answer[];
+	currentQuestionIndex: number;
+	selectedOptionIdx: 0 | 1 | 2 | 3 | null;
+	submitted: boolean;
+}
+
+type QuizAction =
+	| { type: "SET_LOADING"; payload: boolean }
+	| { type: "SET_STUDENT_INFO"; payload: any }
+	| { type: "SET_ERROR"; payload: string | null }
+	| { type: "SET_QUESTIONS"; payload: Question[] }
+	| { type: "SET_ANSWERS"; payload: Answer[] }
+	| { type: "SET_CURRENT_QUESTION_INDEX"; payload: number }
+	| { type: "SELECT_OPTION"; payload: 0 | 1 | 2 | 3 | null }
+	| { type: "SUBMIT_ANSWER"; payload: null }
+	| { type: "NEXT_QUESTION"; payload: null };
+
 function Questionnaire() {
-	const router = useRouter();
-	// QUIZ DATA
-	const [score, setScore] = useState<number>(0);
-	const [startTime, setStartTime] = useState<number | null>(null);
-	const [duration, setDuration] = useState<number | null>(null);
-
-	// STORE USER DATA
-	const [studentID, setStudentID] = useState<any | undefined>();
-	const [studentName, setStudentName] = useState<string | undefined>();
-	const [studentUsername, setStudentUsername] = useState<
-		string | undefined
-	>();
-
-	const [currentIndex, setCurrentIndex] = useState<number>(0);
-
-	// STORE QUESTION DATA
-	const [questions, setQuestions] = useState<Question[] | undefined>();
-	const [answers, setAnswers] = useState<Answer[] | undefined>();
-	const [correctAnswerIdx, setCorrectAnswer] = useState<number | undefined>();
-
-	// QUIZ STATE CONTROLLER
-	const [selectedOptionIdx, setSelectedOptionIdx] = useState<
-		number | undefined
-	>();
-	const [loadingState, setLoadingState] = useState<boolean>(false);
-	const [submitted, setSubmitted] = useState<boolean>(false);
-
-	const startTimer = (): void => {
-		setDuration(null);
-		setStartTime(Date.now());
-		console.log("Timer Started!");
+	const initialState: QuizState = {
+		loading: true,
+		error: null,
+		score: 0,
+		startTime: null,
+		duration: null,
+		studentInfo: {
+			studentID: null,
+			name: null,
+			username: null,
+		},
+		questions: [],
+		answers: [],
+		currentQuestionIndex: 0,
+		selectedOptionIdx: null,
+		submitted: false,
 	};
 
-	const stopTimer = (): void => {
-		if (startTime !== null) {
-			const endTime = Date.now();
-			const timeTaken = endTime - startTime;
-			setDuration(timeTaken);
-			console.log("Timer Completed!");
+	const quizReducer: React.Reducer<QuizState, QuizAction> = (
+		state: any,
+		action: any
+	) => {
+		switch (action.type) {
+			case "SET_LOADING":
+				return { ...state, loading: action.payload };
+			case "SET_ERROR":
+				return { ...state, error: action.payload };
+			case "SET_STUDENT_INFO":
+				console.log("PAYLOAD: ", action.payload);
+				return {
+					...state,
+					studentInfo: { studentID: action.payload.studentID, name: action.payload.name, username: action.payload.username },
+				};
+			case "SET_QUESTIONS":
+				return { ...state, questions: action.payload };
+			case "SET_ANSWERS":
+				return {
+					...state,
+					answers: action.payload,
+					loading: false,
+					startTime: Date.now(),
+				};
+			case "SET_CURRENT_QUESTION_INDEX":
+				return { ...state, currentQuestionIndex: action.payload };
+			case "SELECT_OPTION":
+				return { ...state, selectedOptionIdx: action.payload };
+			case "SUBMIT_ANSWER":
+				if (
+					state.selectedOptionIdx === null ||
+					state.startTime === null
+				)
+					return state;
+				const endTime = Date.now();
+				return {
+					...state,
+					duration: endTime - state.startTime,
+					score: state.answers[state.selectedOptionIdx].isCorrect
+						? state.score + 1
+						: state.score,
+					submitted: true,
+				};
+			case "NEXT_QUESTION":
+				return {
+					...state,
+					loading: true,
+					answers: null,
+					error: null,
+					startTime: null,
+					duration: null,
+					currentQuestionIndex: state.currentQuestionIndex + 1,
+					selectedOptionIdx: null,
+					submitted: false,
+				};
+			default:
+				return state;
 		}
 	};
 
-	useEffect(() => {
-		console.log("Duration:", duration);
-	}, [duration]);
+	const router = useRouter();
+	const [quizState, dispatch] = useReducer<
+		React.Reducer<QuizState, QuizAction>
+	>(quizReducer, initialState);
 
+	useEffect(() => {
+		console.log(quizState);
+	}, [quizState]);
+
+	// DATA INITIALIZATION
 	useEffect(() => {
 		const token = Cookies.get("token");
 
-		// CHECK IF JWT TOKEN EXISTS. IF NOT, RETURN TO AUTH.
+		// RETURN TO SIGN-IN IF JWT DOESN'T EXIST.
 		if (!token) {
 			router.replace("/user-auth");
 			return;
 		}
 
 		// VALIDATE TOKEN AND SET PARSED STUDENT ID
-		validateToken(token).then((response) => {
-			console.log(response);
-			if (!response) {
-				Cookies.remove("token");
-				router.push("/user-auth");
-			}
+		validateToken(token)
+			.then((studentInfo) => {
+				if (!studentInfo || typeof studentInfo !== "string") return;
 
-			setStudentID(
-				response
-				// Buffer.from(response?.data)
-				// 	.toString("hex")
-				// 	.match(/.{1,8}/g)
-				// 	?.join("")
-				// 	.trim()
-			);
-		});
+				const student: {
+					studentID: string;
+					name: string;
+					username: string;
+				} = JSON.parse(studentInfo);
+
+				console.log("Student: ", student);
+
+				dispatch({ type: "SET_STUDENT_INFO", payload: student });
+				return fetchQuestions();
+			})
+			// ONCE TOKEN IS VALIDATED AND FETCH QUESTIONS
+			.then((questions) => {
+				console.log("QUESTIONS: ", questions);
+				dispatch({
+					type: "SET_QUESTIONS",
+					payload: questions as Question[],
+				});
+				// CLEAR ERROR
+				dispatch({ type: "SET_ERROR", payload: null });
+			})
+			.catch((error) => dispatch({ type: "SET_ERROR", payload: error }));
 	}, []);
 
-	// FETCH STUDENT INFORMATION ONCE STUDENT ID HAS BEEN UPDATED
 	useEffect(() => {
-		if (!studentID) {
-			console.log("[Error]: StudentID is undefined.");
-			return;
-		}
-
-		fetchStudent(studentID).then((response) => {
-			if (!response) {
-				throw new Error("No Student Found!");
-			}
-			console.log("Student Object:", response);
-			setStudentName(response.name);
-			setStudentUsername(response.username);
-		});
-	}, [studentID]);
-
-	// FETCH QUESTIONS
-	async function fetchQuestions() {
-		try {
-			const res = await fetch("./questionnaire/api/fetchquestions", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: null,
-				cache: "no-cache",
-				credentials: "include",
+		if (quizState.questions.length !== 20) {
+			dispatch({
+				type: "SET_ERROR",
+				payload: "Questions array has not been initialized yet.",
 			});
-
-			let resBody: {
-				data: Question[];
-				status: number;
-			} = JSON.parse(await res.text());
-
-			if (resBody.status === 400) {
-				return false;
-			}
-
-			return resBody.data;
-		} catch (error) {
-			console.error("[FETCH QUESTIONS] Error:\n", error);
-		}
-	}
-
-	// FETCH AND ASSIGN QUESTIONS ONCE STUDENT ID IS SET
-	useEffect(() => {
-		if (!studentID) {
-			console.log("[Error]: StudentID is undefined.");
 			return;
 		}
 
-		fetchQuestions().then((response) => {
-			if (!response) throw new Error("No questions have been fetched!");
-			console.log("Questions Object:\n", response);
-
-			setQuestions(response);
-			setCurrentIndex(0);
-		});
-	}, [studentID]);
-
-	// FETCH ANSWERS FOR CURRENT QUESTION
-	async function fetchAnswers() {
-		try {
-			if (!questions || questions.length === 0)
-				throw new Error("The Questions array is empty!");
-
-			// console.log("Current Index:\n", currentIndex);
-			// console.log("Current Question:\n", questions[currentIndex]);
-			// console.log(
-			// 	"QuestionID: \n",
-			// 	Buffer.from(questions[currentIndex].questionID)
-			// 		.toString("hex")
-			// 		.match(/.{1,8}/g)
-			// 		?.join("")
-			// 		.trim()
-			// );
-
-			const res = await fetch("./questionnaire/api/fetchanswers", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					questionID: Buffer.from(questions[currentIndex].questionID)
-						.toString("hex")
-						.match(/.{1,8}/g)
-						?.join("")
-						.trim(),
-				}),
-				cache: "no-cache",
-				credentials: "include",
+		fetchAnswers(
+			quizState.questions[quizState.currentQuestionIndex].questionID
+		)
+			.then((answers) => {
+				dispatch({ type: "SET_ANSWERS", payload: answers as Answer[] });
+			})
+			.catch((error) => {
+				dispatch({
+					type: "SET_ERROR",
+					payload: "Something went wrong in fetchAnswers.\n" + error,
+				});
 			});
+	}, [quizState.questions, quizState.currentQuestionIndex]);
 
-			let resBody: {
-				data: Answer[];
-				status: number;
-			} = JSON.parse(await res.text());
-
-			if (resBody.status === 400) {
-				return false;
-			}
-
-			return resBody.data;
-		} catch (error) {
-			console.error("[FETCH QUESTIONS] Error:\n", error);
-		}
-	}
-
-	// FETCHES THE ANSWERS FOR A SPECIFIC QUESTION
-	useEffect(() => {
-		if (!questions || questions.length === 0) {
-			console.log("Error: Questions is undefined or empty.");
-			return;
-		}
-
-		fetchAnswers().then((response) => {
-			if (!response) throw new Error("No answers have been fetched.");
-			console.log("[FA] Answers:\n", response);
-			setAnswers(response);
-		});
-	}, [questions, currentIndex]);
-
-	// LOOPS THROW ANSWERS AND SETS THE IDX OF THE CORRECT OPTION TO correctAnswerIdx
-	useEffect(() => {
-		if (!answers || answers.length === 0) {
-			console.log("Answers array is undefined or empty.");
-			return;
-		}
-
-		for (let i = 0; i < answers.length; i++) {
-			if (answers[i].isCorrect) {
-				setCorrectAnswer(i);
-				break;
-			}
-		}
-	}, [answers]);
-
-	const handleSelectOption = (idx: number) => {
-		setSelectedOptionIdx(idx);
+	const handleSelectOption = (idx: 0 | 1 | 2 | 3 | null) => {
+		dispatch({ type: "SELECT_OPTION", payload: idx });
 	};
 
 	// ADD STATS FOR CURRENT QUESTION
 	async function addStatistics() {
 		try {
-			if (!submitted) throw new Error("No submission detected!");
+			if (!quizState.submitted)
+				throw new Error("No submission detected!");
 
-			console.log("TEST: ", questions, answers, selectedOptionIdx);
-
-			if (!questions || !answers || selectedOptionIdx === undefined)
+			if (
+				!quizState.questions ||
+				!quizState.answers ||
+				quizState.selectedOptionIdx === null
+			)
 				throw new Error("[AS] Missing values!");
 
 			let values = {
-				studentID: studentID.data,
-				questionID: questions[currentIndex].questionID.data,
-				answerID: answers[selectedOptionIdx].answerID.data,
-				isCorrect: selectedOptionIdx === correctAnswerIdx,
-				timeToAnswer: duration,
+				studentID: quizState.studentInfo.studentID,
+				questionID:
+					quizState.questions[quizState.currentQuestionIndex]
+						.questionID,
+				chosenAnswerID:
+					quizState.answers[quizState.selectedOptionIdx].answerID,
+				isCorrect:
+					quizState.answers[quizState.selectedOptionIdx].isCorrect,
+				timeToAnswer: quizState.duration,
 				recordedDifficulty: null,
 			};
-
-			console.log("VALS: ", values);
 
 			const res = await fetch(
 				"./questionnaire/api/addperformancestatistics",
@@ -274,60 +246,27 @@ function Questionnaire() {
 
 			return resBody.data;
 		} catch (error) {
-			console.error("[ADD STATS] Error:\n", error);
+			console.error("Something went wrong in addStatistics.\n", error);
 		}
 	}
 
 	const handleSubmit = () => {
-		if (selectedOptionIdx !== undefined) {
-			setSubmitted(true);
-			stopTimer();
-			selectedOptionIdx === correctAnswerIdx && setScore(score + 1);
-		}
+		dispatch({ type: "SUBMIT_ANSWER", payload: null });
 	};
 
 	useEffect(() => {
-		if (!submitted) {
-			console.log("[UE] No submission detected.");
-			return;
-		}
-		addStatistics().then((response) => {
-			console.log("Statistics Added!");
-		});
-	});
+		quizState.submitted && addStatistics();
+	}, [quizState.submitted]);
 
 	const onContinue = () => {
-		if (submitted) {
-			setCorrectAnswer(undefined);
-			setSelectedOptionIdx(undefined);
-			setAnswers(undefined);
-			setSubmitted(false);
-			setCurrentIndex(currentIndex + 1);
+		if (quizState.submitted) {
+			dispatch({ type: "NEXT_QUESTION", payload: null });
 		}
 	};
-
-	useEffect(() => {
-		setLoadingState(
-			(studentID &&
-				questions &&
-				questions.length !== 0 &&
-				answers &&
-				answers.length !== 0) ||
-				false
-		);
-	}, [studentID, questions, answers]);
-
-	useEffect(() => {
-		loadingState && startTimer();
-	}, [loadingState]);
 
 	return (
 		<>
-			{studentID &&
-			questions &&
-			questions.length !== 0 &&
-			answers &&
-			answers.length !== 0 ? (
+			{!quizState.loading ? (
 				<>
 					<div className="bg-[#3A86FF] h-screen w-screen p-4 flex justify-evenly">
 						<div className="w-full bg-transparent rounded-lg p-6 h-full max-w-[50%] mr-2">
@@ -336,7 +275,8 @@ function Questionnaire() {
 								style={
 									{
 										"--progress-width":
-											(currentIndex / questions.length) *
+											(quizState.currentQuestionIndex /
+												quizState.questions.length) *
 												100 +
 											"%",
 									} as any
@@ -344,7 +284,8 @@ function Questionnaire() {
 							>
 								<div className="h-full bg-green-500 w-[--progress-width] rounded-lg"></div>
 								<div className="text-white font-semibold">
-									{currentIndex + 1} / {questions.length}
+									{quizState.currentQuestionIndex + 1} /{" "}
+									{quizState.questions.length}
 								</div>
 							</div>
 						</div>
@@ -355,48 +296,60 @@ function Questionnaire() {
 										<span className="text-blue-500 text-[25px]">
 											QUESTION{" "}
 											<span className="text-[30px]">
-												{(currentIndex + 1)
+												{(
+													quizState.currentQuestionIndex +
+													1
+												)
 													.toString()
 													.padStart(2, "0")}
 											</span>
 										</span>
 										<br />
 
-										{questions[currentIndex].question}
+										{
+											quizState.questions[
+												quizState.currentQuestionIndex
+											].question
+										}
 									</h2>
-									{answers.map((answer, answerIdx) => {
-										return (
-											<QuizOption
-												key={answerIdx}
-												// ANSWER INDEX
-												answerIdx={answerIdx}
-												// ANSWER TEXT
-												answerText={
-													answer.answerDescription
-												}
-												// HANLDE SELECTED OPTION
-												handleSelectOption={
-													handleSelectOption
-												}
-												isSelectedAnswer={
-													selectedOptionIdx ===
-													answerIdx
-												}
-												answerExplanation={
-													answer.answerExplanation
-												}
-												blockChange={submitted}
-												isCorrectChoice={
-													answerIdx ===
-													correctAnswerIdx
-												}
-											/>
-										);
-									})}
+									{quizState.answers.map(
+										(answer, answerIdx) => {
+											return (
+												<QuizOption
+													key={answerIdx}
+													// ANSWER INDEX
+													answerIdx={answerIdx as 0 | 1 | 2 | 3 }
+													// ANSWER TEXT
+													answerText={
+														answer.answerDescription
+													}
+													// HANLDE SELECTED OPTION
+													handleSelectOption={
+														handleSelectOption
+													}
+													isSelectedAnswer={
+														quizState.selectedOptionIdx ===
+														answerIdx
+													}
+													answerExplanation={
+														answer.answerExplanation
+													}
+													blockChange={
+														quizState.submitted
+													}
+													isCorrectChoice={
+														quizState.answers[
+															answerIdx
+														].isCorrect
+													}
+												/>
+											);
+										}
+									)}
 								</div>
 							}
 							<div>
-								{!submitted && (
+								{!quizState.submitted && (
 									<button
 										className="w-full bg-green-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg"
 										onClick={() => handleSubmit()}
@@ -404,9 +357,9 @@ function Questionnaire() {
 										Submit
 									</button>
 								)}
-								{submitted && (
+								{quizState.submitted && (
 									<button
-										className="w-full bg-green-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg"
+										className="w-full bg-sky-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg"
 										onClick={() => onContinue()}
 									>
 										Continue
