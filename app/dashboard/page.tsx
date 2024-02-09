@@ -9,7 +9,7 @@ import validateToken from "../scripts/validateToken";
 import fetchStudent from "../scripts/fetchStudent";
 import Student from "../types/student";
 import Loading from "../components/loading/loading";
-import parseUUID from "../scripts/parseUUID";
+import verifyJWT from "../scripts/verifyJWT";
 
 function Dashboard() {
 	const router = useRouter();
@@ -21,18 +21,21 @@ function Dashboard() {
 	const [statistics, setStatistics] = useState<any[]>();
 
 	useEffect(() => {
-		const token = Cookies.get("token");
-
-		// CHECK IF JWT TOKEN EXISTS. IF NOT, RETURN TO AUTH.
-		if (!token) {
-			router.replace("/user-auth");
-			return;
-		}
+		// verifyJWT().then((isValid) => {
+		// 	if (!isValid) {
+		// 		console.log("Redirecting A...");
+		// 		Cookies.remove("token");
+		// 		router.push("/user-auth");
+		// 	}
+		// });
 
 		// VALIDATE TOKEN AND SET PARSED STUDENT ID
-		validateToken(token).then((response) => {
-			if(!response)
-				return;
+		verifyJWT(true).then((response) => {
+			if (!response || typeof response !== "string"){
+					console.log("Redirecting...");
+					Cookies.remove("token");
+					router.push("/user-auth");
+			}
 
 			const res: {
 				studentID: string;
@@ -70,8 +73,10 @@ function Dashboard() {
 				status: number;
 			} = JSON.parse(await res.text());
 
-			if(resBody.status === 400)
-				throw new Error("An error occured during the pre-processing and fetching of statistics.");
+			if (resBody.status === 400)
+				throw new Error(
+					"An error occured during the pre-processing and fetching of statistics."
+				);
 
 			setStatistics(resBody.data);
 			console.log("STATS SET!");
@@ -81,27 +86,22 @@ function Dashboard() {
 	}
 
 	// Function to send statistics data to the server for TensorFlow processing
-	async function sendStatisticsForProcessing() {	
+	async function sendStatisticsForProcessing() {
 		try {
 			await fetchStats();
 
-			if(!statistics)
-				throw new Error("Statistics is null!");
-
+			if (!statistics) throw new Error("Statistics is null!");
 
 			console.log("BEFSTATS: ", statistics);
-			const res = await fetch(
-				"./questionnaire/api/processstatistics",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({statistics}),
-					cache: "no-cache",
-					credentials: "include",
-				}
-			);
+			const res = await fetch("./questionnaire/api/processstatistics", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ statistics }),
+				cache: "no-cache",
+				credentials: "include",
+			});
 
 			let resBody: {
 				data: any;

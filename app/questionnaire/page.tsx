@@ -7,6 +7,7 @@ import validateToken from "../scripts/validateToken";
 import fetchStudent from "../scripts/fetchStudent";
 import fetchQuestions from "../scripts/fetchQuestions";
 import fetchAnswers from "../scripts/fetchAnswers";
+import verifyJWT from "../scripts/verifyJWT";
 
 import "remixicon/fonts/remixicon.css";
 import Question from "../types/question";
@@ -74,7 +75,11 @@ function Questionnaire() {
 				console.log("PAYLOAD: ", action.payload);
 				return {
 					...state,
-					studentInfo: { studentID: action.payload.studentID, name: action.payload.name, username: action.payload.username },
+					studentInfo: {
+						studentID: action.payload.studentID,
+						name: action.payload.name,
+						username: action.payload.username,
+					},
 				};
 			case "SET_QUESTIONS":
 				return { ...state, questions: action.payload };
@@ -95,6 +100,14 @@ function Questionnaire() {
 					state.startTime === null
 				)
 					return state;
+
+				verifyJWT().then((isValid) => {
+					if (!isValid) {
+						Cookies.remove("token");
+						router.push("/user-auth");
+					}
+				});
+
 				const endTime = Date.now();
 				return {
 					...state,
@@ -132,18 +145,22 @@ function Questionnaire() {
 
 	// DATA INITIALIZATION
 	useEffect(() => {
-		const token = Cookies.get("token");
-
-		// RETURN TO SIGN-IN IF JWT DOESN'T EXIST.
-		if (!token) {
-			router.replace("/user-auth");
-			return;
-		}
+		// verifyJWT().then((isValid) => {
+		// 	if (!isValid) {
+		// 		console.log("Redirecting A...");
+		// 		Cookies.remove("token");
+		// 		router.push("/user-auth");
+		// 	}
+		// });
 
 		// VALIDATE TOKEN AND SET PARSED STUDENT ID
-		validateToken(token)
+		verifyJWT(true)
 			.then((studentInfo) => {
-				if (!studentInfo || typeof studentInfo !== "string") return;
+				if (!studentInfo || typeof studentInfo !== "string") {
+					console.log("Redirecting...");
+					Cookies.remove("token");
+					router.push("/user-auth");
+				}
 
 				const student: {
 					studentID: string;
@@ -170,7 +187,7 @@ function Questionnaire() {
 	}, []);
 
 	useEffect(() => {
-		if (quizState.questions.length !== 20) {
+		if (quizState && quizState.questions.length !== 20) {
 			dispatch({
 				type: "SET_ERROR",
 				payload: "Questions array has not been initialized yet.",
@@ -318,7 +335,13 @@ function Questionnaire() {
 												<QuizOption
 													key={answerIdx}
 													// ANSWER INDEX
-													answerIdx={answerIdx as 0 | 1 | 2 | 3 }
+													answerIdx={
+														answerIdx as
+															| 0
+															| 1
+															| 2
+															| 3
+													}
 													// ANSWER TEXT
 													answerText={
 														answer.answerDescription

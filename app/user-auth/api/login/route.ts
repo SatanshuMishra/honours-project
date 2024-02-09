@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 				};
 
 				let token = jwt.sign(payload, process.env.JWT_SECRET, {
-					expiresIn: "1h",
+					expiresIn: "20s",
 				});
 
 				console.log("[SIGN IN | TOKEN]: ", token);
