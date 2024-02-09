@@ -9,10 +9,26 @@ import fetchQuestions from "../scripts/fetchQuestions";
 import fetchAnswers from "../scripts/fetchAnswers";
 import verifyJWT from "../scripts/verifyJWT";
 
+import hljs from "highlight.js/lib/core";
+import java from "highlight.js/lib/languages/java";
+import "highlight.js/styles/github.css";
+
 import "remixicon/fonts/remixicon.css";
 import Question from "../types/question";
 import Answer from "../types/answer";
 import Loading from "../components/loading/loading";
+
+const CodeBlock = ({ code }: any) => {
+	useEffect(() => {
+		hljs.highlightAll();
+	}, []);
+
+	return (
+		<pre className="bg-black">
+			<code className="java !bg-black !text-white !font-mono">{code}</code>
+		</pre>
+	);
+};
 
 interface QuizState {
 	loading: boolean;
@@ -44,6 +60,8 @@ type QuizAction =
 	| { type: "NEXT_QUESTION"; payload: null };
 
 function Questionnaire() {
+	hljs.registerLanguage('java', java);
+	
 	const initialState: QuizState = {
 		loading: true,
 		error: null,
@@ -285,25 +303,55 @@ function Questionnaire() {
 		<>
 			{!quizState.loading ? (
 				<>
+					{/* SURROUNDING CONTAINER FOR QUIZ */}
 					<div className="bg-[#3A86FF] h-screen w-screen p-4 flex justify-evenly">
-						<div className="w-full bg-transparent rounded-lg p-6 h-full max-w-[50%] mr-2">
-							<div
-								className="w-full h-8 rounded-lg bg-white"
-								style={
-									{
-										"--progress-width":
-											(quizState.currentQuestionIndex /
-												quizState.questions.length) *
-												100 +
-											"%",
-									} as any
-								}
-							>
-								<div className="h-full bg-green-500 w-[--progress-width] rounded-lg"></div>
-								<div className="text-white font-semibold">
-									{quizState.currentQuestionIndex + 1} /{" "}
-									{quizState.questions.length}
+						{/* LEFT CONTAINER */}
+						<div className="flex flex-col justify-start items-start w-full bg-transparent rounded-lg p-6 h-full max-w-[50%] mr-2 border-[1px] border-black">
+							{/* PROGRESS BAR AND INFORMATION */}
+							<div className="w-full border-[1px] border-black">
+								<div
+									className="w-full h-8 rounded-lg bg-red-500"
+									style={
+										{
+											"--progress-width":
+												(quizState.currentQuestionIndex /
+													quizState.questions
+														.length) *
+													100 +
+												"%",
+										} as any
+									}
+								></div>
+								<div className="text-white font-light mt-2">
+									{quizState.currentQuestionIndex + 1} out of{" "}
+									{quizState.questions.length} Questions
 								</div>
+							</div>
+							<div className="flex-1 w-full bg-white rounded-lg mt-2 p-6 border-[1px] border-black">
+								{/* QUESTION SECTION */}
+								<div>
+									<h2 className="font-bold text-xl text-black">
+										{
+											quizState.questions[
+												quizState.currentQuestionIndex
+											].question
+										}
+									</h2>
+								</div>
+								{quizState.questions[
+									quizState.currentQuestionIndex
+								].code && (
+									<div className="p-4 rounded-lg bg-black mt-4">
+										<CodeBlock
+											code={
+												quizState.questions[
+													quizState
+														.currentQuestionIndex
+												].code
+											}
+										/>
+									</div>
+								)}
 							</div>
 						</div>
 						<div className="flex flex-col justify-between rounded-lg p-6 w-full h-auto max-w-[50%] bg-white m-6">
@@ -322,12 +370,6 @@ function Questionnaire() {
 											</span>
 										</span>
 										<br />
-
-										{
-											quizState.questions[
-												quizState.currentQuestionIndex
-											].question
-										}
 									</h2>
 									{quizState.answers.map(
 										(answer, answerIdx) => {
@@ -382,7 +424,7 @@ function Questionnaire() {
 								)}
 								{quizState.submitted && (
 									<button
-										className="w-full bg-sky-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg"
+										className="w-full bg-sky-500 hover:bg-sky-400 p-2 rounded-lg font-semibold text-white text-lg"
 										onClick={() => onContinue()}
 									>
 										Continue
