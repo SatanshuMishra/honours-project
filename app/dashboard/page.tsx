@@ -9,6 +9,7 @@ import validateToken from "../scripts/validateToken";
 import fetchStudent from "../scripts/fetchStudent";
 import Student from "../types/student";
 import Loading from "../components/loading/loading";
+import parseUUID from "../scripts/parseUUID";
 
 function Dashboard() {
 	const router = useRouter();
@@ -30,35 +31,24 @@ function Dashboard() {
 
 		// VALIDATE TOKEN AND SET PARSED STUDENT ID
 		validateToken(token).then((response) => {
-			console.log(response);
+			if(!response)
+				return;
+
+			const res: {
+				studentID: string;
+				name: string;
+				username: string;
+			} = JSON.parse(response);
+			console.log("Token Response: ", res);
 			if (!response) {
 				Cookies.remove("token");
 				router.push("/user-auth");
 			}
-
-			setStudentID(
-				Buffer.from(response?.data)
-					.toString("hex")
-					.match(/.{1,8}/g)
-					?.join("")
-					.trim()
-			);
+			setStudentID(res.studentID);
+			setStudentName(res.name);
+			setStudentUsername(res.username);
 		});
 	}, []);
-
-	// FETCH STUDENT INFORMATION ONCE STUDENT ID HAS BEEN UPDATED
-	useEffect(() => {
-		if (studentID) {
-			fetchStudent(studentID).then((response) => {
-				if (!response) {
-					throw new Error("No Student Found!");
-				}
-				console.log("Response: ", response);
-				setStudentName(response.name);
-				setStudentUsername(response.username);
-			});
-		}
-	}, [studentID]);
 
 	async function fetchStats() {
 		try {

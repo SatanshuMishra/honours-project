@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 
 type props = {
-  answerIdx: number;
+  answerIdx: 0 | 1 | 2 | 3;
   answerText: string;
-  handleSelectOption: (idx: number) => void;
+  handleSelectOption: (idx: 0 | 1 | 2 | 3 | null) => void;
   isSelectedAnswer: boolean;
   answerExplanation: string;
   blockChange: boolean;

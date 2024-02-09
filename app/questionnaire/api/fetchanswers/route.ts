@@ -10,13 +10,7 @@ export async function POST(request: NextRequest) {
 		} = JSON.parse(requestText);
 
 		let answers: Answer[] =
-			await prisma.$queryRaw`SELECT * FROM (SELECT answer.answerID,  LOWER(CONCAT(
-										SUBSTR(HEX(answer.questionID), 1, 8),
-										SUBSTR(HEX(answer.questionID), 9, 4),
-										SUBSTR(HEX(answer.questionID), 13, 4),
-										SUBSTR(HEX(answer.questionID), 17, 4),
-										SUBSTR(HEX(answer.questionID), 21)
-									)) AS qID, answer.answerDescription, answer.answerExplanation, answer.isCorrect FROM answer) AS s WHERE s.qID = ${requestBody.questionID}`;
+			await prisma.$queryRaw`SELECT * FROM (SELECT BIN_TO_UUID(answerID) AS answerID, BIN_TO_UUID(questionID) AS questionID, answerDescription, answerExplanation, isCorrect FROM answer) AS ans WHERE ans.questionID = ${requestBody.questionID}`;
 		if(!answers || answers.length !== 4)
 			throw new Error(`Answers query failed for questiondID: ${requestBody.questionID}.`);
 
