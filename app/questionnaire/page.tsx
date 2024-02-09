@@ -24,8 +24,8 @@ const CodeBlock = ({ code }: any) => {
 	}, []);
 
 	return (
-		<pre className="bg-black">
-			<code className="java !bg-black !text-white !font-mono">{code}</code>
+		<pre className="bg-black p-4">
+			<code className="java !bg-black !text-white !font-mono select-none">{code}</code>
 		</pre>
 	);
 };
