@@ -1,10 +1,10 @@
 import { NextRequest } from "next/server";
 import * as tf from "@tensorflow/tfjs";
 
-async function trainModel(featureTensors, labelTensors) {
+async function trainModel(featureTensors: any, labelTensors: any) {
 	const model = tf.sequential();
 
-	const numFeatures = 3;
+	const numFeatures = 2;
 	const outputUnits = 1;
 	model.add(
 		tf.layers.dense({
@@ -29,11 +29,10 @@ async function trainModel(featureTensors, labelTensors) {
 	});
 
 	const predictions = model.predict(featureTensors);
-    const predictionsArray = await predictions.array();
-    model.dispose();
-	console.log(predictionsArray);
-    return predictionsArray;
-
+	const predictionsArray = await predictions.array();
+	model.dispose();
+	/* console.log("PREDICTIONS: ", predictionsArray); */
+	return predictionsArray;
 }
 
 export async function POST(request: NextRequest) {
@@ -41,26 +40,65 @@ export async function POST(request: NextRequest) {
 		const requestText = await request.text();
 		const requestBody = JSON.parse(requestText);
 
-		let statistics = requestBody.statistics;
-		console.log("STATSPROCESS: ", requestBody.statistics);
+		let matrix = requestBody.matrix;
+		console.log("STATSPROCESS: ", matrix);
 
-		// WHAT WILL BE USED FOR COMPARISIONS
-		const features = statistics.map((stat) => [
-			stat.studentID,
-			stat.questionID,
-			stat.timeToAnswer,
-		]);
-		// WHAT WILL BE PREDICTED
-		const labels = statistics.map((stat) => stat.isCorrect);
+		let features: any = [];
+		let labels: any = [];
 
+		// Iterate through matrix to construct features and labels arrays
+		Object.keys(matrix).forEach((studentID) => {
+			Object.keys(matrix[studentID]).forEach((questionID) => {
+				const cell = matrix[studentID][questionID];
+				// Assuming the cell structure is [isCorrect, timeToAnswer, attemptCount]
+				// Adjust indices based on actual structure
+				const isCorrect = cell[0]; // Assuming first element is isCorrect
+				const featureVector = cell.slice(1); // The rest are features
+
+				features.push(featureVector);
+				labels.push(isCorrect ? 1 : 0); // Assuming isCorrect is a boolean, convert to binary
+			});
+		});
+
+		console.log("FEATURES: ", features);
+		console.log("LABELS: ", labels);
+
+		// Convert arrays to tensors
 		const featureTensors = tf.tensor2d(features);
-		const labelTensors = tf.tensor1d(labels);
+		const labelTensors = tf.tensor1d(labels, "int32"); // Use 'int32' for binary labels
 
-		await trainModel(featureTensors, labelTensors);
+		let predictions:any = await trainModel(featureTensors, labelTensors);
+
+
+		let predictionsMatrix:any = {};
+
+
+		Object.keys(matrix).forEach((studentID) => {
+			predictionsMatrix[studentID] = {};
+
+			Object.keys(matrix[studentID]).forEach((questionID) => {
+
+				const features = matrix[studentID][questionID].slice(0, -1);
+				const label = matrix[studentID][questionID].slice(-1)[0];
+
+
+				const prediction = predictions.shift(); 
+
+				console.log("PREDICTION: ", prediction[0]);
+
+				predictionsMatrix[studentID][questionID] = [
+					...features,
+					label,
+					prediction[0],
+				];
+			});
+		});
+
+		console.log("PREDMATRX: ", predictionsMatrix);
 
 		return new Response(
 			JSON.stringify({
-				data: null,
+				data: predictionsMatrix,
 				status: 200,
 			})
 		);

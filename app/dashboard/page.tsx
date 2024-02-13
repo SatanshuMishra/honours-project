@@ -10,6 +10,7 @@ import fetchStudent from "../scripts/fetchStudent";
 import Student from "../types/student";
 import Loading from "../components/loading/loading";
 import verifyJWT from "../scripts/verifyJWT";
+import sendStatisticsForProcessing from "../scripts/statsProcess";
 
 function Dashboard() {
 	const router = useRouter();
@@ -53,66 +54,67 @@ function Dashboard() {
 		});
 	}, []);
 
-	async function fetchStats() {
-		try {
-			const res = await fetch(
-				"./questionnaire/api/fetchperformancestatistics",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: null,
-					cache: "no-cache",
-					credentials: "include",
-				}
-			);
-
-			let resBody: {
-				data: any;
-				status: number;
-			} = JSON.parse(await res.text());
-
-			if (resBody.status === 400)
-				throw new Error(
-					"An error occured during the pre-processing and fetching of statistics."
-				);
-
-			setStatistics(resBody.data);
-			console.log("STATS SET!");
-		} catch (error) {
-			console.error("[FETCH STATS] Error:\n", error);
-		}
-	}
+	// async function fetchStats() {
+	// 	try {
+	// 		const res = await fetch(
+	// 			"./questionnaire/api/fetchperformancestatistics",
+	// 			{
+	// 				method: "POST",
+	// 				headers: {
+	// 					"Content-Type": "application/json",
+	// 				},
+	// 				body: null,
+	// 				cache: "no-cache",
+	// 				credentials: "include",
+	// 			}
+	// 		);
+	//
+	// 		let resBody: {
+	// 			data: any;
+	// 			status: number;
+	// 		} = JSON.parse(await res.text());
+	//
+	// 		if (resBody.status === 400)
+	// 			throw new Error(
+	// 				"An error occured during the pre-processing and fetching of statistics."
+	// 			);
+	//
+	// 		setStatistics(resBody.data);
+	// 		console.log(resBody.data);
+	// 		console.log("STATS SET!");
+	// 	} catch (error) {
+	// 		console.error("[FETCH STATS] Error:\n", error);
+	// 	}
+	// }
 
 	// Function to send statistics data to the server for TensorFlow processing
-	async function sendStatisticsForProcessing() {
-		try {
-			await fetchStats();
-
-			if (!statistics) throw new Error("Statistics is null!");
-
-			console.log("BEFSTATS: ", statistics);
-			const res = await fetch("./questionnaire/api/processstatistics", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ statistics }),
-				cache: "no-cache",
-				credentials: "include",
-			});
-
-			let resBody: {
-				data: any;
-				status: number;
-			} = JSON.parse(await res.text());
-
-			console.log("STATSFETCH: ", resBody);
-		} catch (error) {
-			console.error("[FETCH STATS] Error:\n", error);
-		}
-	}
+	// async function sendStatisticsForProcessing() {
+	// 	try {
+	// 		await fetchStats();
+	//
+	// 		if (!statistics) throw new Error("Statistics is null!");
+	//
+	// 		console.log("BEFSTATS: ", statistics);
+	// 		const res = await fetch("./questionnaire/api/processstatistics", {
+	// 			method: "POST",
+	// 			headers: {
+	// 				"Content-Type": "application/json",
+	// 			},
+	// 			body: JSON.stringify({ statistics }),
+	// 			cache: "no-cache",
+	// 			credentials: "include",
+	// 		});
+	//
+	// 		let resBody: {
+	// 			data: any;
+	// 			status: number;
+	// 		} = JSON.parse(await res.text());
+	//
+	// 		console.log("STATSFETCH: ", resBody);
+	// 	} catch (error) {
+	// 		console.error("[FETCH STATS] Error:\n", error);
+	// 	}
+	// }
 
 	return (
 		<section className="w-full h-full">
@@ -132,8 +134,9 @@ function Dashboard() {
 							className="text-lg p-2 text-white rounded-lg w-fit font-normal bg-blue-600"
 							onClick={() => sendStatisticsForProcessing()}
 						>
-							FETCH STATS
+							FETCH MODEL
 						</button>
+
 					</section>
 					<section className="m-10 p-2">
 						<div>

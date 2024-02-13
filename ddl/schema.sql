@@ -49,6 +49,7 @@ CREATE TABLE statistic (
 	timeToAnswer DECIMAL NOT NULL,
 	recordedDifficulty INTEGER,
 	CONSTRAINT RecDiff_Consrt CHECK (recordedDifficulty IN (1, 2, 3)),
+	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (studentID) REFERENCES student(studentID),
 	FOREIGN KEY (questionID) REFERENCES question(questionID),
 	FOREIGN KEY (chosenAnswerID) REFERENCES answer(answerID)
