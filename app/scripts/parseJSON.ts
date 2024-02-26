@@ -3,7 +3,7 @@ import {dummyData} from "../data/dummyData";
 export default async function parseJSON() {
 	for(const el of dummyData){
 		try {
-			let questionID =  await insertQuestion(el.difficulty, el.question, el.code);	
+			let questionID =  await insertQuestion(el.topic, el.difficulty, el.question, el.bloomTaxonomy, el.timeTakenSeconds, el.code);	
 			console.log("QuestionID: " + questionID);
 			el.answers.forEach(
 				(answer, idx) => {
@@ -16,10 +16,13 @@ export default async function parseJSON() {
 	}
 }
 
-async function insertQuestion (difficulty: number, question: string, code?: string){
+async function insertQuestion (topic: string, difficulty: number, question: string, bloomTaxonomy: string, timeTakenSeconds: number, code?: string){
 	const values = {
+		topic,
 		difficulty,
 		question,
+		bloomTaxonomy,
+		timeTakenSeconds,
 		code
 	}
 	const response = await fetch(`./questionnaire/api/addquestion`, {

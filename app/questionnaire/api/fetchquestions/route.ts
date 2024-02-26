@@ -11,7 +11,7 @@ export async function POST() {
 		console.log(predictions);
 
 		let questions: [Question[]] =
-			await prisma.$queryRaw`SELECT BIN_TO_UUID(questionID) AS questionID, difficulty, question, code FROM question ORDER BY RAND() LIMIT 20`;
+			await prisma.$queryRaw`SELECT BIN_TO_UUID(questionID) AS questionID, difficulty, question, code FROM question ORDER BY modDifficulty DESC LIMIT 20`;
 
 		if (!questions || questions.length !== 20)
 			throw new Error("Incorrect Question Query.");

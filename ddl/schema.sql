@@ -34,9 +34,11 @@ CREATE TABLE question (
 	topicID BINARY(16) NOT NULL,
 	difficulty INTEGER NOT NULL,
 	CONSTRAINT Diff_Consrt CHECK (difficulty IN (1, 2, 3)),
+	modDifficulty DECIMAL(3, 2) NOT NULL,
 	questionTaxonomy INTEGER NOT NULL,
 	CONSTRAINT Taxo_Consrt CHECK (questionTaxonomy IN (1, 2, 3)),
 	timeTakenSeconds INTEGER NOT NULL,
+	modTimeTakenSeconds DECIMAL(5, 2) NOT NULL,
 	question TEXT NOT NULL,
 	code TEXT,
 	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID)
