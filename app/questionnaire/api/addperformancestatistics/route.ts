@@ -20,6 +20,13 @@ export async function POST(request: NextRequest) {
 
 		await prisma.$queryRaw`INSERT INTO statistic (statID, studentID, questionID, chosenAnswerID, isCorrect, timeToAnswer, recordedDifficulty) VALUES (UUID_TO_BIN(${uuid}), UUID_TO_BIN(${requestBody.studentID}), UUID_TO_BIN(${requestBody.questionID}), UUID_TO_BIN(${requestBody.chosenAnswerID}), ${requestBody.isCorrect}, ${requestBody.timeToAnswer}, ${requestBody.recordedDifficulty})`;
 
+		if(requestBody.isCorrect)
+			await prisma.$queryRaw`UPDATE question SET modDifficulty = modDifficulty - 0.05 WHERE questionID = UUID_TO_BIN(${requestBody.questionID})`;
+		else
+			await prisma.$queryRaw`UPDATE question SET modDifficulty = modDifficulty + 0.1 WHERE questionID = UUID_TO_BIN(${requestBody.questionID})`;
+
+
+
 		return new Response(
 			JSON.stringify({
 				data: null,

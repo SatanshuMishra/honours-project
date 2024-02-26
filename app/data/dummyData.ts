@@ -368,6 +368,232 @@ export const dummyData: {
     "bloomTaxonomy": "Understanding",
     "timeTakenSeconds": 18,
     "topic": "Dynamic Programming"
-}
+},
+{
+	difficulty: 3,
+	question:
+		'In Java, what is the output of the following recursive method when called with `reversePrint("hello")`?',
+	code: "void reversePrint(String s) {\n if (!s.isEmpty()) {\n  reversePrint(s.substring(1));\n  System.out.print(s.charAt(0));\n }\n}",
+	answers: ["hello", "olleh", "ehllo", "A Stack Overflow Error"],
+	correct: 1,
+	explanations: [
+		"The method does not print the string in its original order.",
+		"The method prints the string in reverse order.",
+		"Characters are not rearranged; they're printed in reverse.",
+		"There is a base case to prevent a stack overflow.",
+	],
+	bloomTaxonomy: "Apply", 
+	timeTakenSeconds: 45, 
+	topic: "Recursion" 
+},
+{
+	difficulty: 3,
+	question: "In Java, identify the error in this recursive method:",
+	code: "int sumArray(int[] arr, int n) {\n return n <= 0 ? 0 : sumArray(arr, n) + arr[n - 1];\n}",
+	answers: [
+		"Array index out of bounds",
+		"Infinite recursion leading to Stack Overflow Error",
+		"Incorrect calculation of the sum",
+		"Syntax error",
+	],
+	correct: 1,
+	explanations: [
+		"The array index is correctly handled, so no out of bounds error.",
+		"The method calls itself with the same value of n, leading to infinite recursion.",
+		"While the sum calculation logic is correct, the recursive call causes an error.",
+		"The syntax is correct, but the logic leads to infinite recursion.",
+	],
+	bloomTaxonomy: "Analyze", 
+	timeTakenSeconds: 50,  
+	topic: "Recursion" 
+},
+{
+	difficulty: 1,
+	question: "In Java, which statement about recursion is true?",
+	answers: [
+		"Recursion always leads to better performance than iteration.",
+		"Every recursive function must have a return type of void.",
+		"Recursion can sometimes be less efficient due to overheads.",
+		"Recursive methods cannot be used to solve sorting problems.",
+	],
+	correct: 2,
+	explanations: [
+		"Recursion does not always lead to better performance; in some cases, iteration is more efficient.",
+		"Recursive functions can have any return type, not just void.",
+		"Due to overheads like stack memory usage, recursion can be less efficient than iteration.",
+		"Recursive methods can be used in sorting algorithms like merge sort and quicksort.",
+	],
+	bloomTaxonomy: "Understand", 
+	timeTakenSeconds: 30, 
+	topic: "Recursion" 
+},
+{
+	difficulty: 3,
+	question:
+		"In Java, what error does this recursive function have? `int power(int base, int exp) { return exp < 1 ? 1 : base * power(base, exp); }`",
+	code: "int power(int base, int exp) {\n return exp < 1 ? 1 : base * power(base, exp);\n}",
+	answers: [
+		"Compilation Error",
+		"Arithmetic Error",
+		"Infinite Recursion",
+		"Logic Error",
+	],
+	correct: 2,
+	explanations: [
+		"The function compiles without errors.",
+		"There is no arithmetic error in the operations performed.",
+		"The function causes infinite recursion because the exponent is not decremented in the recursive call.",
+		"While the logic is incorrect, the specific error is infinite recursion.",
+	],
+	bloomTaxonomy: "Analyze",  
+	timeTakenSeconds: 60, 
+	topic: "Recursion" 
+},
+{
+	difficulty: 3,
+	question:
+		"Identify the problem in this method for finding the minimum element in a binary search tree",
+	code: "class TreeNode {\n  int value;\n  TreeNode left, right;\n\n  TreeNode(int value) {\n    this.value = value;\n    left = right = null;\n  }\n}\n\npublic static int findMin(TreeNode root) {\n  if (root == null) {\n    return Integer.MAX_VALUE;\n  } else {\n    return Math.min(root.value, findMin(root.left));\n  }\n}",
+	answers: [
+		"It doesn't check the right subtree",
+		"It returns Integer.MAX_VALUE for an empty tree",
+		"It causes a NullPointerException",
+		"It works correctly",
+	],
+	correct: 0,
+	explanations: [
+		"The method fails to check the right subtree, which is necessary for finding the minimum in a binary search tree.",
+		"Returning Integer.MAX_VALUE for an empty tree is a valid base case, but the method should also check the right subtree.",
+		"There is no risk of NullPointerException as the method correctly checks for null.",
+		"The method is incomplete without checking the right subtree.",
+	],
+	bloomTaxonomy: "Analyze", 
+	timeTakenSeconds: 50, 
+	topic: "Recursion" 
+},
+{
+	difficulty: 3,
+	question:
+		"Complete the code for a recursive method that calculates the sum of all digits in a number",
+	code: "public static int sumOfDigits(int n) {\n  if (n == 0) {\n    return 0;\n  } else {\n    return ____ + sumOfDigits(____);\n  }\n}",
+	answers: [
+		"n % 10, n / 10",
+		"n / 10, n % 10",
+		"n - 1, n - 1",
+		"n, n - 1",
+	],
+	correct: 0,
+	explanations: [
+		"'n % 10' gives the last digit, and 'n / 10' reduces the number by one digit. Both are necessary for the sum of digits.",
+		"Reversing the order would not correctly calculate the sum of digits.",
+		"Subtracting 1 from the number would not help in calculating the sum of digits.",
+		"Using 'n' and 'n - 1' would not separate the digits correctly for summation.",
+	],
+	bloomTaxonomy: "Apply", 
+	timeTakenSeconds: 50, 
+	topic: "Recursion" 
+},
+{
+	difficulty: 3,
+	question:
+		"Review this method for checking if a string is a palindrome. What is the issue?",
+	code: "public static boolean isPalindrome(String str, int start, int end) {\n  if (start >= end) {\n    return true;\n  }\n  if (str.charAt(start) != str.charAt(end)) {\n    return false;\n  }\n  return isPalindrome(str, start + 1, end - 1);\n}",
+	answers: [
+		"It doesn't handle case sensitivity",
+		"It has an off-by-one error in the base case",
+		"It will throw a StringIndexOutOfBoundsException",
+		"It works correctly",
+	],
+	correct: 2,
+	explanations: [
+		"Case sensitivity is not addressed, but it's not necessarily an issue depending on the requirements.",
+		"The base case is correctly handled to stop the recursion.",
+		"The method carefully checks the string boundaries, avoiding StringIndexOutOfBoundsException.",
+		"The method correctly checks for a palindrome recursively.",
+	],
+	bloomTaxonomy: "Analyze", 
+	timeTakenSeconds: 50, 
+	topic: "Recursion" 
+},
+{
+	difficulty: 3,
+	question:
+		"Identify the error in this method for computing the power of a number",
+	code: "public static double power(double base, int exponent) {\n  if (exponent == 0) {\n    return 1;\n  } else {\n    return base * power(base, exponent - 1);\n  }\n}",
+	answers: [
+		"It fails for negative exponents",
+		"It returns a floating-point number for integer inputs",
+		"It doesn't handle zero as the base",
+		"It works correctly",
+	],
+	correct: 0,
+	explanations: [
+		"The method does not handle negative exponents, which require a different approach.",
+		"Returning a floating-point number is appropriate for power calculations.",
+		"Handling zero as the base is not the issue here; the method correctly calculates power for non-negative exponents.",
+		"While the method works for non-negative exponents, it fails for negative ones.",
+	],
+	bloomTaxonomy: "Analyze", 
+	timeTakenSeconds: 20, 
+	topic: "Recursion" 
+},
+{
+	difficulty: 3,
+	question:
+		"A recursive function to compute Fibonacci numbers would have how many recursive calls for an input of n (ignoring the base cases)?",
+	answers: ["n", "2", "n-1", "2^n"],
+	correct: 3,
+	explanations: [
+		"Fibonacci numbers require more than one call for many n.",
+		"This would only be the case for very small n.",
+		"The Fibonacci sequence requires two recursive calls per non-base case.",
+		"Without optimizations, a naive Fibonacci recursive algorithm can make up to 2^n calls.",
+	],
+	bloomTaxonomy: "Understand",
+	timeTakenSeconds: 40, 
+	topic: "Recursion" 
+},
+{
+	difficulty: 3,
+	question:
+		"What distinguishes a 'divide and conquer' algorithm from other recursive algorithms?",
+	answers: [
+		"It involves division of numbers.",
+		"It always returns a single answer.",
+		"It breaks the problem into smaller, similar sub-problems and combines their solutions.",
+		"It requires external libraries.",
+	],
+	correct: 2,
+	explanations: [
+		"'Divide and conquer' is about problem decomposition, not numerical division.",
+		"Not all 'divide and conquer' algorithms return a single answer.",
+		"The hallmark of 'divide and conquer' is decomposing the problem and then combining solutions.",
+		"External libraries aren't inherently tied to 'divide and conquer'.",
+	],
+	bloomTaxonomy: "Analyze", 
+	timeTakenSeconds: 40, 
+	topic: "Recursion" 
+},
+{
+	difficulty: 3,
+	question:
+		"What is the result of a recursive function call that does not have a proper termination condition?",
+	answers: [
+		"A syntax error",
+		"An optimized execution",
+		"An infinite loop",
+		"A faster result",
+	],
+	correct: 2,
+	explanations: [
+		"A syntax error would be due to incorrect code structure, not the logic of recursion.",
+		"An optimized execution is not the result of missing a termination condition.",
+		"Without a proper termination condition, a recursive function can result in an infinite loop.",
+		"A faster result is not achieved by lacking a termination condition; it usually leads to problems like infinite loops.",
+	],
+	bloomTaxonomy: "Understand", 
+	timeTakenSeconds: 30,
+	topic: "Recursion" 
+},
 ]
  
