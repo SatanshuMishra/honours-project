@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import QuizOption from "../components/quizComponents/QuizOption";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
@@ -36,6 +36,8 @@ interface QuizState {
 	score: number;
 	startTime: number | null;
 	duration: number | null;
+	quizDurationStart: number | null,
+	quizDurationEnd: number | null,
 	studentInfo: {
 		studentID: string | null;
 		name: string | null;
@@ -57,7 +59,9 @@ type QuizAction =
 	| { type: "SET_CURRENT_QUESTION_INDEX"; payload: number }
 	| { type: "SELECT_OPTION"; payload: 0 | 1 | 2 | 3 | null }
 	| { type: "SUBMIT_ANSWER"; payload: null }
-	| { type: "NEXT_QUESTION"; payload: null };
+	| { type: "NEXT_QUESTION"; payload: null }
+	| { type: "START_QUIZ_DURATION"; payload: null}
+	| {	type: "FINISH_QUIZ"; payload: null};
 
 function Questionnaire() {
 	hljs.registerLanguage('java', java);
@@ -68,6 +72,8 @@ function Questionnaire() {
 		score: 0,
 		startTime: null,
 		duration: null,
+		quizDurationStart: null,
+		quizDurationEnd: null,
 		studentInfo: {
 			studentID: null,
 			name: null,
@@ -147,11 +153,15 @@ function Questionnaire() {
 					selectedOptionIdx: null,
 					submitted: false,
 				};
+			case "START_QUIZ_DURATION":
+				return { ...state, quizDurationStart: Date.now() };
+			case "FINISH_QUIZ":
+				return { ...state, quizDurationEnd: Date.now() };
 			default:
 				return state;
 		}
 	};
-
+	const [quizDuration, setQuizDuration] = useState(null);
 	const router = useRouter();
 	const [quizState, dispatch] = useReducer<
 		React.Reducer<QuizState, QuizAction>
@@ -213,12 +223,23 @@ function Questionnaire() {
 			return;
 		}
 
+		
+
+		if (quizState.currentQuestionIndex >= 20){
+			dispatch({
+				type: "FINISH_QUIZ", payload: null
+			})
+			return;
+		}
+
 		fetchAnswers(
 			quizState.questions[quizState.currentQuestionIndex].questionID
 		)
 			.then((answers) => {
 				dispatch({ type: "SET_ANSWERS", payload: answers as Answer[] });
-			})
+			}).then(() => {
+				dispatch({type: "START_QUIZ_DURATION", payload: null});
+				})
 			.catch((error) => {
 				dispatch({
 					type: "SET_ERROR",
@@ -230,6 +251,11 @@ function Questionnaire() {
 	const handleSelectOption = (idx: 0 | 1 | 2 | 3 | null) => {
 		dispatch({ type: "SELECT_OPTION", payload: idx });
 	};
+
+	useEffect(() => {
+		if(quizState.quizDurationEnd === null)
+			return;
+		}, [quizState.quizDurationEnd]);
 
 	// ADD STATS FOR CURRENT QUESTION
 	async function addStatistics() {
@@ -435,8 +461,15 @@ function Questionnaire() {
 					</div>
 				</>
 			) : (
-				<Loading />
-			)}
+				(!quizState.quizDurationEnd ? <Loading /> : (
+				<div>
+					<h1>QUIZ COMPLETE</h1>
+					<p>Your score is: {quizState.score}</p>
+					<p>Your percentage is: {(quizState.score/20) * 100}</p>
+					<p>Your duration: {quizState.quizDurationEnd - quizState.quizDurationStart}</p>
+				</div>
+			)
+			))}
 		</>
 	);
 }

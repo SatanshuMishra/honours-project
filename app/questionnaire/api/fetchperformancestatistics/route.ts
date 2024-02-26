@@ -27,11 +27,11 @@ export async function POST() {
 )
 SELECT sq.studentID, sq.questionID,
        COALESCE(
-         AVG(s.isCorrect * EXP(0.2 * DATEDIFF(CURRENT_TIMESTAMP, s.createdAt))),
+         AVG(s.isCorrect * EXP(0.5 * DATEDIFF(CURRENT_TIMESTAMP, s.createdAt))),
          FALSE
        ) AS isCorrect,
        COALESCE(
-         AVG(s.timeToAnswer * EXP(0.2 * DATEDIFF(CURRENT_TIMESTAMP, s.createdAt))),
+         AVG(s.timeToAnswer * EXP(0.5 * DATEDIFF(CURRENT_TIMESTAMP, s.createdAt))),
          0
        ) AS timeTaken,
 		COUNT(DISTINCT s.statID) AS attemptCount
