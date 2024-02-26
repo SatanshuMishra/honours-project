@@ -1,10 +1,11 @@
 SET foreign_key_checks = 0;
 DROP TABLE IF EXISTS student;
-DROP TABLE IF EXISTS questions;
-DROP TABLE IF EXISTS subTopics;
-DROP TABLE IF EXISTS topics;
-DROP TABLE IF EXISTS studentQuestionInteractions;
-DROP TABLE IF EXISTS ncfScores;
+DROP TABLE IF EXISTS profile;
+DROP TABLE IF EXISTS topic;
+DROP TABLE IF EXISTS question;
+DROP TABLE IF EXISTS answer;
+DROP TABLE IF EXISTS statistic;
+DROP TABLE IF EXISTS uuidMapping;
 SET foreign_key_checks = 1;
 
 CREATE TABLE student (
@@ -23,12 +24,22 @@ CREATE TABLE profile (
 	FOREIGN KEY (studentID) REFERENCES student(studentID)
 ) ENGINE = InnoDB;
 
+CREATE TABLE questionTopic (
+	topicID BINARY(16) NOT NULL PRIMARY KEY,
+	name TEXT NOT NULL
+) ENGINE = InnoDB;
+
 CREATE TABLE question (
 	questionID BINARY(16) NOT NULL PRIMARY KEY,
+	topicID BINARY(16) NOT NULL,
 	difficulty INTEGER NOT NULL,
 	CONSTRAINT Diff_Consrt CHECK (difficulty IN (1, 2, 3)),
+	questionTaxonomy INTEGER NOT NULL,
+	CONSTRAINT Taxo_Consrt CHECK (questionTaxonomy IN (1, 2, 3)),
+	timeTakenSeconds INTEGER NOT NULL,
 	question TEXT NOT NULL,
-	code TEXT
+	code TEXT,
+	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID)
 ) ENGINE = InnoDB;
 
 CREATE TABLE answer (
