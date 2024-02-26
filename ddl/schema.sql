@@ -26,7 +26,7 @@ CREATE TABLE profile (
 
 CREATE TABLE questionTopic (
 	topicID BINARY(16) NOT NULL PRIMARY KEY,
-	name TEXT NOT NULL
+	name VARCHAR(255) UNIQUE NOT NULL
 ) ENGINE = InnoDB;
 
 CREATE TABLE question (
