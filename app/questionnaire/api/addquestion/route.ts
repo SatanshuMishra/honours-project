@@ -6,10 +6,10 @@ async function fetchTaxonomyCategory(
 	taxonomyCategory: string
 ): Promise<string | void> {
 	try {
-		console.log("DEBUG: ",taxonomyCategory);
+		console.log("DEBUG: ", taxonomyCategory);
 		const category: { categoryID: string }[] =
 			await prisma.$queryRaw`SELECT BIN_TO_UUID(categoryID) AS categoryID FROM taxonomyCategory WHERE name = ${taxonomyCategory}`;
-		console.log("DEBUG: ",category);
+		console.log("DEBUG: ", category);
 		// [GUARD] FAILURE TO FECTH CATEGORY
 		if (category.length === 0)
 			throw new Error("Taxonomy Category doesn't exit.");
@@ -30,7 +30,7 @@ async function handleTopicAndKnowledge(
 		const topic: { topicID: string }[] =
 			await prisma.$queryRaw`SELECT BIN_TO_UUID(topicID) AS topicID FROM questionTopic WHERE name = ${topicName}`;
 
-		let topicID;	
+		let topicID;
 
 		// [GUARD] IF TOPIC DOESN'T EXIST, ADD IT TO questionTopic RELATION.
 		if (topic.length === 0) {
@@ -42,7 +42,8 @@ async function handleTopicAndKnowledge(
 			await prisma.$queryRaw`INSERT INTO studentKnowledge (knowledgeID, studentID, topicID, categoryID, masteryProbability) VALUES (UUID_TO_BIN(${knowledgeID}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${taxonomyCategoryID}), 0.5)`;
 		}
 
-		if (topic.length > 1) throw new Error("More than one topic row returned. Contact Admin.");
+		if (topic.length > 1)
+			throw new Error("More than one topic row returned. Contact Admin.");
 
 		topicID = topic[0].topicID;
 
@@ -67,24 +68,28 @@ export async function POST(request: NextRequest) {
 		} = JSON.parse(requestText);
 
 		const uuid = uuidv4();
-		
+
 		console.log("DEBUG DEBUG: ", requestBody.taxonomyCategory);
 
-		const taxonomyCategoryID = await fetchTaxonomyCategory(requestBody.taxonomyCategory);
-
-		// [GUARD]
-		if(!taxonomyCategoryID) throw new Error("Error fetching taxonomy category id.")
-
-		const response: string | void = JSON.parse(
-			await handleTopicAndKnowledge(
-				requestBody.studentID,
-				requestBody.topic,
-				taxonomyCategoryID		
-			)
+		const taxonomyCategoryID = await fetchTaxonomyCategory(
+			requestBody.taxonomyCategory
 		);
 
+		// [GUARD]
+		if (!taxonomyCategoryID)
+			throw new Error("Error fetching taxonomy category id.");
 
-		await prisma.$queryRaw`INSERT INTO question (questionID, topicID, difficulty, modDifficulty, question, categoryID, timeTakenSeconds, modTimeTakenSeconds, code) VALUES (UUID_TO_BIN(${uuid}), UUID_TO_BIN(${data.topicID}), ${requestBody.difficulty}, ${requestBody.difficulty}, ${requestBody.question}, ${data.taxonomyCategory}, ${requestBody.timeTakenSeconds}, ${requestBody.timeTakenSeconds}, ${requestBody.code})`;
+		const topicID: string | void = await handleTopicAndKnowledge(
+			requestBody.studentID,
+			requestBody.topic,
+			taxonomyCategoryID
+		);
+
+		// [GUARD]
+		if(!topicID)
+			throw new Error("Error fetching topic id.");
+
+		await prisma.$queryRaw`INSERT INTO question (questionID, topicID, difficulty, modDifficulty, question, categoryID, timeTakenSeconds, modTimeTakenSeconds, code) VALUES (UUID_TO_BIN(${uuid}), UUID_TO_BIN(${topicID}), ${requestBody.difficulty}, ${requestBody.difficulty}, ${requestBody.question}, UUID_TO_BIN(${taxonomyCategoryID}), ${requestBody.timeTakenSeconds}, ${requestBody.timeTakenSeconds}, ${requestBody.code})`;
 
 		return new Response(
 			JSON.stringify({
