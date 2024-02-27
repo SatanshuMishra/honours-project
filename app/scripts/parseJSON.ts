@@ -58,10 +58,11 @@ async function insertQuestion(
 		topic,
 		difficulty,
 		question,
-		bloomTaxonomy,
+		taxonomyCategory: bloomTaxonomy,
 		timeTakenSeconds,
 		code,
 	};
+	console.log(values);
 	const response = await fetch(`./questionnaire/api/addquestion`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },

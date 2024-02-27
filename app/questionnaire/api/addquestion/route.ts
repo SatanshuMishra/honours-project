@@ -6,8 +6,10 @@ async function fetchTaxonomyCategory(
 	taxonomyCategory: string
 ): Promise<string | void> {
 	try {
+		console.log("DEBUG: ",taxonomyCategory);
 		const category: { categoryID: string }[] =
 			await prisma.$queryRaw`SELECT BIN_TO_UUID(categoryID) AS categoryID FROM taxonomyCategory WHERE name = ${taxonomyCategory}`;
+		console.log("DEBUG: ",category);
 		// [GUARD] FAILURE TO FECTH CATEGORY
 		if (category.length === 0)
 			throw new Error("Taxonomy Category doesn't exit.");
@@ -65,6 +67,8 @@ export async function POST(request: NextRequest) {
 		} = JSON.parse(requestText);
 
 		const uuid = uuidv4();
+		
+		console.log("DEBUG DEBUG: ", requestBody.taxonomyCategory);
 
 		const taxonomyCategoryID = await fetchTaxonomyCategory(requestBody.taxonomyCategory);
 
