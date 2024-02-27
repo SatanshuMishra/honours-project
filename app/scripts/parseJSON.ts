@@ -1,32 +1,51 @@
 import { dummyData } from "../data/dummyData";
+import verifyJWT from "./verifyJWT";
 
-export default async function parseJSON() {
-	for (const el of dummyData) {
-		try {
-			let questionID = await insertQuestion(
-				el.topic,
-				el.difficulty,
-				el.question,
-				el.bloomTaxonomy,
-				el.timeTakenSeconds,
-				el.code
-			);
-			console.log("QuestionID: " + questionID);
-			el.answers.forEach((answer, idx) => {
-				insertAnswer(
-					questionID,
-					answer,
-					el.explanations[idx],
-					el.correct == idx ? true : false
+export default function parseJSON() {
+	let studentID: string | null = null;
+
+	verifyJWT(true).then(async (studentInfo) => {
+		if (!studentInfo) throw new Error("No Student Information returned.");
+		const student: {
+			studentID: string;
+			name: string;
+			username: string;
+		} = JSON.parse(studentInfo);
+		studentID = student.studentID;
+		console.log("Student: ", student);
+		
+		for (const el of dummyData) {
+			try {
+				if (!studentID)
+					throw new Error("No Student Information returned.");
+
+				let questionID = await insertQuestion(
+					studentID,
+					el.topic,
+					el.difficulty,
+					el.question,
+					el.bloomTaxonomy,
+					el.timeTakenSeconds,
+					el.code
 				);
-			});
-		} catch (error) {
-			console.error("Error processing element:", error);
+				console.log("QuestionID: " + questionID);
+				el.answers.forEach((answer, idx) => {
+					insertAnswer(
+						questionID,
+						answer,
+						el.explanations[idx],
+						el.correct == idx ? true : false
+					);
+				});
+			} catch (error) {
+				console.error("Error processing element:", error);
+			}
 		}
-	}
+	});
 }
 
 async function insertQuestion(
+	studentID: string,
 	topic: string,
 	difficulty: number,
 	question: string,
@@ -35,6 +54,7 @@ async function insertQuestion(
 	code?: string
 ): Promise<string> {
 	const values = {
+		studentID,
 		topic,
 		difficulty,
 		question,

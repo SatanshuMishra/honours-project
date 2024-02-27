@@ -172,14 +172,6 @@ function Questionnaire() {
 
   // DATA INITIALIZATION
   useEffect(() => {
-    // verifyJWT().then((isValid) => {
-    // 	if (!isValid) {
-    // 		console.log("Redirecting A...");
-    // 		Cookies.remove("token");
-    // 		router.push("/user-auth");
-    // 	}
-    // });
-
     // VALIDATE TOKEN AND SET PARSED STUDENT ID
     verifyJWT(true)
       .then((studentInfo) => {
