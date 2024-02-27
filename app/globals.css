@@ -12,6 +12,5 @@
 }
 
 .java * {
-	@apply !font-mono;
+  @apply !font-mono;
 }
-

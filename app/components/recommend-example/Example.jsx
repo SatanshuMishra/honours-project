@@ -59,7 +59,7 @@ function Example() {
 
       const recommendations = await fetchRecommendations(
         subtopic,
-        numQuestions
+        numQuestions,
       );
       console.log("Recommended Questions:", recommendations.recommendations);
       // Here you could set the recommendations to a state variable to render them in your component
