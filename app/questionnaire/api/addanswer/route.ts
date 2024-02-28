@@ -5,7 +5,12 @@ import { v4 as uuidv4 } from "uuid";
 export async function POST(request: NextRequest) {
   try {
     const requestText = await request.text();
-    const requestBody = JSON.parse(requestText);
+    const requestBody: {
+			questionID: string;
+			answer: string;
+			explanation: string;
+			isCorrect: string;
+		} = JSON.parse(requestText);
 
     const uuid = uuidv4();
 

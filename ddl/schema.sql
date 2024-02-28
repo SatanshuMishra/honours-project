@@ -87,6 +87,6 @@ CREATE TABLE studentKnowledge (
 INSERT INTO taxonomyCategory (categoryID, name) VALUES (UUID_TO_BIN("8c2b51fd-6b3a-4d7a-8fc2-b0a071055062"), "Remembering");
 INSERT INTO taxonomyCategory (categoryID, name) VALUES (UUID_TO_BIN("9cd2d9f7-b6b7-46b6-948b-66ebb6b71486"), "Understanding");
 INSERT INTO taxonomyCategory (categoryID, name) VALUES (UUID_TO_BIN("41778620-2cd9-4eb8-9655-c67365551278"), "Applying");
-INSERT INTO taxonomyCategory (categoryID, name) VALUES (UUID_TO_BIN("8ee7ae7d-88b1-405d-a291-23f10e8cdcab"), "Analysing");
+INSERT INTO taxonomyCategory (categoryID, name) VALUES (UUID_TO_BIN("8ee7ae7d-88b1-405d-a291-23f10e8cdcab"), "Analyzing");
 INSERT INTO taxonomyCategory (categoryID, name) VALUES (UUID_TO_BIN("c3122318-a52b-4221-b009-42a1aecbc657"), "Evaluating");
 INSERT INTO taxonomyCategory (categoryID, name) VALUES (UUID_TO_BIN("1a1bbffc-6fef-44e1-bbb9-8dc0726c2018"), "Creating");

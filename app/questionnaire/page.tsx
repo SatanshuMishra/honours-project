@@ -190,7 +190,7 @@ function Questionnaire() {
         console.log("Student: ", student);
 
         dispatch({ type: "SET_STUDENT_INFO", payload: student });
-        return fetchQuestions();
+        return fetchQuestions(quizState.studentInfo.studentID);
       })
       // ONCE TOKEN IS VALIDATED AND FETCH QUESTIONS
       .then((questions) => {
