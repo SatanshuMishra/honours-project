@@ -52,7 +52,7 @@ async function insertQuestion(
 	bloomTaxonomy: string,
 	timeTakenSeconds: number,
 	code?: string
-): Promise<string> {
+): Promise<string | void> {
 	const values = {
 		studentID,
 		topic,
@@ -69,17 +69,18 @@ async function insertQuestion(
 		body: JSON.stringify(values),
 		cache: "no-cache",
 	});
-
+	console.info("Data Returned: ", response);
 	let res: {
 		data: {
 			questionID: string;
 		} | null;
 		status: number;
 	} = JSON.parse(await response.text());
+	console.info("Data Returned: ", res.data);
 	if (res.data) {
 		return res.data.questionID;
 	} else {
-		return "";
+		return;
 	}
 }
 
