@@ -23,6 +23,7 @@
     "next": "14.0.2",
     "next-auth": "^5.0.0-beta.4",
     "pino": "^8.19.0",
+    "python-shell": "^5.0.0",
     "react": "^18",
     "react-dom": "^18",
     "remixicon": "^3.6.0",
