@@ -82,6 +82,14 @@ CREATE TABLE studentKnowledge (
 	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
 ) ENGINE = InnoDB;
 
+CREATE TABLE studentQuestionDifficulty (
+    studentQuestionID BINARY(16) NOT NULL PRIMARY KEY,
+    studentID BINARY(16) NOT NULL,
+    questionID BINARY(16) NOT NULL,
+    difficultyAdjustment DECIMAL(3,2) NOT NULL,
+    FOREIGN KEY (studentID) REFERENCES student(studentID),
+    FOREIGN KEY (questionID) REFERENCES question(questionID)
+) ENGINE = InnoDB;
 
 /* Initialize Taxonomy Categories */
 INSERT INTO taxonomyCategory (categoryID, name) VALUES (UUID_TO_BIN("8c2b51fd-6b3a-4d7a-8fc2-b0a071055062"), "Remembering");
