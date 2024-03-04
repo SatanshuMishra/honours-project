@@ -2,7 +2,7 @@ import * as tf from "@tensorflow/tfjs-node";
 
 const model = tf.sequential();
 model.add(
-  tf.layers.dense({ inputShape: [3], units: 1, activation: "sigmoid" })
+  tf.layers.dense({ inputShape: [3], units: 1, activation: "sigmoid" }),
 );
 model.compile({
   optimizer: "sgd",
@@ -53,13 +53,13 @@ if (req.method === "POST") {
 
     // Filter questions by the specified subtopic
     const filteredQuestions = questionsBank.filter(
-      (q) => q.subtopic === subtopic
+      (q) => q.subtopic === subtopic,
     );
 
     // Generate recommendations based on the filtered questions
     const recommendations = generateRecommendations(
       filteredQuestions,
-      numberOfQuestions
+      numberOfQuestions,
     );
 
     res.status(200).json({ recommendations });
