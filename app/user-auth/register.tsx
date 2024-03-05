@@ -1,9 +1,9 @@
+'use client';
+
 import Image from "next/image";
 import React from "react";
 import LoginSVG from "../../public/unDraw_Login.svg";
-import RegisterSVG from "../../public/unDraw_Register.svg";
 import { useFormik } from "formik";
-import { useRouter } from "next/navigation";
 
 type AuthProps = {
 	setSignIn: (arg0: boolean) => void;
@@ -11,7 +11,6 @@ type AuthProps = {
 };
 
 function SignUp({ setSignIn, displaySignIn }: AuthProps) {
-	const router = useRouter();
 	const formik = useFormik({
 		initialValues: {
 			name: "",
@@ -19,7 +18,6 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 			password: "",
 		},
 		onSubmit: (values) => {
-			console.log("Brrr");
 			handleSignUp(values);
 		},
 	});
@@ -29,18 +27,25 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 		username: string;
 		password: string;
 	}) => {
-		console.log(values);
-		const responseA = await fetch(`./user-auth/api/register`, {
+		const response = await fetch(`./user-auth/api/register`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(values),
 			cache: "no-cache",
 		});
-		let res: { data: any; status: number } = JSON.parse(
-			await responseA.text()
-		);
+		let res: {
+			data: string | null;
+			status: number;
+			message: string;
+			pgErrorObject: any | null;
+		} = JSON.parse(await response.text());
+
+		//  NOTE:
+		console.info("Sign-Up Respnse: ", res);
+
 		if (res.status === 201) {
-				router.push("/user-auth");
+			console.debug("Entered Router Container.");
+			setSignIn(true);
 		}
 	};
 
