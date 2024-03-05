@@ -1,9 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import LoginSVG from "../../public/unDraw_Login.svg";
-import RegisterSVG from "../../public/unDraw_Register.svg";
 import LogIn from "./login";
 import Register from "./register";
 import { useRouter } from "next/navigation";

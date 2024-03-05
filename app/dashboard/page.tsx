@@ -54,38 +54,38 @@ function Dashboard() {
     });
   }, []);
 
-  // async function fetchStats() {
-  // 	try {
-  // 		const res = await fetch(
-  // 			"./questionnaire/api/fetchperformancestatistics",
-  // 			{
-  // 				method: "POST",
-  // 				headers: {
-  // 					"Content-Type": "application/json",
-  // 				},
-  // 				body: null,
-  // 				cache: "no-cache",
-  // 				credentials: "include",
-  // 			}
-  // 		);
-  //
-  // 		let resBody: {
-  // 			data: any;
-  // 			status: number;
-  // 		} = JSON.parse(await res.text());
-  //
-  // 		if (resBody.status === 400)
-  // 			throw new Error(
-  // 				"An error occured during the pre-processing and fetching of statistics."
-  // 			);
-  //
-  // 		setStatistics(resBody.data);
-  // 		console.log(resBody.data);
-  // 		console.log("STATS SET!");
-  // 	} catch (error) {
-  // 		console.error("[FETCH STATS] Error:\n", error);
-  // 	}
-  // }
+  async function fetchStats() {
+  	try {
+  		const res = await fetch(
+  			"./questionnaire/api/fetchperformancestatistics",
+  			{
+  				method: "POST",
+  				headers: {
+  					"Content-Type": "application/json",
+  				},
+  				body: null,
+  				cache: "no-cache",
+  				credentials: "include",
+  			}
+  		);
+
+  		let resBody: {
+  			data: any;
+  			status: number;
+  		} = JSON.parse(await res.text());
+
+  		if (resBody.status === 400)
+  			throw new Error(
+  				"An error occured during the pre-processing and fetching of statistics."
+  			);
+
+  		setStatistics(resBody.data);
+  		console.log(resBody.data);
+  		console.log("STATS SET!");
+  	} catch (error) {
+  		console.error("[FETCH STATS] Error:\n", error);
+  	}
+  }
 
   // Function to send statistics data to the server for TensorFlow processing
   // async function sendStatisticsForProcessing() {
@@ -132,7 +132,7 @@ function Dashboard() {
             </button>
             <button
               className="text-lg p-2 text-white rounded-lg w-fit font-normal bg-blue-600"
-              onClick={() => sendStatisticsForProcessing()}
+              onClick={() => fetchStats()}
             >
               FETCH MODEL
             </button>

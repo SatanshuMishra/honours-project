@@ -66,11 +66,6 @@ CREATE TABLE statistic (
 	FOREIGN KEY (chosenAnswerID) REFERENCES answer(answerID)
 ) ENGINE = InnoDB;
 
-CREATE TABLE uuidMapping (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    uuid BINARY(16) UNIQUE NOT NULL
-) ENGINE = InnoDB;
-
 CREATE TABLE studentKnowledge (
 	knowledgeID BINARY(16) NOT NULL PRIMARY KEY,
 	studentID BINARY(16) NOT NULL,
