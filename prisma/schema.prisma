@@ -7,19 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model student {
-  studentID             Bytes       @id @db.Binary(36)
-  name                  String      @db.VarChar(255)
-  username              String      @unique(map: "username") @db.VarChar(255)
-  password              String      @db.VarChar(255)
-  completedBonusContent Boolean     @default(false)
-  profile               profile[]
-  statistic             statistic[]
-}
-
 model answer {
-  answerID          Bytes       @id @db.Binary(36)
-  questionID        Bytes       @db.Binary(36)
+  answerID          Bytes       @id @db.Binary(16)
+  questionID        Bytes       @db.Binary(16)
   answerDescription String      @db.Text
   answerExplanation String      @db.Text
   isCorrect         Boolean
@@ -30,34 +20,43 @@ model answer {
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-model profile {
-  profileID                     Bytes   @id @db.Binary(36)
-  studentID                     Bytes   @db.Binary(36)
-  previousProgrammingExperience Int
-  student                       student @relation(fields: [studentID], references: [studentID], onDelete: NoAction, onUpdate: NoAction, map: "profile_ibfk_1")
+model question {
+  questionID                Bytes                       @id @db.Binary(16)
+  topicID                   Bytes                       @db.Binary(16)
+  difficulty                Int
+  modDifficulty             Decimal                     @db.Decimal(3, 2)
+  categoryID                Bytes                       @db.Binary(16)
+  timeTakenSeconds          Int
+  modTimeTakenSeconds       Decimal                     @db.Decimal(5, 2)
+  question                  String                      @db.Text
+  code                      String?                     @db.Text
+  answer                    answer[]
+  questionTopic             questionTopic               @relation(fields: [topicID], references: [topicID], onDelete: NoAction, onUpdate: NoAction, map: "question_ibfk_1")
+  taxonomyCategory          taxonomyCategory            @relation(fields: [categoryID], references: [categoryID], onDelete: NoAction, onUpdate: NoAction, map: "question_ibfk_2")
+  statistic                 statistic[]
+  studentQuestionDifficulty studentQuestionDifficulty[]
 
-  @@index([studentID], map: "studentID")
+  @@index([categoryID], map: "categoryID")
+  @@index([topicID], map: "topicID")
 }
 
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-model question {
-  questionID Bytes       @id @db.Binary(36)
-  difficulty Int
-  question   String      @db.Text
-  code       String?     @db.Text
-  answer     answer[]
-  statistic  statistic[]
+model questionTopic {
+  topicID          Bytes              @id @db.Binary(16)
+  name             String             @unique(map: "name") @db.VarChar(255)
+  question         question[]
+  studentKnowledge studentKnowledge[]
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model statistic {
-  statID             Bytes    @id @db.Binary(36)
-  studentID          Bytes    @db.Binary(36)
-  questionID         Bytes    @db.Binary(36)
-  chosenAnswerID     Bytes    @db.Binary(36)
+  statID             Bytes    @id @db.Binary(16)
+  studentID          Bytes    @db.Binary(16)
+  questionID         Bytes    @db.Binary(16)
+  chosenAnswerID     Bytes    @db.Binary(16)
   isCorrect          Boolean
-  timeToAnswer       Decimal  @db.Decimal(10, 0)
+  timeToAnswer       Decimal  @db.Decimal(10, 3)
   recordedDifficulty Int?
+  createdAt          DateTime @default(now()) @db.DateTime(0)
   student            student  @relation(fields: [studentID], references: [studentID], onDelete: NoAction, onUpdate: NoAction, map: "statistic_ibfk_1")
   question           question @relation(fields: [questionID], references: [questionID], onDelete: NoAction, onUpdate: NoAction, map: "statistic_ibfk_2")
   answer             answer   @relation(fields: [chosenAnswerID], references: [answerID], onDelete: NoAction, onUpdate: NoAction, map: "statistic_ibfk_3")
@@ -67,7 +66,47 @@ model statistic {
   @@index([studentID], map: "studentID")
 }
 
-model uuidMapping {
-  id   Int   @id @default(autoincrement())
-  uuid Bytes @unique(map: "uuid") @db.Binary(36)
+model student {
+  studentID                 Bytes                       @id @db.Binary(16)
+  name                      String                      @db.VarChar(255)
+  username                  String                      @unique(map: "username") @db.VarChar(255)
+  password                  String                      @db.VarChar(255)
+  completedBonusContent     Boolean                     @default(false)
+  statistic                 statistic[]
+  studentKnowledge          studentKnowledge[]
+  studentQuestionDifficulty studentQuestionDifficulty[]
+}
+
+model studentKnowledge {
+  knowledgeID        Bytes            @id @db.Binary(16)
+  studentID          Bytes            @db.Binary(16)
+  topicID            Bytes            @db.Binary(16)
+  categoryID         Bytes            @db.Binary(16)
+  masteryProbability Decimal          @db.Decimal(3, 2)
+  student            student          @relation(fields: [studentID], references: [studentID], onDelete: NoAction, onUpdate: NoAction, map: "studentKnowledge_ibfk_1")
+  questionTopic      questionTopic    @relation(fields: [topicID], references: [topicID], onDelete: NoAction, onUpdate: NoAction, map: "studentKnowledge_ibfk_2")
+  taxonomyCategory   taxonomyCategory @relation(fields: [categoryID], references: [categoryID], onDelete: NoAction, onUpdate: NoAction, map: "studentKnowledge_ibfk_3")
+
+  @@index([categoryID], map: "categoryID")
+  @@index([studentID], map: "studentID")
+  @@index([topicID], map: "topicID")
+}
+
+model studentQuestionDifficulty {
+  studentQuestionID    Bytes    @id @db.Binary(16)
+  studentID            Bytes    @db.Binary(16)
+  questionID           Bytes    @db.Binary(16)
+  difficultyAdjustment Decimal  @db.Decimal(3, 2)
+  student              student  @relation(fields: [studentID], references: [studentID], onDelete: NoAction, onUpdate: NoAction, map: "studentQuestionDifficulty_ibfk_1")
+  question             question @relation(fields: [questionID], references: [questionID], onDelete: NoAction, onUpdate: NoAction, map: "studentQuestionDifficulty_ibfk_2")
+
+  @@index([questionID], map: "questionID")
+  @@index([studentID], map: "studentID")
+}
+
+model taxonomyCategory {
+  categoryID       Bytes              @id @db.Binary(16)
+  name             String             @unique(map: "name") @db.VarChar(255)
+  question         question[]
+  studentKnowledge studentKnowledge[]
 }
