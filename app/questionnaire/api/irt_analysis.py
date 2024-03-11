@@ -14,9 +14,9 @@ def get_topic_difficulties(student_data):
     with (robjects.default_converter + pandas2ri.converter).context():
         r_from_pd_df = robjects.conversion.get_conversion().py2rpy(pd_df)
 
-    print(r_from_pd_df)
+    # print(r_from_pd_df)
 
-    model = mirt.mirt(r_from_pd_df, model="F1 = 1-3", itemtype="2PL", est="ML")
+    model = mirt.mirt(r_from_pd_df, model="F1 = 1-3", itemtype="2PL", est="ML", verbose = False)
    
     robjects.r.assign("model", model)
 
@@ -29,9 +29,9 @@ def get_topic_difficulties(student_data):
 
     robjects.r(r_code)
     rounded_params = pandas2ri.rpy2py(robjects.r['rounded_params'])
-    print(rounded_params)
+    # print(rounded_params)
     json_data = rounded_params.to_json(orient='records')
-    return json_data
+    print(json_data)
 
 if __name__ == '__main__':
     import sys

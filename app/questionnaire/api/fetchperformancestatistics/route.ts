@@ -45,7 +45,7 @@ export async function POST() {
 			"./app/questionnaire/api/irt_analysis.py",
 			options
 		).then((messages) => {
-			console.log("IRT Difficulty Values: ", messages);
+			console.log("IRT Difficulty Values: ", JSON.parse(messages[0]));
 		});
 
 		return new Response(
