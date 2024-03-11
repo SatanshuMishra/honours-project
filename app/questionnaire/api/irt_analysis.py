@@ -2,6 +2,7 @@ import pandas as pd
 import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr
 from rpy2.robjects import pandas2ri
+import json
 
 
 #  INFORMATION: INSTALL MIRT
@@ -29,12 +30,19 @@ def get_topic_difficulties(student_data):
     robjects.r(r_code)
     rounded_params = pandas2ri.rpy2py(robjects.r['rounded_params'])
     print(rounded_params)
+    json_data = rounded_params.to_json(orient='records')
+    return json_data
 
-student_data = {
-    'A': [1, 0, 1, 1, 0, 1, 0],
-    'B': [0, 1, 1, 1, None, None, None],
-    'C': [0, 0, 1, 1, 0, 1, None]
-    # ... add other categories
-}
+if __name__ == '__main__':
+    import sys
+    student_data = json.loads(sys.argv[1])
+    result = get_topic_difficulties(student_data)
+
+# student_data = {
+#     'A': [1, 0, 1, 1, 0, 1, 0],
+#     'B': [0, 1, 1, 1, None, None, None],
+#     'C': [0, 0, 1, 1, 0, 1, None]
+#     # ... add other categories
+# }
 
 get_topic_difficulties(student_data)

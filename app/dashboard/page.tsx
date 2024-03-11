@@ -57,7 +57,7 @@ function Dashboard() {
   async function fetchStats() {
   	try {
   		const res = await fetch(
-  			"./dashboard/api/irt",
+  			"./questionnaire/api/fetchperformancestatistics",
   			{
   				method: "POST",
   				headers: {
