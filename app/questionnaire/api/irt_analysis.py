@@ -1,33 +1,48 @@
 import pandas as pd
+import rpy2.robjects as robjects
+from rpy2.robjects.packages import importr
+from rpy2.robjects import pandas2ri
 import json
-import girth as irt
-import numpy as np
 
-# if __name__ == '__main__':
-#     import sys
-#     irt_data_json = sys.argv[1]
-#     result = irt.onepl_jml(irt_data_json)
-#     print(json.dumps(result))
 
-# Parameters for the dataset
-num_items = 10
-num_participants = 5
-#
-# # Generate random responses (True for correct, False for incorrect)
-#data = np.random.choice([False, False], size=(num_items, num_participants))
-#
+#  INFORMATION: INSTALL MIRT
+mirt = importr('mirt')
 
-data = ([[False, False, False, False, False],
- [False, False, False, False, False],
- [False, False, False, False, False],
- [False, False, False, False, False],
- [False, False, False, False, False],
- [False, False, False, False, False],
- [False, False, False, False, False],
- [False, False, False, False, False],
- [False, False, False, False, False],
- [False, False, False, False, False],]
+def get_topic_difficulties(student_data):
+    pd_df = pd.DataFrame(student_data)
+    r_from_pd_df = None
+    with (robjects.default_converter + pandas2ri.converter).context():
+        r_from_pd_df = robjects.conversion.get_conversion().py2rpy(pd_df)
 
-print(data)
+    print(r_from_pd_df)
 
-print(irt.twopl_jml(data, options=None))
+    model = mirt.mirt(r_from_pd_df, model="F1 = 1-3", itemtype="2PL", est="ML")
+   
+    robjects.r.assign("model", model)
+
+    r_code = """
+    library(mirt)
+
+    params <- coef(model, IRTpars = TRUE, simplify = TRUE)
+    rounded_params <- data.frame(round(params$items, 2))
+    """
+
+    robjects.r(r_code)
+    rounded_params = pandas2ri.rpy2py(robjects.r['rounded_params'])
+    print(rounded_params)
+    json_data = rounded_params.to_json(orient='records')
+    return json_data
+
+if __name__ == '__main__':
+    import sys
+    student_data = json.loads(sys.argv[1])
+    result = get_topic_difficulties(student_data)
+
+# student_data = {
+#     'A': [1, 0, 1, 1, 0, 1, 0],
+#     'B': [0, 1, 1, 1, None, None, None],
+#     'C': [0, 0, 1, 1, 0, 1, None]
+#     # ... add other categories
+# }
+
+get_topic_difficulties(student_data)
