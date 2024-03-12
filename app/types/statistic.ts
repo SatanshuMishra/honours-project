@@ -1,9 +1,10 @@
 export default interface Statistic {
-  statID: any;
-  studentID: any;
-  questionID: any;
-  chosenAnswerID: any;
-  isCorrect: boolean;
-  timeToAnswer: number;
-  recordedDifficulty: number | null;
+	statID: string;
+	studentID?: string;
+	questionID?: string;
+	chosenAnswerID?: string;
+	isCorrect: boolean;
+	timeToAnswer?: number;
+	recordedDifficulty?: number | null;
+	createdAt?: Date;
 }
