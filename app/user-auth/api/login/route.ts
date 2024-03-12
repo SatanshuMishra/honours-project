@@ -5,16 +5,31 @@ import jwt from "jsonwebtoken";
 import CryptoJS from "crypto-js";
 const DOMPurify = require("isomorphic-dompurify");
 const HmacSHA256 = CryptoJS.HmacSHA256;
+import verifyJWT from "@/app/scripts/verifyJWT";
 
 export async function POST(request: NextRequest) {
 	try {
+		verifyJWT(false).then((response) => {
+			if (response === true) {
+				return new Response(
+					JSON.stringify({
+						data: null,
+						status: 418,
+						message:
+							"A valid token already exists. Registration failed.",
+						pgErrorObject: null,
+					})
+				);
+			}
+		});
+
 		const requestText = await request.text();
 		const requestBody: {
 			username: string;
 			password: string;
 		} = JSON.parse(requestText);
 
-		//  NOTE: CHECK IF THE INPUTS ARE EMPTY
+		//  INFORMATION: CHECK IF THE INPUTS ARE EMPTY
 
 		if (requestBody.username === "" || requestBody.password === "") {
 			return new Response(
@@ -27,7 +42,7 @@ export async function POST(request: NextRequest) {
 			);
 		}
 
-		//  NOTE: SANITIZE INPUTS. IF OUTPUT IS EMPTY, THROW ERROR
+		//  INFORMATION: SANITIZE INPUTS. IF OUTPUT IS EMPTY, THROW ERROR
 
 		const sanitizationConfig = { ALLOWED_TAGS: [], KEEP_CONTENT: false };
 		const pureUsername = DOMPurify.sanitize(
@@ -71,7 +86,9 @@ export async function POST(request: NextRequest) {
 		).toString()}`;
 
 		if (student.length !== 0) {
-			//  NOTE: PASSWORD VERIFIED.
+
+			//  INFORMATION: PASSWORD VERIFIED.
+
 			const payload = {
 				studentID: student[0].studentID,
 				name: student[0].name,
@@ -93,7 +110,7 @@ export async function POST(request: NextRequest) {
 				JSON.stringify({
 					data: null,
 					status: 401,
-					message: `User couldn't be verified. Sign-up was successfully.`,
+					message: `User couldn't be verified. Sign-up was not successfully.`,
 					pgErrorObject: null,
 				})
 			);
@@ -104,7 +121,7 @@ export async function POST(request: NextRequest) {
 			JSON.stringify({
 				data: null,
 				status: 401,
-				message: `User couldn't be verified. Sign-up was successfully.`,
+				message: `User couldn't be verified. Sign-up was not successfully.`,
 				pgErrorObject: {
 					...error,
 				},
