@@ -9,8 +9,8 @@ export async function POST(request: NextRequest) {
       studentID: string;
     } = JSON.parse(requestText);
     console.log(requestBody.studentID);
-    let student: [Student] =
-      await prisma.$queryRaw`SELECT * FROM (SELECT BIN_TO_UUID(studentID) AS studentID, name, username, completedBonusContent FROM student) AS student WHERE student.studentID = ${requestBody.studentID}`;
+    let student: Student[] =
+      await prisma.$queryRaw`SELECT BIN_TO_UUID(studentID) AS studentID, name, username, completedBonusContent FROM student WHERE student.studentID = ${requestBody.studentID}`;
 
     if (student.length !== 1)
       throw new Error("Multiple Student's Returned! Contact Administration.");

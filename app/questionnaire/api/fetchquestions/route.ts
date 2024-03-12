@@ -1,7 +1,6 @@
 import Question from "@/app/types/question";
 import prisma from "../../../lib/prisma";
 
-import sendStatisticsForProcessing from "@/app/scripts/statsProcess";
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
