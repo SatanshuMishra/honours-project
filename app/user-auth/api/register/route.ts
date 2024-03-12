@@ -4,9 +4,24 @@ import { v4 as uuidv4 } from "uuid";
 import CryptoJS from "crypto-js";
 const DOMPurify = require("isomorphic-dompurify");
 const HmacSHA256 = CryptoJS.HmacSHA256;
+import verifyJWT from "@/app/scripts/verifyJWT";
 
 export async function POST(request: NextRequest) {
 	try {
+		verifyJWT(false).then((response) => {
+			if (response === true) {
+				return new Response(
+					JSON.stringify({
+						data: null,
+						status: 418,
+						message:
+							"A valid token already exists. Registration failed.",
+						pgErrorObject: null,
+					})
+				);
+			}
+		});
+
 		const requestText = await request.text();
 		const requestBody: {
 			name: string;
@@ -67,12 +82,12 @@ export async function POST(request: NextRequest) {
 		const uuid = uuidv4();
 
 		const result =
-			await prisma.$queryRaw`INSERT INTO student (studentId, name, username, password, completedBonusContent) VALUES (UUID_TO_BIN(${uuid}), ${
+			await prisma.$queryRaw`INSERT INTO student (studentID, name, username, password, completedBonusContent) VALUES (UUID_TO_BIN(${uuid}), ${
 				requestBody.name
 			}, ${requestBody.username}, 
 				${HmacSHA256(
 					requestBody.password,
-					process.env.PASSWORD_ENCRYPTION_KEY || "Weee"	
+					process.env.PASSWORD_ENCRYPTION_KEY || "Weee"
 				).toString()}, 0)`;
 
 		return new Response(
@@ -80,7 +95,7 @@ export async function POST(request: NextRequest) {
 				data: { result },
 				status: 201,
 				message: `${pureUsername} was signed-up successfully.`,
-				pgErrorObject: null
+				pgErrorObject: null,
 			})
 		);
 	} catch (error: any) {
@@ -91,8 +106,8 @@ export async function POST(request: NextRequest) {
 				status: 500,
 				message: `Sign-up failed.`,
 				pgErrorObject: {
-				...error,
-			},
+					...error,
+				},
 			})
 		);
 	}
