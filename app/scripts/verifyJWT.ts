@@ -1,15 +1,20 @@
 import Cookies from "js-cookie";
 import validateToken from "./validateToken";
 
-export default async function verifyJWT(getData: boolean = false) {
-  const token = Cookies.get("token");
+/**
+ * Validates the JWT. Returns `boolean` response. If `getData = true`, returns stringified `JSON Object` with the JWT data.
+ */
 
-  // RETURN TO SIGN-IN IF JWT DOESN'T EXIST.
-  if (!token) {
-    return false;
-  }
+export default async function verifyJWT(
+	getData: boolean = false
+): Promise<boolean | string> {
+	const token = Cookies.get("token");
 
-  const valid = await validateToken(token, getData);
+	//  INFORMATION: RETURN TO SIGN-IN IF JWT DOESN'T EXIST.
 
-  return valid;
+	if (!token) return false;
+
+	//  INFORMATION: VALIDATE TOKEN.
+
+	return await validateToken(token, getData);
 }
