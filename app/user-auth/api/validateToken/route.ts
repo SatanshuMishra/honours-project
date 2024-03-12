@@ -19,9 +19,7 @@ export async function POST() {
     const authHeader = headersInstance.get("authorization") ?? "";
 
     const token = authHeader.split(" ")[1];
-    console.log("Token: ", token);
 
-    //process.env.JWT_SECRET
     const decoded = await verifyToken(token, process.env.JWT_SECRET);
     // IF CODE REACHES THIS POINT, THE TOKEN HAS BEEN SUCCESSFULLY VERIFIED. ELSE, THE AN ERROR WILL BE THROWN BY THE jwt.verify FUNCTION ABOVE
     return new Response(

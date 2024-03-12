@@ -30,12 +30,12 @@ CREATE TABLE taxonomyCategory (
 CREATE TABLE question (
 	questionID BINARY(16) NOT NULL PRIMARY KEY,
 	topicID BINARY(16) NOT NULL,
-	difficulty INTEGER NOT NULL,
+	assignedDifficulty INTEGER NOT NULL,
 	CONSTRAINT Diff_Consrt CHECK (difficulty IN (1, 2, 3)),
-	modDifficulty DECIMAL(3, 2) NOT NULL,
+	modifiedDifficulty DECIMAL(3, 2) NOT NULL,
 	categoryID BINARY(16) NOT NULL,
-	timeTakenSeconds INTEGER NOT NULL,
-	modTimeTakenSeconds DECIMAL(5, 2) NOT NULL,
+	assignedCompletionTime INTEGER NOT NULL,
+	modifiedCompletionTime DECIMAL(5, 2) NOT NULL,
 	question TEXT NOT NULL,
 	code TEXT,
 	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
@@ -71,22 +71,23 @@ CREATE TABLE studentKnowledge (
 	studentID BINARY(16) NOT NULL,
 	topicID BINARY(16) NOT NULL,
 	categoryID BINARY(16) NOT NULL,
-	masteryProbability DECIMAL(3, 2) NOT NULL,
+	mastery DECIMAL(5, 2) DEFAULT 0.5 NOT NULL,
+	difficultyOffset DECIMAL(5, 2) DEFAULT 0 NOT NULL,
 	FOREIGN KEY (studentID) REFERENCES student(studentID),
 	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
 	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
 ) ENGINE = InnoDB;
 
-CREATE TABLE studentQuestionDifficulty (
-    studentQuestionID BINARY(16) NOT NULL PRIMARY KEY,
-    studentID BINARY(16) NOT NULL,
-    questionID BINARY(16) NOT NULL,
-    difficultyAdjustment DECIMAL(3,2) NOT NULL,
-    FOREIGN KEY (studentID) REFERENCES student(studentID),
-    FOREIGN KEY (questionID) REFERENCES question(questionID)
-) ENGINE = InnoDB;
+-- CREATE TABLE studentQuestionDifficulty (
+--     studentQuestionID BINARY(16) NOT NULL PRIMARY KEY,
+--     studentID BINARY(16) NOT NULL,
+--     questionID BINARY(16) NOT NULL,
+--     difficultyAdjustment DECIMAL(3,2) NOT NULL,
+--     FOREIGN KEY (studentID) REFERENCES student(studentID),
+--     FOREIGN KEY (questionID) REFERENCES question(questionID)
+-- ) ENGINE = InnoDB;
 
-/* Initialize Taxonomy Categories */
+/*  INFORMATION:: INITIALIZE TAXONOMY CATEGORIES  */
 INSERT INTO taxonomyCategory (categoryID, name) VALUES (UUID_TO_BIN("8c2b51fd-6b3a-4d7a-8fc2-b0a071055062"), "Remembering");
 INSERT INTO taxonomyCategory (categoryID, name) VALUES (UUID_TO_BIN("9cd2d9f7-b6b7-46b6-948b-66ebb6b71486"), "Understanding");
 INSERT INTO taxonomyCategory (categoryID, name) VALUES (UUID_TO_BIN("41778620-2cd9-4eb8-9655-c67365551278"), "Applying");
