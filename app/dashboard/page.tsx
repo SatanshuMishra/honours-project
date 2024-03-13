@@ -36,7 +36,6 @@ function Dashboard() {
 				Cookies.remove("token");
 				router.push("/user-auth");
 			}
-
 			//  INFORMATION: ENSURE TYPE SECURITY (i.e., STRINGIFIED JSON IS RETURNED)
 
 			if (typeof response === "string") {
@@ -135,8 +134,8 @@ function Dashboard() {
 							</div>
 						</a>
 					</section>
-					<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2">
-						<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2">
+					<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2 translate-y-0.5 hover:-translate-y-0.5 transition-all duration-300 ease-in-out">
+						<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2 select-none">
 							Developer Tools
 						</p>
 						<div className="flex-1 flex flex-row justify-center mx-1">
