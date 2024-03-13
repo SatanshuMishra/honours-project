@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import React from "react";
-import LoginSVG from "../../public/unDraw_Login.svg";
 import RegisterSVG from "../../public/unDraw_Register.svg";
 import { useFormik } from "formik";
 
@@ -41,7 +40,6 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 			pgErrorObject: any | null;
 		} = JSON.parse(await response.text());
 
-		//  NOTE:
 		console.info("Sign-Up Respnse: ", res);
 
 		if (res.status === 201) {
