@@ -4,7 +4,10 @@ export default async function fetchQuestions(
 	studentID: string
 ): Promise<Question[] | boolean> {
 	try {
-		const request = await fetch("./questionnaire/api/fetchquestions", {
+		
+		console.log("ID: ", studentID);
+
+		const request = await fetch("/questionnaire/api/fetchquestions", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

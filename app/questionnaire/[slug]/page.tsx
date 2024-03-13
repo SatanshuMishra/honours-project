@@ -1,7 +1,7 @@
 "use client";
 
-//  INFORMATION: IMPORTS
-import React, { useEffect, useReducer, useState } from "react";
+//  DOCUMENTATION: IMPORTS
+import React, { useEffect, useReducer } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import hljs from "highlight.js/lib/core";
@@ -9,23 +9,30 @@ import javascript from "highlight.js/lib/languages/javascript";
 import "highlight.js/styles/github.css";
 import "remixicon/fonts/remixicon.css";
 
-//  INFORMATION: TYPES
-import Question from "../types/question";
-import Answer from "../types/answer";
-import Student from "../types/student";
+//  DOCUMENTATION: TYPES
 
-//  INFORMATION: COMPONENTS
-import QuizOption from "../components/quizComponents/QuizOption";
-import Loading from "../components/loading/loading";
+import Question from "../../types/question";
+import Answer from "../../types/answer";
+import Student from "../../types/student";
 
-//  INFORMATION: SCRIPTS
-import fetchQuestions from "../scripts/fetchQuestions";
-import fetchAnswers from "../scripts/fetchAnswers";
-import verifyJWT from "../scripts/verifyJWT";
+//  DOCUMENTATION: COMPONENTS
+
+import QuizOption from "../../components/quizComponents/QuizOption";
+import Loading from "../../components/loading/loading";
+
+//  DOCUMENTATION: SCRIPTS
+
+import fetchQuestions from "../../scripts/fetchQuestions";
+import fetchAnswers from "../../scripts/fetchAnswers";
+import verifyJWT from "../../scripts/verifyJWT";
+
+//  DOCUMENTATION: INTERFACE FOR CODE BLOCK
 
 interface Code {
 	code: string;
 }
+
+//  DOCUMENTATION: INTERFACE MANAGING QUIZ STATE
 
 interface QuizState {
 	loading: boolean;
@@ -47,6 +54,8 @@ interface QuizState {
 	submitted: boolean;
 }
 
+//  DOCUMENTATION: INTERFACE FOR ACTIONS AND PAYLOADS
+
 type QuizAction =
 	| { type: "SET_LOADING"; payload: boolean }
 	| { type: "SET_STUDENT_INFO"; payload: any }
@@ -59,6 +68,8 @@ type QuizAction =
 	| { type: "NEXT_QUESTION"; payload: null }
 	| { type: "START_QUIZ_DURATION"; payload: null }
 	| { type: "FINISH_QUIZ"; payload: null };
+
+//  DOCUMENTATION: COMPONENT FOR DISPLAYING CODE BLOCK W/ HIGHLIGHTING
 
 const CodeBlock = ({ code }: Code) => {
 	useEffect(() => {
@@ -74,8 +85,17 @@ const CodeBlock = ({ code }: Code) => {
 	);
 };
 
-function Questionnaire() {
+function Questionnaire({ params }: { params: { slug: string } }) {
+	const router = useRouter();
+
+	//  DOCUMENTATION: INITIALIZE LANGUAGE HIGHLIGHTING FOR CODE BLOCK
+
 	hljs.registerLanguage("javascript", javascript);
+
+	//  DEBUG:
+	console.info(`Slug: ${params.slug}`);
+
+	//  DOCUMENTATION: INITIALIZE STATE FOR QUIZ STATE
 
 	const initialState: QuizState = {
 		loading: true,
@@ -97,6 +117,8 @@ function Questionnaire() {
 		submitted: false,
 	};
 
+	//  DOCUMENTATION: DEFINE ACTIONS FOR QUIZ STATE
+
 	const quizReducer: React.Reducer<QuizState, QuizAction> = (
 		state: any,
 		action: any
@@ -107,7 +129,10 @@ function Questionnaire() {
 			case "SET_ERROR":
 				return { ...state, error: action.payload };
 			case "SET_STUDENT_INFO":
-				console.log("PAYLOAD: ", action.payload);
+
+				//  DEBUG:
+				console.info(action.payload.studentID);
+
 				return {
 					...state,
 					studentInfo: {
@@ -172,19 +197,21 @@ function Questionnaire() {
 				return state;
 		}
 	};
-	const [quizDuration, setQuizDuration] = useState(null);
-	const router = useRouter();
+
 	const [quizState, dispatch] = useReducer<
 		React.Reducer<QuizState, QuizAction>
 	>(quizReducer, initialState);
 
 	useEffect(() => {
-		console.log(quizState);
+		console.info(quizState);
 	}, [quizState]);
 
-	// DATA INITIALIZATION
+	//  DOCUMENTATION: INITIALIZE QUESTIONNAIRE STATE
+
 	useEffect(() => {
-		// VALIDATE TOKEN AND SET PARSED STUDENT ID
+
+		//  DOCUMENTATION: CHECK JWT TOKEN TO ENSURE STUDENT IS SIGNED IN
+
 		verifyJWT(true)
 			.then((studentInfo) => {
 				if (!studentInfo) {
@@ -195,8 +222,9 @@ function Questionnaire() {
 				if (typeof studentInfo === "string") {
 					const student: Student = JSON.parse(studentInfo);
 
+					//  DEBUG:
 					console.info(
-						`---STUDENT RETURNED---\nName: ${student.name}\n Username: ${student.username}`
+						`---STUDENT RETURNED---\nID: ${student.studentID}\nName: ${student.name}\nUsername: ${student.username}`
 					);
 
 					dispatch({ type: "SET_STUDENT_INFO", payload: student });
@@ -204,6 +232,7 @@ function Questionnaire() {
 					return fetchQuestions(quizState.studentInfo.studentID);
 				}
 
+				//  DEBUG:
 				console.error(
 					"Something went wrong. Boolean returned. String Expected."
 				);
