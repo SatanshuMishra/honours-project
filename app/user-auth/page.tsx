@@ -20,14 +20,14 @@ function UserAuth() {
   }, [router]);
   const [isSignIn, setIsSignIn] = useState(true);
   return (
-    <>
+    <main className="bg-[#f0f4f9]">
       {!isLoading &&
         (isSignIn ? (
           <LogIn setSignIn={setIsSignIn} displaySignIn={isSignIn} />
         ) : (
           <Register setSignIn={setIsSignIn} displaySignIn={isSignIn} />
         ))}
-    </>
+    </main>
   );
 }
 
