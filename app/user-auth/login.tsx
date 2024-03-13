@@ -45,7 +45,7 @@ export default function LogIn({ setSignIn, displaySignIn }: AuthProps) {
 		}	};
 	return (
 		<section className="flex flex-row justify-evenly items-center w-screen h-screen">
-			<div className="w-full max-w-3xl flex flex-col justify-center items-center shadow-2xl rounded-lg p-10 min-w-[20rem] mx-10">
+			<div className="w-full max-w-3xl flex flex-col justify-center items-center bg-white shadow-xl rounded-lg p-10 min-w-[20rem] mx-10">
 				<div className="w-full flex flex-col justify-center items-start">
 					<h1 className="text-5xl font-bold my-10">LOG IN</h1>
 					<form
@@ -71,7 +71,7 @@ export default function LogIn({ setSignIn, displaySignIn }: AuthProps) {
 							onChange={formik.handleChange}
 						/>
 						<button
-							className="p-2 text-white rounded-lg w-full font-bold my-5 bg-[#1FC2FF]"
+							className="p-2 text-white rounded-lg w-full font-bold my-5 bg-[#1FC2FF] hover:bg-[#2ebef2]"
 							type="submit"
 						>
 							LOG IN
@@ -84,7 +84,7 @@ export default function LogIn({ setSignIn, displaySignIn }: AuthProps) {
 					below:
 				</p>
 				<button
-					className="text-xl p-2 text-white rounded-lg w-full font-bold my-5 bg-[#82D400]"
+					className="text-xl p-2 text-white rounded-lg w-full font-bold my-5 bg-[#82D400] hover:bg-[#78c200]"
 					onClick={() => {
 						setSignIn(!displaySignIn);
 					}}
