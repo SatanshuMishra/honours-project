@@ -121,7 +121,7 @@ function Dashboard() {
 						</div>
 					</section>
 					<section className="m-10 p-2">
-						<a href="/questionnaire" className="block w-fit">
+						<a href="/questionnaire/ca66e94f-8b3b-47bf-b23b-a374e2d439af" className="block w-fit">
 							<div className="shadow-lg drop-shadow-md hover:shadow-2xl transition-all duration-300 w-fit p-8 rounded-xl flex flex-col justify-between items-center cursor-pointer">
 								<Image
 									src={Domino}

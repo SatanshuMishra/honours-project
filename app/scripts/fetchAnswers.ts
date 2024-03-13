@@ -2,7 +2,7 @@ import Answer from "../types/answer";
 
 export default async function fetchAnswers(questionID: string) {
   try {
-    const res = await fetch("./questionnaire/api/fetchanswers", {
+    const res = await fetch("/questionnaire/api/fetchanswers", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
