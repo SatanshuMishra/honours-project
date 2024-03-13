@@ -5,9 +5,17 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import Domino from "@/public/domino.svg";
 import parseJSON from "../scripts/parseJSON";
-import Loading from "../components/loading/loading";
 import verifyJWT from "../scripts/verifyJWT";
 import signOut from "../scripts/signOut";
+import dynamic from "next/dynamic";
+import "remixicon/fonts/remixicon.css";
+
+const LoadingComponent = dynamic(
+	() => import("../components/loading/loading"),
+	{
+		ssr: false,
+	}
+);
 
 function Dashboard() {
 	const router = useRouter();
@@ -19,7 +27,8 @@ function Dashboard() {
 	const [_, setStatistics] = useState<any[]>();
 
 	useEffect(() => {
-		// VALIDATE TOKEN AND SET PARSED STUDENT ID
+		//  INFORMATION: VALIDATE TOKEN AND SET PARSED STUDENT ID
+
 		verifyJWT(true).then((response) => {
 			//  INFORMATION: IF JWT IS NOT VALID, RETURN USER TO AUTH
 
@@ -95,22 +104,10 @@ function Dashboard() {
 				<>
 					<section className="flex flex-row-reverse m-4 sticky">
 						<button
-							className="text-lg p-2 text-white rounded-lg w-fit font-normal bg-pink-600"
+							className="text-lg py-1 px-4 text-white rounded-lg w-fit font-medium bg-[#de2f4f] border-[2px] border-[#de2f4f] hover:bg-white transition-all duration-300 ease-in-out hover:text-[#de2f4f]"
 							onClick={() => handleSignOut()}
 						>
 							SIGN OUT
-						</button>
-						<button
-							className="text-lg p-2 text-white rounded-lg w-fit font-normal bg-green-600"
-							onClick={() => parseJSON()}
-						>
-							LOAD DATA
-						</button>
-						<button
-							className="text-lg p-2 text-white rounded-lg w-fit font-normal bg-blue-600"
-							onClick={() => fetchStats()}
-						>
-							FETCH MODEL
 						</button>
 					</section>
 					<section className="m-10 p-2">
@@ -138,9 +135,28 @@ function Dashboard() {
 							</div>
 						</a>
 					</section>
+					<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2">
+						<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2">
+							Developer Tools
+						</p>
+						<div className="flex-1 flex flex-row justify-center mx-1">
+							<button
+								className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800"
+								onClick={() => parseJSON()}
+							>
+								<i className="ri-database-2-fill"></i>
+							</button>
+							<button
+								className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800"
+								onClick={() => fetchStats()}
+							>
+								<i className="ri-bard-fill"></i>
+							</button>
+						</div>
+					</div>
 				</>
 			) : (
-				<Loading />
+				<LoadingComponent />
 			)}
 		</section>
 	);

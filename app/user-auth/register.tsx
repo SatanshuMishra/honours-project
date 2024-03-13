@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import LoginSVG from "../../public/unDraw_Login.svg";
+import RegisterSVG from "../../public/unDraw_Register.svg";
 import { useFormik } from "formik";
 
 type AuthProps = {
@@ -51,7 +52,7 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 
 	return (
 		<section className="flex flex-row-reverse justify-evenly items-center w-screen h-screen">
-			<div className="w-full max-w-3xl flex flex-col justify-center items-center shadow-2xl rounded-lg p-10 min-w-[20rem] mx-10">
+			<div className="w-full max-w-3xl flex flex-col justify-center items-center bg-white shadow-xl rounded-lg p-10 min-w-[20rem] mx-10">
 				<div className="w-full flex flex-col justify-center items-start">
 					<h1 className="text-5xl font-bold my-10">REGISTER</h1>
 					<form
@@ -90,7 +91,7 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 							onChange={formik.handleChange}
 						/>
 						<button
-							className="p-2 text-white rounded-lg w-full font-bold my-5 bg-[#1FC2FF]"
+							className="p-2 text-white rounded-lg w-full font-bold my-5 bg-[#1FC2FF] hover:bg-[#2ebef2]"
 							type="submit"
 						>
 							CREATE AN ACCOUNT
@@ -102,7 +103,7 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 					Already have an account? You can access login below:
 				</p>
 				<button
-					className="text-xl p-2 text-white rounded-lg w-full font-bold my-5 bg-[#82D400]"
+					className="text-xl p-2 text-white rounded-lg w-full font-bold my-5 bg-[#82D400] hover:bg-[#78c200]"
 					onClick={() => {
 						setSignIn(!displaySignIn);
 					}}
@@ -112,8 +113,8 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 			</div>
 			<div className="hidden w-full xl:flex flex-col justify-center items-center mx-10">
 				<Image
-					src={LoginSVG}
-					alt="LoginSVG"
+					src={RegisterSVG}
+					alt="RegisterSVG"
 					className="h-fit w-auto"
 					priority={true}
 				/>
