@@ -47,19 +47,19 @@ export default function parseJSON() {
 async function insertQuestion(
 	studentID: string,
 	topic: string,
-	difficulty: number,
+	assignedDifficulty: number,
 	question: string,
 	bloomTaxonomy: string,
-	timeTakenSeconds: number,
+	assignedCompletionTime: number,
 	code?: string
 ): Promise<string | void> {
 	const values = {
 		studentID,
 		topic,
-		difficulty,
+		assignedDifficulty,
 		question,
 		taxonomyCategory: bloomTaxonomy,
-		timeTakenSeconds,
+		assignedCompletionTime,
 		code,
 	};
 	console.log(values);

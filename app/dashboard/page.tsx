@@ -61,13 +61,16 @@ function Dashboard() {
 	async function fetchStats() {
 		try {
 			const res = await fetch(
-				"./questionnaire/api/fetchperformancestatistics",
+				"./questionnaire/api/processResults",
 				{
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: null,
+					body: JSON.stringify({
+						studentID: "490c7a50-d7c2-4129-a886-f4b920a2c345",
+						topicID: "0dcbef1f-9a12-4a6c-8c11-6d5a39da5a2c"
+					}),
 					cache: "no-cache",
 					credentials: "include",
 				}

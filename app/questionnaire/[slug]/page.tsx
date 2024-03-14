@@ -129,10 +129,6 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 			case "SET_ERROR":
 				return { ...state, error: action.payload };
 			case "SET_STUDENT_INFO":
-
-				//  DEBUG:
-				console.info(action.payload.studentID);
-
 				return {
 					...state,
 					studentInfo: {
@@ -202,14 +198,9 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 		React.Reducer<QuizState, QuizAction>
 	>(quizReducer, initialState);
 
-	useEffect(() => {
-		console.info(quizState);
-	}, [quizState]);
-
 	//  DOCUMENTATION: INITIALIZE QUESTIONNAIRE STATE
 
 	useEffect(() => {
-
 		//  DOCUMENTATION: CHECK JWT TOKEN TO ENSURE STUDENT IS SIGNED IN
 
 		verifyJWT(true)
@@ -228,7 +219,6 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 					);
 
 					dispatch({ type: "SET_STUDENT_INFO", payload: student });
-
 					return fetchQuestions(quizState.studentInfo.studentID);
 				}
 
@@ -240,7 +230,9 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 				Cookies.remove("token");
 				router.push("/user-auth");
 			})
-			// ONCE TOKEN IS VALIDATED AND FETCH QUESTIONS
+			
+			//  DOCUMENTATION: FETCH QUESTIONS ONCE TOKEN IS VALIDATED
+
 			.then((questions) => {
 				console.info(`---QUESTIONS RETURNED---\n${questions}`);
 
@@ -323,7 +315,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 			};
 
 			const res = await fetch(
-				"./questionnaire/api/addperformancestatistics",
+				"/questionnaire/api/addperformancestatistics",
 				{
 					method: "POST",
 					headers: {
@@ -363,6 +355,48 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 			dispatch({ type: "NEXT_QUESTION", payload: null });
 		}
 	};
+
+	async function processResults() {
+		try {
+			if (!quizState.quizDurationEnd)
+				throw new Error("No submission detected!");
+
+			let values = {
+				studentID: quizState.studentInfo.studentID,
+				topicID: params.slug,
+			};
+
+			const res = await fetch(
+				"/questionnaire/api/processResults",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(values),
+					cache: "no-cache",
+					credentials: "include",
+				}
+			);
+
+			let resBody: {
+				data: null;
+				status: number;
+			} = JSON.parse(await res.text());
+
+			if (resBody.status === 400) {
+				return false;
+			}
+
+			return resBody.data;
+		} catch (error) {
+			console.error("Something went wrong in addStatistics.\n", error);
+		}
+	}
+
+	useEffect(() => {
+		processResults();
+	}, [quizState.quizDurationEnd])
 
 	return (
 		<>
