@@ -8,7 +8,7 @@ async function getQuestionInfo(questionID: string): Promise<string | void> {
 		categoryID: number;
 		modDifficulty: number;
 	}[] =
-		await prisma.$queryRaw`SELECT BIN_TO_UUID(topicID) AS topicID, BIN_TO_UUID(categoryID) AS categoryID, modDifficulty FROM question WHERE questionID = UUID_TO_BIN(${questionID})`;
+		await prisma.$queryRaw`SELECT BIN_TO_UUID(topicID) AS topicID, BIN_TO_UUID(categoryID) AS categoryID, modifiedDifficulty FROM question WHERE questionID = UUID_TO_BIN(${questionID})`;
 
 	if (question.length === 0 || question.length > 1)
 		throw new Error("0 or more than 1 question rows returned.");
