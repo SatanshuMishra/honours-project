@@ -36,7 +36,6 @@ function Dashboard() {
 				Cookies.remove("token");
 				router.push("/user-auth");
 			}
-
 			//  INFORMATION: ENSURE TYPE SECURITY (i.e., STRINGIFIED JSON IS RETURNED)
 
 			if (typeof response === "string") {
@@ -62,13 +61,16 @@ function Dashboard() {
 	async function fetchStats() {
 		try {
 			const res = await fetch(
-				"./questionnaire/api/fetchperformancestatistics",
+				"./questionnaire/api/processResults",
 				{
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: null,
+					body: JSON.stringify({
+						studentID: "490c7a50-d7c2-4129-a886-f4b920a2c345",
+						topicID: "0dcbef1f-9a12-4a6c-8c11-6d5a39da5a2c"
+					}),
 					cache: "no-cache",
 					credentials: "include",
 				}
@@ -122,7 +124,7 @@ function Dashboard() {
 						</div>
 					</section>
 					<section className="m-10 p-2">
-						<a href="/questionnaire" className="block w-fit">
+						<a href="/questionnaire/ca66e94f-8b3b-47bf-b23b-a374e2d439af" className="block w-fit">
 							<div className="shadow-lg drop-shadow-md hover:shadow-2xl transition-all duration-300 w-fit p-8 rounded-xl flex flex-col justify-between items-center cursor-pointer">
 								<Image
 									src={Domino}
@@ -135,8 +137,8 @@ function Dashboard() {
 							</div>
 						</a>
 					</section>
-					<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2">
-						<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2">
+					<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2 translate-y-0.5 hover:-translate-y-0.5 transition-all duration-300 ease-in-out">
+						<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2 select-none">
 							Developer Tools
 						</p>
 						<div className="flex-1 flex flex-row justify-center mx-1">

@@ -19,7 +19,8 @@ CREATE TABLE student (
 
 CREATE TABLE questionTopic (
 	topicID BINARY(16) NOT NULL PRIMARY KEY,
-	name VARCHAR(255) UNIQUE NOT NULL
+	name VARCHAR(255) UNIQUE NOT NULL,
+	image BLOB
 ) ENGINE = InnoDB;
 
 CREATE TABLE taxonomyCategory (
@@ -31,7 +32,6 @@ CREATE TABLE question (
 	questionID BINARY(16) NOT NULL PRIMARY KEY,
 	topicID BINARY(16) NOT NULL,
 	assignedDifficulty INTEGER NOT NULL,
-	CONSTRAINT Diff_Consrt CHECK (difficulty IN (1, 2, 3)),
 	modifiedDifficulty DECIMAL(3, 2) NOT NULL,
 	categoryID BINARY(16) NOT NULL,
 	assignedCompletionTime INTEGER NOT NULL,
@@ -59,7 +59,6 @@ CREATE TABLE statistic (
 	isCorrect BOOLEAN NOT NULL,
 	timeToAnswer DECIMAL(10, 3) NOT NULL,
 	recordedDifficulty INTEGER,
-	CONSTRAINT RecDiff_Consrt CHECK (recordedDifficulty IN (1, 2, 3)),
 	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (studentID) REFERENCES student(studentID),
 	FOREIGN KEY (questionID) REFERENCES question(questionID),

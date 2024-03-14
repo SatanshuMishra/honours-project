@@ -1,30 +1,37 @@
 import Question from "../types/question";
 
-// THIS FUNCTION FETCHES QUESTIONS FOR THE QUIZ
-// CURRENTLY, IT FETCHES 20 RANDOM QUESTIONS. IN THE FUTURE, 20 SELECT QUESTIONS WILL BE FETCHED.
-export default async function fetchQuestions(studentID: string) {
-  try {
-    const res = await fetch("./questionnaire/api/fetchquestions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({studentID}),
-      cache: "no-cache",
-      credentials: "include",
-    });
+export default async function fetchQuestions(
+	studentID: string
+): Promise<Question[] | boolean> {
+	try {
+		
+		console.log("ID: ", studentID);
 
-    let resBody: {
-      data: Question[];
-      status: number;
-    } = JSON.parse(await res.text());
+		const request = await fetch("/questionnaire/api/fetchquestions", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ studentID }),
+			cache: "no-cache",
+			credentials: "include",
+		});
 
-    if (resBody.status === 400) {
-      return false;
-    }
+		let response: {
+			data: Question[];
+			status: number;
+			message: string;
+			pgErrorObject: any;
+		} = JSON.parse(await request.text());
 
-    return resBody.data;
-  } catch (error) {
-    console.error("[FETCH QUESTIONS] Error:\n", error);
-  }
+		if (response.status === 400) {
+			console.error(`Message: ${response.message}\nPgError: ${response.pgErrorObject}`);
+			return false;
+		}
+
+		return response.data;
+	} catch (error) {
+		console.error("Something went wrong with fetching questions.", error);
+		return false;
+	}
 }

@@ -68,7 +68,7 @@ async function handleKnowledge(
 	let knowledgeID;
 	if (knowledgeRows.length === 0) {
 		knowledgeID = uuidv4();
-		await prisma.$queryRaw`INSERT INTO studentKnowledge (knowledgeID, studentID, topicID, categoryID, masteryProbability) VALUES (UUID_TO_BIN(${knowledgeID}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${taxonomyCategoryID}), 0.5)`;
+		await prisma.$queryRaw`INSERT INTO studentKnowledge (knowledgeID, studentID, topicID, categoryID) VALUES (UUID_TO_BIN(${knowledgeID}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${taxonomyCategoryID}))`;
 	}
 
 	if (knowledgeRows.length > 1)
@@ -86,10 +86,10 @@ export async function POST(request: NextRequest) {
 		const requestBody: {
 			studentID: string;
 			topic: string;
-			difficulty: number;
+			assignedDifficulty: number;
 			question: string;
 			taxonomyCategory: string;
-			timeTakenSeconds: number;
+			assignedCompletionTime: number;
 			code?: string;
 		} = JSON.parse(requestText);
 
@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
 		// [GUARD]
 		if (!knowledgeID) throw new Error("Error adding knowledge");
 
-		await prisma.$queryRaw`INSERT INTO question (questionID, topicID, difficulty, modDifficulty, question, categoryID, timeTakenSeconds, modTimeTakenSeconds, code) VALUES (UUID_TO_BIN(${questionID}), UUID_TO_BIN(${topicID}), ${requestBody.difficulty}, ${requestBody.difficulty}, ${requestBody.question}, UUID_TO_BIN(${taxonomyCategoryID}), ${requestBody.timeTakenSeconds}, ${requestBody.timeTakenSeconds}, ${requestBody.code})`;
+		await prisma.$queryRaw`INSERT INTO question (questionID, topicID, assignedDifficulty, modifiedDifficulty, question, categoryID, assignedCompletionTime, modifiedCompletionTime, code) VALUES (UUID_TO_BIN(${questionID}), UUID_TO_BIN(${topicID}), ${requestBody.assignedDifficulty}, ${requestBody.assignedDifficulty}, ${requestBody.question}, UUID_TO_BIN(${taxonomyCategoryID}), ${requestBody.assignedCompletionTime}, ${requestBody.assignedCompletionTime}, ${requestBody.code})`;
 
 		console.info("QuestionID Returned: ", questionID);
 

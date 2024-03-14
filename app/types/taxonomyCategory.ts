@@ -1,4 +1,4 @@
 export default interface TaxonomyCategory {
-	topicID: string;
+	categoryID: string;
 	name?: string;
 }
