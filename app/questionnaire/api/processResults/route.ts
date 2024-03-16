@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
 									FROM statistic
 									JOIN question ON statistic.questionID = question.questionID
 									JOIN taxonomyCategory ON question.categoryID = taxonomyCategory.categoryID
-									WHERE question.topicID = UUID_TO_BIN(${requestBody.topicID})`;
+									WHERE statistic.studentID = UUID_TO_BIN(${requestBody.studentID}) AND question.topicID = UUID_TO_BIN(${requestBody.topicID})`;
 
 		if (statistics.length === 0)
 			throw new Error(

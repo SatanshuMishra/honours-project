@@ -1,18 +1,16 @@
 import Question from "../types/question";
 
 export default async function fetchQuestions(
-	studentID: string
+	studentID: string,
+	topicID: string,
 ): Promise<Question[] | boolean> {
 	try {
-		
-		console.log("ID: ", studentID);
-
 		const request = await fetch("/questionnaire/api/fetchquestions", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ studentID }),
+			body: JSON.stringify({ studentID, topicID }),
 			cache: "no-cache",
 			credentials: "include",
 		});
