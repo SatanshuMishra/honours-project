@@ -1,4 +1,4 @@
 export default interface QuestionTopic {
-	topicID: string;
+	topicID?: string;
 	name?: string;
 }

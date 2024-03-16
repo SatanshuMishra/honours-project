@@ -1,5 +1,5 @@
 export default interface StudentKnowledge {
-	knowledgeID: string;
+	knowledgeID?: string;
 	studentID?: string;
 	topicID?: string;
 	categoryID?: string;
