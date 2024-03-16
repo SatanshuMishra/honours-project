@@ -6,7 +6,7 @@ async function getQuestionInfo(questionID: string): Promise<string | void> {
 	const question: {
 		topicID: number;
 		categoryID: number;
-		modDifficulty: number;
+		modifiedDifficulty: number;
 	}[] =
 		await prisma.$queryRaw`SELECT BIN_TO_UUID(topicID) AS topicID, BIN_TO_UUID(categoryID) AS categoryID, modifiedDifficulty FROM question WHERE questionID = UUID_TO_BIN(${questionID})`;
 
@@ -39,12 +39,12 @@ export async function POST(request: NextRequest) {
 		const question: {
 			topicID: string;
 			categoryID: string;
-			modDifficulty: string;
+			modifiedDifficulty: string;
 		} = JSON.parse(questionRequest);
 
 		console.info("[addStatistic] Question: ", question);
 
-		const currentDifficulty: number = parseFloat(question.modDifficulty);
+		const currentDifficulty: number = parseFloat(question.modifiedDifficulty);
 
 		const difficultyUpdate = requestBody.isCorrect ? -0.1 : 0.1;
 
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
 
 		await prisma.$queryRaw`INSERT INTO statistic (statID, studentID, questionID, chosenAnswerID, isCorrect, timeToAnswer, recordedDifficulty) VALUES (UUID_TO_BIN(${statisticID}), UUID_TO_BIN(${requestBody.studentID}), UUID_TO_BIN(${requestBody.questionID}), UUID_TO_BIN(${requestBody.chosenAnswerID}), ${requestBody.isCorrect}, ${requestBody.timeToAnswer}, ${requestBody.recordedDifficulty})`;
 
-		await prisma.$queryRaw`UPDATE question SET modDifficulty = ${newDifficulty} WHERE questionID = UUID_TO_BIN(${requestBody.questionID})`;
+		await prisma.$queryRaw`UPDATE question SET modifiedDifficulty = ${newDifficulty} WHERE questionID = UUID_TO_BIN(${requestBody.questionID})`;
 
 		const masteryUpdate = requestBody.isCorrect ? 0.1 : -0.1;
 
