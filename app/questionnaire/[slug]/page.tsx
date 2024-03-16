@@ -222,7 +222,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 					);
 
 					dispatch({ type: "SET_STUDENT_INFO", payload: student });
-					return fetchQuestions(quizState.studentInfo.studentID);
+					return fetchQuestions(quizState.studentInfo.studentID, params.slug);
 				}
 
 				//  DEBUG:
@@ -248,6 +248,8 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 			})
 			.catch((error) => dispatch({ type: "SET_ERROR", payload: error }));
 	}, []);
+
+	//  DOCUMENTATION: UPDATE QUESTION AND ANSWER CHOICES EACH TIME	CURRENT INDEX CHANGES
 
 	useEffect(() => {
 		if (quizState && quizState.questions.length !== 20) {
@@ -291,7 +293,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 		if (quizState.quizDurationEnd === null) return;
 	}, [quizState.quizDurationEnd]);
 
-	// ADD STATS FOR CURRENT QUESTION
+	//  DOCUMENTATION: ADD STATS FOR CURRENT QUESTION
 	async function addStatistics() {
 		try {
 			if (!quizState.submitted)
@@ -355,7 +357,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 
 	const onContinue = () => {
 		if (quizState.submitted) {
-			dispatch({ type: "NEXT_QUESTION", payload: null });
+			if(quizState.currentQuestionIndex < 20) dispatch({ type: "NEXT_QUESTION", payload: null });
 		}
 	};
 

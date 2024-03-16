@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
 
 		const masteryUpdate = requestBody.isCorrect ? 0.1 : -0.1;
 
-		await prisma.$queryRaw`UPDATE studentKnowledge SET masteryProbability = masteryProbability + ${masteryUpdate} WHERE studentID = UUID_TO_BIN(${requestBody.studentID}) AND topicID = UUID_TO_BIN(${question.topicID}) AND categoryID = UUID_TO_BIN(${question.categoryID})`;
+		await prisma.$queryRaw`UPDATE studentKnowledge SET mastery = mastery + ${masteryUpdate} WHERE studentID = UUID_TO_BIN(${requestBody.studentID}) AND topicID = UUID_TO_BIN(${question.topicID}) AND categoryID = UUID_TO_BIN(${question.categoryID})`;
 
 		return new Response(
 			JSON.stringify({
