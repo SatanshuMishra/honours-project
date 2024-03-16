@@ -316,7 +316,6 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 				isCorrect:
 					quizState.answers[quizState.selectedOptionIdx].isCorrect,
 				timeToAnswer: quizState.duration,
-				recordedDifficulty: null,
 			};
 
 			const res = await fetch(

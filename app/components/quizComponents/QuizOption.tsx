@@ -55,14 +55,14 @@ function QuizOption({
 							? isCorrectChoice
 								? "#19AC9B"
 								: "#AA1755"
-							: "#E7E7E7"
+							: "#66b5ff"
 						: "#5E6580",
 					"--marker-color": isSelectedAnswer
 						? showanswerExplanation
 							? isCorrectChoice
 								? "#19AC9B"
 								: "#AA1755"
-							: "#E7E7E7"
+							: "#66b5ff"
 						: "#5E6580",
 				} as any
 			}

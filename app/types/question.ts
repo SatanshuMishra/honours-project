@@ -1,11 +1,11 @@
 export default interface Question {
-	questionID: string;
+	questionID?: string;
 	topicID?: string;
-	assignedDifficulty?: number;
-	modifiedDifficulty?: number;
+	assignedDifficulty?: string;
+	modifiedDifficulty?: string;
 	categoryID?: string;
-	assignedCompletionTime?: number;
-	modifiedCompletionTime?: number;
-	question: string;
+	assignedCompletionTime?: string;
+	modifiedCompletionTime?: string;
+	question?: string;
 	code?: string;
 }

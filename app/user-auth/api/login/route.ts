@@ -94,14 +94,16 @@ export async function POST(request: NextRequest) {
 				name: student[0].name,
 				username: student[0].username,
 			};
+
 			let token = jwt.sign(payload, process.env.JWT_SECRET, {
 				expiresIn: "2h",
 			});
+
 			return new Response(
 				JSON.stringify({
 					data: token,
 					status: 201,
-					message: `${student[0].username} signed-up was successfully.`,
+					message: `${student[0].username} sign-in was successfully.`,
 					pgErrorObject: null,
 				})
 			);
@@ -110,7 +112,7 @@ export async function POST(request: NextRequest) {
 				JSON.stringify({
 					data: null,
 					status: 401,
-					message: `User couldn't be verified. Sign-up was not successfully.`,
+					message: `User couldn't be verified becasuse of invalid password. Sign-in was not successfully.`,
 					pgErrorObject: null,
 				})
 			);
@@ -121,7 +123,7 @@ export async function POST(request: NextRequest) {
 			JSON.stringify({
 				data: null,
 				status: 401,
-				message: `User couldn't be verified. Sign-up was not successfully.`,
+				message: `User couldn't be verified. Sign-in was not successfully.`,
 				pgErrorObject: {
 					...error,
 				},
