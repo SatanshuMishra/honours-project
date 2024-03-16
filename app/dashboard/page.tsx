@@ -112,7 +112,7 @@ function Dashboard() {
 							SIGN OUT
 						</button>
 					</section>
-					<section className="m-10 p-2">
+					<section className="m-10 p-2 font-jetbrains-mono">
 						<div>
 							<h1 className="font-bold text-4xl">
 								Welcome,
