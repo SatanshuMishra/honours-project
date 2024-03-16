@@ -8,6 +8,7 @@ import hljs from "highlight.js/lib/core";
 import javascript from "highlight.js/lib/languages/javascript";
 import "highlight.js/styles/github.css";
 import "remixicon/fonts/remixicon.css";
+import SVGQuiz from "@/public/SVG-Quiz.svg";
 
 //  DOCUMENTATION: TYPES
 
@@ -17,8 +18,10 @@ import Student from "../../types/student";
 
 //  DOCUMENTATION: COMPONENTS
 
+import ProgressBar from "../../components/progressBar/progressBar";
 import QuizOption from "../../components/quizComponents/QuizOption";
 import Loading from "../../components/loading/loading";
+import Results from "../../components/results/results";
 
 //  DOCUMENTATION: SCRIPTS
 
@@ -29,7 +32,7 @@ import verifyJWT from "../../scripts/verifyJWT";
 //  DOCUMENTATION: INTERFACE FOR CODE BLOCK
 
 interface Code {
-	code: string;
+	code: string | null;
 }
 
 //  DOCUMENTATION: INTERFACE MANAGING QUIZ STATE
@@ -77,8 +80,8 @@ const CodeBlock = ({ code }: Code) => {
 	}, []);
 
 	return (
-		<pre className="bg-black p-4">
-			<code className="javascript !bg-black !text-white !font-mono select-none">
+		<pre className="bg-black p-4 px-8">
+			<code className="javascript text-xl !bg-black !text-white select-none !font-jetbrains-mono">
 				{code}
 			</code>
 		</pre>
@@ -230,7 +233,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 				Cookies.remove("token");
 				router.push("/user-auth");
 			})
-			
+
 			//  DOCUMENTATION: FETCH QUESTIONS ONCE TOKEN IS VALIDATED
 
 			.then((questions) => {
@@ -270,7 +273,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 				dispatch({ type: "SET_ANSWERS", payload: answers as Answer[] });
 			})
 			.then(() => {
-				dispatch({ type: "START_QUIZ_DURATION", payload: null });
+				quizState.currentQuestionIndex === 0 && dispatch({ type: "START_QUIZ_DURATION", payload: null });
 			})
 			.catch((error) => {
 				dispatch({
@@ -366,18 +369,15 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 				topicID: params.slug,
 			};
 
-			const res = await fetch(
-				"/questionnaire/api/processResults",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(values),
-					cache: "no-cache",
-					credentials: "include",
-				}
-			);
+			const res = await fetch("/questionnaire/api/processResults", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(values),
+				cache: "no-cache",
+				credentials: "include",
+			});
 
 			let resBody: {
 				data: null;
@@ -395,157 +395,181 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 	}
 
 	useEffect(() => {
+		console.info("Start Time: ", quizState.quizDurationStart, "End Time: ", quizState.quizDurationEnd, "Duration:", quizState.quizDurationEnd - quizState.quizDurationStart);
 		processResults();
-	}, [quizState.quizDurationEnd])
+	}, [quizState.quizDurationEnd]);
 
 	return (
 		<>
 			{!quizState.loading ? (
 				<>
-					{/* SURROUNDING CONTAINER FOR QUIZ */}
-					<div className="bg-[#3A86FF] h-screen w-screen p-4 flex justify-evenly">
-						{/* LEFT CONTAINER */}
-						<div className="flex flex-col justify-start items-start w-full bg-transparent rounded-lg p-6 h-full max-w-[50%] mr-2 border-[1px] border-black">
-							{/* PROGRESS BAR AND INFORMATION */}
-							<div className="w-full border-[1px] border-black">
-								<div
-									className="w-full h-8 rounded-lg bg-red-500"
-									style={
-										{
-											"--progress-width":
-												(quizState.currentQuestionIndex /
-													quizState.questions
-														.length) *
-													100 +
-												"%",
-										} as any
-									}
-								></div>
-								<div className="text-white font-light mt-2">
-									{quizState.currentQuestionIndex + 1} out of{" "}
-									{quizState.questions.length} Questions
-								</div>
-							</div>
-							<div className="flex-1 w-full bg-white rounded-lg mt-2 p-6 border-[1px] border-black">
-								{/* QUESTION SECTION */}
-								<div>
-									<h2 className="font-bold text-xl text-black">
-										{
-											quizState.questions[
-												quizState.currentQuestionIndex
-											].question
-										}
-									</h2>
-								</div>
+					<main className="bg-[#141A33] h-full max-h-screen w-full flex flex-col p-10 transition-all duration-300 ease-in-out">
+						{/*  DOCUMENTATION: BACK TO DASHBOARD BUTTON */}
+						<a
+							className="flex flex-row justify-center items-baseline w-fit my-2 text-[#5E6580] text-lg hover:cursor-pointer hover:text-white transition-all duration-300 ease-in-out"
+							href="/dashboard"
+						>
+							<i className="ri-arrow-left-line py-2 px-1 text-xl"></i>
+							<p className="px-1 py-2 font-jetbrains-mono">
+								Back to Dashboard
+							</p>
+						</a>
+						<section
+							className="flex-1 w-full max-h-[86vh] flex flex-row justify-evenly"
+							style={
+								{
+									"--bg": quizState.questions[
+										quizState.currentQuestionIndex
+									].code
+										? "#000000"
+										: "transparent",
+								} as any
+							}
+						>
+							<section className="p-2 bg-[--bg] w-full flex flex-col justify-center h-full mr-4 rounded-[10px] overflow-y-scroll">
 								{quizState.questions[
 									quizState.currentQuestionIndex
 								].code && (
-									<div className="p-4 rounded-lg bg-black mt-4">
-										<CodeBlock
-											code={
-												quizState.questions[
-													quizState
-														.currentQuestionIndex
-												].code
-											}
-										/>
-									</div>
-								)}
-							</div>
-						</div>
-						<div className="flex flex-col justify-between rounded-lg p-6 w-full h-auto max-w-[50%] bg-white m-6">
-							{
-								<div>
-									<h2 className="font-bold text-xl text-black">
-										<span className="text-blue-500 text-[25px]">
-											QUESTION{" "}
-											<span className="text-[30px]">
-												{(
-													quizState.currentQuestionIndex +
-													1
-												)
-													.toString()
-													.padStart(2, "0")}
-											</span>
-										</span>
-										<br />
-									</h2>
-									{quizState.answers.map(
-										(answer, answerIdx) => {
-											return (
-												<QuizOption
-													key={answerIdx}
-													// ANSWER INDEX
-													answerIdx={
-														answerIdx as
-															| 0
-															| 1
-															| 2
-															| 3
-													}
-													// ANSWER TEXT
-													answerText={
-														answer.answerDescription
-													}
-													// HANLDE SELECTED OPTION
-													handleSelectOption={
-														handleSelectOption
-													}
-													isSelectedAnswer={
-														quizState.selectedOptionIdx ===
-														answerIdx
-													}
-													answerExplanation={
-														answer.answerExplanation
-													}
-													blockChange={
-														quizState.submitted
-													}
-													isCorrectChoice={
-														quizState.answers[
-															answerIdx
-														].isCorrect
-													}
-												/>
-											);
+									<CodeBlock
+										code={
+											quizState.questions[
+												quizState.currentQuestionIndex
+											].code
 										}
-									)}
-								</div>
-							}
-							<div>
-								{!quizState.submitted && (
-									<button
-										className="w-full bg-green-500 hover:bg-green-400 p-2 rounded-lg font-semibold text-white text-lg"
-										onClick={() => handleSubmit()}
-									>
-										Submit
-									</button>
+									/>
 								)}
-								{quizState.submitted && (
-									<button
-										className="w-full bg-sky-500 hover:bg-sky-400 p-2 rounded-lg font-semibold text-white text-lg"
-										onClick={() => onContinue()}
-									>
-										Continue
-									</button>
+								{!quizState.questions[
+									quizState.currentQuestionIndex
+								].code && (
+									<img
+										src={SVGQuiz.src}
+										alt="Picture"
+										className="w-[90%]"
+									/>
 								)}
-							</div>
-						</div>
-					</div>
+							</section>
+							<section className="p-2 w-full ml-4 flex flex-col items-start border-[0px] border-dashed border-white">
+								<h4 className="text-slate-700 text-xl font-bold font-jetbrains-mono">
+									Recursion
+								</h4>
+								<h1 className="text-3xl text-white font-bold font-jetbrains-mono">
+									QUESTION{" "}
+									<span className="text-[40px]">
+										{(
+											quizState.currentQuestionIndex + 1
+										).toLocaleString("en-US", {
+											minimumIntegerDigits: 2,
+											useGrouping: false,
+										})}
+									</span>
+									<span className="text-slate-700">/20</span>
+								</h1>
+								<ProgressBar
+									currentIdx={quizState.currentQuestionIndex}
+								/>
+								<h2 className="text-white text-3xl font-bold font-jetbrains-mono py-4">
+									{
+										quizState.questions[
+											quizState.currentQuestionIndex
+										].question
+									}
+								</h2>
+								<section
+									className="w-full h-full flex flex-col justify-between overflow-y-scroll"
+									style={
+										{
+											"--bg-color": quizState.submitted
+												? quizState.answers[
+														quizState
+															.selectedOptionIdx
+													].isCorrect
+													? "#19AC9B"
+													: "#AA1755"
+												: "#0185FF",
+											"--gap": quizState.submitted
+												? "0.5rem"
+												: "0.5rem",
+										} as any
+									}
+								>
+									<div className="w-full overflow-y-scroll">
+										{quizState.answers.map(
+											(answer, answerIdx) => {
+												return (
+													<QuizOption
+														key={answerIdx}
+														// ANSWER INDEX
+														answerIdx={
+															answerIdx as
+																| 0
+																| 1
+																| 2
+																| 3
+														}
+														// ANSWER TEXT
+														answerText={
+															answer.answerDescription
+														}
+														// HANLDE SELECTED OPTION
+														handleSelectOption={
+															handleSelectOption
+														}
+														isSelectedAnswer={
+															quizState.selectedOptionIdx ===
+															answerIdx
+														}
+														answerExplanation={
+															answer.answerExplanation
+														}
+														blockChange={
+															quizState.submitted
+														}
+														isCorrectChoice={
+															quizState.answers[
+																answerIdx
+															].isCorrect
+														}
+													/>
+												);
+											}
+										)}
+									</div>
+									<div>
+										{!quizState.submitted && (
+											<button
+												className="font-jetbrains-mono w-full bg-[#0185FF] hover:bg-[#1c90fc] p-4 rounded-[10px] shadow border-black font-semibold text-white text-xl"
+												onClick={() => handleSubmit()}
+											>
+												Submit
+											</button>
+										)}
+										{quizState.submitted && (
+											<button
+												className="font-jetbrains-mono w-full bg-[--bg-color] hover:bg-sky-400 p-4 rounded-[10px] shadow border-black font-semibold text-white text-xl"
+												onClick={() => onContinue()}
+											>
+												Continue
+											</button>
+										)}
+									</div>
+								</section>
+							</section>
+						</section>
+					</main>
 				</>
 			) : !quizState.quizDurationEnd ? (
 				<Loading />
 			) : (
-				<div>
-					<h1>QUIZ COMPLETE</h1>
-					<p>Your score is: {quizState.score}</p>
-					<p>Your percentage is: {(quizState.score / 20) * 100}</p>
-					<p>
-						Your duration:{" "}
-						{quizState.quizDurationEnd -
-							quizState.quizDurationStart}
-					</p>
-				</div>
+				<>
+					<Results
+						topicID={params.slug}
+						score={quizState.score}
+						duration={
+							quizState.quizDurationEnd -
+							quizState.quizDurationStart
+						}
+					/>
+				</>
 			)}
 		</>
 	);

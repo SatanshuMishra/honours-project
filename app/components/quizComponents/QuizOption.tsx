@@ -2,99 +2,100 @@
 import React, { useEffect, useState } from "react";
 
 type props = {
-  answerIdx: 0 | 1 | 2 | 3;
-  answerText: string;
-  handleSelectOption: (idx: 0 | 1 | 2 | 3 | null) => void;
-  isSelectedAnswer: boolean;
-  answerExplanation: string;
-  blockChange: boolean;
-  isCorrectChoice: boolean;
+	answerIdx: 0 | 1 | 2 | 3;
+	answerText: string;
+	handleSelectOption: (idx: 0 | 1 | 2 | 3 | null) => void;
+	isSelectedAnswer: boolean;
+	answerExplanation: string;
+	blockChange: boolean;
+	isCorrectChoice: boolean;
 };
 
 type explanationProps = {
-  explanation: string;
+	explanation: string;
 };
 
 function QuizOption({
-  answerIdx,
-  answerText,
-  handleSelectOption,
-  isSelectedAnswer,
-  answerExplanation,
-  blockChange,
-  isCorrectChoice,
+	answerIdx,
+	answerText,
+	handleSelectOption,
+	isSelectedAnswer,
+	answerExplanation,
+	blockChange,
+	isCorrectChoice,
 }: props) {
-  const [allowChange, setAllowChange] = useState(true);
-  const [showanswerExplanation, setShowanswerExplanation] = useState(false);
-  const optionCodes: {
-    [key: number]: string;
-  } = {
-    0: "A",
-    1: "B",
-    2: "C",
-    3: "D",
-  };
+	const [allowChange, setAllowChange] = useState(true);
+	const [showanswerExplanation, setShowanswerExplanation] = useState(false);
 
-  useEffect(() => {
-    if (blockChange) {
-      setShowanswerExplanation(true);
-      setAllowChange(false);
-    } else {
-      setShowanswerExplanation(false);
-      setAllowChange(true);
-    }
-  }, [blockChange]);
+	useEffect(() => {
+		if (blockChange) {
+			setShowanswerExplanation(true);
+			setAllowChange(false);
+		} else {
+			setShowanswerExplanation(false);
+			setAllowChange(true);
+		}
+	}, [blockChange]);
 
-  function Explanation({ explanation }: explanationProps) {
-    return (
-      <section className="my-2">
-        <h4 className="text-[#55BB05] font-semibold">Explanation:</h4>
-        <p>{explanation}</p>
-      </section>
-    );
-  }
+	function Explanation({ explanation }: explanationProps) {
+		return (
+			<div className="my-2 py-2">
+				<h4 className="text-[#FFFFFF] font-semibold font-jetbrains-mono">Explanation:</h4>
+				<p className="font-jetbrains-mono">{explanation}</p>
+			</div>
+		);
+	}
 
-  return (
-    <div
-      style={
-        {
-          "--index-color": isSelectedAnswer
-            ? blockChange
-              ? isCorrectChoice
-                ? "#8ED854"
-                : "#D85454"
-              : "#61AAFF"
-            : "#fff",
-          "--option-color": isSelectedAnswer
-            ? blockChange
-              ? isCorrectChoice
-                ? "rgba(147, 255, 97, 0.50)"
-                : "rgba(255, 97, 97, 0.50)"
-              : "rgba(97, 170, 255, 0.50)"
-            : "#fff",
-          "--text-color": isSelectedAnswer ? "#fff" : "#000",
-        } as any
-      }
-    >
-      <div
-        className="bg-[--option-color] p-2 shadow-lg my-2 flex items-center rounded-lg w-full max-w-full text-lg flex-row"
-        onClick={() => {
-          if (!allowChange) return;
-          handleSelectOption(answerIdx);
-        }}
-      >
-        <div className="bg-[--index-color] py-2 px-4 rounded shadow-[gray] shadow-md mr-2 text-[--text-color] font-bold h-fit">
-          {optionCodes[answerIdx]}
-        </div>
-        <section className="px-2">
-          <div>{answerText}</div>
-          {isSelectedAnswer && showanswerExplanation && (
-            <Explanation explanation={answerExplanation} />
-          )}
-        </section>
-      </div>
-    </div>
-  );
+	return (
+		<div
+			style={
+				{
+					"--border-color": isSelectedAnswer
+						? showanswerExplanation
+							? isCorrectChoice
+								? "#19AC9B"
+								: "#AA1755"
+							: "#E7E7E7"
+						: "#5E6580",
+					"--marker-color": isSelectedAnswer
+						? showanswerExplanation
+							? isCorrectChoice
+								? "#19AC9B"
+								: "#AA1755"
+							: "#E7E7E7"
+						: "#5E6580",
+				} as any
+			}
+		>
+			<div
+				className="p-4 shadow-lg my-2 flex flex-row justify-between w-full rounded-[10px] border-2 border-[--border-color] hover:cursor-pointer"
+				onClick={() => {
+					if (!allowChange) return;
+					handleSelectOption(answerIdx);
+				}}
+			>
+				<section className="px-2 text-white text-xl font-normal font-jetbrains-mono select-none">
+					{answerText}
+					{isSelectedAnswer && showanswerExplanation && (
+						<Explanation explanation={answerExplanation} />
+					)}
+				</section>
+				{isSelectedAnswer ? (
+					blockChange ? (
+						isCorrectChoice ? (
+							<i className="ri-checkbox-circle-fill w-6 h-6 text-2xl text-[--marker-color]"></i>
+						) : (
+							<i className="ri-close-circle-fill text-2xl text-[--marker-color]"></i>
+						)
+					) : (
+						<i className="ri-checkbox-circle-fill text-2xl text-[--marker-color]"></i>
+					)
+				) : (
+					<i className="ri-circle-line text-2xl text-[--marker-color]"></i>
+				)}
+			</div>
+		</div>
+	);
 }
 
 export default QuizOption;
