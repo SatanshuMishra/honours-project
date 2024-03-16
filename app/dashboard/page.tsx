@@ -60,21 +60,18 @@ function Dashboard() {
 
 	async function fetchStats() {
 		try {
-			const res = await fetch(
-				"./questionnaire/api/processResults",
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						studentID: "490c7a50-d7c2-4129-a886-f4b920a2c345",
-						topicID: "0dcbef1f-9a12-4a6c-8c11-6d5a39da5a2c"
-					}),
-					cache: "no-cache",
-					credentials: "include",
-				}
-			);
+			const res = await fetch("./questionnaire/api/processResults", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					studentID: "490c7a50-d7c2-4129-a886-f4b920a2c345",
+					topicID: "0dcbef1f-9a12-4a6c-8c11-6d5a39da5a2c",
+				}),
+				cache: "no-cache",
+				credentials: "include",
+			});
 
 			let resBody: {
 				data: any;
@@ -104,41 +101,44 @@ function Dashboard() {
 		<section className="w-full h-full">
 			{studentID && studentName && studentUsername ? (
 				<>
-					<section className="flex flex-row-reverse m-4 sticky">
-						<button
-							className="text-lg py-1 px-4 text-white rounded-lg w-fit font-medium bg-[#de2f4f] border-[2px] border-[#de2f4f] hover:bg-white transition-all duration-300 ease-in-out hover:text-[#de2f4f]"
-							onClick={() => handleSignOut()}
-						>
-							SIGN OUT
-						</button>
-					</section>
-					<section className="m-10 p-2 font-jetbrains-mono">
+					<section className="p-10">
+						<section className="flex flex-row-reverse m-4 sticky">
+							<button
+								className="text-lg p-2 text-[#de2f4f] rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-[#de2f4f] hover:bg-[#de2f4f] transition-all duration-300 ease-in-out hover:text-white font-jetbrains-mono"
+								onClick={() => handleSignOut()}
+							>
+								Sign Out	
+							</button>
+						</section>
 						<div>
-							<h1 className="font-bold text-4xl">
+							<h1 className="font-bold text-[40px] font-jetbrains-mono">
 								Welcome,
 								<br />
-								<span className="font-normal">
+								<span className="font-normal font-jetbrains-mono">
 									{studentName}
 								</span>
 							</h1>
 						</div>
 					</section>
 					<section className="m-10 p-2">
-						<a href="/questionnaire/ca66e94f-8b3b-47bf-b23b-a374e2d439af" className="block w-fit">
+						<a
+							href="/questionnaire/0dcbef1f-9a12-4a6c-8c11-6d5a39da5a2c"
+							className="block w-fit"
+						>
 							<div className="shadow-lg drop-shadow-md hover:shadow-2xl transition-all duration-300 w-fit p-8 rounded-xl flex flex-col justify-between items-center cursor-pointer">
 								<Image
 									src={Domino}
 									alt="Recursion Icon"
 									className="w-[146px] h-[146px] my-2"
 								/>
-								<h4 className="font-light my-2 text-xl">
+								<h4 className="font-light my-2 text-xl font-jetbrains-mono">
 									Recursion
 								</h4>
 							</div>
 						</a>
 					</section>
 					<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2 translate-y-0.5 hover:-translate-y-0.5 transition-all duration-300 ease-in-out">
-						<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2 select-none">
+						<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2 select-none font-jetbrains-mono">
 							Developer Tools
 						</p>
 						<div className="flex-1 flex flex-row justify-center mx-1">
