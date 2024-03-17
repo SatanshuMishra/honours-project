@@ -11,8 +11,8 @@ export async function POST(request: NextRequest) {
 		} = JSON.parse(requestText);
 
 		let questions: Question[] =
-			await prisma.$queryRaw`SELECT BIN_TO_UUID(q.questionID) AS questionID, q.assignedDifficulty, q.question, q.code FROM question q
-			JOIN studentKnowledge sk ON q.topicID = sk.topicID AND q.categoryID = sk.categoryID WHERE q.topicID = UUID_TO_BIN(${requestBody.topicID}) ORDER BY RAND() LIMIT 20`;
+			await prisma.$queryRaw`SELECT BIN_TO_UUID(q.questionID) AS questionID, q.modifiedDifficulty, q.question, q.code FROM question q
+			JOIN studentKnowledge sk ON q.topicID = sk.topicID AND q.categoryID = sk.categoryID WHERE q.topicID = UUID_TO_BIN(${requestBody.topicID}) AND q.modifiedDifficulty BETWEEN sk.mastery + sk.difficultyOffset - 0.3 AND sk.mastery + sk.difficultyOffset + 0.3 ORDER BY RAND() LIMIT 20`;
 
 		if (!questions || questions.length < 20 || questions.length > 20)
 			return new Response(

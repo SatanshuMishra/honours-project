@@ -146,8 +146,12 @@ export async function POST(request: NextRequest) {
 
 				//  DEBUG:
 				console.info("Category ID: ", categoryID);
+				
+				const normalizedDifficulty = Math.abs(results[result]['b']) <= 10 ? results[result]['b']/10 * 2 : results[result]['b'] > 0 ? 2/10 * 2 : -2/10 * 2 ;
 
-				let updateStatus = await updateIRTDifficulty(requestBody.studentID, requestBody.topicID, categoryID, results[result]['b']);
+				console.info(`Difficulty: ${results[result]['b']}\nNormalized Difficulty: ${results[result]['b']/10 * 5}`);
+
+				let updateStatus = await updateIRTDifficulty(requestBody.studentID, requestBody.topicID, categoryID, normalizedDifficulty);
 				if(!updateStatus)
 					throw new Error("Updating difficultyOffset failed.");
 			}
