@@ -79,6 +79,14 @@ export async function POST(request: NextRequest) {
 			);
 		}
 
+		const code: {
+			isRegistered: boolean;
+			}[] = await prisma.$queryRaw`SELECT isRegistered FROM studentCode WHERE code = ${pureUsername}`;
+
+		if(code.length != 1) throw new Error(`Something went wrong with fetching student code. Length Error.`);
+
+		if(code[0].isRegistered) throw new Error(`Student Code is already in use!`);
+
 		const uuid = uuidv4();
 
 		const result =
