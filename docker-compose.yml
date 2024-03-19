@@ -16,12 +16,5 @@ services:
     volumes:
       - mysql-db:/var/lib/mysql
       - ./ddl:/docker-entrypoint-initdb.d
-  mysql-admin:
-    image: phpmyadmin:latest
-    restart: always
-    ports:
-      - 8080:80
-    environment:
-      - PMA_ARBITRARY=1
 volumes:
   mysql-db:

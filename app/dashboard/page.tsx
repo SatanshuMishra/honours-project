@@ -9,6 +9,8 @@ import verifyJWT from "../scripts/verifyJWT";
 import signOut from "../scripts/signOut";
 import dynamic from "next/dynamic";
 import "remixicon/fonts/remixicon.css";
+import QuestionTopic from "../types/questionTopic";
+import Papa from "papaparse";
 
 const LoadingComponent = dynamic(
 	() => import("../components/loading/loading"),
@@ -22,6 +24,7 @@ function Dashboard() {
 	const [studentID, setStudentID] = useState<any>();
 	const [studentName, setStudentName] = useState("");
 	const [studentUsername, setStudentUsername] = useState("");
+	const [topics, setTopics] = useState<QuestionTopic[] | null>(null);
 
 	// TEMPORARY TEST VARIABLES
 	const [_, setStatistics] = useState<any[]>();
@@ -91,6 +94,43 @@ function Dashboard() {
 		}
 	}
 
+	async function fetchTopics() {
+		try {
+			const res = await fetch("/dashboard/api/fetchTopics", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: null,
+				cache: "no-cache",
+				credentials: "include",
+			});
+
+			let resBody: {
+				data: QuestionTopic[];
+				status: number;
+				message: string;
+				pgErrorObject: any | null;
+			} = JSON.parse(await res.text());
+
+			if (resBody.status === 400)
+				throw new Error(
+					"An error occured during the pre-processing and fetching of statistics."
+				);
+
+			setTopics(resBody.data);
+			console.log(resBody.data);
+			console.log("Topics Set!");
+		} catch (error) {
+			console.error("[FETCH Topics] Error:\n", error);
+		}
+	}
+
+	useEffect(() => {
+		if (!studentID) return;
+		fetchTopics();
+	}, [studentID]);
+
 	async function handleSignOut(): Promise<void> {
 		await signOut();
 		Cookies.remove("token");
@@ -107,7 +147,7 @@ function Dashboard() {
 								className="text-lg p-2 text-[#de2f4f] rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-[#de2f4f] hover:bg-[#de2f4f] transition-all duration-300 ease-in-out hover:text-white font-jetbrains-mono"
 								onClick={() => handleSignOut()}
 							>
-								Sign Out	
+								Sign Out
 							</button>
 						</section>
 						<div>
@@ -121,21 +161,29 @@ function Dashboard() {
 						</div>
 					</section>
 					<section className="m-10 p-2">
-						<a
-							href="/questionnaire/a41e4f4f-0d9f-4441-989d-98d71342dc47"
-							className="block w-fit"
-						>
-							<div className="shadow-lg drop-shadow-md hover:shadow-2xl transition-all duration-300 w-fit p-8 rounded-xl flex flex-col justify-between items-center cursor-pointer">
-								<Image
-									src={Domino}
-									alt="Recursion Icon"
-									className="w-[146px] h-[146px] my-2"
-								/>
-								<h4 className="font-light my-2 text-xl font-jetbrains-mono">
-									Recursion
-								</h4>
-							</div>
-						</a>
+						{topics ? (
+							topics.map((topic) => {
+								return (
+									<a
+										href={`/questionnaire/${topic.topicID}`}
+										className="block w-fit"
+									>
+										<div className="shadow-lg drop-shadow-md hover:shadow-2xl transition-all duration-300 w-fit p-8 rounded-xl flex flex-col justify-between items-center cursor-pointer">
+											<Image
+												src={Domino}
+												alt="Recursion Icon"
+												className="w-[146px] h-[146px] my-2"
+											/>
+											<h4 className="font-light my-2 text-xl font-jetbrains-mono">
+												{topic.name}
+											</h4>
+										</div>
+									</a>
+								);
+							})
+						) : (
+							<p>No Topics Fetched.</p>
+						)}
 					</section>
 					<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2 translate-y-0.5 hover:-translate-y-0.5 transition-all duration-300 ease-in-out">
 						<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2 select-none font-jetbrains-mono">
@@ -153,6 +201,12 @@ function Dashboard() {
 								onClick={() => fetchStats()}
 							>
 								<i className="ri-bard-fill"></i>
+							</button>
+							<button
+								className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800"
+								onClick={() => {}}
+							>
+								<i className="ri-graduation-cap-fill"></i>
 							</button>
 						</div>
 					</div>
