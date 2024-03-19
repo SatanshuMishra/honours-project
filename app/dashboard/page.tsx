@@ -149,6 +149,11 @@ function Dashboard() {
 							>
 								Sign Out
 							</button>
+							<a href="https://forms.gle/PCn5L91D3ihFBALw8" target="_blank">
+								<button className="text-lg p-2 mr-2 text-[#de2f4f] rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-[#de2f4f] hover:bg-[#de2f4f] transition-all duration-300 ease-in-out hover:text-white font-jetbrains-mono">
+									Report an Issue
+								</button>
+							</a>
 						</section>
 						<div>
 							<h1 className="font-bold text-[40px] font-jetbrains-mono">
