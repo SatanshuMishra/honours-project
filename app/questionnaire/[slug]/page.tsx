@@ -216,13 +216,15 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 				if (typeof studentInfo === "string") {
 					const student: Student = JSON.parse(studentInfo);
 
+					console.log(student);
+
 					//  DEBUG:
 					console.info(
 						`---STUDENT RETURNED---\nID: ${student.studentID}\nName: ${student.name}\nUsername: ${student.username}`
 					);
 
 					dispatch({ type: "SET_STUDENT_INFO", payload: student });
-					return fetchQuestions(quizState.studentInfo.studentID, params.slug);
+					return fetchQuestions(student.studentID, params.slug);
 				}
 
 				//  DEBUG:

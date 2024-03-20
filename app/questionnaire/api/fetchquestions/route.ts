@@ -10,11 +10,19 @@ export async function POST(request: NextRequest) {
 			topicID: string;
 		} = JSON.parse(requestText);
 
-		let questions: Question[] =
-			await prisma.$queryRaw`SELECT BIN_TO_UUID(q.questionID) AS questionID, q.modifiedDifficulty, q.question, q.code FROM question q
-			JOIN studentKnowledge sk ON q.topicID = sk.topicID AND q.categoryID = sk.categoryID WHERE q.topicID = UUID_TO_BIN(${requestBody.topicID}) AND q.modifiedDifficulty BETWEEN sk.mastery + sk.difficultyOffset - 0.3 AND sk.mastery + sk.difficultyOffset + 0.3 ORDER BY RAND() LIMIT 20`;
+		console.log(requestBody);
 
-		if (!questions || questions.length < 20 || questions.length > 20)
+		let questions: {
+			questionID: Question["questionID"];
+			modifiedDifficulty: Question["modifiedDifficulty"];
+			question: Question["question"];
+			code: Question["code"];
+			}[]=
+			await prisma.$queryRaw`SELECT BIN_TO_UUID(q.questionID) AS questionID, q.modifiedDifficulty, q.question, q.code FROM question q JOIN studentKnowledge sk ON q.topicID = sk.topicID AND q.categoryID = sk.categoryID WHERE q.topicID = UUID_TO_BIN(${requestBody.topicID}) AND sk.studentID = UUID_TO_BIN(${requestBody.studentID}) AND q.modifiedDifficulty BETWEEN sk.mastery + sk.difficultyOffset - 0.3 AND sk.mastery + sk.difficultyOffset + 0.3 ORDER BY RAND() LIMIT 20`;
+
+		console.info(questions, questions.length);
+
+		if (questions.length !== 20)
 			return new Response(
 				JSON.stringify({
 					data: null,
