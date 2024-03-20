@@ -33,6 +33,7 @@ export default function Loading() {
 				className="w-[20rem] h-auto"
 				src={PenguinGIF}
 				alt="Penguin GIF"
+				priority
 			/>
 			<h1 className="text-2xl my-4 font-black text-gray-100">LOADING</h1>
 			<p className="text-xl text-white">{loadingPhrase}</p>
