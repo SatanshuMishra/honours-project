@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
 
 		//  DOCUMENTATION: ADD ATTEMPT TO STATISTICS TABLE
 
-		await prisma.$queryRaw`INSERT INTO statistic (statID, studentID, questionID, chosenAnswerID, isCorrect, timeToAnswer, recordedDifficulty) VALUES (UUID_TO_BIN(${statisticID}), UUID_TO_BIN(${requestBody.studentID}), UUID_TO_BIN(${requestBody.questionID}), UUID_TO_BIN(${requestBody.chosenAnswerID}), ${requestBody.isCorrect}, ${requestBody.timeToAnswer}, ${requestBody.recordedDifficulty})`;
+		await prisma.$queryRaw`INSERT INTO statistic (statID, studentID, questionID, chosenAnswerID, isCorrect, timeToAnswer) VALUES (UUID_TO_BIN(${statisticID}), UUID_TO_BIN(${requestBody.studentID}), UUID_TO_BIN(${requestBody.questionID}), UUID_TO_BIN(${requestBody.chosenAnswerID}), ${requestBody.isCorrect}, ${requestBody.timeToAnswer})`;
 
 		//  DOCUMENTATION: UPDATE QUESTION DIFFICULTY
 

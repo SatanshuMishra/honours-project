@@ -65,7 +65,6 @@ CREATE TABLE statistic (
 	chosenAnswerID BINARY(16) NOT NULL,
 	isCorrect BOOLEAN NOT NULL,
 	timeToAnswer DECIMAL(10, 3) NOT NULL,
-	recordedDifficulty INTEGER,
 	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (studentID) REFERENCES student(studentID),
 	FOREIGN KEY (questionID) REFERENCES question(questionID),

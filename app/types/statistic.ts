@@ -5,6 +5,5 @@ export default interface Statistic {
 	chosenAnswerID?: string;
 	isCorrect?: boolean;
 	timeToAnswer?: number;
-	recordedDifficulty?: number | null;
 	createdAt?: Date;
 }
