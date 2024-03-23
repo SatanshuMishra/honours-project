@@ -1,9 +1,10 @@
 import Image from "next/image";
 import React from "react";
 import LoginSVG from "../../public/unDraw_Login.svg";
-import RegisterSVG from "../../public/unDraw_Register.svg";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
+
 
 type AuthProps = {
 	setSignIn: (arg0: boolean) => void;
@@ -12,6 +13,8 @@ type AuthProps = {
 
 export default function LogIn({ setSignIn, displaySignIn }: AuthProps) {
 	const router = useRouter();
+	const { toast } = useToast();
+
 	const formik = useFormik({
 		initialValues: {
 			username: "",
@@ -42,7 +45,37 @@ export default function LogIn({ setSignIn, displaySignIn }: AuthProps) {
 		if (res.status === 201) {
 			document.cookie = `token=${res.data}; path=/`;
 			router.push("/dashboard");
-		}	};
+		} else {
+			if (res.status === 400){
+				toast({
+					title: "Missing Fields",
+					description: "Please provide both your username and password and try again!",
+					variant: "destructive",
+				})
+			}
+			if (res.status === 422) {
+				toast({
+					title: "Security Risks Detected",
+					description: "Possible security risks detected in your inputs for username or password. Please review your inputs and try again!",
+					variant: "destructive",
+				})
+			}
+			if (res.status === 401){
+				toast({
+					title: "Invalid Username or Password",
+					description: "You entered an invalid username or password. Please review your inputs and try again!",
+					variant: "destructive",
+				})
+			}
+			if (res.status === 500){
+				toast({
+					title: "Something Unexpected Happend",
+					description: "We aren't quite sure what happend! Please report this behavior to satanshu@student.ubc.ca.",
+					variant: "destructive",
+				})
+			}
+		}
+	};
 	return (
 		<section className="flex flex-row justify-evenly items-center w-screen h-screen">
 			<div className="w-full max-w-3xl flex flex-col justify-center items-center bg-white shadow-xl rounded-lg p-10 min-w-[20rem] mx-10">
