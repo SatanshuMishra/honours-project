@@ -4,6 +4,7 @@ import Image from "next/image";
 import React from "react";
 import RegisterSVG from "../../public/unDraw_Register.svg";
 import { useFormik } from "formik";
+import { useToast } from "@/components/ui/use-toast";
 
 type AuthProps = {
 	setSignIn: (arg0: boolean) => void;
@@ -11,6 +12,8 @@ type AuthProps = {
 };
 
 function SignUp({ setSignIn, displaySignIn }: AuthProps) {
+	const { toast } = useToast();
+
 	const formik = useFormik({
 		initialValues: {
 			name: "",
@@ -44,7 +47,29 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 
 		if (res.status === 201) {
 			console.debug("Entered Router Container.");
+			toast({
+				title: "Sign-Up Succesful",
+				description: "You were signed up successfully! Please login to access the quiz.",
+				variant: "default",
+			})
 			setSignIn(true);
+		} else {
+			if (res.status === 422) {
+				toast({
+					title: "Security Risks Detected",
+					description: "Possible security risks detected in your inputs for name, username or password. Please review your inputs and try again!",
+					variant: "destructive",
+				})
+			}
+			if (res.status === 500) {
+				if (res.pgErrorObject.name === 'PrismaClientKnownRequestError') {
+					toast({
+						title: "Sign-Up Failed",
+						description: "You are using the same student code as another student. Please use an unique code.",
+						variant: "destructive",
+					});
+				}
+			}
 		}
 	};
 
@@ -70,8 +95,7 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 							USERNAME
 						</label>
 						<p className="font-light mb-2">
-							Make sure your username doesn’t reveal your
-							identity.
+							Please use the code provided to you by the professor. No other usernames will be accepted.
 						</p>
 						<input
 							className="p-2 border-2 border-black rounded-lg w-full"

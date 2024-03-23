@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
 			return new Response(
 				JSON.stringify({
 					data: null,
-					status: 401,
+					status: 400,
 					message: `Missing field values.`,
 					pgErrorObject: null,
 				})
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
 		return new Response(
 			JSON.stringify({
 				data: null,
-				status: 401,
+				status: 500,
 				message: `User couldn't be verified. Sign-in was not successfully.`,
 				pgErrorObject: {
 					...error,
