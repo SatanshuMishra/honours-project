@@ -86,6 +86,9 @@ CREATE TABLE studentKnowledge (
 
 /*  INFORMATION:: INSERT STUDENT CODE  */
 INSERT INTO studentCode (code) VALUES ('SatanshuMishra');
+INSERT INTO studentCode (code) VALUES ('Shaheer');
+INSERT INTO studentCode (code) VALUES ('Trevor');
+INSERT INTO studentCode (code) VALUES ('Ana');
 INSERT INTO studentCode (code) VALUES ('cUGnTw');
 INSERT INTO studentCode (code) VALUES ('yq+rT0');
 INSERT INTO studentCode (code) VALUES ('aMqYr8');
