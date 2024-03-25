@@ -7,6 +7,17 @@
 -- Server version: 8.0.36
 -- PHP Version: 8.2.17
 
+SET foreign_key_checks = 0;
+DROP TABLE IF EXISTS studentCode;
+DROP TABLE IF EXISTS student;
+DROP TABLE IF EXISTS taxonomyCategory;
+DROP TABLE IF EXISTS question;
+DROP TABLE IF EXISTS questionTopic;
+DROP TABLE IF EXISTS answer;
+DROP TABLE IF EXISTS statistic;
+DROP TABLE IF EXISTS studentKnowledge;
+SET foreign_key_checks = 1;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";

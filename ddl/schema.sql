@@ -6,7 +6,6 @@ DROP TABLE IF EXISTS taxonomyCategory;
 DROP TABLE IF EXISTS question;
 DROP TABLE IF EXISTS answer;
 DROP TABLE IF EXISTS statistic;
-DROP TABLE IF EXISTS uuidMapping;
 DROP TABLE IF EXISTS studentKnowledge;
 SET foreign_key_checks = 1;
 
