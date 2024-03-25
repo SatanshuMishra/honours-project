@@ -38,13 +38,13 @@ SET time_zone = "+00:00";
 -- Table structure for table `answer`
 --
 
-CREATE TABLE `answer` (
+CREATE TABLE `answer` (g
   `answerID` binary(16) NOT NULL,
   `questionID` binary(16) NOT NULL,
   `answerDescription` text NOT NULL,
   `answerExplanation` text NOT NULL,
   `isCorrect` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 --
 -- Dumping data for table `answer`
@@ -521,7 +521,7 @@ CREATE TABLE `question` (
   `modifiedCompletionTime` decimal(5,2) NOT NULL,
   `question` text NOT NULL,
   `code` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 --
 -- Dumping data for table `question`
@@ -652,7 +652,7 @@ CREATE TABLE `questionTopic` (
   `topicID` binary(16) NOT NULL,
   `name` varchar(255) NOT NULL,
   `image` blob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 --
 -- Dumping data for table `questionTopic`
@@ -675,7 +675,7 @@ CREATE TABLE `statistic` (
   `isCorrect` tinyint(1) NOT NULL,
   `timeToAnswer` decimal(10,3) NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 -- --------------------------------------------------------
 
@@ -689,7 +689,7 @@ CREATE TABLE `student` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `completedBonusContent` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 --
 -- Dumping data for table `student`
@@ -707,7 +707,7 @@ INSERT INTO `student` (`studentID`, `name`, `username`, `password`, `completedBo
 CREATE TABLE `studentCode` (
   `code` varchar(255) NOT NULL,
   `isRegistered` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 --
 -- Dumping data for table `studentCode`
@@ -1070,7 +1070,7 @@ CREATE TABLE `studentKnowledge` (
   `categoryID` binary(16) NOT NULL,
   `mastery` decimal(5,2) NOT NULL DEFAULT '0.50',
   `difficultyOffset` decimal(5,2) NOT NULL DEFAULT '0.00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 --
 -- Dumping data for table `studentKnowledge`
@@ -1093,7 +1093,7 @@ INSERT INTO `studentKnowledge` (`knowledgeID`, `studentID`, `topicID`, `category
 CREATE TABLE `taxonomyCategory` (
   `categoryID` binary(16) NOT NULL,
   `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB;
 
 --
 -- Dumping data for table `taxonomyCategory`
