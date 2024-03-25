@@ -38,7 +38,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `answer`
 --
 
-CREATE TABLE `answer` (
+CREATE TABLE `answer` (g
   `answerID` binary(16) NOT NULL,
   `questionID` binary(16) NOT NULL,
   `answerDescription` text NOT NULL,
