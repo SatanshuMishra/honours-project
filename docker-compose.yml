@@ -2,13 +2,13 @@ version: "3.9"
 services:
   db:
     image: mysql:8.0
-    container_name: honours-mysql
+    container_name: ulearn 
     restart: always
     environment:
-      MYSQL_DATABASE: "honoursDatabase"
-      MYSQL_USER: "user"
-      MYSQL_PASSWORD: "password"
-      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "ulearn"
+      MYSQL_USER: "ulearnuser"
+      MYSQL_PASSWORD: "ulearnpassword"
+      MYSQL_ROOT_PASSWORD: "ulearnpassword"
     ports:
       - "3306:3306"
     expose:

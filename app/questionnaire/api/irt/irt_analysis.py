@@ -11,13 +11,15 @@ mirt = importr('mirt')
 
 def get_topic_difficulties(student_data):
     pd_df = pd.DataFrame(student_data)
+    pandas2ri.activate()
     r_from_pd_df = None
     with (robjects.default_converter + pandas2ri.converter).context():
         r_from_pd_df = robjects.conversion.get_conversion().py2rpy(pd_df)
 
+
     # print(r_from_pd_df)
 
-    model = mirt.mirt(r_from_pd_df, model="F1 = 1-4", itemtype="2PL", est="ML", verbose=False)
+    model = mirt.mirt(r_from_pd_df, model="F1 = 1-6", itemtype="2PL", est="ML", verbose=False)
    
     robjects.r.assign("model", model)
 

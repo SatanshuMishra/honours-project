@@ -19,7 +19,7 @@ async function getCategoryID(name: string): Promise<String | undefined> {
 			throw new Error(`No category by the name of ${name} found!`);
 
 		return category[0].categoryID;
-	} catch (error) {}
+	} catch (error) { }
 }
 
 async function updateIRTDifficulty(studentID: string, topicID: string, categoryID: string, difficultyOffset: number): Promise<Boolean> {
@@ -30,7 +30,7 @@ async function updateIRTDifficulty(studentID: string, topicID: string, categoryI
 		console.error("Something went wrong with updating difficultyOffset.\nError: ", error);
 		return false;
 	}
-	}
+}
 
 export async function POST(request: NextRequest) {
 	try {
@@ -113,6 +113,7 @@ export async function POST(request: NextRequest) {
 		const options = {
 			pythonOptions: ["-u"],
 			args: [JSON.stringify(irtData)],
+			pythonPath: "./app/questionnaire/api/irt/my_venv/bin/python",
 		};
 
 		//  DOCUMENTATION: IRT MODEL
@@ -131,7 +132,7 @@ export async function POST(request: NextRequest) {
 				const categoryName = categories[i];
 				results[categoryName] = parameterData[i];
 			}
-			
+
 			//  DOCUMENTATION: UPDATE DIFFICULTY OFFSET
 
 			for (const result in results) {
@@ -146,13 +147,13 @@ export async function POST(request: NextRequest) {
 
 				//  DEBUG:
 				console.info("Category ID: ", categoryID);
-				
-				const normalizedDifficulty = Math.abs(results[result]['b']) <= 10 ? results[result]['b']/10 * 2 : results[result]['b'] > 0 ? 2/10 * 2 : -2/10 * 2 ;
 
-				console.info(`Difficulty: ${results[result]['b']}\nNormalized Difficulty: ${results[result]['b']/10 * 5}`);
+				const normalizedDifficulty = Math.abs(results[result]['b']) <= 10 ? results[result]['b'] / 10 * 2 : results[result]['b'] > 0 ? 2 / 10 * 2 : -2 / 10 * 2;
+
+				console.info(`Difficulty: ${results[result]['b']}\nNormalized Difficulty: ${results[result]['b'] / 10 * 5}`);
 
 				let updateStatus = await updateIRTDifficulty(requestBody.studentID, requestBody.topicID, categoryID, normalizedDifficulty);
-				if(!updateStatus)
+				if (!updateStatus)
 					throw new Error("Updating difficultyOffset failed.");
 			}
 		});

@@ -3,7 +3,7 @@ import prisma from "../../../lib/prisma";
 import { NextRequest } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
-async function getQuestionInfo(questionID: string): Promise<string | void> {
+async function getQuestionInfo(questionID: string): Promise<string> {
 	const question: {
 		topicID: Question["topicID"];
 		categoryID: Question["categoryID"];
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 		} = JSON.parse(requestText);
 
 		//  DOCUMENTATION: GET QUESTION DATA
-		const questionRequest = await getQuestionInfo(requestBody.questionID);
+		const questionRequest: string = await getQuestionInfo(requestBody.questionID);
 
 		if (!questionRequest)
 			throw new Error("No question information returned");
@@ -40,16 +40,27 @@ export async function POST(request: NextRequest) {
 			modifiedDifficulty: Question["modifiedDifficulty"];
 		} = JSON.parse(questionRequest);
 
+		if (!question.topicID || !question.categoryID || !question.modifiedDifficulty)
+			throw new Error("Question information has missing data.");
+
 		//  DOCUMENTATION: SELECT ATTEMPT STATISTICS DATA FOR QUESTION
 		const questionAttempts: {
-			numberOfAttempts: number;
+			numberOfAttempts: string;
 			correctAttemptsFraction: string;
-		}[] = await prisma.$queryRaw`SELECT COUNT(questionID) AS numberOfAttempts, CAST(SUM(CASE WHEN isCorrect = 1 THEN 1 ELSE 0 END) AS DECIMAL(10,5)) / COUNT(questionID) AS correctAttemptsFraction FROM statistic WHERE statistic.questionID = UUID_TO_BIN(${requestBody.questionID})`;
+		}[] = await prisma.$queryRaw`SELECT COUNT(questionID) AS numberOfAttempts, CAST(COALESCE(SUM(CASE WHEN isCorrect = 1 THEN 1 ELSE 0 END) / COUNT(questionID), 0.0) AS DECIMAL(10,5)) AS correctAttemptsFraction FROM statistic WHERE statistic.questionID = UUID_TO_BIN(${requestBody.questionID}) LIMIT 1`;
 
-		if(questionAttempts.length !== 1) throw new Error("Something went wrong fetching questionAttempts data.");
+		interface BigInt {
+			/** Convert to BigInt to string form in JSON.stringify */
+			toJSON: () => string;
+		}
+		BigInt.prototype.toJSON = function() {
+			return this.toString();
+		};
+
 
 		//  DOCUMENTATION: CALCULATE NEW QUESTION DIFFICULTY
-		const sigmoid = 1 / (1 + Math.exp(10 - Number(questionAttempts[0].numberOfAttempts)));
+		const sigmoid = 1 / (1 + Math.exp(10 - parseInt(questionAttempts[0].numberOfAttempts)));
+		console.log(`Correct Attempts Fraction: ${parseFloat(questionAttempts[0].correctAttemptsFraction)}`);
 		const difficulty = parseFloat(question.modifiedDifficulty) / (1 - sigmoid) + parseFloat(questionAttempts[0].correctAttemptsFraction) * sigmoid;
 
 		//  DEBUG:
