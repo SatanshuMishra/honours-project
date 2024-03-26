@@ -1,7 +1,7 @@
 SET foreign_key_checks = 0;
 DROP TABLE IF EXISTS studentCode;
 DROP TABLE IF EXISTS student;
-DROP TABLE IF EXISTS topic;
+DROP TABLE IF EXISTS questionTopic;
 DROP TABLE IF EXISTS taxonomyCategory;
 DROP TABLE IF EXISTS question;
 DROP TABLE IF EXISTS answer;
