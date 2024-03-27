@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
 		const options = {
 			pythonOptions: ["-u"],
 			args: [JSON.stringify(irtData)],
-			pythonPath: "./app/questionnaire/api/irt/my_venv/bin/python",
+			pythonPath: "./app/questionnaire/api/irt/venv37/bin/python",
 		};
 
 		//  DOCUMENTATION: IRT MODEL
