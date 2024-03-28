@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
 			const { categoryName, isCorrect } = item;
 
 			if (!irtData[categoryName]) {
-				irtData[categoryName] = [];
+				irtData[categoryName] = [0, 1];
 			}
 
 			irtData[categoryName].push(isCorrect);

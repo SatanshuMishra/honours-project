@@ -71,8 +71,8 @@ function Dashboard() {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					studentID: "c7150987-bd41-4273-8c36-912ddc6f78e7",
-					topicID: "7de79cc9-a727-4622-a6e0-aaff239c8187",
+					studentID: studentID,
+					topicID: "3dce6969-a448-4e67-bc1f-0a9c86d94631",
 				}),
 				cache: "no-cache",
 				credentials: "include",
@@ -198,28 +198,30 @@ function Dashboard() {
 							</div>
 						)}
 					</section>
-					<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2 translate-y-0.5 hover:-translate-y-0.5 transition-all duration-300 ease-in-out">
-						<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2 select-none font-jetbrains-mono">
-							Developer Tools
-						</p>
-						<div className="flex-1 flex flex-row justify-center mx-1">
-							<button
-								className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800 hover:cursor-pointer"
-								onClick={() => parseJSON()}
-							>
-								<i className="ri-database-2-fill"></i>
-							</button>
-							<button
-								className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800 hover:cursor-pointer"
-								onClick={() => processData()}
-							>
-								<i className="ri-bard-fill"></i>
-							</button>
-							<button className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800 hover:cursor-not-allowed">
-								<i className="ri-graduation-cap-fill"></i>
-							</button>
+					{studentUsername !== 'SatanshuMishra' && (
+						<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2 translate-y-0.5 hover:-translate-y-0.5 transition-all duration-300 ease-in-out">
+							<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2 select-none font-jetbrains-mono">
+								Developer Tools
+							</p>
+							<div className="flex-1 flex flex-row justify-center mx-1">
+								<button
+									className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800 hover:cursor-pointer"
+									onClick={() => parseJSON()}
+								>
+									<i className="ri-database-2-fill"></i>
+								</button>
+								<button
+									className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800 hover:cursor-pointer"
+									onClick={() => processData()}
+								>
+									<i className="ri-bard-fill"></i>
+								</button>
+								<button className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800 hover:cursor-not-allowed">
+									<i className="ri-graduation-cap-fill"></i>
+								</button>
+							</div>
 						</div>
-					</div>
+					)}
 				</>
 			) : (
 				<LoadingComponent />

@@ -9,6 +9,7 @@ import javascript from "highlight.js/lib/languages/javascript";
 import "highlight.js/styles/github.css";
 import "remixicon/fonts/remixicon.css";
 import SVGQuiz from "@/public/SVG-Quiz.svg";
+import { useToast } from "@/components/ui/use-toast";
 
 //  DOCUMENTATION: TYPES
 
@@ -90,6 +91,7 @@ const CodeBlock = ({ code }: Code) => {
 
 function Questionnaire({ params }: { params: { slug: string } }) {
 	const router = useRouter();
+	const { toast } = useToast();
 
 	//  DOCUMENTATION: INITIALIZE LANGUAGE HIGHLIGHTING FOR CODE BLOCK
 
@@ -157,8 +159,14 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 				if (
 					state.selectedOptionIdx === null ||
 					state.startTime === null
-				)
+				){
+					toast({
+						title: "Submission Error",
+						description: "Please select an option before submitting! If this is an error, please report it.",
+						variant: "destructive",
+					});	
 					return state;
+				}
 
 				verifyJWT().then((isValid) => {
 					if (!isValid) {
@@ -358,7 +366,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 
 	const onContinue = () => {
 		if (quizState.submitted) {
-			if(quizState.currentQuestionIndex < 20) dispatch({ type: "NEXT_QUESTION", payload: null });
+			if (quizState.currentQuestionIndex < 20) dispatch({ type: "NEXT_QUESTION", payload: null });
 		}
 	};
 
@@ -433,23 +441,23 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 								{quizState.questions[
 									quizState.currentQuestionIndex
 								].code && (
-									<CodeBlock
-										code={
-											quizState.questions[
-												quizState.currentQuestionIndex
-											].code
-										}
-									/>
-								)}
+										<CodeBlock
+											code={
+												quizState.questions[
+													quizState.currentQuestionIndex
+												].code
+											}
+										/>
+									)}
 								{!quizState.questions[
 									quizState.currentQuestionIndex
 								].code && (
-									<img
-										src={SVGQuiz.src}
-										alt="Picture"
-										className="w-[90%]"
-									/>
-								)}
+										<img
+											src={SVGQuiz.src}
+											alt="Picture"
+											className="w-[90%]"
+										/>
+									)}
 							</section>
 							<section className="p-2 w-full ml-4 flex flex-col items-start border-[0px] border-dashed border-white">
 								<h4 className="text-slate-700 text-xl font-bold font-jetbrains-mono">
@@ -483,12 +491,20 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 										{
 											"--bg-color": quizState.submitted
 												? quizState.answers[
-														quizState
-															.selectedOptionIdx
-													].isCorrect
+													quizState
+														.selectedOptionIdx
+												].isCorrect
 													? "#19AC9B"
 													: "#AA1755"
 												: "#0185FF",
+											"--hover-color": quizState.submitted
+												? quizState.answers[
+													quizState
+														.selectedOptionIdx
+												].isCorrect
+													? "#37e2ce"
+													: "#e4357f"
+												: "#1a91ff",
 											"--gap": quizState.submitted
 												? "0.5rem"
 												: "0.5rem",
@@ -504,10 +520,10 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 														// ANSWER INDEX
 														answerIdx={
 															answerIdx as
-																| 0
-																| 1
-																| 2
-																| 3
+															| 0
+															| 1
+															| 2
+															| 3
 														}
 														// ANSWER TEXT
 														answerText={
@@ -548,7 +564,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 										)}
 										{quizState.submitted && (
 											<button
-												className="font-jetbrains-mono w-full bg-[--bg-color] hover:bg-sky-400 p-4 rounded-[10px] shadow border-black font-semibold text-white text-xl"
+												className="font-jetbrains-mono w-full bg-[--bg-color] hover:bg-[--hover-color] p-4 rounded-[10px] shadow border-black font-semibold text-white text-xl"
 												onClick={() => onContinue()}
 											>
 												Continue

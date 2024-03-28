@@ -59,7 +59,7 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 					title: "Security Risks Detected",
 					description: "Possible security risks detected in your inputs for name, username or password. Please review your inputs and try again!",
 					variant: "destructive",
-				})
+				});
 			}
 			if (res.status === 500) {
 				if (res.pgErrorObject.name === 'PrismaClientKnownRequestError') {
