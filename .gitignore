@@ -39,4 +39,4 @@ yarn-error.log*
 next-env.d.ts
 
 # virtualenv
-./app/questionnaire/api/irt/venv37
+/app/questionnaire/api/irt/venv37
