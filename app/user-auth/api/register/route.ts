@@ -125,6 +125,8 @@ export async function POST(request: NextRequest) {
 			}
 		}
 
+		await prisma.$queryRaw`UPDATE studentCode SET isRegistered = 1 WHERE code = ${pureUsername}`;
+
 		return new Response(
 			JSON.stringify({
 				data: { result },
