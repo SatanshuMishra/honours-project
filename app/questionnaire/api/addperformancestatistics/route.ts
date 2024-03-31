@@ -87,11 +87,12 @@ export async function POST(request: NextRequest) {
 
 		//  DOCUMENTATION: ADD LOGS
 
-		await prisma.$queryRaw`INSERT INTO questionLogsDifficulty (questionLogID, questionID, difficulty) VALUES (${uuidv4()}, ${requestBody.questionID}, ${difficulty})`;
+		const questionLogID = uuidv4(), studentLogID = uuidv4();
+		await prisma.$queryRaw`INSERT INTO questionLogsDifficulty (questionLogID, questionID, difficulty) VALUES (UUID_TO_BIN(${questionLogID}), UUID_TO_BIN(${requestBody.questionID}), ${difficulty})`;
 
 		let masteryLog = masteryUpdate > 1.7 ? 1.7 : masteryUpdate < -1.7 ? -1.7 : masteryUpdate;
 
-		await prisma.$queryRaw`INSERT INTO studentLogMastery (studentLogID, studentID, topicID, categoryID, mastery) VALUES (UUID_TO_BIN(${uuidv4()}), UUID_TO_BIN(${requestBody.studentID}), UUID_TO_BIN(${question.topicID}), UUID_TO_BIN(${question.categoryID}), ${masteryLog})`;
+		await prisma.$queryRaw`INSERT INTO studentLogMastery (studentLogID, studentID, topicID, categoryID, mastery) VALUES (UUID_TO_BIN(${studentLogID}), UUID_TO_BIN(${requestBody.studentID}), UUID_TO_BIN(${question.topicID}), UUID_TO_BIN(${question.categoryID}), ${masteryLog})`;
 
 		return new Response(
 			JSON.stringify({
