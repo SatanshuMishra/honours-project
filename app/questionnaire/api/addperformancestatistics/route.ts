@@ -85,6 +85,15 @@ export async function POST(request: NextRequest) {
                  ELSE mastery + ${masteryUpdate} 
              END WHERE studentID = UUID_TO_BIN(${requestBody.studentID}) AND topicID = UUID_TO_BIN(${question.topicID}) AND categoryID = UUID_TO_BIN(${question.categoryID})`;
 
+		//  DOCUMENTATION: ADD LOGS
+
+		const questionLogID = uuidv4(), studentLogID = uuidv4();
+		await prisma.$queryRaw`INSERT INTO questionLogsDifficulty (questionLogID, questionID, difficulty) VALUES (UUID_TO_BIN(${questionLogID}), UUID_TO_BIN(${requestBody.questionID}), ${difficulty})`;
+
+		let masteryLog = masteryUpdate > 1.7 ? 1.7 : masteryUpdate < -1.7 ? -1.7 : masteryUpdate;
+
+		await prisma.$queryRaw`INSERT INTO studentLogMastery (studentLogID, studentID, topicID, categoryID, mastery) VALUES (UUID_TO_BIN(${studentLogID}), UUID_TO_BIN(${requestBody.studentID}), UUID_TO_BIN(${question.topicID}), UUID_TO_BIN(${question.categoryID}), ${masteryLog})`;
+
 		return new Response(
 			JSON.stringify({
 				data: null,

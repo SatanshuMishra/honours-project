@@ -37,7 +37,7 @@ CREATE TABLE taxonomyCategory (
 CREATE TABLE question (
 	questionID BINARY(16) NOT NULL PRIMARY KEY,
 	topicID BINARY(16) NOT NULL,
-	assignedDifficulty INTEGER NOT NULL,
+	assignedDifficulty DECIMAL(3, 2) NOT NULL,
 	modifiedDifficulty DECIMAL(3, 2) NOT NULL,
 	categoryID BINARY(16) NOT NULL,
 	assignedCompletionTime INTEGER NOT NULL,
@@ -82,6 +82,38 @@ CREATE TABLE studentKnowledge (
 	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
 ) ENGINE = InnoDB;
 
+CREATE TABLE studentLogMastery (
+	studentLogID BINARY(16) NOT NULL PRIMARY KEY,
+	studentID BINARY(16) NOT NULL,
+	topicID BINARY(16) NOT NULL,
+	categoryID BINARY(16) NOT NULL,
+	mastery DECIMAL(5, 2) NOT NULL,
+	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (studentID) REFERENCES student(studentID),
+	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
+	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
+) ENGINE = InnoDB;
+
+CREATE TABLE studentLogOffset (
+	studentLogID BINARY(16) NOT NULL PRIMARY KEY,
+	studentID BINARY(16) NOT NULL,
+	topicID BINARY(16) NOT NULL,
+	categoryID BINARY(16) NOT NULL,
+	difficultyOffset DECIMAL(5, 2) NOT NULL,
+	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (studentID) REFERENCES student(studentID),
+	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
+	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
+
+) ENGINE = InnoDB;
+
+CREATE TABLE questionLogsDifficulty (
+	questionLogID BINARY(16) NOT NULL PRIMARY KEY,
+	questionID BINARY(16) NOT NULL,
+	difficulty DECIMAL(3, 2) NOT NULL,
+	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (questionID) REFERENCES question(questionID)
+) ENGINE = InnoDB;
 
 /*  INFORMATION:: INSERT STUDENT CODE  */
 INSERT INTO studentCode (code) VALUES ('SatanshuMishra');
