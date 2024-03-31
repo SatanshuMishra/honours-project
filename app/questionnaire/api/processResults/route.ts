@@ -2,6 +2,7 @@ import prisma from "../../../lib/prisma";
 import { PythonShell } from "python-shell";
 import { NextRequest } from "next/server";
 import TaxonomyCategory from "@/app/types/taxonomyCategory";
+import { v4 as uuidv4 } from "uuid";
 
 interface ParameterData {
 	a: number;
@@ -25,6 +26,9 @@ async function getCategoryID(name: string): Promise<String | undefined> {
 async function updateIRTDifficulty(studentID: string, topicID: string, categoryID: string, difficultyOffset: number): Promise<Boolean> {
 	try {
 		await prisma.$queryRaw`UPDATE studentKnowledge SET difficultyOffset = ${difficultyOffset} WHERE studentID = UUID_TO_BIN(${studentID}) AND topicID = UUID_TO_BIN(${topicID}) AND categoryID = UUID_TO_BIN(${categoryID})`;
+
+		await prisma.$queryRaw`INSERT INTO studentLogOffset (studentLogID, studentID, topicID, categoryID, difficultyOffset) VALUES (UUID_TO_BIN(${uuidv4()}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${categoryID}), ${difficultyOffset})`;		
+
 		return true;
 	} catch (error) {
 		console.error("Something went wrong with updating difficultyOffset.\nError: ", error);

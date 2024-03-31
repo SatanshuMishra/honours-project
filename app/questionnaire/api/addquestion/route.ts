@@ -69,6 +69,12 @@ async function handleKnowledge(
 	if (knowledgeRows.length === 0) {
 		knowledgeID = uuidv4();
 		await prisma.$queryRaw`INSERT INTO studentKnowledge (knowledgeID, studentID, topicID, categoryID) VALUES (UUID_TO_BIN(${knowledgeID}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${taxonomyCategoryID}))`;
+
+		let studentLogIDA = uuidv4(), studentLogIDB = uuidv4();
+
+		await prisma.$queryRaw`INSERT INTO studentLogMastery (studentLogID, studentID, topicID, categoryID, mastery) VALUES (UUID_TO_BIN(${studentLogIDA}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${taxonomyCategoryID}), 0.5)`;
+
+		await prisma.$queryRaw`INSERT INTO studentLogOffset (studentLogID, studentID, topicID, categoryID, difficultyOffset) VALUES (UUID_TO_BIN(${studentLogIDB}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${taxonomyCategoryID}), 0)`;
 	}
 
 	if (knowledgeRows.length > 1)
@@ -119,7 +125,15 @@ export async function POST(request: NextRequest) {
 		// [GUARD]
 		if (!knowledgeID) throw new Error("Error adding knowledge");
 
+		//  DOCUMENTATION: INSERT QUESTION
+
 		await prisma.$queryRaw`INSERT INTO question (questionID, topicID, assignedDifficulty, modifiedDifficulty, question, categoryID, assignedCompletionTime, modifiedCompletionTime, code) VALUES (UUID_TO_BIN(${questionID}), UUID_TO_BIN(${topicID}), ${requestBody.assignedDifficulty}, ${requestBody.assignedDifficulty}, ${requestBody.question}, UUID_TO_BIN(${taxonomyCategoryID}), ${requestBody.assignedCompletionTime}, ${requestBody.assignedCompletionTime}, ${requestBody.code})`;
+
+		//  DOCUMENTATION: INSERT DIFFICULTY INTO LOGS
+
+		let questionLogID = uuidv4();
+
+		await prisma.$queryRaw`INSERT INTO questionLogsDifficulty (questionLogID, questionID, difficulty) VALUES (UUID_TO_BIN(${questionLogID}), UUID_TO_BIN(${questionID}), ${requestBody.assignedDifficulty})`;
 
 		console.info("QuestionID Returned: ", questionID);
 
