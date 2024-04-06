@@ -279,7 +279,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 		}
 
 		fetchAnswers(
-			quizState.questions[quizState.currentQuestionIndex].questionID
+			quizState.questions[quizState.currentQuestionIndex].questionID as string
 		)
 			.then((answers) => {
 				dispatch({ type: "SET_ANSWERS", payload: answers as Answer[] });
