@@ -28,7 +28,7 @@ function Dashboard() {
 	const [topics, setTopics] = useState<{
 		topicID: QuestionTopic["topicID"];
 		name: QuestionTopic["name"];
-		quizzesCompleted: number;
+		quizzesCompleted: string;
 		bonusReq: number;
 	}[] | null>(null);
 	const { toast } = useToast();
@@ -113,7 +113,7 @@ function Dashboard() {
 				data: {
 					topicID: QuestionTopic["topicID"];
 					name: QuestionTopic["name"];
-					quizzesCompleted: number;
+					quizzesCompleted: string;
 					bonusReq: number;
 				}[];
 				status: number;

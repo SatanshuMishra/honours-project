@@ -13,11 +13,18 @@ export async function POST(request: NextRequest) {
 			studentID: Student["studentID"];
 		} = JSON.parse(requestText);
 
+		interface BigInt {
+			/** Convert to BigInt to string form in JSON.stringify */
+			toJSON: () => string;
+		}
+		BigInt.prototype.toJSON = function() {
+			return this.toString();
+		};
 
 		let topics: {
 			topicID: QuestionTopic["topicID"];
 			name: QuestionTopic["name"];
-			quizzesCompleted: number;
+			quizzesCompleted: string;
 			bonusReq: number;
 		}[] = await prisma.$queryRaw`
 SELECT 
