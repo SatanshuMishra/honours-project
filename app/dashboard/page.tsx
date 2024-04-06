@@ -3,7 +3,10 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Image from "next/image";
-import Domino from "@/public/domino.svg";
+import Recursion from "@/public/Recursion.svg";
+import IOSvg from "@/public/IO.svg";
+import ErrorHandling from "@/public/ErrorHandle.svg";
+import ListSvg from "@/public/Lists.svg";
 import parseJSON from "../scripts/parseJSON";
 import verifyJWT from "../scripts/verifyJWT";
 import signOut from "../scripts/signOut";
@@ -12,6 +15,13 @@ import "remixicon/fonts/remixicon.css";
 import QuestionTopic from "../types/questionTopic";
 import SVGTopic from "@/public/SVG-Topic.svg";
 import { useToast } from "@/components/ui/use-toast";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 
 const LoadingComponent = dynamic(
 	() => import("@/app/components/loading/loading"),
@@ -29,7 +39,7 @@ function Dashboard() {
 		topicID: QuestionTopic["topicID"];
 		name: QuestionTopic["name"];
 		quizzesCompleted: string;
-		bonusReq: number;
+		bonusReq: string;
 	}[] | null>(null);
 	const { toast } = useToast();
 
@@ -114,7 +124,7 @@ function Dashboard() {
 					topicID: QuestionTopic["topicID"];
 					name: QuestionTopic["name"];
 					quizzesCompleted: string;
-					bonusReq: number;
+					bonusReq: string;
 				}[];
 				status: number;
 				message: string;
@@ -150,21 +160,49 @@ function Dashboard() {
 			{studentID && studentName && studentUsername ? (
 				<>
 					<section className="p-10">
-						<section className="flex flex-row-reverse m-4 sticky">
-							<button
-								className="text-lg p-2 text-[#00a65e] rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-[#00a65e] hover:bg-[#00a65e] transition-all duration-300 ease-in-out hover:text-white font-jetbrains-mono"
-								onClick={() => handleSignOut()}
-							>
-								Sign Out
-							</button>
-							<a
-								href="https://forms.gle/PCn5L91D3ihFBALw8"
-								target="_blank"
-							>
-								<button className="text-lg p-2 mr-2 text-[#de2f4f] rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-[#de2f4f] hover:bg-[#de2f4f] transition-all duration-300 ease-in-out hover:text-white font-jetbrains-mono">
-									Report an Issue
+						<section className="flex flex-row justify-between w-full mr-4 sticky">
+							<div>
+								<a
+									href="https://ubc.ca1.qualtrics.com/jfe/form/SV_0iatNPaGA9vrtNs"
+									target="_blank"
+									>
+									<button className="text-lg p-2 mr-2 text-black rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-black transition-all duration-300 ease-in-out  font-jetbrains-mono">
+										Learning Tool Consent Form
+									</button>
+								</a>
+								<a
+									href="https://ubc.ca1.qualtrics.com/jfe/form/SV_8dJXEAiEY8taLK6"
+									target="_blank"
+									>
+									<button className="text-lg p-2 mr-2 text-black rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-black transition-all duration-300 ease-in-out font-jetbrains-mono">
+										Questionnaire Consent Form	
+									</button>
+								</a>
+								<a
+									href="https://ubc.ca1.qualtrics.com/jfe/form/SV_9GH46OEAUicbf4a"
+									target="_blank"
+									>
+									<button className="text-lg p-2 mr-2 text-black rounded-[10px] w-fit font-medium border-[2px] border-black transition-all duration-300 ease-in-out font-jetbrains-mono">
+										Questionnaire	
+									</button>
+								</a>	
+							</div>
+							<div>
+								<button
+									className="text-lg p-2 mr-2 text-[#00a65e] rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-[#00a65e] hover:bg-[#00a65e] transition-all duration-300 ease-in-out hover:text-white font-jetbrains-mono"
+									onClick={() => handleSignOut()}
+									>
+									Sign Out
 								</button>
-							</a>
+								<a
+									href="https://forms.gle/PCn5L91D3ihFBALw8"
+									target="_blank"
+									>
+									<button className="text-lg p-2 mr-2 text-[#de2f4f] rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-[#de2f4f] hover:bg-[#de2f4f] transition-all duration-300 ease-in-out hover:text-white font-jetbrains-mono">
+										Report an Issue
+									</button>
+								</a>
+							</div>
 						</section>
 						<div>
 							<h1 className="font-bold text-[40px] font-jetbrains-mono">
@@ -187,7 +225,9 @@ function Dashboard() {
 									>
 										<div className="bg-white shadow-lg drop-shadow-md hover:shadow-2xl transition-all duration-300 w-fit p-8 rounded-xl flex flex-col justify-between items-center cursor-pointer">
 											<Image
-												src={Domino}
+												src={
+													topic.name === 'Recursion' ? Recursion : topic.name === 'I/O' ? IOSvg : topic.name === 'Error Handling' ? ErrorHandling : ListSvg
+												}
 												alt="Recursion Icon"
 												className="w-[146px] h-[146px] my-2"
 												priority
@@ -195,8 +235,25 @@ function Dashboard() {
 											<h4 className="font-light my-2 text-xl font-jetbrains-mono">
 												{topic.name}
 											</h4>
-											<p>Completed Quizzes: {topic.quizzesCompleted}</p>
-											<p>Bonus Completed: {0 ? 'True' : 'False'}</p>
+											<div className="flex flex-row items-center justify-evenly w-full">
+												<TooltipProvider>
+													<Tooltip delayDuration={100}>
+														<TooltipTrigger><i className="ri-question-fill text-xl text-black"></i> {topic.quizzesCompleted}</TooltipTrigger>
+														<TooltipContent>
+															<p>Number of Quizzes Completed</p>
+														</TooltipContent>
+													</Tooltip>
+												</TooltipProvider>
+												{topic.bonusReq === '1' && (<TooltipProvider>
+													<Tooltip delayDuration={100}>
+														<TooltipTrigger><i className="ri-checkbox-circle-fill text-xl text-[#0066ff]"></i></TooltipTrigger>
+														<TooltipContent>
+															<p className="text-center">You have completed the bonus requirements<br /> for this topic.</p>
+														</TooltipContent>
+													</Tooltip>
+												</TooltipProvider>)
+												}
+											</div>
 										</div>
 									</a>
 								);

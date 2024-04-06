@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 			topicID: QuestionTopic["topicID"];
 			name: QuestionTopic["name"];
 			quizzesCompleted: string;
-			bonusReq: number;
+			bonusReq: string;
 		}[] = await prisma.$queryRaw`
 SELECT 
     BIN_TO_UUID(qt.topicID) AS topicID,
