@@ -14,7 +14,7 @@ import SVGTopic from "@/public/SVG-Topic.svg";
 import { useToast } from "@/components/ui/use-toast";
 
 const LoadingComponent = dynamic(
-	() => import("../components/loading/loading"),
+	() => import("@/app/components/loading/loading"),
 	{
 		ssr: false,
 	}
@@ -25,7 +25,12 @@ function Dashboard() {
 	const [studentID, setStudentID] = useState<any>();
 	const [studentName, setStudentName] = useState("");
 	const [studentUsername, setStudentUsername] = useState("");
-	const [topics, setTopics] = useState<QuestionTopic[] | null>(null);
+	const [topics, setTopics] = useState<{
+		topicID: QuestionTopic["topicID"];
+		name: QuestionTopic["name"];
+		quizzesCompleted: number;
+		bonusReq: number;
+	}[] | null>(null);
 	const { toast } = useToast();
 
 	// TEMPORARY TEST VARIABLES
@@ -98,12 +103,19 @@ function Dashboard() {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: null,
+				body: JSON.stringify({
+					studentID: studentID
+				}),
 				cache: "no-cache",
 				credentials: "include",
 			});
 			let responseBody: {
-				data: QuestionTopic[];
+				data: {
+					topicID: QuestionTopic["topicID"];
+					name: QuestionTopic["name"];
+					quizzesCompleted: number;
+					bonusReq: number;
+				}[];
 				status: number;
 				message: string;
 				pgErrorObject: any | null;
@@ -183,6 +195,8 @@ function Dashboard() {
 											<h4 className="font-light my-2 text-xl font-jetbrains-mono">
 												{topic.name}
 											</h4>
+											<p>Completed Quizzes: {topic.quizzesCompleted}</p>
+											<p>Bonus Completed: {0 ? 'True' : 'False'}</p>
 										</div>
 									</a>
 								);

@@ -7,11 +7,11 @@ export default function ProgressBar({currentIdx}: Props) {
 		.fill(null)
 		.map((_, index) => {
 			return index < currentIdx ? (
-				<div className={`h-2 p-1.5 rounded bg-[#19AC9B] flex-1`}></div>
+				<div key={_} className={`h-2 p-1.5 rounded bg-[#19AC9B] flex-1`}></div>
 			) : index === currentIdx ? (
-				<div className={`h-2 p-1.5 rounded bg-[#0185ff] flex-1`}></div>
+				<div key={_} className={`h-2 p-1.5 rounded bg-[#0185ff] flex-1`}></div>
 			) : (
-				<div className={`h-2 p-1.5 rounded bg-white flex-1`}></div>
+				<div key={_} className={`h-2 p-1.5 rounded bg-white flex-1`}></div>
 			);
 		});
 	return (
