@@ -527,7 +527,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 														}
 														// ANSWER TEXT
 														answerText={
-															answer.answerDescription
+															answer.answerDescription as string
 														}
 														// HANLDE SELECTED OPTION
 														handleSelectOption={
@@ -538,7 +538,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 															answerIdx
 														}
 														answerExplanation={
-															answer.answerExplanation
+															answer.answerExplanation as string
 														}
 														blockChange={
 															quizState.submitted
@@ -546,7 +546,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 														isCorrectChoice={
 															quizState.answers[
 																answerIdx
-															].isCorrect
+															].isCorrect as boolean
 														}
 													/>
 												);
