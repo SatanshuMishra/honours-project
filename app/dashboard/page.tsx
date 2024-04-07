@@ -244,7 +244,7 @@ function Dashboard() {
 														</TooltipContent>
 													</Tooltip>
 												</TooltipProvider>
-												{topic.bonusReq === '1' && (<TooltipProvider>
+												{topic.bonusReq == '1' && (<TooltipProvider>
 													<Tooltip delayDuration={100}>
 														<TooltipTrigger><i className="ri-checkbox-circle-fill text-xl text-[#0066ff]"></i></TooltipTrigger>
 														<TooltipContent>
