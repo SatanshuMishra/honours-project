@@ -26,9 +26,9 @@ export async function POST(request: NextRequest) {
 
       while (questions.length < 20 && bracket <= maxBracket) {
         console.log(`Entered Adaptive Bracket Loop. Bracket: ${bracket}`);
-        bracket += 0.1;
+        bracket += 0.05;
         questions =
-          await prisma.$queryRaw`SELECT BIN_TO_UUID(q.questionID) AS questionID, q.modifiedDifficulty, q.question, q.code FROM question q JOIN studentKnowledge sk ON q.topicID = sk.topicID AND q.categoryID = sk.categoryID WHERE q.topicID = UUID_TO_BIN(${requestBody.topicID}) AND sk.studentID = UUID_TO_BIN(${requestBody.studentID}) AND q.modifiedDifficulty BETWEEN sk.mastery + sk.difficultyOffset - 0.5 AND sk.mastery + sk.difficultyOffset + ${bracket} ORDER BY RAND() LIMIT 20`;
+          await prisma.$queryRaw`SELECT BIN_TO_UUID(q.questionID) AS questionID, q.modifiedDifficulty, q.question, q.code FROM question q JOIN studentKnowledge sk ON q.topicID = sk.topicID AND q.categoryID = sk.categoryID WHERE q.topicID = UUID_TO_BIN(${requestBody.topicID}) AND sk.studentID = UUID_TO_BIN(${requestBody.studentID}) AND q.modifiedDifficulty BETWEEN sk.mastery + sk.difficultyOffset - ${bracket} AND sk.mastery + sk.difficultyOffset + ${bracket} ORDER BY RAND() LIMIT 20`;
       }
 
       // If even after reaching maxBracket, you couldn't get 20 questions
