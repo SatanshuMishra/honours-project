@@ -20,8 +20,7 @@ import {
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
-} from "@/components/ui/tooltip"
-
+} from "@/components/ui/tooltip";
 
 const LoadingComponent = dynamic(
 	() => import("@/app/components/loading/loading"),
@@ -35,27 +34,35 @@ function Dashboard() {
 	const [studentID, setStudentID] = useState<any>();
 	const [studentName, setStudentName] = useState("");
 	const [studentUsername, setStudentUsername] = useState("");
-	const [topics, setTopics] = useState<{
-		topicID: QuestionTopic["topicID"];
-		name: QuestionTopic["name"];
-		quizzesCompleted: string;
-		bonusReq: string;
-	}[] | null>(null);
+	const [topics, setTopics] = useState<
+		| {
+			topicID: QuestionTopic["topicID"];
+			name: QuestionTopic["name"];
+			quizzesCompleted: string;
+			bonusReq: string;
+		}[]
+		| null
+	>(null);
 	const { toast } = useToast();
 
 	// TEMPORARY TEST VARIABLES
 	const [_, setStatistics] = useState<any[]>();
 
 	useEffect(() => {
+
 		//  INFORMATION: VALIDATE TOKEN AND SET PARSED STUDENT ID
 
 		verifyJWT(true).then((response) => {
+
 			//  INFORMATION: IF JWT IS NOT VALID, RETURN USER TO AUTH
 
 			if (response === false) {
+				//  DEBUG:
+				console.info(`VERIFICATION FAILED. REDIRECTING TO LOGIN.`);
 				Cookies.remove("token");
 				router.push("/user-auth");
 			}
+
 			//  INFORMATION: ENSURE TYPE SECURITY (i.e., STRINGIFIED JSON IS RETURNED)
 
 			if (typeof response === "string") {
@@ -65,7 +72,10 @@ function Dashboard() {
 					username: string;
 				} = JSON.parse(response);
 
-				console.log(res);
+				//  DEBUG:
+				console.info(
+					`VERIFIED. LOGGED IN AS ${res.name?.toUpperCase()}.`
+				);
 
 				setStudentID(res.studentID);
 				setStudentName(res.name);
@@ -114,7 +124,7 @@ function Dashboard() {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					studentID: studentID
+					studentID: studentID,
 				}),
 				cache: "no-cache",
 				credentials: "include",
@@ -165,7 +175,7 @@ function Dashboard() {
 								<a
 									href="https://ubc.ca1.qualtrics.com/jfe/form/SV_0iatNPaGA9vrtNs"
 									target="_blank"
-									>
+								>
 									<button className="text-lg p-2 mr-2 text-black rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-black transition-all duration-300 ease-in-out  font-jetbrains-mono">
 										Learning Tool Consent Form
 									</button>
@@ -173,31 +183,31 @@ function Dashboard() {
 								<a
 									href="https://ubc.ca1.qualtrics.com/jfe/form/SV_8dJXEAiEY8taLK6"
 									target="_blank"
-									>
+								>
 									<button className="text-lg p-2 mr-2 text-black rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-black transition-all duration-300 ease-in-out font-jetbrains-mono">
-										Questionnaire Consent Form	
+										Questionnaire Consent Form
 									</button>
 								</a>
 								<a
 									href="https://ubc.ca1.qualtrics.com/jfe/form/SV_9GH46OEAUicbf4a"
 									target="_blank"
-									>
+								>
 									<button className="text-lg p-2 mr-2 text-black rounded-[10px] w-fit font-medium border-[2px] border-black transition-all duration-300 ease-in-out font-jetbrains-mono">
-										Questionnaire	
+										Questionnaire
 									</button>
-								</a>	
+								</a>
 							</div>
 							<div>
 								<button
 									className="text-lg p-2 mr-2 text-[#00a65e] rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-[#00a65e] hover:bg-[#00a65e] transition-all duration-300 ease-in-out hover:text-white font-jetbrains-mono"
 									onClick={() => handleSignOut()}
-									>
+								>
 									Sign Out
 								</button>
 								<a
 									href="https://forms.gle/PCn5L91D3ihFBALw8"
 									target="_blank"
-									>
+								>
 									<button className="text-lg p-2 mr-2 text-[#de2f4f] rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-[#de2f4f] hover:bg-[#de2f4f] transition-all duration-300 ease-in-out hover:text-white font-jetbrains-mono">
 										Report an Issue
 									</button>
@@ -226,7 +236,14 @@ function Dashboard() {
 										<div className="bg-white shadow-lg drop-shadow-md hover:shadow-2xl transition-all duration-300 w-fit p-8 rounded-xl flex flex-col justify-between items-center cursor-pointer">
 											<Image
 												src={
-													topic.name === 'Recursion' ? Recursion : topic.name === 'I/O' ? IOSvg : topic.name === 'Error Handling' ? ErrorHandling : ListSvg
+													topic.name === "Recursion"
+														? Recursion
+														: topic.name === "I/O"
+															? IOSvg
+															: topic.name ===
+																"Error Handling"
+																? ErrorHandling
+																: ListSvg
 												}
 												alt="Recursion Icon"
 												className="w-[146px] h-[146px] my-2"
@@ -237,22 +254,45 @@ function Dashboard() {
 											</h4>
 											<div className="flex flex-row items-center justify-evenly w-full">
 												<TooltipProvider>
-													<Tooltip delayDuration={100}>
-														<TooltipTrigger><i className="ri-question-fill text-xl text-black"></i> {topic.quizzesCompleted}</TooltipTrigger>
+													<Tooltip
+														delayDuration={100}
+													>
+														<TooltipTrigger>
+															<i className="ri-question-fill text-xl text-black"></i>{" "}
+															{
+																topic.quizzesCompleted
+															}
+														</TooltipTrigger>
 														<TooltipContent>
-															<p>Number of Quizzes Completed</p>
+															<p>
+																Number of
+																Quizzes
+																Completed
+															</p>
 														</TooltipContent>
 													</Tooltip>
 												</TooltipProvider>
-												{topic.bonusReq == '1' && (<TooltipProvider>
-													<Tooltip delayDuration={100}>
-														<TooltipTrigger><i className="ri-checkbox-circle-fill text-xl text-[#0066ff]"></i></TooltipTrigger>
-														<TooltipContent>
-															<p className="text-center">You have completed the bonus requirements<br /> for this topic.</p>
-														</TooltipContent>
-													</Tooltip>
-												</TooltipProvider>)
-												}
+												{topic.bonusReq == "1" && (
+													<TooltipProvider>
+														<Tooltip
+															delayDuration={100}
+														>
+															<TooltipTrigger>
+																<i className="ri-checkbox-circle-fill text-xl text-[#0066ff]"></i>
+															</TooltipTrigger>
+															<TooltipContent>
+																<p className="text-center">
+																	You have
+																	completed
+																	the bonus
+																	requirements
+																	<br /> for
+																	this topic.
+																</p>
+															</TooltipContent>
+														</Tooltip>
+													</TooltipProvider>
+												)}
 											</div>
 										</div>
 									</a>
@@ -269,7 +309,7 @@ function Dashboard() {
 							</div>
 						)}
 					</section>
-					{studentUsername === 'SatanshuMishra' && (
+					{studentUsername === "SatanshuMishra" && (
 						<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2 translate-y-0.5 hover:-translate-y-0.5 transition-all duration-300 ease-in-out">
 							<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2 select-none font-jetbrains-mono">
 								Developer Tools
