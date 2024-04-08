@@ -159,12 +159,12 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 				if (
 					state.selectedOptionIdx === null ||
 					state.startTime === null
-				){
+				) {
 					toast({
 						title: "Submission Error",
 						description: "Please select an option before submitting! If this is an error, please report it.",
 						variant: "destructive",
-					});	
+					});
 					return state;
 				}
 
@@ -217,28 +217,19 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 		verifyJWT(true)
 			.then((studentInfo) => {
 				if (!studentInfo) {
+					console.info(`VERIFICATION FAILED. REDIRECTING TO LOGIN.`);
 					Cookies.remove("token");
 					router.push("/user-auth");
 				}
 
 				if (typeof studentInfo === "string") {
 					const student: Student = JSON.parse(studentInfo);
-
-					console.log(student);
-
-					//  DEBUG:
-					console.info(
-						`---STUDENT RETURNED---\nID: ${student.studentID}\nName: ${student.name}\nUsername: ${student.username}`
-					);
-
+					console.info(`VERIFIED. LOGGED IN AS ${student.name?.toUpperCase()}.`);
 					dispatch({ type: "SET_STUDENT_INFO", payload: student });
 					return fetchQuestions(student.studentID, params.slug);
 				}
 
-				//  DEBUG:
-				console.error(
-					"Something went wrong. Boolean returned. String Expected."
-				);
+				console.info(`VERIFICATION FAILED. REDIRECTING TO LOGIN. [BR]`);
 
 				Cookies.remove("token");
 				router.push("/user-auth");
@@ -247,7 +238,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 			//  DOCUMENTATION: FETCH QUESTIONS ONCE TOKEN IS VALIDATED
 
 			.then((questions) => {
-				console.info(`---QUESTIONS RETURNED---\n${questions}`);
+				console.info(`---QUESTIONS RETURNED---\n${questions.length}`);
 
 				dispatch({
 					type: "SET_QUESTIONS",
@@ -445,7 +436,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 											code={
 												quizState.questions[
 													quizState.currentQuestionIndex
-												].code
+												].code as string
 											}
 										/>
 									)}
