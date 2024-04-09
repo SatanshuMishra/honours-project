@@ -61,7 +61,13 @@ export async function POST(request: NextRequest) {
 		//  DOCUMENTATION: CALCULATE NEW QUESTION DIFFICULTY
 		const sigmoid = 1 / (1 + Math.exp(10 - parseInt(questionAttempts[0].numberOfAttempts)));
 		console.log(`Correct Attempts Fraction: ${parseFloat(questionAttempts[0].correctAttemptsFraction)}`);
-		const difficulty = parseFloat(question.modifiedDifficulty) / (1 - sigmoid) + parseFloat(questionAttempts[0].correctAttemptsFraction) * sigmoid;
+		let difficulty = parseFloat(question.modifiedDifficulty) / (1 - sigmoid) + parseFloat(questionAttempts[0].correctAttemptsFraction) * sigmoid;
+
+		if(difficulty > 0)
+			difficulty = Math.min(difficulty, 10);
+
+		if(difficulty < 0)
+			difficulty = Math.max(difficulty, -10);
 
 		//  DEBUG:
 		console.log(`QuestionID: ${requestBody.questionID}\nNew Difficulty: ${difficulty}`);
