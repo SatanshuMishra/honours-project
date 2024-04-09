@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
 
 		if (questions.length < 20) {
 			let bracket = 0.2;
-			let maxBracket = 1.0; // Or any reasonable upper limit you choose
+			let maxBracket = 8.3;
 
 			while (questions.length < 20 && bracket <= maxBracket) {
 				console.log(
