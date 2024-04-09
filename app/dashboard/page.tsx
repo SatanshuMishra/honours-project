@@ -309,7 +309,7 @@ function Dashboard() {
 							</div>
 						)}
 					</section>
-					{studentUsername === "SatanshuMishra" && (
+					{studentUsername === "SatanshuMishra" || studentUsername === 'Ana' && (
 						<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2 translate-y-0.5 hover:-translate-y-0.5 transition-all duration-300 ease-in-out">
 							<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2 select-none font-jetbrains-mono">
 								Developer Tools
