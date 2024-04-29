@@ -8,7 +8,7 @@ import json
 #  INFORMATION: INSTALL MIRT
 mirt = importr('mirt')
 
-
+# NOTE: FORMAT STUDENT DATA AND RUN IRT MODEL USING R
 def get_topic_difficulties(student_data):
     pd_df = pd.DataFrame(student_data)
 

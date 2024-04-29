@@ -3,7 +3,7 @@ import verifyJWT from "./verifyJWT";
 
 export default function parseJSON() {
 	let studentID: string | null = null;
-
+	// NOTE: VERIFY USER IS LOGGED IN (DON'T ADD QUESTIONS IF NOT AUTHENTICATED)
 	verifyJWT(true).then(async (studentInfo) => {
 		if (!studentInfo) throw new Error("No Student Information returned.");
 		const student: {
@@ -18,7 +18,7 @@ export default function parseJSON() {
 			try {
 				if (!studentID)
 					throw new Error("No Student Information returned.");
-
+				// NOTE: ADD EACH QUESTION AND ANSWERS PAIR INDIVIDUALLY
 				let questionID = await insertQuestion(
 					studentID,
 					el.topic,

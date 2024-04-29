@@ -1,5 +1,7 @@
 import SVGResults from "@/public/SVGResults.svg";
 
+// NOTE: THIS COMPONENT REPRESENTS THE RESULTS SCREEN OF THE QUIZ -> WHERE STUDENTS GET THEIR PERFORMANCE OF THE QUIZ THEY JUST TOOK
+
 interface Prop {
 	topicID: string;
 	score: number;
@@ -7,11 +9,11 @@ interface Prop {
 }
 
 function formatTime(milliseconds: number): string {
-	// Calculate minutes and seconds
+	//  INFO: CALCULATE THE MINUTES AND SECONDS OF QUIZ DURATION
 	const minutes = Math.floor(milliseconds / (1000 * 60));
 	const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
 
-	// Pad with leading zeros
+	//  INFO: PAD TIME WITH 0'S
 	const minutesString = minutes.toString().padStart(2, "0");
 	const secondsString = seconds.toString().padStart(2, "0");
 

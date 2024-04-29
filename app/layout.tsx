@@ -22,8 +22,9 @@ export default function RootLayout({
 				<link rel="manifest" href="/manifest.ts" />
 				<link rel="icon" href="/favicon.ico?v=2" />
 			</head>
-			<body className="w-screen h-screen">
+			<body className="w-screen h-screen max-h-screen overflow-y-scroll">
 				{children}
+				{/*HANDLES THE TOAST MESSAGE*/}
 				<Toaster />
 			</body>
 		</html>

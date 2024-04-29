@@ -8,6 +8,7 @@ export default function Loading() {
 		"Sit tight while we get everything set up for you!"
 	);
 
+	//  INFO: THIS ARRAY CONTROLS THE LOADING SCREEN MESSAGES SHOWN TO THE USER
 	const loadingPhrases: string[] = [
 		"Sit tight while we get everything set up for you!",
 		"Compiling your personalized learning path...",

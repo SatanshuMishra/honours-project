@@ -3,17 +3,9 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Image from "next/image";
-import Recursion from "@/public/Recursion.svg";
-import IOSvg from "@/public/IO.svg";
-import ErrorHandling from "@/public/ErrorHandle.svg";
-import ListSvg from "@/public/Lists.svg";
-import parseJSON from "../scripts/parseJSON";
-import verifyJWT from "../scripts/verifyJWT";
-import signOut from "../scripts/signOut";
 import dynamic from "next/dynamic";
 import "remixicon/fonts/remixicon.css";
 import QuestionTopic from "../types/questionTopic";
-import SVGTopic from "@/public/SVG-Topic.svg";
 import { useToast } from "@/components/ui/use-toast";
 import {
 	Tooltip,
@@ -21,6 +13,18 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+
+// CUSTOM SCRIPT IMPORTS
+import parseJSON from "../scripts/parseJSON";
+import verifyJWT from "../scripts/verifyJWT";
+import signOut from "../scripts/signOut";
+
+// IMAGE IMPORTS
+import Recursion from "@/public/Recursion.svg";
+import IOSvg from "@/public/IO.svg";
+import ErrorHandling from "@/public/ErrorHandle.svg";
+import SVGTopic from "@/public/SVG-Topic.svg";
+import ListSvg from "@/public/Lists.svg";
 
 const LoadingComponent = dynamic(
 	() => import("@/app/components/loading/loading"),
@@ -88,6 +92,10 @@ function Dashboard() {
 		});
 	}, []);
 
+
+	/**
+	* This function processes the data for the signed-in student and given topicID. Used within the Developer Bar.
+	*/
 	async function processData() {
 		try {
 			const res = await fetch("./questionnaire/api/processResults", {
@@ -97,7 +105,7 @@ function Dashboard() {
 				},
 				body: JSON.stringify({
 					studentID: studentID,
-					topicID: "b85e8379-e069-45d3-9310-fc58fb7a92fd",
+					topicID: "e990eeba-5d43-4251-a2ce-d1c43c294048",
 				}),
 				cache: "no-cache",
 				credentials: "include",
@@ -115,6 +123,10 @@ function Dashboard() {
 			throw new Error("IRT model failed to process results.");
 		}
 	}
+
+	/**
+	* This function fetches the topics displayed on the Dashboard.
+	*/
 
 	async function fetchTopics() {
 		try {
@@ -154,11 +166,15 @@ function Dashboard() {
 		}
 	}
 
+	//  NOTE: WAITS FOR STUDENT TO BE INITIALIZED BEFORE FETCHING TOPICS
 	useEffect(() => {
 		if (!studentID) return;
 		fetchTopics();
 	}, [studentID]);
 
+	/**
+	* This function handles signing the user out of their account. Removed JWT token and re-directes to user-auth. 
+	*/
 	async function handleSignOut(): Promise<void> {
 		await signOut();
 		Cookies.remove("token");
@@ -225,6 +241,7 @@ function Dashboard() {
 						</div>
 					</section>
 					<section className="m-10 p-2 flex flex-row flex-wrap">
+						<div></div>
 						{topics &&
 							topics.map((topic, _) => {
 								return (
@@ -309,7 +326,8 @@ function Dashboard() {
 							</div>
 						)}
 					</section>
-					{studentUsername === "SatanshuMishra" || studentUsername === 'Ana' && (
+					{/*  NOTE: THIS COMPONENT IS THE DEVELOPER TOOL BAR. IT ALLOWS YOU TO INSERT NEW QUESTIONS FROM JSON. CHANGE studentUsername === CONDITION TO MATCH YOUR USERNAME*/}
+					{studentUsername === "SatanshuMishra" && (
 						<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2 translate-y-0.5 hover:-translate-y-0.5 transition-all duration-300 ease-in-out">
 							<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2 select-none font-jetbrains-mono">
 								Developer Tools

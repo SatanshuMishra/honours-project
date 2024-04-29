@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
+//  INFO: THIS COMPONENT IS THE ENTIRE QUIZ OPTIONS COMPONENT.
+
 type props = {
 	answerIdx: 0 | 1 | 2 | 3;
 	answerText: string;

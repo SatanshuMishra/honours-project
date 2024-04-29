@@ -2,9 +2,15 @@ import Question from "@/app/types/question";
 import prisma from "../../../lib/prisma";
 import { NextRequest } from "next/server";
 
+/**
+ * Validates Student Knowldge. If a student doesn't have student knowledge entries, then it adds default entries
+ * @param {string} studentID: ID of student
+ * @param {string} topicID: ID of topic
+ */
+
 async function validateStudentKnowledge(studentID: string, topicID: string) {
 	try {
-		// CHECK IF ENTRIES EXISTS IN STUDENT KNOWLEDGE
+		//  NOTE: CHECK IF ENTRIES EXISTS IN STUDENT KNOWLEDGE
 		let entries: { hasEntries: string }[] = await prisma.$queryRaw`
 	SELECT IF(COUNT(*) = 6, true, false) AS hasEntries
 	FROM studentKnowledge
@@ -12,6 +18,7 @@ async function validateStudentKnowledge(studentID: string, topicID: string) {
 	AND topicID = UUID_TO_BIN(${topicID})
 	`;
 
+		// GUARD AGAINST MISSING DATA
 		if (entries.length !== 1)
 			throw new Error("Entries returned no or more than 1 row.");
 
@@ -67,6 +74,8 @@ export async function POST(request: NextRequest) {
 			`--FETCH QUESTIONS--\nSTUDENT ID: ${requestBody.studentID}\nTOPIC ID: ${requestBody.topicID}`
 		);
 
+// NOTE: VERIFY IF STUDENT HAS KNOWLEDGE PARAMETERS
+
 		let validated = validateStudentKnowledge(
 			requestBody.studentID,
 			requestBody.topicID
@@ -77,11 +86,12 @@ export async function POST(request: NextRequest) {
 				JSON.stringify({
 					data: null,
 					status: 404,
-					message:
-						"Validation Failed",
+					message: "Validation Failed",
 					pgErrorObject: null,
 				})
 			);
+
+// NOTE: FETCH QUESTIONS BASED ON KNOWLEDGE PARAMETERS
 
 		let questions: {
 			questionID: Question["questionID"];
@@ -90,6 +100,8 @@ export async function POST(request: NextRequest) {
 			code: Question["code"];
 		}[] =
 			await prisma.$queryRaw`SELECT BIN_TO_UUID(q.questionID) AS questionID, q.modifiedDifficulty, q.question, q.code FROM question q JOIN studentKnowledge sk ON q.topicID = sk.topicID AND q.categoryID = sk.categoryID WHERE q.topicID = UUID_TO_BIN(${requestBody.topicID}) AND sk.studentID = UUID_TO_BIN(${requestBody.studentID}) AND q.modifiedDifficulty BETWEEN sk.mastery + sk.difficultyOffset - 0.2 AND sk.mastery + sk.difficultyOffset + 0.2 ORDER BY RAND() LIMIT 20`;
+
+		// NOTE: IF NOT ENOUGH QUESTIONS FETCHED WITHIN STUDENT KNOWLEDGE PARAMETERS, THEN LOOP INCREASE THE BRACKET TILL ENOUGH QUESTIONS ARE FETCHED.
 
 		if (questions.length < 20) {
 			let bracket = 0.2;
