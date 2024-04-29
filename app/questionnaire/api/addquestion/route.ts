@@ -2,6 +2,11 @@ import prisma from "../../../lib/prisma";
 import { NextRequest } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
+/**
+ * Fetch Taxonomy Category ID given Category Name
+ * @param {string} taxonomyCategory: Category Name
+ * @returns {Promise<string | void>}
+ */
 async function fetchTaxonomyCategory(
 	taxonomyCategory: string
 ): Promise<string | void> {
@@ -20,6 +25,11 @@ async function fetchTaxonomyCategory(
 	}
 }
 
+/**
+ * Fetch Topic ID given Topic Name
+ * @param {string} topicName: Topic Name
+ * @returns {Promise<string | void>}
+ */
 async function handleTopic(topicName: string): Promise<string | void> {
 	try {
 		const topic: { topicID: string }[] =
@@ -47,6 +57,14 @@ async function handleTopic(topicName: string): Promise<string | void> {
 	}
 }
 
+/**
+ * Fetch Knowledge ID given student ID, topic ID, and taxonomyCategory ID combination.
+ * @param {string} studentID: ID of Student
+ * @param {string} topicID: ID of Topic
+ * @param {string} taxonomyCategoryID: ID of Category
+ * @returns {Promise<string | void>}
+ */
+
 async function handleKnowledge(
 	studentID: string,
 	topicID: string,
@@ -70,7 +88,8 @@ async function handleKnowledge(
 		knowledgeID = uuidv4();
 		await prisma.$queryRaw`INSERT INTO studentKnowledge (knowledgeID, studentID, topicID, categoryID) VALUES (UUID_TO_BIN(${knowledgeID}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${taxonomyCategoryID}))`;
 
-		let studentLogIDA = uuidv4(), studentLogIDB = uuidv4();
+		let studentLogIDA = uuidv4(),
+			studentLogIDB = uuidv4();
 
 		await prisma.$queryRaw`INSERT INTO studentLogMastery (studentLogID, studentID, topicID, categoryID, mastery) VALUES (UUID_TO_BIN(${studentLogIDA}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${taxonomyCategoryID}), 0.5)`;
 
@@ -129,7 +148,7 @@ export async function POST(request: NextRequest) {
 
 		await prisma.$queryRaw`INSERT INTO question (questionID, topicID, assignedDifficulty, modifiedDifficulty, question, categoryID, assignedCompletionTime, modifiedCompletionTime, code) VALUES (UUID_TO_BIN(${questionID}), UUID_TO_BIN(${topicID}), ${requestBody.assignedDifficulty}, ${requestBody.assignedDifficulty}, ${requestBody.question}, UUID_TO_BIN(${taxonomyCategoryID}), ${requestBody.assignedCompletionTime}, ${requestBody.assignedCompletionTime}, ${requestBody.code})`;
 
-		//  DOCUMENTATION: INSERT DIFFICULTY INTO LOGS
+		//  DOCUMENTATION: INSERT INITIAL DIFFICULTY INTO LOGS
 
 		let questionLogID = uuidv4();
 

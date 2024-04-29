@@ -1,9 +1,12 @@
+import QuestionTopic from "./questionTopic";
+import TaxonomyCategory from "./taxonomyCategory";
+
 export default interface Question {
 	questionID?: string;
-	topicID?: string;
+	topicID?: QuestionTopic["topicID"];
 	assignedDifficulty?: string;
 	modifiedDifficulty?: string;
-	categoryID?: string;
+	categoryID?: TaxonomyCategory["categoryID"];
 	assignedCompletionTime?: string;
 	modifiedCompletionTime?: string;
 	question?: string;

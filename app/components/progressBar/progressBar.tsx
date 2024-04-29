@@ -1,3 +1,5 @@
+//  NOTE: THIS COMPONENT REPRESENTING THE PROGRESS BAR IN THE QUIZ UI
+
 interface Props {
   currentIdx: number;
 }

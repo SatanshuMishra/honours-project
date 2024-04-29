@@ -11,6 +11,12 @@ interface ParameterData {
 	u: number;
 }
 
+/**
+ * Get categoryID for given category name
+ * @param {string} name: Name of Category
+ * @returns {Promise<String | undefined>} Returns categoryID else undefined if not found.
+ */
+
 async function getCategoryID(name: string): Promise<String | undefined> {
 	try {
 		let category: TaxonomyCategory[] =
@@ -20,18 +26,34 @@ async function getCategoryID(name: string): Promise<String | undefined> {
 			throw new Error(`No category by the name of ${name} found!`);
 
 		return category[0].categoryID;
-	} catch (error) { }
+	} catch (error) {}
 }
+/**
+ * UpdateIRT difficulty offset for given student, topic and category combination.
+ * @param {string} studentID: ID of student
+ * @param {string} topicID: ID of topic
+ * @param {string} categoryID: ID of the category
+ * @param {number} difficultyOffset: New Difficulty offset value
+ * @returns {Promise<boolean>} Return true if successful. Else false.
+ */
 
-async function updateIRTDifficulty(studentID: string, topicID: string, categoryID: string, difficultyOffset: number): Promise<Boolean> {
+async function updateIRTDifficulty(
+	studentID: string,
+	topicID: string,
+	categoryID: string,
+	difficultyOffset: number
+): Promise<Boolean> {
 	try {
 		await prisma.$queryRaw`UPDATE studentKnowledge SET difficultyOffset = ${difficultyOffset} WHERE studentID = UUID_TO_BIN(${studentID}) AND topicID = UUID_TO_BIN(${topicID}) AND categoryID = UUID_TO_BIN(${categoryID})`;
 
-		await prisma.$queryRaw`INSERT INTO studentLogOffset (studentLogID, studentID, topicID, categoryID, difficultyOffset) VALUES (UUID_TO_BIN(${uuidv4()}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${categoryID}), ${difficultyOffset})`;		
+		await prisma.$queryRaw`INSERT INTO studentLogOffset (studentLogID, studentID, topicID, categoryID, difficultyOffset) VALUES (UUID_TO_BIN(${uuidv4()}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${categoryID}), ${difficultyOffset})`;
 
 		return true;
 	} catch (error) {
-		console.error("Something went wrong with updating difficultyOffset.\nError: ", error);
+		console.error(
+			"Something went wrong with updating difficultyOffset.\nError: ",
+			error
+		);
 		return false;
 	}
 }
@@ -140,7 +162,6 @@ export async function POST(request: NextRequest) {
 			//  DOCUMENTATION: UPDATE DIFFICULTY OFFSET
 
 			for (const result in results) {
-
 				//  DEBUG:
 				console.log(`Category: ${result}`);
 				console.log(results[result]);
@@ -152,11 +173,23 @@ export async function POST(request: NextRequest) {
 				//  DEBUG:
 				console.info("Category ID: ", categoryID);
 
-				const normalizedDifficulty = Math.abs(results[result]['b']) <= 10 ? results[result]['b'] / 10 * 2 : results[result]['b'] > 0 ? 2 / 10 * 2 : -2 / 10 * 2;
+				const normalizedDifficulty =
+					Math.abs(results[result]["b"]) <= 10
+						? (results[result]["b"] / 10) * 2
+						: results[result]["b"] > 0
+							? (2 / 10) * 2
+							: (-2 / 10) * 2;
 
-				console.info(`Difficulty: ${results[result]['b']}\nNormalized Difficulty: ${results[result]['b'] / 10 * 5}`);
+				console.info(
+					`Difficulty: ${results[result]["b"]}\nNormalized Difficulty: ${(results[result]["b"] / 10) * 5}`
+				);
 
-				let updateStatus = await updateIRTDifficulty(requestBody.studentID, requestBody.topicID, categoryID, normalizedDifficulty);
+				let updateStatus = await updateIRTDifficulty(
+					requestBody.studentID,
+					requestBody.topicID,
+					categoryID,
+					normalizedDifficulty
+				);
 				if (!updateStatus)
 					throw new Error("Updating difficultyOffset failed.");
 			}

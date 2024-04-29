@@ -37,10 +37,10 @@ CREATE TABLE taxonomyCategory (
 CREATE TABLE question (
 	questionID BINARY(16) NOT NULL PRIMARY KEY,
 	topicID BINARY(16) NOT NULL,
-	assignedDifficulty DECIMAL(3, 2) NOT NULL,
-	modifiedDifficulty DECIMAL(3, 2) NOT NULL,
+	assignedDifficulty DECIMAL(4, 1) NOT NULL,
+	modifiedDifficulty DECIMAL(4, 1) NOT NULL,
 	categoryID BINARY(16) NOT NULL,
-	assignedCompletionTime INTEGER NOT NULL,
+	assignedCompletionTime DECIMAL(5, 2) NOT NULL,
 	modifiedCompletionTime DECIMAL(5, 2) NOT NULL,
 	question TEXT NOT NULL,
 	code TEXT,

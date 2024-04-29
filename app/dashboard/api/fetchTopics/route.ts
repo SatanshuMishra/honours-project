@@ -5,18 +5,17 @@ import Student from "@/app/types/student";
 
 export async function POST(request: NextRequest) {
 	try {
-		// let topics: QuestionTopic[] =
-		// 	await prisma.$queryRaw`SELECT BIN_TO_UUID(topicID) AS topicID, name FROM questionTopic`;
-
+		//  NOTE: PARSE REQUEST DATA
 		const requestText = await request.text();
 		const requestBody: {
 			studentID: Student["studentID"];
 		} = JSON.parse(requestText);
 
+		//  NOTE: CUSTOM INTERFACE TO ALLOW CONVERSION OF BIGINT TO STRING IN THE FORM OF JSON.stringify().
 		interface BigInt {
-			/** Convert to BigInt to string form in JSON.stringify */
 			toJSON: () => string;
 		}
+
 		BigInt.prototype.toJSON = function() {
 			return this.toString();
 		};
@@ -40,7 +39,7 @@ LEFT JOIN
 GROUP BY 
     qt.topicID, qt.name;
 `;
-
+		//  NOTE: GUARD: CHECK IF TOPICS ARE RETURNED
 
 		if (!topics || topics.length === 0)
 			return new Response(

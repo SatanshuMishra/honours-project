@@ -3,6 +3,11 @@ import prisma from "../../../lib/prisma";
 import { NextRequest } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
+/**
+ * This function gets the topicID, categoryID and modifiedDifficulty for a given QuestionID.
+ * @param {string} questionID - The question ID of the question you need information on.
+ * @returns {Promise<string>} Returns topicID, categoryID and modifiedDifficulty of Question.
+ */
 async function getQuestionInfo(questionID: string): Promise<string> {
 	const question: {
 		topicID: Question["topicID"];
@@ -64,10 +69,10 @@ export async function POST(request: NextRequest) {
 		let difficulty = parseFloat(question.modifiedDifficulty) / (1 - sigmoid) + parseFloat(questionAttempts[0].correctAttemptsFraction) * sigmoid;
 
 		if(difficulty > 0)
-			difficulty = Math.min(difficulty, 10);
+			difficulty = Math.min(difficulty, 10.0);
 
 		if(difficulty < 0)
-			difficulty = Math.max(difficulty, -10);
+			difficulty = Math.max(difficulty, -10.0);
 
 		//  DEBUG:
 		console.log(`QuestionID: ${requestBody.questionID}\nNew Difficulty: ${difficulty}`);
@@ -91,12 +96,14 @@ export async function POST(request: NextRequest) {
                  ELSE mastery + ${masteryUpdate} 
              END WHERE studentID = UUID_TO_BIN(${requestBody.studentID}) AND topicID = UUID_TO_BIN(${question.topicID}) AND categoryID = UUID_TO_BIN(${question.categoryID})`;
 
-		//  DOCUMENTATION: ADD LOGS
+		//  DOCUMENTATION: ADD QUESTION DIFFICULTY CHANGE LOGS
 
 		const questionLogID = uuidv4(), studentLogID = uuidv4();
 		await prisma.$queryRaw`INSERT INTO questionLogsDifficulty (questionLogID, questionID, difficulty) VALUES (UUID_TO_BIN(${questionLogID}), UUID_TO_BIN(${requestBody.questionID}), ${difficulty})`;
 
 		let masteryLog = masteryUpdate > 1.7 ? 1.7 : masteryUpdate < -1.7 ? -1.7 : masteryUpdate;
+
+		// DOCUMENTATION: ADD MASTERY CHANGE LOG
 
 		await prisma.$queryRaw`INSERT INTO studentLogMastery (studentLogID, studentID, topicID, categoryID, mastery) VALUES (UUID_TO_BIN(${studentLogID}), UUID_TO_BIN(${requestBody.studentID}), UUID_TO_BIN(${question.topicID}), UUID_TO_BIN(${question.categoryID}), ${masteryLog})`;
 

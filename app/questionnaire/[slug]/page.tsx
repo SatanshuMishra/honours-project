@@ -361,7 +361,11 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 		}
 	};
 
-	async function processResults() {
+	/**
+	 * Processes data for entire quiz based on collected statistics
+	 * @returns {Promise<any>} Returns processed data.
+	 */
+	async function processResults(): Promise<any> {
 		try {
 			if (!quizState.quizDurationEnd)
 				throw new Error("No submission detected!");
