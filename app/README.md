@@ -16,15 +16,23 @@ The Machine learning (ML) forms the core of what this system is supposed to do. 
 
 1. Depending on the bug, you can anticipate which file(s) to explore. Here is a short list of important files. Note the directories start in `honours-2023-adaptive-learning-tool/app/`.
 
-  a. `questionnaire/api/addperformancestatistics`: For bug encountered over individual attempts in a quiz (rather than at the end of the quiz).
-  b. `questionnaire/api/processResults`: For bugs encountered at the end of a quiz. Possibly involving the parsing of data for IRT.
-  c. `questionnaire/api/irt`: As the name would suggest, for bugs with the actual irt model (e.g., Degrees of Freedom).
-  d. `questionnaire/api/addquestion` & `questionnaire/api/addanswer`: For issues encountered with adding questions.
-  e. `questionnaire/api/fetchquestions` & `questionnaire/api/fetchanswers`: For issues encounted with quiz loading/generation.
-  f. `scripts/parseJSON`: Bugs encountered with loading the questions from JSON to insert into the system.
-  g. `scripts/verifyJWT` & `scripts/validateToken`: Issues with user session.
-  h. `types/*`: Issues with object types.
+    a. `questionnaire/api/addperformancestatistics`: For bug encountered over individual attempts in a quiz (rather than at the end of the quiz).
 
-These are starting points to look at when troubleshooting the app.
+    b. `questionnaire/api/processResults`: For bugs encountered at the end of a quiz. Possibly involving the parsing of data for IRT.
+  
+    c. `questionnaire/api/irt`: As the name would suggest, for bugs with the actual irt model (e.g., Degrees of Freedom).
+  
+    d. `questionnaire/api/addquestion` & `questionnaire/api/addanswer`: For issues encountered with adding questions.
+  
+    e. `questionnaire/api/fetchquestions` & `questionnaire/api/fetchanswers`: For issues encounted with quiz loading/generation.
+  
+    f. `scripts/parseJSON`: Bugs encountered with loading the questions from JSON to insert into the system.
+  
+    g. `scripts/verifyJWT` & `scripts/validateToken`: Issues with user session.
+  
+    h. `types/*`: Issues with object types.
+  
+
+  These are starting points to look at when troubleshooting the app.
 
 2. Using `docker-compose up`: Attaching a Docker session to your terminal tab can seem pointless and a waste of a window. However, it can help you track what happens with your app's backend in real time. If you can't see or find your error using traditional console.log debug lines, take a look at your docker container.
