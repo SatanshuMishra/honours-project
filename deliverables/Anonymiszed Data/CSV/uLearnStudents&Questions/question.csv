@@ -1,0 +1,2210 @@
+questionID,topicID,assignedDifficulty,modifiedDifficulty,categoryID,assignedCompletionTime,modifiedCompletionTime,question,code
+"X'023F9AC52A8644368F2CF66208C940BF'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,Which keyword in Java is used to define custom exceptions?,
+"X'0250538401254DEB80D737767C3F2DD4'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,What is the primary advantage of using recursion over iteration?,
+"X'02509974F844418395B36940B7358970'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,"In Java, which keyword is used to explicitly throw an exception?",
+"X'0262BB736CBB4A9183C125172AA12B5D'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,What is the main characteristic of a queue in Java?,
+"X'02B56024C5C84808BD843118A2DF7FCB'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",55,55.00,"Which method in Java's ArrayList class is used to add all elements of a collection at the end of the list?",
+"X'02E52A47530B454BA4B203C731EC3B3E'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,Explain the concept of an ArrayList in Java and provide an example scenario where it can be used.,
+"X'0370CB7C80974DD8BE88918D1DD06D24'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",90,90.00,"In Java, what happens if you throw an exception inside a 'finally' block?",
+"X'039225EBE16D47FB9F81B53BFAC1D1C6'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java program that handles a custom exception named 'CustomException' and throws it when a number entered by the user is negative.",
+"X'03BD421DABC8455599FFA5C395B984AD'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the provided Java code snippet. What is the worst-case time complexity of the function?,"public boolean isPalindrome(String s) {
+    if (s.length() <= 1)
+        return true;
+    else
+        return s.charAt(0) == s.charAt(s.length() - 1) && isPalindrome(s.substring(1, s.length() - 1));
+}"
+"X'03ED46AE4E2545A3AE8692C6A33C1159'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,"Consider the following Java code snippet. What will be the output of the code?
+
+```java
+Stack<String> stack = new Stack<>();
+stack.push(""A"");
+stack.push(""B"");
+stack.push(""C"");
+stack.remove(""A"");
+System.out.println(stack);
+```
+","Stack<String> stack = new Stack<>();
+stack.push(""A"");
+stack.push(""B"");
+stack.push(""C"");
+stack.remove(""A"");
+System.out.println(stack);"
+"X'043545C746C9415C8242D645162AC362'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",40,40.00,Compare and contrast the usage of FileInputStream and BufferedInputStream in Java.,
+"X'04683D7A504E47A1A67712F668C2C0E3'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which method in Java is used to check if a file is writable?,
+"X'066067827E614AFCB35E31FC55C71914'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to check if a LinkedList named 'list' is empty.",boolean isEmpty = list.isEmpty();
+"X'068AF8B6161B42D188554D2E72A680D7'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",45,45.00,"Which method in Java's Stack class is used to check if the stack is empty?",
+"X'079EBBF49A804E428A41068070A08A4C'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which of the following statements about recursion in Java is true?,
+"X'07BD9F95825B4D2496D53FDAF30C102B'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",35,35.00,Which Java class is used to read and write compressed data streams using the ZLIB compression library?,
+"X'09B7421C92C243E2A80AD32F6AA637BE'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",35,35.00,Which Java interface extends the Queue interface and adds support for operations that access elements at both ends of the queue?,
+"X'09D22D2F959448E09DB77B4245467898'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What is the output of the following Java code?
+try {
+    int[] arr = new int[5];
+    arr[10] = 7;
+}
+catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println(""Array index out of bounds."");
+}
+finally {
+    System.out.println(""Finally block executed."");
+}",
+"X'09DD8F7502164FD9BFF3FDBA141C84FB'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",50,50.00,Which Java collection class provides an implementation of the Set interface?,
+"X'0A2D93E4086342118C9859916B2F8D0F'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which keyword is used to propagate an exception up the call stack in Java?,
+"X'0A4CA3B4C132403F8E1F5A8C7B96F01E'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java method named 'validateUsername' that takes a string as input and throws an 'InvalidUsernameException' if the username is empty.",
+"X'0AB613D80E184EE0A5AEDCEA439E0688'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,Which Java interface provides a double-ended queue that supports element insertion and removal at both ends?,
+"X'0B2A5EF3D8A841B7B05225092F4F5A4E'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'0B31D20306B7440087AAFBC6870262FE'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code snippet. What will be the output of the function call for input 3?,"public int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+System.out.println(fibonacci(3));"
+"X'0B5DFA766C4C4B1199BB221F7D8820FD'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,Explain the role of BufferedWriter class in Java.,
+"X'0B97AA2433C947A68D07B63A6D12530F'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,"Which method in Java's Queue interface is used to retrieve but not remove the head of the queue?",
+"X'0BAE80CAFEE543E2981E9EF250DCA80E'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,"Consider the following recursive function in Java. What will be the output when calling mystery(4)?
+
+```java
+public int mystery(int n) {
+    if (n == 0)
+        return 1;
+    else
+        return mystery(n / 2);
+}
+```","public int mystery(int n) {
+    if (n == 0)
+        return 1;
+    else
+        return mystery(n / 2);
+}"
+"X'0BB7A32E166448F4ABB2229911929755'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",100,100.00,Write a recursive Java method to find the maximum element in an integer array.,"public class MaxElement {
+    public int findMax(int[] arr, int index) {
+        if (index == arr.length - 1)
+            return arr[index];
+        else
+            return Math.max(arr[index], findMax(arr, index + 1));
+    }
+}"
+"X'0C1A759D22724861ADBB918777678809'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What does the 'printStackTrace()' method of the Exception class in Java do?",
+"X'0C31D0C7915F4D95AC436EB11FA61681'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,Which Java collection class provides a queue that orders elements based on their natural ordering or the ordering specified by a Comparator?,
+"X'0C5E2D8E14204FE9AF9F7A70C8A4E742'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",35,35.00,What does the flush() method do in Java I/O?,
+"X'0C6D72339A1C4CF5B14A2E48BE49BEAD'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,"Consider the following Java code snippet. What will be the output of the code?
+
+```java
+Queue<Integer> queue = new LinkedList<>();
+queue.add(1);
+queue.add(2);
+queue.add(3);
+queue.peek();
+System.out.println(queue);
+```
+","Queue<Integer> queue = new LinkedList<>();
+queue.add(1);
+queue.add(2);
+queue.add(3);
+queue.peek();
+System.out.println(queue);"
+"X'0C985B45667D44D2AA1F28CBEF8DC4E6'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the following Java code snippet. What is the space complexity of the function?,"public int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return fibonacci(n - 1) + fibonacci(n - 2);
+}"
+"X'0DDF0F723C4C41259B0DA739468FC582'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",45,45.00,"Which method in Java's LinkedList class is used to remove the last element of the list?",
+"X'0E4A0ABBE6A8439C83DE0B73FEDAE739'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",25,25.00,Which Java class provides methods to read from and write to the system console?,
+"X'0E7FA347A8CA499998AC8E2FCA8CA244'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,Analyze the following Java code snippet and identify the potential error:,"public class ErrorAnalysis {
+    public static void main(String[] args) {
+        try {
+            int[] arr = new int[5];
+            System.out.println(arr[6]); // ArrayIndexOutOfBoundsException
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(""Array index out of bounds"");
+        } catch (Exception e) {
+            System.out.println(""Exception occurred: "" + e.getMessage());
+        }
+    }
+}"
+"X'0EB2672D57704C928721B1953E21BDFD'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What is the purpose of the 'getMessage()' method in Java exceptions?",
+"X'0F9BDA4DB477459B81E3A537841CABCE'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",45,45.00,What is the output of the following Java code?,"public class Main {
+    public static void main(String[] args) {
+        System.out.println(countDigits(12345));
+    }
+
+    public static int countDigits(int n) {
+        if (n == 0)
+            return 0;
+        else
+            return 1 + countDigits(n / 10);
+    }
+}"
+"X'0FDA4670E97844F0A3523DF60928B3EA'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to insert an element at the front of a LinkedList named 'list'.",list.addFirst(element);
+"X'10353E900E884134BC4BB64CBF00ADF5'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,What is the significance of ByteArrayOutputStream class in Java?,
+"X'1155B603FB6C444692FE4E2E393AF061'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,"What is the time complexity of the following recursive function in terms of Big O notation?
+
+```java
+public int recursiveFunc(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return recursiveFunc(n - 1) + recursiveFunc(n - 2);
+}
+```","public int recursiveFunc(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return recursiveFunc(n - 1) + recursiveFunc(n - 2);
+}"
+"X'11F961DCD7A24CB69C22C22DC2E3A80E'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,"Which method in Java's Deque interface is used to insert an element at the front of the deque?",
+"X'121B0B7C41F14F7B9EB4889BBA98DB6A'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,Which of the following recursive functions correctly calculates the factorial of a number in Java?,
+"X'131BB395AEEA4EB4B400D7C12B153F6D'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"Consider the following recursive function in Java. What will be the output when calling mystery(4)?
+
+```java
+public int mystery(int n) {
+    if (n == 0)
+        return 1;
+    else
+        return mystery(n / 2);
+}
+```","public int mystery(int n) {
+    if (n == 0)
+        return 1;
+    else
+        return mystery(n / 2);
+}"
+"X'1387916F8079431BBFCB31330CFC4ADE'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,Which of the following statements about try-catch blocks in Java is true?,
+"X'1437277BDA7E48B5891C7822A9B2548E'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",20,20.00,Which keyword is used to handle exceptions in Java?,
+"X'146F55C32A67432B97E787A708F3CD63'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",35,35.00,What does the close() method do in Java I/O?,
+"X'14AF3220745843CE9893847040AA4F14'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",45,45.00,Which Java interface provides a double-ended queue?,
+"X'14C88E3038EB40418EC0D5AD8BCC0E5B'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",45,45.00,Which keyword is used to define an exception handler in Java?,
+"X'14E4000564D746A780ADF46F14A551AB'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which data structure is best suited for managing function calls in a program?,
+"X'1518F528C14B4C06A922220D2D34E4F5'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java method named 'checkNumber' that takes an integer as input and throws a 'NegativeNumberException' if the input is negative.",
+"X'15D7FD52D1AB4B0CB988BD7A2B85BBF7'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",45,45.00,Compare and contrast the usage of FileInputStream and FileReader classes in Java.,
+"X'15DE8BDE346D4D94BDDC14F22AEDA301'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",80,80.00,Write a Java method that recursively calculates the nth term of the Fibonacci sequence.,"public class Fibonacci {
+    public int calculateFibonacci(int n) {
+        if (n <= 1)
+            return n;
+        else
+            return calculateFibonacci(n - 1) + calculateFibonacci(n - 2);
+    }
+}"
+"X'162EC512C41843DC92686C2EC2F63E48'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code snippet. What will be the output of the function call for input 5?,"public int factorial(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}
+
+System.out.println(factorial(5));"
+"X'17C6C671A4B741F8BDF0C8CBB39B9E1C'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,Which Java collection class provides a balanced binary tree implementation?,
+"X'17F0477CFA8649EE952523CF37FA9644'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,What is the key characteristic of a recursive function?,
+"X'18282A0FF7B04C21B6E3F48EC48471FE'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the following Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'184A15A1B7544EC1AD712FADF365CD27'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",35,35.00,Which Java interface provides a collection of elements with no duplicates and no specific order?,
+"X'1938E25C004D4B01A1BDA6F7A819979F'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,"What is the time complexity of the 'remove' operation in a LinkedList in Java?",
+"X'194FDCB0B59A4756AB8005B433AB8BAC'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",50,50.00,Examine the usage of DataInputStream and DataOutputStream classes in Java for reading and writing binary data.,
+"X'195AED44CA5B470FBF12531ABDD2098D'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What is the purpose of the 'getMessage()' method in Java exceptions?",
+"X'195B4477A60D44C89E51BE8EAA9FB032'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",40,40.00,Explain the use of RandomAccessFile class in Java I/O.,
+"X'195DA52ABCD743D7BBD59DF6551E07F9'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Write a recursive function in Java to calculate the sum of all even numbers up to a given limit.,"public int evenSum(int n) {
+    if (n <= 0)
+        return 0;
+    else
+        return (n % 2 == 0 ? n : 0) + evenSum(n - 1);
+}"
+"X'1973D7C3169D4D74904B6B85A0D6F1FE'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Create a recursive function in Java to find the sum of digits of a given number.,"public int digitSum(int n) {
+    if (n == 0)
+        return 0;
+    else
+        return n % 10 + digitSum(n / 10);
+}"
+"X'19DD91B3E54146119622197205848819'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",20,20.00,"What is the purpose of the 'finally' block in Java exception handling?",
+"X'1AA3BB2616E2488DA370A27C2A94C5BA'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",15,15.00,Which keyword is used to catch exceptions in Java?,
+"X'1C12013535CC406A8CE0595E67BD4EEF'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",20,20.00,Which keyword is used to propagate an exception up the call stack in Java?,
+"X'1C9E61CF2ABE480AADF3F73A94427801'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,Which Java collection class provides a data structure that allows rapid retrieval of elements based on their keys?,
+"X'1DDB42EA55764BCC892351348F1F4184'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,Analyze the given Java code and identify the potential error:,"public class ErrorAnalysis {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (Exception e) {
+            System.out.println(""Exception occurred: "" + e.getMessage());
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        try {
+            return dividend / divisor;
+        } finally {
+            System.out.println(""Finally block executed"");
+        }
+    }
+}"
+"X'1FC7379B5233412794A88523B2B0F308'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",55,55.00,What is the primary purpose of a base case in a recursive function?,
+"X'1FFBD46A549749E29F1301B17C9F1E2E'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",45,45.00,Evaluate the usage of BufferedWriter and DataOutputStream classes in Java for handling output streams.,
+"X'20071AA0AD2E44C6B2ED9F6BF1053E7A'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (Exception e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'20313CAD6C594731B2A0D10F20EEB43B'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",20,20.00,Which of the following is not a standard exception class in Java?,
+"X'20664AD5FBC947A08F078BA91DF431AE'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the given Java code snippet. What is the time complexity of the recursive function?,"public int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return fibonacci(n - 1) + fibonacci(n - 2);
+}"
+"X'20955D041CC540E3B78B0A044C7E5833'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",70,70.00,Implement a recursive Java function to calculate the number of trailing zeroes in the factorial of a positive integer.,"public class TrailingZeroes {
+    public int countTrailingZeroes(int n) {
+        if (n < 5)
+            return 0;
+        else
+            return n / 5 + countTrailingZeroes(n / 5);
+    }
+}"
+"X'20C0F166647343B389659F7A15C18A65'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,What is the main advantage of using memoization in recursive algorithms?,
+"X'221252B1E08948EAB6DD3BE259F022E2'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",45,45.00,Discuss the differences between FileOutputStream and FileWriter classes in Java.,
+"X'222407E7D5CD42A0B5949AE8B5648A96'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,Implement a recursive Java function to check if a given string is a palindrome.,"public class PalindromeChecker {
+    public boolean isPalindrome(String str) {
+        if (str.length() <= 1)
+            return true;
+        else if (str.charAt(0) != str.charAt(str.length() - 1))
+            return false;
+        else
+            return isPalindrome(str.substring(1, str.length() - 1));
+    }
+}"
+"X'2432E5E95D684112831AB42D1CD96A5A'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which class in Java is used to write formatted data to an OutputStream?,
+"X'248793793A2540E88BAE714595A9D896'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,"Consider the following Java code snippet. What will be the output of the code?
+
+```java
+List<String> list = new ArrayList<>();
+list.add(""A"");
+list.add(""B"");
+list.add(""C"");
+list.add(""D"");
+list.remove(2);
+System.out.println(list);
+```
+","List<String> list = new ArrayList<>();
+list.add(""A"");
+list.add(""B"");
+list.add(""C"");
+list.add(""D"");
+list.remove(2);
+System.out.println(list);"
+"X'24922F314830467D89F69491DF05494F'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java method named 'checkUsername' that takes a username as input and throws an 'InvalidUsernameException' if the username contains any special characters.",
+"X'249B8BBA562A4040814B5C4E5DAA56C1'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the following Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'24B23912B61243EBB01AB6CA50EEA551'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the provided Java code snippet. What is the time complexity of the recursive function?,"public int factorial(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}"
+"X'25877D0FB5464A9DAFA805CAA1D7DC73'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",120,120.00,Implement a recursive function in Java to generate all possible combinations of a given string.,"public void generateCombinations(String s, int index, String current, List<String> result) {
+    if (index == s.length()) {
+        result.add(current);
+        return;
+    }
+    generateCombinations(s, index + 1, current + s.charAt(index), result);
+    generateCombinations(s, index + 1, current, result);
+}"
+"X'258DFCFF389A43A5B3CED09C423793A0'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,What is the primary purpose of using try-catch blocks in Java?,
+"X'259BA15D447549F5950C1C81730719E3'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,Write a Java program to append text to an existing file.,"import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
+
+public class FileAppender {
+    public static void main(String[] args) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(""output.txt"", true))) {
+            writer.write(""Appended text"");
+            System.out.println(""Text appended successfully."");
+        } catch (IOException e) {
+            System.out.println(""Error appending text: "" + e.getMessage());
+        }
+    }
+}"
+"X'25A3E677735D473EA83633D9A89635CE'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java program that defines a custom exception 'InvalidInputException' and throws it when the user enters a negative number.",
+"X'2679BAEF21DD40D1BF70BBC4D02A4BFB'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which of the following is used to check whether a file exists or not in Java?,
+"X'278A89C47DFE48DA830117E1AF601A2A'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",20,20.00,Which method in Java is used to write a formatted string to a PrintWriter?,
+"X'281EC912C5C64B9AA8269E75849A6ED9'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,What is the output of the following Java code?,"public class Main {
+    public static void main(String[] args) {
+        System.out.println(power(2, 3));
+    }
+
+    public static int power(int base, int exponent) {
+        if (exponent == 0)
+            return 1;
+        else
+            return base * power(base, exponent - 1);
+    }
+}"
+"X'295166A1B4D4446D9532DC44881E73C8'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",100,100.00,Write a recursive Java method to generate all permutations of a given string.,"public class Permutations {
+    public void generatePermutations(String prefix, String str) {
+        int n = str.length();
+        if (n == 0)
+            System.out.println(prefix);
+        else {
+            for (int i = 0; i < n; i++)
+                generatePermutations(prefix + str.charAt(i), str.substring(0, i) + str.substring(i + 1, n));
+        }
+    }
+}"
+"X'29CB180576454D488FBF4B502186AB4C'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",30,30.00,Which Java collection class provides an implementation of the Stack interface?,
+"X'2A2C82240BD14EAAADE1D84137E07602'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Implement a recursive function in Java to calculate the sum of all elements in an integer array.,"public int arraySum(int[] arr, int index) {
+    if (index < 0)
+        return 0;
+    else
+        return arr[index] + arraySum(arr, index - 1);
+}"
+"X'2AA3E5C8687E43FE9B3F7C7F4410DC88'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which Java data structure is most suitable for implementing a waiting line for a customer service hotline?,
+"X'2AB58D5CA4B34F1582771D5EE5CF4E84'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",40,40.00,"Which method in Java's LinkedList class is used to remove the first occurrence of a specified element?",
+"X'2ADDC19B052949E1A2004E373C1AFFEA'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",40,40.00,Evaluate the usage of FileInputStream and BufferedInputStream classes in Java for reading files efficiently.,
+"X'2AE21D104FDD4B8CB40F60B4F9F79716'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,"Which method in Java's Stack class is used to retrieve and remove the top element of the stack?",
+"X'2B954543225D4A239536DD2F3E11E2E9'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to reverse the order of elements in an ArrayList named 'list'.",Collections.reverse(list);
+"X'2BEF916FC7C34700B8370B6FE2C4D12A'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",50,50.00,Explain the purpose and usage of the RandomAccessFile class in Java.,
+"X'2C20DD2740E841BDA0E9027C825A9AAC'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,"Which of the following statements regarding the 'size()' method in Java collections is correct?",
+"X'2C56D642B9724F028EAC72FFADD827BB'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,What is the base case in recursion?,
+"X'2CD9D4BCB61043DC9E2C711B4D4F7944'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which of the following statements about recursion in Java is true?,
+"X'2D0A90A2C3524D239E881577D0A961E5'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,Which of the following is NOT a standard Java exception?,
+"X'2DEE4BE189114A1391C4B5C11D492135'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",50,50.00,"Which method in Java's Stack class is used to check the element at the top of the stack without removing it?",
+"X'2E0C0217C9664AC0B707DE2D8F4D241B'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,"Which of the following is true about the 'add()' method in Java ArrayList?",
+"X'2E509A2D07A743E4AD6AA28F23127629'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,"What happens when you try to remove an element from an empty queue in Java using the 'remove()' method?",
+"X'2E90BA719889409596FFD702E7670873'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,What happens when you try to pop an element from an empty stack in Java?,
+"X'2F292A64385E4975BF436A728B1D9648'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",55,55.00,How does recursion help in solving problems with repeated subproblems?,
+"X'2FAF40DD962C4EC1B90DE4B7EC9F1791'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",40,40.00,How does the PrintWriter class differ from the FileWriter class in Java?,
+"X'2FE7EF035C7442EF9F7A2D9727E9B846'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",30,30.00,Which Java interface extends the Queue interface and adds support for operations that access elements at both ends of the queue?,
+"X'30355531581649C693DD75C186709253'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'417786202CD94EB89655C67365551278'",45,45.00,What is the output of the following Java code?,"public class Main {
+    public static void main(String[] args) {
+        System.out.println(sumDigits(123));
+    }
+
+    public static int sumDigits(int n) {
+        if (n == 0)
+            return 0;
+        else
+            return n % 10 + sumDigits(n / 10);
+    }
+}"
+"X'30587DBB5D314C7BA65859B8B52098B5'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",30,30.00,"Which Java class is used to create a new file or update the existing file's last modified time in the file system?",
+"X'30863606AB8D400AA8538A06B679F926'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",80,80.00,Write a Java program to compress a file using GZIP compression.,"import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.zip.GZIPOutputStream;
+
+public class FileCompressor {
+    public static void main(String[] args) {
+        try (FileInputStream in = new FileInputStream(""input.txt"");
+             FileOutputStream out = new FileOutputStream(""output.gz"");
+             GZIPOutputStream gzipOut = new GZIPOutputStream(out)) {
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = in.read(buffer)) > 0) {
+                gzipOut.write(buffer, 0, len);
+            }
+            System.out.println(""File compressed successfully."");
+        } catch (IOException e) {
+            System.out.println(""Error compressing file: "" + e.getMessage());
+        }
+    }
+}"
+"X'30E8F0AC4D0E4033BB6C287877297DDC'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the provided Java code snippet. What is the space complexity of the recursive function?,"public int factorial(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}"
+"X'30EAB9F54D014A67B3840F2ACE372A2E'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,Which of the following is NOT a standard Java exception?,
+"X'31E1E03A725243C2BB3560A2B6C8D220'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,Which of the following is a checked exception in Java?,
+"X'31F5EF897F2F401DB356DD3EB52B85DC'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",40,40.00,Evaluate the differences between InputStreamReader and FileReader classes in Java for reading character-based data.,
+"X'335E0C01A8DA441AAC0CD731CEBE3CB0'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,What is the key characteristic of a queue data structure in Java?,
+"X'336A94947D81462192F96131A2350484'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Which of the following problems is NOT well-suited for recursion?,
+"X'33DAF0B5FBA74AFE98E2F1346768E42A'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which of the following best describes the process of recursion?,
+"X'33E48E402EF0489D87F89B5AE44AB10A'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",45,45.00,Evaluate the differences between DataInputStream and ObjectInputStream classes in Java for reading binary data.,
+"X'34248401F5454E71A2687040430B8809'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code snippet. What will be the output of the function call for input 4?,"public int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+System.out.println(fibonacci(4));"
+"X'34BCC0390C384828A4764C1550740883'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,Which method is called when an exception is not caught?,
+"X'3513B9659627422AB25C32807A747B71'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,Which method in Java is used to read a line of text from the console?,
+"X'35727DFC4B67449CA88D06B4320CA2D9'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",40,40.00,"Which method in Java's ArrayList class is used to add an element at a specific index?",
+"X'35E3DE9DDDBD447FBA37F38E5ADBDF8E'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,Which of the following statements about Java exceptions is true?,
+"X'36D467BB6110498A95E3FDF51481543F'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,Which class in Java is used to read input from a file?,
+"X'36FDB9552A3347C29FA7DB0F12D89765'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",40,40.00,Analyze the differences between BufferedInputStream and BufferedOutputStream classes in Java.,
+"X'37125837CC1D40E9ADEB5C1BDEF99B05'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,What does it mean if a recursive function exhibits tail recursion?,
+"X'378A9DB87DA4421791A79603D5DA3030'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,"What does the 'getMessage()' method of the Exception class in Java return?",
+"X'37A0FC27F4B945BCA436755E149324C1'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the following Java code snippet. What will be the output of the function call for input 3?,"public int factorial(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}
+
+System.out.println(factorial(3));"
+"X'37BBBDEE3E3F4287ABF192114C2CE457'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",50,50.00,Which of the following statements is true regarding checked and unchecked exceptions in Java?,
+"X'37FADA373CB64872908A58B04BFE0770'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,Analyze the following Java code and identify the potential issue:,"public class ErrorAnalysis {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}"
+"X'39EEC1F00D8C4560BAF2A30C771BF148'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,Write a Java program to read data from a file and count the number of occurrences of each word.,"import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class WordCounter {
+    public static void main(String[] args) {
+        Map<String, Integer> wordCount = new HashMap<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(""input.txt""))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] words = line.split(""\\s+"");
+                for (String word : words) {
+                    wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println(""Error reading file: "" + e.getMessage());
+        }
+        for (Map.Entry<String, Integer> entry : wordCount.entrySet()) {
+            System.out.println(entry.getKey() + "": "" + entry.getValue());
+        }
+    }
+}"
+"X'3A5C691FC19648708AAABD88A114113C'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",120,120.00,Write a recursive function in Java to generate all permutations of a given array of integers.,"public void generatePermutations(int[] arr, int start, List<List<Integer>> result) {
+    if (start == arr.length) {
+        List<Integer> permutation = new ArrayList<>();
+        for (int num : arr) {
+            permutation.add(num);
+        }
+        result.add(permutation);
+        return;
+    }
+    for (int i = start; i < arr.length; i++) {
+        swap(arr, start, i);
+        generatePermutations(arr, start + 1, result);
+        swap(arr, start, i);
+    }
+}
+
+private void swap(int[] arr, int i, int j) {
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}"
+"X'3ABFF3A3E60E4BFAAAA6EB910E3A0DFD'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"Consider the recursive function below. What will be the output when calling mystery(5)?
+
+```java
+public int mystery(int n) {
+    if (n <= 0)
+        return 0;
+    else
+        return n + mystery(n - 2);
+}
+```","public int mystery(int n) {
+    if (n <= 0)
+        return 0;
+    else
+        return n + mystery(n - 2);
+}"
+"X'3AEA03F9720E49898B35E6484DE1B057'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",50,50.00,Evaluate the differences between FileReader and FileWriter classes in Java for handling character-based file operations.,
+"X'3B3C10487F2A440188617DFBEDC0DC68'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which Java data structure is most suitable for managing tasks in the order they are received?,
+"X'3C65C3D1363C448BBFB394A6344F7A63'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 2); // Valid division
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'3CBB5DF01FE245EE932C8EFE8E7B5313'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Create a Java program that reads input from the user and handles NumberFormatException gracefully by displaying an appropriate error message.,
+"X'3CC7D326CF764DB798F0E77D3E53B58C'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,Explain with a Java code example how to create a custom exception class and throw it.,"public class CustomException extends Exception {
+    public CustomException(String message) {
+        super(message);
+    }
+}
+
+public class CustomExceptionExample {
+    public static void main(String[] args) {
+        try {
+            throw new CustomException(""Custom exception thrown"");
+        } catch (CustomException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}"
+"X'3E26798A4A664DA8B5F1DA74EA374BBD'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",45,45.00,What is the significance of the stack in recursive function execution?,
+"X'3E3EDDEC7F0044549CD5C1E5705B3E72'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,Analyze the given Java code snippet. What is the base case for the recursive function?,"public boolean isPalindrome(String s) {
+    if (s.length() <= 1)
+        return true;
+    else
+        return s.charAt(0) == s.charAt(s.length() - 1) && isPalindrome(s.substring(1, s.length() - 1));
+}"
+"X'3E654A82A2E04785AC4212C17FF937FC'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",90,90.00,Evaluate the given Java code snippet. What will be the output of the function call for input 3?,"public int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+System.out.println(fibonacci(3));"
+"X'3E6F657D3142439A943B60798C23EAE0'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,"What is the time complexity of the following recursive function in terms of Big O notation?
+int fibonacci(int n) {
+  if (n <= 1) {
+    return n;
+  }
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+",
+"X'3EFF66D57E4E499DACD594FA11A808FF'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the following Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'3F7BACCBBEF34D1BA4FC45C68C129500'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java program that defines a custom exception 'InvalidInputException' and throws it when the user enters a non-numeric input.",
+"X'3FC5CAEA4DBA4E87939ED6521D7B1149'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",30,30.00,"Which method in Java's ArrayList class is used to add an element at a specific index?",
+"X'400081C4B421474DA9B46805937EDFC3'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,What is tail recursion?,
+"X'403AF5B525B2445F80A82ED70811E224'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,Which method in Java Stack class is used to retrieve but not remove the element at the top of the stack?,
+"X'41439E0EB5FA4D3FB3DEFADBCE11182A'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java program that defines a custom exception 'InvalidPasswordException' and throws it when the length of the password entered by the user is less than 8 characters.",
+"X'420F23C5101F44AB98DCC78431B8F647'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which method in Java is used to write a line of text to a file?,
+"X'4221FCD9E507492E99975C6E5197264F'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What is the difference between 'printStackTrace()' and 'getMessage()' methods in Java exceptions?",
+"X'4224464C062A49F080E33B228851AB31'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",20,20.00,Which keyword is used to explicitly throw an exception within a method in Java?,
+"X'42860377218E404BA5EB04A41AF93C02'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",50,50.00,Explain the concept of a stack in Java and provide an example scenario where it can be used.,
+"X'4305B4E841B147669F9BB00ECBC803C4'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Write a recursive function in Java to check if a given string is a palindrome.,"public boolean isPalindrome(String s) {
+    if (s.length() <= 1)
+        return true;
+    else
+        return s.charAt(0) == s.charAt(s.length() - 1) && isPalindrome(s.substring(1, s.length() - 1));
+}"
+"X'43C213AA0C734E15B8A728A5DADFC414'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",70,70.00,Implement a recursive function in Java to compute the nth Fibonacci number.,"public class Fibonacci {
+    public int calculateFibonacci(int n) {
+        if (n <= 1)
+            return n;
+        else
+            return calculateFibonacci(n - 1) + calculateFibonacci(n - 2);
+    }
+}"
+"X'4445E2CD41C3458B9BAA90505A2E7F5B'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which class in Java is used to read input from the console?,
+"X'45983BA70C14454D9FA4D157A70FF34B'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,Which Java collection class allows for key-value pairs and does not allow duplicate keys?,
+"X'45AEEBA1632F481E9BD5B72F95275821'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,"What is the output of the following recursive function in Java?
+void countDown(int n) {
+  if (n == 0) {
+    return;
+  }
+  System.out.print(n + "" "");
+  countDown(n - 1);
+}
+countDown(5);",
+"X'45EEA478FFA24907BFDA4D70F99AB556'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,Which Java interface provides a collection that maintains order and allows duplicates?,
+"X'471958D511AE46F0939E03B88C5CB2D5'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,Which of the following recursive functions correctly calculates the Fibonacci sequence?,
+"X'4762AC9F9C5346129D46ABBF4F26D259'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,Which of the following is NOT a characteristic of recursive algorithms?,
+"X'47C22DDE1D7B41EA81E19AFBF5908482'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the following Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 2); // Valid division
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'47FD5ED990CB457FBB893B0731E09198'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"Consider the following recursive function in Java:
+
+```
+public int factorial(int n) {
+    if (n == 0)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}
+```
+
+What is the base case of this function?",
+"X'48851B343FA24A318BF67E03AEA78448'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,"Which method in Java's PriorityQueue class is used to check if the queue is empty?",
+"X'49D2F33B8C324D93B8EADC9327B3DE8C'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"Analyzing the following Java code snippet, identify the potential error and suggest a correction:","public class ErrorAnalysis {
+    public static void main(String[] args) {
+        try {
+            int[] arr = new int[5];
+            arr[6] = 10; // ArrayIndexOutOfBoundsException
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(""Array index out of bounds"");
+        } catch (Exception e) {
+            System.out.println(""Exception occurred: "" + e.getMessage());
+        }
+    }
+}"
+"X'4A336F50C86C4DBF95A5E761DD4F9F18'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What is the purpose of the 'getMessage()' method in Java exceptions?",
+"X'4A7AA46DF5034DAB81EB25466D285309'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",35,35.00,Explain the purpose of InputStream in Java I/O.,
+"X'4A88D19B54CD42489EAC2EAD4C682F17'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"What will be the time complexity of the following recursive function in terms of Big O notation?
+
+```java
+public int recursiveFunction(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return recursiveFunction(n - 1) + recursiveFunction(n - 2);
+}
+```",
+"X'4B44BE1960BE4A2DB9AD6F31984634B5'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,Which of the following is NOT a standard Java exception?,
+"X'4B4B6423E37946EDBE214565A7AA9213'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",45,45.00,Which Java collection class maintains the elements in sorted order?,
+"X'4CB082C0D19C422789FA951F8C05868D'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",90,90.00,Evaluate the given Java code snippet. What will be the output of the function call for input 5?,"public int factorial(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}
+
+System.out.println(factorial(5));"
+"X'4D337187648F49308F6E5A5424598CE7'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,"What is the output of the following recursive function in Java?
+int sum(int n) {
+  if (n <= 0) {
+    return 0;
+  }
+  return n + sum(n - 1);
+}
+sum(4);",
+"X'4D7DA4CD4E81405C9FDA86DE06118953'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,"Which method in Java's Stack class is used to push an element onto the top of the stack?",
+"X'4DEF9449DC7E45709F2B2821388C9FE9'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",90,90.00,Evaluate the given Java code snippet. What will be the output of the function call for input 5?,"public int factorial(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}
+
+System.out.println(factorial(5));"
+"X'4E2EAA2339AF4CBA879D1F7DCA35815C'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java program that handles ArithmeticException by printing 'Arithmetic Exception Occurred' and terminating gracefully.",
+"X'4EDABABF83AB47F881550E12FB8002C8'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,Write a Java program to serialize and deserialize an object to/from a file using ObjectInputStream and ObjectOutputStream.,"import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
+
+public class ObjectSerialization {
+    public static void main(String[] args) {
+        try {
+            // Serialize object
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(""object.ser""));
+            MyClass obj = new MyClass();
+            out.writeObject(obj);
+            out.close();
+            // Deserialize object
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(""object.ser""));
+            MyClass newObj = (MyClass) in.readObject();
+            in.close();
+            // Use newObj
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class MyClass implements Serializable {
+    // class definition
+}"
+"X'4F1014CC1C4D4F46953A0622D713C37B'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What is the purpose of the 'getMessage()' method in Java exceptions?",
+"X'4F25B19CA2DC4908A46A161B1FFBC4C4'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",50,50.00,Which of the following statements best describes recursion?,
+"X'4F2ED2B0468042C988ABF8CA49A8A8A5'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the given Java code snippet. What is the space complexity of the function?,"public int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return fibonacci(n - 1) + fibonacci(n - 2);
+}"
+"X'4F4903C02F3E4741923AF4C67E32422C'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",50,50.00,Which of the following is true about tail recursion?,
+"X'4FAE7E7A7EF34CE69849D2712E0D3EC1'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to check if a stack named 'stack' is empty.",boolean isEmpty = stack.isEmpty();
+"X'4FD8784360D147DE9296A26FA6592B04'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",40,40.00,Evaluate the differences between FileWriter and PrintWriter classes in Java for writing text files.,
+"X'4FF7DE68C0B84F0DA4FFFDA4FD3F15CA'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'417786202CD94EB89655C67365551278'",45,45.00,What is the output of the following Java code?,"public class Main {
+    public static void main(String[] args) {
+        System.out.println(reverse(""hello""));
+    }
+
+    public static String reverse(String str) {
+        if (str.isEmpty())
+            return str;
+        else
+            return reverse(str.substring(1)) + str.charAt(0);
+    }
+}"
+"X'50363D74DCED4A9C9E57749E3043440F'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",25,25.00,"Which Java class is used to write formatted data to an underlying output stream, ensuring efficient writing of characters, arrays, and strings?",
+"X'5045BD6B0BAE40CD96867EC0E04E3F21'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",45,45.00,Evaluate the usage of ByteArrayInputStream and DataInputStream classes in Java for handling input streams.,
+"X'5071190121CB41C0B05F47271ADD5B48'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"What will be the output of the following recursive function in Java when calling mystery(3)?
+
+```java
+public int mystery(int n) {
+    if (n <= 0)
+        return 0;
+    else
+        return n * mystery(n - 3);
+}
+```","public int mystery(int n) {
+    if (n <= 0)
+        return 0;
+    else
+        return n * mystery(n - 3);
+}"
+"X'5072C82D65FD459C90C2C110285EE6B8'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",90,90.00,Evaluate the given Java code snippet. What will be the output of the function call for input 4?,"public int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+System.out.println(fibonacci(4));"
+"X'50ECECBFEAC7470B8078C0D9F40151B1'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,Which keyword is used to suppress exceptions in Java?,
+"X'50F985D4D57245499576EAFE6BE605FD'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",50,50.00,Which Java interface extends the Queue interface and adds support for operations that access elements at both ends of the deque?,
+"X'511C37DEA50D40F880B4E6E7596F2D38'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",90,90.00,Evaluate the given Java code snippet. What will be the output of the function call for input 3?,"public int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    else
+        return gcd(b, a % b);
+}
+
+System.out.println(gcd(12, 8));"
+"X'51DFD6ACC98349CBAB04BCB2E768D0A1'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,What is the risk of infinite recursion in a recursive function?,
+"X'5213402DEA8B400B9EE5D9448ADA8F2F'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,Explain the role of FileWriter class in Java I/O.,
+"X'5213B070D29F4B508B02C8BB526A0F92'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which Java data structure is most appropriate for implementing an event handling mechanism in a GUI application?,
+"X'52B38CFC73C949F481F8107ACC818AD9'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,Which method in Java is used to append text to a file?,
+"X'53421812C7F54388BF0E59E2869411A8'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",50,50.00,Evaluate the usage of ObjectInputStream and ObjectOutputStream classes in Java for object serialization and deserialization.,
+"X'539A8B45D72748CCBD52D638FBD74EB9'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",70,70.00,Write a Java program to merge the contents of two files into a third file.,"import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+
+public class FileMerger {
+    public static void main(String[] args) {
+        try (BufferedReader reader1 = new BufferedReader(new FileReader(""input1.txt""));
+             BufferedReader reader2 = new BufferedReader(new FileReader(""input2.txt""));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(""output.txt""))) {
+            String line;
+            while ((line = reader1.readLine()) != null) {
+                writer.write(line);
+                writer.newLine();
+            }
+            while ((line = reader2.readLine()) != null) {
+                writer.write(line);
+                writer.newLine();
+            }
+            System.out.println(""Files merged successfully."");
+        } catch (IOException e) {
+            System.out.println(""Error merging files: "" + e.getMessage());
+        }
+    }
+}"
+"X'54200E6DF2AC4224B29F0D6E1E1AE49C'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",40,40.00,"Which method in Java's Queue interface is used to remove and return the head of the queue?",
+"X'547CC192D4BE4BA897A1922ACF5F41D6'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the provided Java code snippet. How many recursive calls are made by the function for an input of size n?,"public int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    else
+        return gcd(b, a % b);
+}"
+"X'54A077F4F1764A7F8B4E2F3B0DD857EC'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",120,120.00,Write a recursive function in Java to generate all permutations of a given string.,"public void permute(String s, int left, int right) {
+    if (left == right)
+        System.out.println(s);
+    else {
+        for (int i = left; i <= right; i++) {
+            s = swap(s, left, i);
+            permute(s, left + 1, right);
+            s = swap(s, left, i);
+        }
+    }
+}
+
+private String swap(String s, int i, int j) {
+    char[] charArray = s.toCharArray();
+    char temp = charArray[i];
+    charArray[i] = charArray[j];
+    charArray[j] = temp;
+    return String.valueOf(charArray);
+}"
+"X'54B86369A44049D3A14505331652794F'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,What is the output of the following Java code?,"public class Main {
+    public static void main(String[] args) {
+        System.out.println(isPalindrome(""racecar""));
+    }
+
+    public static boolean isPalindrome(String str) {
+        if (str.length() <= 1)
+            return true;
+        else if (str.charAt(0) != str.charAt(str.length() - 1))
+            return false;
+        else
+            return isPalindrome(str.substring(1, str.length() - 1));
+    }
+}"
+"X'54D9977F534540C3B7D5E1236001D5A8'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (Exception e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'55DF2443654F4DF2BEB1E5A387C3A613'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,Which of the following data structures can be implemented using recursion?,
+"X'567BAFD3F48E4ED296A232F6F796692A'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,"What is the output of the following recursive function in Java?
+void printDigits(int n) {
+  if (n < 10) {
+    System.out.print(n);
+    return;
+  }
+  printDigits(n / 10);
+  System.out.print(n % 10);
+}
+printDigits(123);",
+"X'56B88809F9454047B709E627D735A765'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which method in Java is used to rename a file?,
+"X'56BEC618350943F89372C9EB6BB5C136'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which of the following is true about recursive functions in Java?,
+"X'56DF9E7F24AC4234B5475F53DBA610D7'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,Which class in Java is used to write output to a file?,
+"X'574940853691496AB74D53988CA75488'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",40,40.00,What is the role of ByteArrayOutputStream in Java I/O?,
+"X'57B7C129C6DE496EBFAAEFFD63765451'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,What is the purpose of memoization in recursive algorithms?,
+"X'57D24BE431714FECB32813A01CEEBBB4'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What is the purpose of the 'printStackTrace()' method in Java exceptions?",
+"X'5801DB5991484CE1A42798E953EA1EF8'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 2); // Valid division
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'58284C18827A47C7B8692F4056A315D9'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'417786202CD94EB89655C67365551278'",45,45.00,What will be the output of the following Java code?,"public class Main {
+    public static void main(String[] args) {
+        System.out.println(factorial(5));
+    }
+
+    public static int factorial(int n) {
+        if (n <= 1)
+            return 1;
+        else
+            return n * factorial(n - 1);
+    }
+}"
+"X'584DD29919AF4519A60C651FCE42F283'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,"What is the purpose of the 'try' block in Java exception handling?",
+"X'5885F483BC4B44F19FF70DC34109B6FC'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,Which of the following statements about try-with-resources in Java is true?,
+"X'5888541095D24CC79D1611D4B1A573E6'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",30,30.00,Which Java class is used to read data from a file in a non-blocking asynchronous manner?,
+"X'5A285E65D8B44E158DD3B3005A3865C7'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",40,40.00,What is the purpose of FileInputStream class in Java?,
+"X'5A2C90182D5440D7A5E8390881CDAACA'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What is the purpose of the 'throws' keyword in Java?",
+"X'5A330EE610CE472CB2D1C30BCCB65A7C'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,Which of the following statements about Java exception handling is true?,
+"X'5AA7A18D16734B4FA595C200FF486302'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,What is the primary purpose of exception handling in Java?,
+"X'5AC6972165814E29952530ACEB1C5D44'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which Java data structure is most suitable for implementing a history feature in a web browser?,
+"X'5B58D4905C1344C68E0E52BBE288FC5B'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",55,55.00,How does recursion help in solving problems more elegantly?,
+"X'5B87EB6D950B44E8B4E9E4C622ACEFDA'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java method named 'validatePhoneNumber' that takes a string as input and throws an 'InvalidPhoneNumberException' if the phone number format is incorrect.",
+"X'5BE2A76244544D969640A1A7EC30237D'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java program that handles FileNotFoundException by printing 'File Not Found Exception Occurred' and terminating gracefully.",
+"X'5D32215E60144A63AEA1D0F958B9D579'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,What is the main advantage of using a LinkedList over an ArrayList in Java?,
+"X'5DECB10846AA4305A358F9755B36D2F3'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,"Which method in Java's LinkedList class is used to remove and return the last element of the list?",
+"X'5E0277C3463B493490017717CB30FA6A'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",45,45.00,Which Java collection provides an implementation of the Queue interface with additional functionality?,
+"X'5E77E4B272004B5DB9045FBBBD55A085'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",30,30.00,Which data structure in Java is used to store a collection of elements in a sequence?,
+"X'5EA649F60C174A4D848F0E6D13C408AA'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",20,20.00,Which method in Java is used to flush the output stream?,
+"X'5EDF3A90F40E4201B210E1CFBB5B880D'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to dequeue an element from a queue named 'queue'.",queue.remove();
+"X'5F5A17D32C0743AAA280267C513816A7'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",45,45.00,Which of the following statements best describes the concept of recursion?,
+"X'5F87D854AF104232BD5BFDDFB9153579'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What is the purpose of the 'getMessage()' method in Java exceptions?",
+"X'5FF67B58424F4B22B676FE9BFB49AA7E'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to get the index of the first occurrence of a specified element in an ArrayList named 'list'.",int index = list.indexOf(element);
+"X'61D0D5ADD3E440F09BD8141EE8B547A3'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What does the 'printStackTrace()' method in Java exceptions do?",
+"X'630F3B440D724E6F85DD5A6E088138BB'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",40,40.00,How does the PrintWriter class differ from the FileWriter class in Java?,
+"X'63663ADE7AA0455CA3B7DBD19E96CA05'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java program that defines a custom exception 'InvalidInputException' and throws it when the user enters a negative number.",
+"X'64D12B11A4EC4397A695857B45C36728'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,Explain the concept of a LinkedList in Java and provide an example scenario where it can be used.,
+"X'651299E534914344A4AB681210E9755C'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What does the 'getMessage()' method in Java exceptions return?",
+"X'65579DA5717B46428E05E24A4E2AA56D'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Create a Java program that handles FileNotFoundException by providing an appropriate error message and gracefully terminating.,
+"X'66285A23735542E8AE006001F51BAF77'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,Which method is used to retrieve but not remove the element at the front of a queue in Java?,
+"X'6631113DFD9C4367A20A138629910F2C'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,How does the DataOutputStream class differ from the BufferedOutputStream class in Java?,
+"X'6635C77935A04026AF29D31AB156B9C4'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,What is a potential downside of using recursion in programming?,
+"X'67246234195543CCAF3379112BB31795'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",120,120.00,Write a recursive function in Java to merge two sorted arrays.,"public int[] mergeSortedArrays(int[] arr1, int[] arr2, int index1, int index2) {
+    if (index1 == arr1.length)
+        return arr2;
+    else if (index2 == arr2.length)
+        return arr1;
+    int[] merged = new int[arr1.length + arr2.length];
+    if (arr1[index1] < arr2[index2]) {
+        merged[index1 + index2] = arr1[index1];
+        return mergeSortedArrays(arr1, arr2, index1 + 1, index2);
+    }"
+"X'6825FFEADA5B43AF9D862728A0600A44'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,What is the primary disadvantage of recursion?,
+"X'69525B46780C459DBFEB1DB47B3C77D9'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",35,35.00,"Which Java class provides methods for reading and writing binary data in streams, allowing serialization and deserialization of Java objects?",
+"X'69A364F4B9D243909F8641E5F7F70C30'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to enqueue an element into a queue named 'queue'.",queue.add(element);
+"X'6A727679554B44618DA3D98AF3DDF571'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",40,40.00,Explain the use of RandomAccessFile class in Java I/O.,
+"X'6C3995D49B14452DA11EBCCF2C2194B6'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",15,15.00,What is the superclass of all exception types in Java?,
+"X'6C73F2F692B94E3B8214ACA51FD7A411'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,Write a Java code snippet to demonstrate the use of try-catch-finally blocks for error handling.,"public class ErrorHandlingExample {
+    public static void main(String[] args) {
+        try {
+            // Code that may throw an exception
+            int result = 10 / 0; // Division by zero
+            System.out.println(result);
+        } catch (ArithmeticException e) {
+            // Handling arithmetic exception
+            System.out.println(""Error: Division by zero"");
+        } finally {
+            // Cleanup or finalization code
+            System.out.println(""Finally block executed"");
+        }
+    }
+}"
+"X'6C8D20C9B2684303A0F853D2FB9B9D3B'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Create a Java program that handles NullPointerException by providing a user-friendly error message and terminating gracefully.,
+"X'6D664363ED7E45E5A0636897B0E163CC'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the following Java code snippet. What is the worst-case time complexity of the function?,"public boolean isPalindrome(String s) {
+    if (s.length() <= 1)
+        return true;
+    else
+        return s.charAt(0) == s.charAt(s.length() - 1) && isPalindrome(s.substring(1, s.length() - 1));
+}"
+"X'6EE752733A1D4E79857E213B0B6FD703'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Implement a recursive function in Java to find the greatest common divisor (GCD) of two integers.,"public int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    else
+        return gcd(b, a % b);
+}"
+"X'6EFF81AE838D46BA9F97D2C40037C324'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,Which of the following data structures is most appropriate for implementing a LIFO (Last In First Out) behavior?,
+"X'70294088B6F3493F8FEF5FFEDBFFB9EF'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,What is the significance of ByteArrayOutputStream class in Java?,
+"X'703B12FF2EF54D07AC891E31FA53B692'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,Which of the following statements regarding ArrayList and LinkedList in Java is true?,
+"X'715BD8F8CEE4451E9CD3BC362950D207'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What is the difference between 'throw' and 'throws' in Java?",
+"X'718222992F194E3CA4C8D3E94756FA1B'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",40,40.00,Evaluate the differences between BufferedWriter and PrintWriter classes in Java for writing text files.,
+"X'7190D560BCDD4FAA89C27C1D58DF37CD'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which keyword is used to define a block of code to be tested for exceptions in Java?,
+"X'728A5DEEB211462C949231AF09011F72'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",150,150.00,Implement a recursive function in Java to generate all valid parentheses combinations for a given n.,"public void generateParentheses(int n, int open, int close, String current, List<String> result) {
+    if (current.length() == 2 * n) {
+        result.add(current);
+        return;
+    }
+    if (open < n)
+        generateParentheses(n, open + 1, close, current + '(', result);
+    if (close < open)
+        generateParentheses(n, open, close + 1, current + ')', result);
+}"
+"X'72D979D5E58A4D5199C4647DF2CB6C9F'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,What is the time complexity of the Fibonacci sequence calculation using naive recursion?,
+"X'733F93A03B884D39B3715C2E5C73017C'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",45,45.00,Which method is used to specify code that may throw multiple exceptions in Java?,
+"X'7383854891A94BF8BE7299A17A50B213'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,Which method in Java Stack class is used to check if the stack is empty?,
+"X'742152E6B0A444B4A76BFB9E7BFDF0CD'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which Java data structure is most appropriate for implementing a waiting line at a supermarket checkout?,
+"X'7468F3E06A98489F8AEC43665E66547A'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,Which of the following statements about recursion is true?,
+"X'746F0568505F4A8D926ED466C167B9B3'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Implement a recursive function in Java to compute the exponentiation of a number.,"public int power(int base, int exponent) {
+    if (exponent == 0)
+        return 1;
+    else
+        return base * power(base, exponent - 1);
+}"
+"X'75595B94CE08482EB6E64AAAC8841365'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What does the following Java code snippet do?
+try {
+    // Code that may throw exceptions
+}
+catch (Exception e) {
+    System.out.println(""An error occurred: "" + e.getMessage());
+}
+finally {
+    System.out.println(""Finally block executed."");
+}",
+"X'759041C2F481401BA67F4F9FDABDE223'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,"Consider the following Java code snippet. What will be the output of the code?
+
+```java
+Queue<String> queue = new LinkedList<>();
+queue.add(""A"");
+queue.add(""B"");
+queue.offer(""C"");
+queue.poll();
+System.out.println(queue);
+```
+","Queue<String> queue = new LinkedList<>();
+queue.add(""A"");
+queue.add(""B"");
+queue.offer(""C"");
+queue.poll();
+System.out.println(queue);"
+"X'75ECD4EBC57A48ED91239DB3D01E1AD9'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,"What happens if an exception occurs within the 'finally' block?",
+"X'766F249974124A3DABA6C523BBB50300'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java method named 'validatePassword' that takes a password as input and throws an 'InvalidPasswordException' if the password is weak (less than 8 characters).",
+"X'76D11A2D357340A3B2DA1034EA64293D'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'76FD6694CFC047609643E2593165CC7C'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,What is the output of the following Java code?,"public class Main {
+    public static void main(String[] args) {
+        System.out.println(fibonacci(6));
+    }
+
+    public static int fibonacci(int n) {
+        if (n <= 1)
+            return n;
+        else
+            return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+}"
+"X'77A96A566A694ED5A18600CFBD125532'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What is the purpose of the 'finally' block in Java exception handling?",
+"X'77B59222543E4789A8EF2E3B8DC98721'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,Analyze the given Java code snippet and identify the potential error:,"public class ErrorAnalysis {
+    public static void main(String[] args) {
+        try {
+            int[] arr = new int[5];
+            System.out.println(arr[6]); // ArrayIndexOutOfBoundsException
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(""Array index out of bounds"");
+        } catch (Exception e) {
+            System.out.println(""Exception occurred: "" + e.getMessage());
+        }
+    }
+}"
+"X'789CEAA2571C4761A576307C235C208C'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,What is the primary characteristic of a stack data structure in Java?,
+"X'78B10B968B9F4904B98E90A0FA3F999D'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",50,50.00,Evaluate the advantages and disadvantages of using BufferedReader and Scanner classes in Java for reading user input from the console.,
+"X'78CE02D2F2F545A3B6340A7D3A49D00F'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,Which Java interface extends the Collection interface and maintains the insertion order?,
+"X'78DADDC88B6C4E42875BA1E29052DA81'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,What is the primary purpose of using try-catch blocks in Java?,
+"X'796BBA3255194569B9A854DAA56C40BA'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,Which of the following methods is used to add an element to the front of a queue in Java?,
+"X'798D01130A3F4A389536918926F66DFC'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",50,50.00,How does a stack differ from a queue in terms of behavior and usage?,
+"X'7A67706395E34E5794A4E48C3058AF7E'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,Which of the following is essential for a recursive function to terminate?,
+"X'7B6695FF0A7F41838B862F9169DEAA14'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",50,50.00,Evaluate the advantages and disadvantages of using FileWriter over BufferedWriter in Java for writing text files.,
+"X'7BA78DC0FB9B4C299395BE6A3C82B0D0'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java program that handles NullPointerException by printing 'Null Pointer Exception Occurred' and terminating gracefully.",
+"X'7BF96BFCE94E464C9E9EF9256FAF9593'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",50,50.00,Evaluate the usage of FileInputStream and FileOutputStream for handling large files in Java.,
+"X'7D141A7B05154A63AD76D80D7ADD177C'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,"What is the difference between 'catch' and 'finally' blocks in Java exception handling?",
+"X'7D1C4A27828E422E89237986812F386B'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to check if a LinkedList named 'list' contains a specified element.",boolean containsElement = list.contains(element);
+"X'7E3BEB74DA1042DCA4EC84249D901E78'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to remove all occurrences of a specified element from an ArrayList named 'list'.",list.removeAll(Collections.singleton(element));
+"X'7E55FD752F144821B3EEDED4A4923F60'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,Which of the following recursive functions correctly calculates the Fibonacci sequence?,
+"X'7ECF6B2D2AC54CAC9C327056732BE603'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to remove the last element from an ArrayList named 'list'.",list.remove(list.size() - 1);
+"X'7F28131BEE3145C1859A7B601C1B518C'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",40,40.00,Evaluate the differences between InputStreamReader and BufferedReader classes in Java for reading character-based input streams.,
+"X'7F5044B5B0DB4959BF8D9406B4432759'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,Which of the following classes is used for writing text to a file in Java?,
+"X'7F74B24CBF644A6D8783F4AE13AA265E'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,"In Java, which keyword is used to explicitly throw an exception?",
+"X'7FAA2D5675E84DB5B9120261E0D3E547'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code and determine the output:,"public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 2); // Valid division
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'80D4CCCA5FA849F7BA6DD760286E6381'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,"Which method in Java's PriorityQueue class is used to retrieve and remove the highest priority element?",
+"X'810EA2FE36AC4595B5A27A41DD0D71E7'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",35,35.00,What is the superclass of all exception types in Java?,
+"X'81879317A09944B5AD843A7DB8280343'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",35,35.00,Which Java collection class provides a resizable array implementation?,
+"X'81A9F671999F4AEF9DCB404F088F7130'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,Which of the following is an example of a recursive function?,
+"X'81CD6F08965D4A22840811027A065F2D'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,Which of the following is NOT a standard Java exception?,
+"X'8240898ABD604F42B998FFB2CEF116EF'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,What is the output of the following Java code?,"public class Main {
+    public static void main(String[] args) {
+        System.out.println(isPalindrome(""racecar""));
+    }
+
+    public static boolean isPalindrome(String str) {
+        if (str.length() <= 1)
+            return true;
+        else if (str.charAt(0) != str.charAt(str.length() - 1))
+            return false;
+        else
+            return isPalindrome(str.substring(1, str.length() - 1));
+    }
+}"
+"X'825531ACB955492385B0D5EFB47C2691'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"Consider the following recursive function in Java. What will be the value of x after calling mystery(5)?
+
+```java
+int mystery(int n) {
+    if (n == 0)
+        return 0;
+    else
+        return n + mystery(n - 1);
+}
+```","int mystery(int n) {
+    if (n == 0)
+        return 0;
+    else
+        return n + mystery(n - 1);
+}"
+"X'8282AB593B79497B82EAC7F2CF0BC9A7'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What is the purpose of the 'printStackTrace()' method in Java exceptions?",
+"X'8284BE8E5E73450DA9376190DC2E8E5C'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"Consider the following Java code snippet. What will be the output of the code?
+
+```java
+Stack<String> stack = new Stack<>();
+stack.push(""red"");
+stack.push(""green"");
+stack.pop();
+stack.push(""blue"");
+System.out.println(stack);
+```
+","Stack<String> stack = new Stack<>();
+stack.push(""red"");
+stack.push(""green"");
+stack.pop();
+stack.push(""blue"");
+System.out.println(stack);"
+"X'831C822B7859402F80B0293BDB3CD4ED'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,What is the primary difference between a stack and a queue in Java?,
+"X'833EC9C7F90B4A5DBAC71EF72C91961B'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,"Consider the following Java code snippet. What will be the output of the code?
+
+```java
+Queue<Integer> queue = new LinkedList<>();
+queue.add(1);
+queue.add(2);
+queue.add(3);
+queue.remove();
+System.out.println(queue);
+```
+","Queue<Integer> queue = new LinkedList<>();
+queue.add(1);
+queue.add(2);
+queue.add(3);
+queue.remove();
+System.out.println(queue);"
+"X'837E21849CC04979AD37EC0F5681C8F0'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,"What is the significance of the 'return' statement in recursive functions?",
+"X'84695FB1EECB4FFAAB9FA437FCCACF04'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,Which of the following is not a type of error in Java?,
+"X'86A635B89BD1480EA612259D359710CB'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What is the purpose of the 'printStackTrace()' method in Java exceptions?",
+"X'870F370A3ECA4C9A8C89F265A9DBF841'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,Which of the following is a checked exception in Java?,
+"X'8747C41946404CCAB00C3C9FDFC75F13'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the provided Java code snippet. What is the space complexity of the function?,"public int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return fibonacci(n - 1) + fibonacci(n - 2);
+}"
+"X'87958784ABBF4B3B8ADE06593A953063'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which data structure in Java is best suited for implementing an undo feature in a text editor?,
+"X'879D5A4626FE4369976D3551815D85C6'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,Write a recursive Java function to calculate the power of a number.,"public class Power {
+    public int calculatePower(int base, int exponent) {
+        if (exponent == 0)
+            return 1;
+        else
+            return base * calculatePower(base, exponent - 1);
+    }
+}"
+"X'88ABFAF6468F4A808381AC5CBFFDBCA8'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,Which of the following statements is true regarding custom exceptions in Java?,
+"X'88C0D9DB1EC04AA3877BDE5EAAF164C4'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which method in Java is used to check if a file exists?,
+"X'89160B7BA1EE4316BCE8EE79CFF9C8EA'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to remove all elements from an ArrayList named 'list'.",list.clear();
+"X'8B547124E54149E38222F275E816CC1E'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,Which Java interface represents an ordered collection and allows duplicate elements?,
+"X'8BA0116CDAC24D349918A99F5642BD84'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'417786202CD94EB89655C67365551278'",45,45.00,What will be the output of the following Java code?,"public class Main {
+    public static void main(String[] args) {
+        System.out.println(factorial(5));
+    }
+
+    public static int factorial(int n) {
+        if (n <= 1)
+            return 1;
+        else
+            return n * factorial(n - 1);
+    }
+}"
+"X'8C34306151E44BEAB203B2B3CCA8459D'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",40,40.00,What is the role of ByteArrayOutputStream in Java I/O?,
+"X'8CD10FAFD0014CD1AD71DD73388E13EE'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,What is recursion useful for in programming?,
+"X'8D93D36F8F614AADA812D50ECA0F8A9A'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",45,45.00,Evaluate the differences between FileInputStream and FileReader classes in Java for reading files.,
+"X'8E32A49BFB7A483E9840A501B7363CFB'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",20,20.00,Which of the following is true regarding checked and unchecked exceptions in Java?,
+"X'8E7D5707CE894AA99B4FA9553C16BFA4'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,"Which method in Java's LinkedList class is used to add an element at the beginning of the list?",
+"X'8F08CBA1E4944AA085F430F346D278F8'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"Analyzing the given Java code snippet, what is the time complexity of the recursive function?","public int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return fibonacci(n - 1) + fibonacci(n - 2);
+}"
+"X'8FBC7E6C19B64AB284A16300A457BC42'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,Which Java collection class provides a LIFO structure?,
+"X'8FE1C91E67D4480496EFC061523B37A8'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'9183217E893D484FB15513F7F5CD65AF'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What is the main purpose of the 'throws' keyword in Java method declarations?",
+"X'9188AE8C51F24375B296F0081557485F'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to push an element onto a stack named 'stack'.",stack.push(element);
+"X'91A6CDD84936484EA5189B27132784BB'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,"Consider the following Java code snippet. What will be the output of the code?
+
+```java
+List<String> list = new ArrayList<>();
+list.add(""A"");
+list.add(""B"");
+list.add(""C"");
+list.set(1, ""D"");
+list.add(""E"");
+System.out.println(list);
+```
+","List<String> list = new ArrayList<>();
+list.add(""A"");
+list.add(""B"");
+list.add(""C"");
+list.set(1, ""D"");
+list.add(""E"");
+System.out.println(list);"
+"X'91D6CB3D7150444E9BBC776515CDDABB'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,Which keyword in Java is used to define custom exceptions?,
+"X'920CDF465A334AB9B38C7C6D16E81115'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,Which method in Java is used to skip bytes from an InputStream?,
+"X'93ACD3A8F89244BD906D43D6C3B164A3'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java program that defines a custom exception 'InvalidInputException' and throws it when the user enters a non-numeric input.",
+"X'9422D51DA09F42D88D49FA03C393BB25'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,Which of the following keywords is used to catch exceptions in Java?,
+"X'948FA9BB1D054678A855AD0D81674CCD'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",50,50.00,Explain the concept of a queue in Java and provide an example scenario where it can be used.,
+"X'9495F4216B96421AB6F46D5DA7B2C2AD'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,"Consider the following Java code snippet. What will be the output of the code?
+
+```java
+List<Integer> list = new ArrayList<>();
+list.add(1);
+list.add(2);
+list.add(3);
+list.add(4);
+list.remove(3);
+System.out.println(list);
+```
+","List<Integer> list = new ArrayList<>();
+list.add(1);
+list.add(2);
+list.add(3);
+list.add(4);
+list.remove(3);
+System.out.println(list);"
+"X'952599460C8449D492F6F92FBE5A771C'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (Exception e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'956038F47A9B470D9C92A07E43E06684'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which Java data structure is best suited for implementing a stack of books?,
+"X'95E0F34CB02447E18BBBAFF76E524626'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to remove the first occurrence of a specified element from an ArrayList named 'list'.",list.remove(element);
+"X'96975C13756942929332A5EA569A2568'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,"What is the output of the following recursive function in Java?
+int factorial(int n) {
+  if (n == 0) {
+    return 1;
+  }
+  return n * factorial(n - 1);
+}
+factorial(3);",
+"X'98CC2B038E664125B0FF0BAAED648D24'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which data structure is commonly used for implementing back and forward navigation in a web browser?,
+"X'996CADB6193C4C21B59F8670FAC998A7'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Write a recursive function in Java to calculate the sum of all elements in an integer array.,"public int arraySum(int[] arr, int index) {
+    if (index < 0)
+        return 0;
+    else
+        return arr[index] + arraySum(arr, index - 1);
+}"
+"X'99DA09CABFFE43D09D9FC92B9A46DB12'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,Which of the following recursive functions correctly calculates the factorial of a number in Java?,
+"X'9A6217060E3E4B08ABD5D194CF1B9814'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to remove the first element from a LinkedList named 'list'.",list.removeFirst();
+"X'9A86D1EC24E842B7ABA102896709BD2A'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,Which of the following statements about checked and unchecked exceptions in Java is true?,
+"X'9ACC0A0304D7491C80C0978E2AAB4AEE'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",50,50.00,Evaluate the differences between FileReader and FileWriter classes in Java for handling character-based file operations.,
+"X'9C0C211665B44037BAC89AF477845723'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,Which data structure is commonly used to implement recursion?,
+"X'9C1F989FF6504B1483F34CF09715A510'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What is the purpose of the 'throws' keyword in Java method declaration?",
+"X'9C32A92DB73C4D7DB8FBBD985F8483E3'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,"What is the purpose of the 'throws' keyword in Java?",
+"X'9C3E2F1CDDF047A3A8609C86D07FA9A1'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"What will be the output of the following Java code?
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(mystery(""hello"", 0));
+    }
+    
+    public static String mystery(String s, int index) {
+        if (index == s.length())
+            return """";
+        else
+            return mystery(s, index + 1) + s.charAt(index);
+    }
+}
+```","public class Main {
+    public static void main(String[] args) {
+        System.out.println(mystery(""hello"", 0));
+    }
+    
+    public static String mystery(String s, int index) {
+        if (index == s.length())
+            return """";
+        else
+            return mystery(s, index + 1) + s.charAt(index);
+    }
+}"
+"X'9C497250CC644B1898E1C7C35110EDB2'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",40,40.00,"Which method in Java's Stack class is used to retrieve but not remove the top element of the stack?",
+"X'9CE2202F67274A2BB285864A844BA0AE'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",45,45.00,Which method is used to remove and return the element at the front of a queue in Java?,
+"X'9D97583E32FE44D48BCCCD837EA4AFD7'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",45,45.00,What happens if a recursive function does not have a base case?,
+"X'9DACA0DFD5D6422BBC4E027D0F0AE0AA'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What does the 'getMessage()' method in Java exceptions return?",
+"X'9DF83FBB219F4D489879F7809669DC0C'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",35,35.00,What does the flush() method do in Java I/O?,
+"X'9E8634237A4F4D11AFAE83A4585C88A5'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",45,45.00,What is the output of the following Java code?,"public class Main {
+    public static void main(String[] args) {
+        System.out.println(countDigits(12345));
+    }
+
+    public static int countDigits(int n) {
+        if (n == 0)
+            return 0;
+        else
+            return 1 + countDigits(n / 10);
+    }
+}"
+"X'A07700B204E94B2DB54EDF5E2C9B19CE'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,"What is the time complexity of the 'push' operation in a stack implemented using a LinkedList in Java?",
+"X'A2337A1C4F344BA5BB3EBA1F6FD61269'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What happens if an exception is thrown in the 'catch' block of a Java try-catch statement?",
+"X'A2FC1B522C624FDAA289E8A23864EA3E'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",45,45.00,"Which method in Java's Stack class is used to push an element onto the stack?",
+"X'A31CAE2A80D54C019080B792408B9539'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",35,35.00,"Which method in Java's Stack class is used to retrieve but not remove the top element of the stack?",
+"X'A31D2F06C25E4F77BCCBE2145E8DFFA1'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,"What does the 'finally' block contain in a try-catch-finally statement?",
+"X'A3251FDD56A04B8CAAC57F2CFE3BD05D'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",40,40.00,Analyze the differences between BufferedInputStream and BufferedOutputStream classes in Java.,
+"X'A3938929347A41029A34620FD55E6B69'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to retrieve the first element from a LinkedList named 'list' without removing it.",Object firstElement = list.getFirst();
+"X'A521401D83E64AEDB33B86E27DCC5F9F'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",45,45.00,Which data structure is commonly used to implement recursion?,
+"X'A52DC033A5DD47A3AA8F70EF6A770729'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",35,35.00,"Which method in Java's ArrayList class is used to remove an element at a specific index?",
+"X'A54031C38C4846BFB797EB290D695B56'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,What is the primary reason for using recursion over iteration?,
+"X'A6031C78679D420786389F6D23BF0B1A'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to retrieve and remove the last element from a LinkedList named 'list'.",Object lastElement = list.pollLast();
+"X'A6B9D5C88D2E4D5DABF4E3BB42D4FAB0'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",35,35.00,What does the close() method do in Java I/O?,
+"X'A701A2DA26DE40BE8FBFBBA3861F7BA4'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,Which method in Java is used to get the size of a file?,
+"X'A719DA482B97463094299CF2209C8B62'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,Implement a recursive Java function to find the GCD (Greatest Common Divisor) of two integers.,"public class GCD {
+    public int findGCD(int a, int b) {
+        if (b == 0)
+            return a;
+        else
+            return findGCD(b, a % b);
+    }
+}"
+"X'A72909757EC544DFB0ACA4FC2B7E8B81'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",40,40.00,"Which method in Java's LinkedList class is used to add an element at the specified index?",
+"X'A731E0235AA74D5EBD2C364DEC3D51E7'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What does the following Java code snippet do?
+try {
+    // Code that may throw exceptions
+}
+catch (Exception e) {
+    System.out.println(""An error occurred: "" + e.getMessage());
+}
+finally {
+    System.out.println(""Finally block executed."");
+}",
+"X'A748EC68A7264A898643AE4C92A6C5DE'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (Exception e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'A843DF2894194A018AB43A531B9D920B'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the following Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (Exception e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'A89308FDE83C48F1AA6B214C55C1CAD0'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",45,45.00,"What does the term 'tail recursion' refer to?",
+"X'A8ECF70D4D584D19AF0CF51D424BEC7F'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",35,35.00,"Which method in Java's LinkedList class is used to remove the first occurrence of a specified element?",
+"X'A9026D798AD24E888E794DB2BE01F9EB'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,"Consider the recursive function below. What will be the output when calling mystery(4)?
+
+```java
+public int mystery(int n) {
+    if (n <= 0)
+        return 1;
+    else
+        return n * mystery(n - 1);
+}
+```","public int mystery(int n) {
+    if (n <= 0)
+        return 1;
+    else
+        return n * mystery(n - 1);
+}"
+"X'A9280676F6FF472BAE9905F0FBF4EC94'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",90,90.00,"Evaluate the given Java code snippet. What will be the output of the function call for input ""racecar""?","public boolean isPalindrome(String s) {
+    if (s.length() <= 1)
+        return true;
+    else
+        return s.charAt(0) == s.charAt(s.length() - 1) && isPalindrome(s.substring(1, s.length() - 1));
+}
+
+System.out.println(isPalindrome(""racecar""));"
+"X'AA38F4452C7843138893ACCB43B3AB7D'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,Which of the following statements about Java exceptions is true?,
+"X'AB041521789146E4B1CDE19AEB722EC7'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 2); // Valid division
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'AB20CB99A5B24C55A1A84AC4E5B52252'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,Compare and contrast the performance characteristics of ArrayList and LinkedList in Java.,
+"X'AB46D54205BB4A06838C9CE8284554E4'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which Java data structure is most suitable for managing print jobs in a printer queue?,
+"X'AC56DCCCA6CD492B9688DC53D46832F7'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",45,45.00,Which of the following is true about recursive functions?,
+"X'AC6529DF26794EF9BEC133473D3AC2AA'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",15,15.00,Which keyword is used to suppress exceptions in Java?,
+"X'AC8810224E764F5FBE58BF676F810A09'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,What is the significance of the stack in recursive function calls?,
+"X'AC9AA6ECA24E4C6FBCE5C912441AA8C8'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'417786202CD94EB89655C67365551278'",45,45.00,What is the output of the following Java code?,"public class Main {
+    public static void main(String[] args) {
+        System.out.println(reverse(""hello""));
+    }
+
+    public static String reverse(String str) {
+        if (str.isEmpty())
+            return str;
+        else
+            return reverse(str.substring(1)) + str.charAt(0);
+    }
+}"
+"X'AD4891393839491EA3D053544D4900C8'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"Consider the following Java code snippet. What will be the output of the code?
+
+```java
+List<Integer> list = new ArrayList<>();
+list.add(10);
+list.add(20);
+list.add(30);
+list.add(40);
+list.remove(Integer.valueOf(20));
+System.out.println(list);
+```
+","List<Integer> list = new ArrayList<>();
+list.add(10);
+list.add(20);
+list.add(30);
+list.add(40);
+list.remove(Integer.valueOf(20));
+System.out.println(list);"
+"X'AD971F97ED1B4510B66B25C4C2234411'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,"What will be the output of the following recursive function in Java when calling mystery(5)?
+
+```java
+public int mystery(int n) {
+    if (n <= 0)
+        return 1;
+    else
+        return n * mystery(n - 2);
+}
+```","public int mystery(int n) {
+    if (n <= 0)
+        return 1;
+    else
+        return n * mystery(n - 2);
+}"
+"X'ADDA6E0C7346437BB517E5F046DB70A0'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",40,40.00,Compare and contrast the usage of FileInputStream and BufferedInputStream in Java.,
+"X'AE643D197B474B299B38A209C534FF41'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What is the purpose of the 'throws' keyword in Java method declarations?",
+"X'AF04ECE2B11847539AA039D04369E1C5'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java program that defines a custom exception 'InvalidInputException' and throws it when the user enters a string longer than 10 characters.",
+"X'AF71DEE183974B2EB92A219A64511029'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java program that defines a custom exception 'DataFormatException' and throws it when the format of input data is invalid.",
+"X'AFD8E679FF3A4D878E63B3E08CBC7AB6'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,What is memoization in recursion?,
+"X'B018119CB1764FE2B452F916CF89231B'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,What is the typical drawback of using recursion?,
+"X'B3D2A504651543DB9BDC003F409B48C1'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Implement a recursive function in Java to find the greatest common divisor (GCD) of two integers.,"public int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    else
+        return gcd(b, a % b);
+}"
+"X'B3FEC63EF37545F4A6A9B5250F4CC040'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code snippet. What will be the output of the function call for input 5?,"public int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    else
+        return gcd(b, a % b);
+}
+
+System.out.println(gcd(12, 8));"
+"X'B40B9926B88540258A1C6DFE354BAFA0'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,Which of the following is used to read bytes from an InputStream until the end of the stream is reached?,
+"X'B44D42CFDF2C48F5B5D411BCFD550284'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,Which method in Java Stack class is used to push an element onto the stack?,
+"X'B45B1623C5854E5EB9EC0EF46BA15F44'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,What is the factorial of 0?,
+"X'B4643D811817456C82B83244027D89F0'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the following Java code snippet. What is the time complexity of the recursive function?,"public int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return fibonacci(n - 1) + fibonacci(n - 2);
+}"
+"X'B4E12BB1661B4958853DBF93CA9B49E3'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",35,35.00,"Which method in Java's LinkedList class is used to add an element at the end of the list?",
+"X'B4F1C077A9734B88AF9FD60E03A499C0'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",40,40.00,"In a recursive function, what is the role of the call stack?",
+"X'B50E114914E244939838E07C4103968D'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,Which of the following Java collections allows duplicate elements?,
+"X'B51854F574154E09AE689A6949FE4A88'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",25,25.00,Which Java class is used to read and write byte data from and to a file?,
+"X'B5247041D964428A8FB267B90C81A2BE'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Implement a recursive function in Java to calculate the nth Fibonacci number.,"public int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return fibonacci(n - 1) + fibonacci(n - 2);
+}"
+"X'B54BA8BB06674756A635EFE977BCB153'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",30,30.00,Which Java class is used to read and write objects to an Object stream for serialization and deserialization?,
+"X'B58050829B6E4F189CEE727C4992C66F'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java method named 'parseInput' that takes a string as input and throws a 'InvalidFormatException' if the input cannot be parsed to an integer.",
+"X'B59D366BC56643BFAF12623FA6BCAD37'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,"What is the output of the following recursive function in Java?
+int gcd(int a, int b) {
+  if (b == 0) {
+    return a;
+  }
+  return gcd(b, a % b);
+}
+gcd(12, 18);",
+"X'B5A48B478A434DF0A2FA1506FAC92873'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,What is the significance of the base case in recursive algorithms?,
+"X'B6EE6A9031BC483C8982C016D05E8CB7'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,Analyze the given Java code snippet. What will happen if the input value for the recursive function is negative?,"public int factorial(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}"
+"X'B7284E27B83B409B8BB4F7ABE998F8EF'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,What is the primary advantage of using recursion?,
+"X'B73A8B9553FA4FEEB67985F14554FFFC'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",80,80.00,Write a recursive Java method to find the nth term of the arithmetic sequence.,"public class ArithmeticSequence {
+    public int calculateNthTerm(int firstTerm, int difference, int n) {
+        if (n == 1)
+            return firstTerm;
+        else
+            return calculateNthTerm(firstTerm + difference, difference, n - 1);
+    }
+}"
+"X'B7672F8150FB4F339FF2DDFA96A6EDAB'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",45,45.00,Analyze the purpose and usage of CharArrayReader and CharArrayWriter classes in Java for handling character array streams.,
+"X'B88D50251275463DA9A50D97E6C9D577'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the given Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'B8935A78207244F89BDEA49EEBE12ECB'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,Which class in Java is used for writing binary data to streams?,
+"X'B8BEC4F0811249698B33989F5A7B3878'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which keyword is used to propagate an exception up the call stack in Java?,
+"X'B8C436EAF41545E1876D2DF616A04FF2'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,What is the purpose of a base case in a recursive function?,
+"X'B952EF9DCCC14C6D8AEACD60F2C1E5A7'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which Java data structure is most suitable for implementing a waiting line for a taxi service?,
+"X'BA1D4B5355024B6B810EF08ADC8AF297'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",20,20.00,Which keyword is used to re-throw an exception in Java?,
+"X'BC0ABE916C18462B837ECF28FA046CE5'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,Write a recursive Java function to calculate the sum of digits of a positive integer.,"public class DigitSum {
+    public int calculateDigitSum(int n) {
+        if (n < 10)
+            return n;
+        else
+            return n % 10 + calculateDigitSum(n / 10);
+    }
+}"
+"X'BC90C963119D4CF4BE76A58F9201F70A'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,"In a queue, where are new elements typically added?",
+"X'BC9212810435424E9CCE873D5DABB4E2'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Which of the following data structures can be implemented efficiently using recursion?,
+"X'BDF5C909856B421FB62ACEBD46C2BD73'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,Analyze the given Java code and identify the potential error:,"public class ErrorAnalysis {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        try {
+            return dividend / divisor;
+        } finally {
+            System.out.println(""Finally block executed"");
+        }
+    }
+}"
+"X'BDFD7D7BECD946908865C6B23B1E3700'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which of the following statements about recursion in Java is true?,
+"X'BE0B25A7317245BFB360D31F937F0E81'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java method named 'checkInput' that takes an integer as input and throws a 'NegativeNumberException' if the input is negative.",
+"X'BE309A9517A643A9BEF179A48AE2ACA4'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to check if an ArrayList named 'list' contains a specified element.",boolean containsElement = list.contains(element);
+"X'BE354C7857C44253B027B45B5BADC41F'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",50,50.00,Discuss the characteristics and usage of a Queue in Java.,
+"X'BF71193B6A684839A261908A74EC8D6E'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",35,35.00,Which of the following statements is true regarding checked and unchecked exceptions in Java?,
+"X'BFEE08E56F2A4DDDA85DCAFE156898EF'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the given Java code snippet. What is the time complexity of the recursive function?,"public int factorial(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}"
+"X'C0EA96E70FFF48AEBA66E0A58D87471D'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'C3122318A52B4221B00942A1AECBC657'",30,30.00,Which of the following scenarios is best suited for using recursion?,
+"X'C0FB252E4E534AF096BA4F0FBE387798'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",40,40.00,Which Java collection class allows elements to be accessed based on their insertion order?,
+"X'C11082CA619142AB81F48273099588DC'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to remove an element from the top of a stack named 'stack'.",stack.pop();
+"X'C13F83A846794B2189ED761069706B9F'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",35,35.00,"What is the purpose of the 'finally' block in Java exception handling?",
+"X'C1DC386B2C6C4677A1D5A7C8393A1E19'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",45,45.00,"Which method in Java's LinkedList class is used to add an element at the beginning of the list?",
+"X'C20717071ED94868AA0F9788070EA0CA'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,"In Java, what is an unchecked exception?",
+"X'C22980271C504D92BB7518D5FB3DE646'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,What is the primary advantage of using recursion over iteration in certain problems?,
+"X'C247B771166548BD8CA97A44C53AF8B7'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"Analyzing Java code, identify the potential error and suggest a correction:","public class ErrorAnalysis {
+    public static void main(String[] args) {
+        try {
+            int[] arr = new int[5];
+            arr[5] = 10; // ArrayIndexOutOfBoundsException
+        } catch (Exception e) {
+            System.out.println(""Exception occurred: "" + e.getMessage());
+        }
+    }
+}"
+"X'C392A4D429A140D3AF9FBB4DCCC211AD'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,"What happens if an exception occurs in the 'try' block and is not caught by any 'catch' block in Java?",
+"X'C3A50CD3D2904245BA0D3C59C44B8077'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",45,45.00,Which of the following is NOT a valid implementation of a queue in Java?,
+"X'C412AAC477CC4317A8DB120CCEC7209B'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Create a Java program that handles ArrayIndexOutOfBoundsException by providing an appropriate error message and gracefully terminating.,
+"X'C4874CB27A3649B095AABE6DEE805153'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",35,35.00,Which keyword is used to catch exceptions in Java?,
+"X'C4AADAE5C59E46A7B57BB1EA55661998'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",45,45.00,Critically evaluate the usage of InputStreamReader and OutputStreamWriter classes in Java for handling character streams.,
+"X'C69C61BE04834FDCAAC09774E774A653'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",30,30.00,"Which Java class is used to read text from a character-input stream, buffering characters so as to provide for the efficient reading of characters, arrays, and lines?",
+"X'C6A048F3BF8B468E8BDA8242413E108C'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,"What is the output of the following recursive function in Java?
+int sum(int n) {
+  if (n <= 0) {
+    return 0;
+  }
+  return n + sum(n - 1);
+}
+sum(4);",
+"X'C6CCE9CE72B747D29F33798D699D27EB'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java method named 'validateAge' that takes an integer as input and throws an 'InvalidAgeException' if the age is negative.",
+"X'C7106F9B025A4E628A6595633D7F2CC2'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,What is the base case of recursion?,
+"X'C743664871F74C03972CBB547CC1D79F'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",50,50.00,Which Java interface provides a standard stack behavior?,
+"X'C7FBE34023D34838BEC90EBC9B2DF919'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,Which method in Java is used to delete a file?,
+"X'C8082A5EC6474F259B2B654039232EFD'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,"What is the purpose of the 'size()' method in Java collections?",
+"X'C85C4621113642F9A1E870E30BF7421C'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,What will happen if a recursive function lacks a base case?,
+"X'C8D419CE51644B308C0F657A7DE6A698'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",50,50.00,Evaluate the advantages and disadvantages of using ByteArrayOutputStream and DataOutputStream classes in Java for handling output streams.,
+"X'C94DD576BE6A470ABB5495DE3C0A28FA'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,What are the key characteristics of a stack in Java?,
+"X'C954201FC9B24291B032CBC6B9DF68CD'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,What is the primary role of the stack in recursive function calls?,
+"X'C99705DC23554D6099290298AC74E001'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,Which class in Java is used to create a new directory?,
+"X'C9D664EAA4564952B17AA748ED51B6FF'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What happens if an exception is thrown in the 'catch' block of a Java try-catch statement?",
+"X'CC940FDC7CFD4014AB38795A0776DC46'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java method named 'validateEmail' that takes an email address as input and throws an 'InvalidEmailException' if the email format is incorrect.",
+"X'CDE79713CA2D455A88F8A4748B96AB05'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,Which of the following is NOT a standard Java exception?,
+"X'CE29312559F6409BBBB782E7431D1F37'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,Which of the following statements about tail recursion is true?,
+"X'CE9DC6BD442A451DA61A3761DAFE7A25'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What happens if you catch an exception but don't handle it?",
+"X'CF40212F7842463AB6AF2CE8C96CA73C'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which method is used to close a file in Java?,
+"X'CF516B1FC9BF4D37A5E60C4A012A4AA3'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",70,70.00,Implement a recursive Java method to check if a given number is prime.,"public class PrimeChecker {
+    public boolean isPrime(int num, int divisor) {
+        if (divisor <= 1)
+            return true;
+        else if (num % divisor == 0)
+            return false;
+        else
+            return isPrime(num, divisor - 1);
+    }
+}"
+"X'CFFFF026F1314FB9AB87DBB21FF74A7B'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,What does tail recursion optimize?,
+"X'D09FA6989E3948F8B0018191ECDA847B'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"Consider the following recursive function in Java. What will be the output when calling mystery(4)?
+
+```java
+public int mystery(int n) {
+    if (n <= 0)
+        return 1;
+    else
+        return n * mystery(n - 1);
+}
+```","public int mystery(int n) {
+    if (n <= 0)
+        return 1;
+    else
+        return n * mystery(n - 1);
+}"
+"X'D0D167C668744A6EA89940A26ACCD22F'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"In a recursive function, what is typically done in the recursive step?",
+"X'D0DEAF28025441C081F878356FB02568'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",90,90.00,What is the main disadvantage of using recursion?,
+"X'D116A2DCB06946CBA972D41613B14D0F'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",50,50.00,Discuss the advantages and disadvantages of using a LinkedList over an ArrayList in Java.,
+"X'D1BCDC2E876A4118B74751B995A590BB'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",45,45.00,Critically evaluate the usage of InputStreamReader and OutputStreamWriter classes in Java for handling character streams.,
+"X'D310B671AD5E4DAE850DDF96FDAFA82C'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",50,50.00,Which Java collection provides an implementation of the Deque interface with additional functionality?,
+"X'D32A96AA24B846DA9F06F8BB53094318'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,Which of the following Java collections maintains the insertion order?,
+"X'D34FE99591F74490A1E233A931B6897C'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",50,50.00,Evaluate the advantages and disadvantages of using FileReader and FileInputStream classes in Java for reading files.,
+"X'D3B7562EB63D4488ABF20203172C8ACC'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",45,45.00,Evaluate the usage of FileWriter and FileOutputStream classes in Java for writing files.,
+"X'D3D6CBDD969048C99520EC5C3F72B273'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,Which keyword is used to catch multiple exceptions in a single catch block in Java?,
+"X'D400C32F81A644ABB8D7EFC903305B9C'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the following Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 2); // Valid division
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'D40DEB2174AC401DB8B8AA6597ACF57D'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java method named 'validateInput' that takes a string as input and throws a 'InvalidInputException' if the input contains any non-alphanumeric characters.",
+"X'D4490E86E4944637A2A8D5098048AFD9'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What does the 'printStackTrace()' method of the Exception class in Java do?",
+"X'D4A109D821764FDC92738D6074E4244E'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,Which of the following is not a type of exception in Java?,
+"X'D4B0278BA4EE4F5DBB5B36E3B84F76AB'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",40,40.00,Evaluate the usage of BufferedReader and BufferedWriter classes in Java for reading and writing text files efficiently.,
+"X'D4ED87D0608D4DDAA78D09B31A7A0140'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,Write a Java program that demonstrates the use of nested try-catch blocks for error handling.,"public class NestedTryCatchExample {
+    public static void main(String[] args) {
+        try {
+            try {
+                int[] arr = new int[3];
+                arr[5] = 10; // ArrayIndexOutOfBoundsException
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(""Inner catch block: "" + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(""Outer catch block: "" + e.getMessage());
+        }
+    }
+}"
+"X'D50FDA104AF34BCDBFDF146716832CA5'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,Evaluate the following Java code and determine the output:,"
+public class ErrorHandling {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 2); // Valid division
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        return dividend / divisor;
+    }
+}
+"
+"X'D5470A9DCAD148C4872A7F0089546A5E'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the following Java code snippet. What is the time complexity of the recursive function?,"public int factorial(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}"
+"X'D698B3E761944C4D903D398536A48D94'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,What is the base case in recursion?,
+"X'D6995560445840A492C594EA96045A2D'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",30,30.00,Which Java collection class allows duplicate elements and maintains the insertion order?,
+"X'D7B26782A38E4DEB81DE630B0CE038D5'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Create a Java program that handles ArrayIndexOutOfBoundsException by gracefully terminating the program with an appropriate error message.,
+"X'D85F61888EEB4894B5EB10960FC84407'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"What is the time complexity of the following recursive function in terms of Big O notation?
+
+```java
+public int recursiveFunc(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return recursiveFunc(n - 1) + recursiveFunc(n - 2);
+}
+```","public int recursiveFunc(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return recursiveFunc(n - 1) + recursiveFunc(n - 2);
+}"
+"X'D885C3B8B9EC4E58B29078289EC282C6'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which method in Java is used to read a line of text from a file?,
+"X'D8BFC1E0F4B64568B2A698D898E34B78'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",35,35.00,What is the primary purpose of a base case in a recursive function?,
+"X'D92B20A47C9449549F6527C0F44D891C'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",35,35.00,Which Java collection class provides a resizable array implementation?,
+"X'D9C78A8EF08B44EF97D7787BE87A9284'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What is the purpose of the 'finally' block in exception handling?",
+"X'DA28151514634320ADCCBC621F9E9A48'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,"Create a Java program that defines a custom exception 'FileReadException' and throws it when a file read operation fails.",
+"X'DAB0E556FFE34063B3052B87910FC7A7'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Implement a recursive function in Java to find the greatest common divisor (GCD) of two integers.,"public int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    else
+        return gcd(b, a % b);
+}"
+"X'DADEE116372D4419BD24E757810FCC7A'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,Which method in the Java Stack class is used to retrieve and remove the element at the top of the stack?,
+"X'DBBEFA19C0F44F8189B763481670E3D0'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,"Which Java collection class provides a constant-time performance for the basic operations like add, remove, and contains?",
+"X'DCE7B411A20446C1B5B282650C85F558'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",80,80.00,Write a Java method that recursively calculates the sum of all elements in an integer array.,"public class ArraySum {
+    public int calculateSum(int[] arr, int index) {
+        if (index < 0)
+            return 0;
+        else
+            return arr[index] + calculateSum(arr, index - 1);
+    }
+}"
+"X'DD23396202154AE2B04EBBAC1634DE64'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,Which of the following statements is true about a LinkedList in Java?,
+"X'DD3078B7D49D496B92877C7C58138FD0'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the following Java code snippet. What is the space complexity of the recursive function?,"public int factorial(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}"
+"X'DD73D8250D9B4C5FB7F5A75382AD9DF7'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,"Which of the following is true about the 'remove()' method in Java ArrayList?",
+"X'DD76471A196142DFBE1C700594FB7A90'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which data structure is appropriate for implementing a line of customers waiting to purchase movie tickets?,
+"X'DE881F531A5B40DE939A17D92957141E'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the provided Java code snippet. What is the time complexity of the recursive function?,"public int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    else
+        return fibonacci(n - 1) + fibonacci(n - 2);
+}"
+"X'DEF20D502CDA4C5C881449F7E24DFE4E'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Create a Java program that handles multiple exceptions including FileNotFoundException and IOException by providing appropriate error messages.,
+"X'DF30224D2DCF4E3495E72398C74A2E78'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",45,45.00,Analyze the purpose and usage of CharArrayReader and CharArrayWriter classes in Java for handling character array streams.,
+"X'DF35F42954174FB897F4CC6535F11F27'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,What is recursion?,
+"X'DF64EEF14C4D42BFBE10198764ADE907'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",40,40.00,Which method in Java LinkedList class is used to add an element to the end of the list?,
+"X'DF8AF94B9B644476BC16170C0762FE6A'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,What is the purpose of the visited array in depth-first search (DFS) using recursion?,
+"X'DFA7086E1E5543CCBFE0D25028302444'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",45,45.00,"Which method in Java's ArrayList class is used to retrieve the element at a specified index?",
+"X'E04D634E5F2F473A9FDEFA6C032F6013'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,Write a Java program to read a file and display its content in reverse order.,"import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.Stack;
+
+public class ReverseFileContent {
+    public static void main(String[] args) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(""input.txt""))) {
+            Stack<String> lines = new Stack<>();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.push(line);
+            }
+            while (!lines.isEmpty()) {
+                System.out.println(lines.pop());
+            }
+        } catch (IOException e) {
+            System.out.println(""Error reading file: "" + e.getMessage());
+        }
+    }
+}"
+"X'E0A7EA0F511F4BDCA4D42C5ACB3C140D'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",40,40.00,Assess the usage of ByteArrayInputStream and ByteArrayOutputStream classes in Java for handling byte array streams.,
+"X'E0B362ABE277423DBDFE132F4AE5DFEC'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,Which of the following is true about checked and unchecked exceptions in Java?,
+"X'E1DE90E185944E36B4D17117699246F8'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,What is the primary advantage of using recursion?,
+"X'E2D0A0BC3E1D46AB82D60160CF57B8D9'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,What is tail recursion?,
+"X'E3658429221A4C36801AE28033A2FF44'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,"Consider the following Java code snippet. What will be the output of the code?
+
+```java
+Stack<String> stack = new Stack<>();
+stack.push(""A"");
+stack.push(""B"");
+stack.push(""C"");
+stack.push(""D"");
+stack.remove(""B"");
+System.out.println(stack);
+```
+","Stack<String> stack = new Stack<>();
+stack.push(""A"");
+stack.push(""B"");
+stack.push(""C"");
+stack.push(""D"");
+stack.remove(""B"");
+System.out.println(stack);"
+"X'E37634A6076F46EE977757311ACE804D'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,"What is the output of the following recursive function in Java?
+int power(int base, int exponent) {
+  if (exponent == 0) {
+    return 1;
+  }
+  return base * power(base, exponent - 1);
+}
+power(2, 3);",
+"X'E382993DFCF841E7A1ACCDF209C9A665'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"Consider the following Java code snippet. What will be the output of the code?
+
+```java
+Queue<Integer> queue = new LinkedList<>();
+queue.add(5);
+queue.add(10);
+queue.remove();
+queue.add(15);
+System.out.println(queue);
+```
+","Queue<Integer> queue = new LinkedList<>();
+queue.add(5);
+queue.add(10);
+queue.remove();
+queue.add(15);
+System.out.println(queue);"
+"X'E3E8AA7A4A674315BF28AD9FEA88DE86'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,What is recursion?,
+"X'E3EBFAD6C7874EF19FC37DCC29F95A28'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",45,45.00,Discuss the differences between FileOutputStream and FileWriter classes in Java.,
+"X'E508CBDE658D4D72928D6AE29528EE9F'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,What is the main characteristic of a queue in Java?,
+"X'E526C897DF5D4D1BBC2F8BA741301E45'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",50,50.00,Explain the purpose and usage of the RandomAccessFile class in Java.,
+"X'E52C0CDAC71A49C192C451132E90FF5A'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What is the purpose of the 'recursive case' in recursive algorithms?",
+"X'E5E998D7F9124D7486D7A170A9732608'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,What is the primary drawback of tail recursion?,
+"X'E5EE65306D664AC18BCB28B46A1FC917'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",50,50.00,Which Java collection class allows unique elements only and does not maintain the insertion order?,
+"X'E60C17FD98BB48068F8862B437BEF6F1'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,Analyze the given Java code snippet. What is the purpose of the recursive function?,"public int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    else
+        return gcd(b, a % b);
+}"
+"X'E6B91F9593354D6E9DBF7A77AB565BCB'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which of the following statements about recursion is true?,
+"X'E6C48E9C262C4FF18E27C20DE4E95290'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",120,120.00,Write a recursive function in Java to generate all permutations of a given array of integers.,"public void generatePermutations(int[] arr, int index) {
+    if (index == arr.length - 1) {
+        System.out.println(Arrays.toString(arr));
+        return;
+    }
+    for (int i = index; i < arr.length; i++) {
+        swap(arr, index, i);
+        generatePermutations(arr, index + 1);
+        swap(arr, index, i);
+    }
+}
+
+private void swap(int[] arr, int i, int j) {
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}"
+"X'E6D0A9AA9FC4453AA1F8F32586DB1911'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,"What does the 'printStackTrace()' method in Java exceptions do?",
+"X'E74698FE62614ABBB3427C4190F09C38'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,"Which of the following is true about the 'isEmpty()' method in Java collections?",
+"X'E8AA49E9746B4E768C94B44901972222'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the given Java code snippet. How many recursive calls are made by the function for an input of size n?,"public int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    else
+        return gcd(b, a % b);
+}"
+"X'E97F86C5ECEB48F9A2C7EB9344663B2E'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Write a recursive function in Java to check if a given string is a palindrome.,"public boolean isPalindrome(String s) {
+    if (s.length() <= 1)
+        return true;
+    else
+        return s.charAt(0) == s.charAt(s.length() - 1) && isPalindrome(s.substring(1, s.length() - 1));
+}"
+"X'E9CAF5363CDC48498DDF652C90E2C7D0'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",35,35.00,Which Java collection class allows duplicate elements and maintains the insertion order?,
+"X'E9CE7A5069F84EF4A0C9BFE38F454943'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,Which of the following statements about Java exception handling is true?,
+"X'E9D53199FD1E41B392489C597254086E'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the following Java code snippet. How many recursive calls are made by the function for an input of size n?,"public int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    else
+        return gcd(b, a % b);
+}"
+"X'EA96D3AA1D68460490E492EA078A0FD3'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",45,45.00,"Which method in Java's ArrayList class is used to remove all elements from the list?",
+"X'EAA083EB63664A9F840B02C26CEDD5F4'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",40,40.00,Which data structure is typically used to manage recursive function calls?,
+"X'EB079BF6C92D4556968D01D6856D703B'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which method in Java is used to write a line of text to the console?,
+"X'EB3AA9BFE78742D2966ABC5858047C39'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What is the purpose of the 'try-catch' block in Java?",
+"X'EB613F09CC3244CC853AB001BFC8A04D'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which class in Java is used for writing formatted text to a character-output stream?,
+"X'EB7910BFBE20458A8C6188DA301D72AF'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,Analyze the given Java code snippet. What is the purpose of the recursive function?,"public void reverseArray(int[] arr, int start, int end) {
+    if (start >= end)
+        return;
+    int temp = arr[start];
+    arr[start] = arr[end];
+    arr[end] = temp;
+    reverseArray(arr, start + 1, end - 1);
+}"
+"X'EBA8F46D563640EEAFF50B6F16427171'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",35,35.00,"What happens if an exception occurs within the 'finally' block in Java?",
+"X'EBC0BEF88846463FA3CB30D14CD4F9FA'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,9.90,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,"Which Java collection class provides a data structure that represents a collection of elements, each associated with a key?",
+"X'EBEBB4961AD748C29C3FA5EEB62EDD11'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Write a recursive function in Java to find the factorial of a given number.,"public int factorial(int n) {
+    if (n == 0)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}"
+"X'ECB0C1E209D44DFC8EC38E247B2B8717'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,Which of the following methods is used to add an element to the end of a queue in Java?,
+"X'ED32F6E43CDB47688DBF50002056DE47'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,Which Java data structure is most suitable for implementing a waiting list for a restaurant?,
+"X'ED890BD2D02A47A8878E7898172AA070'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What is the purpose of the 'finally' block in Java exception handling?",
+"X'EDBDE11B4ED84CBE8C01F8376F946BF2'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",45,45.00,What is the purpose of a base case in a recursive function?,
+"X'EDF135A611A1491C94BCB7B33107EBD8'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",90,90.00,Which of the following is a characteristic of recursive algorithms?,
+"X'EE6B262055964B39832A980BE6D2E0E8'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",90,90.00,What is the primary drawback of using recursion?,
+"X'EE7B0682F7004473A9B0D7A597363158'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",60,60.00,"Evaluate the given Java code snippet. What will be the output of the function call for input ""racecar""?","public boolean isPalindrome(String s) {
+    if (s.length() <= 1)
+        return true;
+    else
+        return s.charAt(0) == s.charAt(s.length() - 1) && isPalindrome(s.substring(1, s.length() - 1));
+}
+
+System.out.println(isPalindrome(""racecar""));"
+"X'EE819F38980A4875A86C427A1647A99A'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,"Which method in Java's Stack class is used to remove all elements from the stack?",
+"X'EE897E29A3C84AA19334CBE3DE62F41E'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,Which class in Java is used for reading binary data from streams?,
+"X'EF8FECD8FCAC42C99B664F8504DB4B3C'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",120,120.00,Write a recursive function in Java to generate all possible subsets of a given set.,"public void generateSubsets(int[] nums, int index, List<Integer> subset, List<List<Integer>> result) {
+    result.add(new ArrayList<>(subset));
+    for (int i = index; i < nums.length; i++) {
+        subset.add(nums[i]);
+        generateSubsets(nums, i + 1, subset, result);
+        subset.remove(subset.size() - 1);
+    }
+}"
+"X'F1A7F60CB2F84861914D08471F5373E6'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the given Java code snippet. What is the space complexity of the recursive function?,"public int factorial(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}"
+"X'F1C278AD1FE24F138AAE7B67991BA5F9'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,Implement a recursive function in Java to reverse a string.,"public class StringReverse {
+    public String reverseString(String str) {
+        if (str.isEmpty())
+            return str;
+        else
+            return reverseString(str.substring(1)) + str.charAt(0);
+    }
+}"
+"X'F2FD67702FDE438F9501DFCD50B8908F'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,What is the potential consequence of a recursive function lacking a base case?,
+"X'F3232770DF1146F8807AE9321695C78F'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",90,90.00,Write a recursive function in Java to check if a given string is a palindrome.,"public boolean isPalindrome(String s) {
+    if (s.length() <= 1)
+        return true;
+    else
+        return s.charAt(0) == s.charAt(s.length() - 1) && isPalindrome(s.substring(1, s.length() - 1));
+}"
+"X'F354EEECFF2E43F3B2480D0DE2AC338C'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,What is the key characteristic of a stack in Java?,
+"X'F3A72171A4DD4B74826E629B65DE3E96'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",50,50.00,Why is it essential to have a base case in a recursive function?,
+"X'F480DA863E004E98AEABCD41B7451D63'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",30,30.00,Which of the following is NOT a phase in solving problems recursively?,
+"X'F4E45685355741ADB39CD2DE64D2C05A'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",20,20.00,Which method in Java is used to print formatted data to the console?,
+"X'F55AA1AD5F6444A685350ED3B9D75BE4'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",50,50.00,"Which Java collection class allows elements to be accessed in a LIFO (Last-In, First-Out) order?",
+"X'F5EBABA15DD7423FB1748508570C6AAD'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,"Consider the following Java code snippet. What will be the output of the code?
+
+```java
+List<String> list = new ArrayList<>();
+list.add(""apple"");
+list.add(""banana"");
+list.add(""orange"");
+list.remove(""banana"");
+System.out.println(list);
+```
+","List<String> list = new ArrayList<>();
+list.add(""apple"");
+list.add(""banana"");
+list.add(""orange"");
+list.remove(""banana"");
+System.out.println(list);"
+"X'F5FEFC5282CC4E789A173AAA5C7176A1'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,Analyze the given Java code snippet. What is the worst-case time complexity of the function?,"public boolean isPalindrome(String s) {
+    if (s.length() <= 1)
+        return true;
+    else
+        return s.charAt(0) == s.charAt(s.length() - 1) && isPalindrome(s.substring(1, s.length() - 1));
+}"
+"X'F612FD19415C4A719536B664C676FA97'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which keyword is used to create a custom exception class in Java?,
+"X'F6298F14CE16422AA421D393E4F1FBD0'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",45,45.00,Which of the following is NOT a valid method to remove an element from a stack in Java?,
+"X'F6A23487296A4C48A1076C3E58A97811'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",120,120.00,Implement a recursive function in Java to find the length of the longest increasing subsequence in an array of integers.,"public int longestIncreasingSubsequence(int[] arr, int index, int prev) {
+    if (index == arr.length)
+        return 0;
+    int include = 0;
+    if (arr[index] > prev)
+        include = 1 + longestIncreasingSubsequence(arr, index + 1, arr[index]);"
+"X'F757E2D039A94F3ABECCDADD7EC7FC60'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",35,35.00,Explain the purpose of InputStream in Java I/O.,
+"X'F76E8DF0D3084A88B2D72D8EEE20FA2E'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",50,50.00,"Which data structure in Java would be most suitable for implementing a FIFO (First In, First Out) behavior?",
+"X'F7B5039AC1314184AD4CC8EE752B5FF2'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",50,50.00,Examine the usage of DataInputStream and DataOutputStream classes in Java for reading and writing binary data.,
+"X'F7D82D476114434E9057F91AA5F63136'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",15,15.00,"What happens if an exception occurs within the 'finally' block in Java?",
+"X'F91610BBE3D740C9B5143C6440CF1F9A'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",25,25.00,Which class in Java is used to write formatted output to the console?,
+"X'F9EA0D3AC5934C09A4168CA58DCD86CC'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,Which Java interface extends the Collection interface and allows removal and insertion of elements at both ends?,
+"X'FB00A916676C4C38BC7A55AE0E04AE7E'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,Which exception is thrown when an array is accessed with an invalid index?,
+"X'FB3BC40267964D8F9D7B9D1E21A52580'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,"What does the 'getMessage()' method of the Exception class in Java return?",
+"X'FB551A16E93A4AD5BD6DAAA5FDF4BBFF'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,"Which method in Java's LinkedList class is used to add an element at the end of the list?",
+"X'FB55FAE78ACC47FAA71C17B55F4D5A53'","X'AC2FB39A11DC4A7CB7831C5921A20E46'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",20,20.00,Which method in Java is used to close a PrintWriter?,
+"X'FBD4FF6BBA54411BB49C827F41FD6D42'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",0,10.00,"X'417786202CD94EB89655C67365551278'",60,60.00,"Write a Java code snippet to retrieve and remove the first element from a LinkedList named 'list'.",Object firstElement = list.poll();
+"X'FC0D69A06E8046F8ADC8C91E204BEECC'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'C3122318A52B4221B00942A1AECBC657'",30,30.00,Which Java interface provides a standard queue behavior?,
+"X'FC3C2E10562640EBB78FFB08B4802D57'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",60,60.00,"What is the purpose of the 'throws' keyword in Java?",
+"X'FC3C9206E1E94B439BC4C8A54178E535'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",60,60.00,Which of the following statements about Java exception handling is true?,
+"X'FC4CF03601D446839DAFDFA4CF9F68C1'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",60,60.00,"Which method in Java's Stack class is used to search for an element and return its position relative to the top of the stack?",
+"X'FCEA4B224A544B8DBC6D9064CBDE4F79'","X'7F4746DF0A7041C1B72BC3FDF3B69F9A'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",90,90.00,"Consider the following Java code snippet. What will be the output of the code?
+
+```java
+Stack<Integer> stack = new Stack<>();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+stack.peek();
+System.out.println(stack);
+```
+","Stack<Integer> stack = new Stack<>();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+stack.peek();
+System.out.println(stack);"
+"X'FCF707C2B6014573A77C8DCD03680325'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'417786202CD94EB89655C67365551278'",90,90.00,"What happens if an exception is thrown within a 'finally' block?",
+"X'FD853A43DBC44CEA8499A3347349F29C'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'8C2B51FD6B3A4D7A8FC2B0A071055062'",35,35.00,What is the main advantage of using recursion?,
+"X'FE072C859A6A45B2ADF81F3A6BF865E8'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,What is the primary advantage of using recursion?,
+"X'FE468136AC2041A2933AB596AF31FBB0'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",45,45.00,What is the maximum depth of recursion in Java?,
+"X'FE57DBE6E1D447C79923C501D5D13A92'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",1,10.00,"X'8EE7AE7D88B1405DA29123F10E8CDCAB'",60,60.00,Analyze the given Java code and identify the potential error:,"public class ErrorAnalysis {
+    public static void main(String[] args) {
+        try {
+            int result = divide(10, 0); // Division by zero
+            System.out.println(""Result: "" + result);
+        } catch (ArithmeticException e) {
+            System.out.println(""Error: Division by zero"");
+        }
+    }
+
+    public static int divide(int dividend, int divisor) {
+        try {
+            return dividend / divisor;
+        } finally {
+            System.out.println(""Finally block executed"");
+        }
+    }
+}"
+"X'FEAABAFA9C7F4525A24594D1E7651415'","X'E990EEBA5D434251A2CED1C43C294048'",1,10.00,"X'1A1BBFFC6FEF44E1BBB98DC0726C2018'",150,150.00,Write a recursive function in Java to generate all possible subsets of a given set.,"public void generateSubsets(int[] nums, int index, List<Integer> subset, List<List<Integer>> result) {
+    if (index == nums.length) {
+        result.add(new ArrayList<>(subset));
+        return;
+    }
+    subset.add(nums[index]);
+    generateSubsets(nums, index + 1, subset, result);
+    subset.remove(subset.size() - 1);
+    generateSubsets(nums, index + 1, subset, result);
+}"
+"X'FEB7C1F3F37E470B83C59E0BD4204E94'","X'E990EEBA5D434251A2CED1C43C294048'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",35,35.00,"What is the concept of 'divide and conquer' related to recursion?",
+"X'FF017A2EB617426C85294A43F82BEF0B'","X'1B9D1CC8B6A54CD7AEB11C961B9300BB'",0,10.00,"X'9CD2D9F7B6B746B6948B66EBB6B71486'",30,30.00,"What is the purpose of the 'throws' keyword in Java?",
