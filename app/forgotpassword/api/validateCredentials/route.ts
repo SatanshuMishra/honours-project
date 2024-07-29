@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import {CompactSign} from "jose";
+import { SignJWT } from "jose";
 import { createSecretKey } from "crypto";
 import prisma from "../../../lib/prisma";
 import Student from "@/app/types/student";
@@ -16,26 +16,26 @@ export async function POST(request: NextRequest) {
 	} = JSON.parse(requestText);
 
 	if (!requestBody.fullname) return new Response(
-			JSON.stringify({
-				status: 422,
-				data: {
-					validated: false,
-					token: null,
-				},
-				message: `Missing student fullname.`
-			})
-		)
+		JSON.stringify({
+			status: 422,
+			data: {
+				validated: false,
+				token: null,
+			},
+			message: `Missing student fullname.`
+		})
+	)
 
 	if (!requestBody.username) return new Response(
-			JSON.stringify({
-				status: 422,
-				data: {
-					validated: false,
-					token: null,
-				},
-				message: `Missing student username.`
-			})
-		)
+		JSON.stringify({
+			status: 422,
+			data: {
+				validated: false,
+				token: null,
+			},
+			message: `Missing student username.`
+		})
+	)
 
 	//  NOTE:: PURIFY REQUEST BODY
 
@@ -82,18 +82,23 @@ export async function POST(request: NextRequest) {
 			//  NOTE: CREATE JWT TOKEN & SET SESSION
 
 			const secret = createSecretKey(process.env.JWT_SECRET || "Wee", 'utf-8');
-			const jws = await new CompactSign(
-				new TextEncoder().encode(JSON.stringify({
-					pureFullName,
-					pureUsername
-				}))
-			).setProtectedHeader({ alg: `HS256` }).sign(secret);
+
+			const jws = await new SignJWT(
+				{
+					fullname: pureFullName,
+					username: pureUsername
+				}
+			).setProtectedHeader({alg: `HS256`})
+			.setIssuedAt()
+			.setSubject('Password Reset Claim')
+			.setExpirationTime('5m')
+			.sign(secret);
 
 			console.log(jws);
 
 			//  NOTE: CHECK IF JWS GENERATED
 
-			if(!jws) return new Response (
+			if (!jws) return new Response(
 				JSON.stringify({
 					status: 400,
 					data: {
