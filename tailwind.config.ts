@@ -1,13 +1,13 @@
 import type { Config } from "tailwindcss"
 
-const config = {
-  darkMode: ["class"],
+const config: Config = {
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
+    // Add any other files where you use Tailwind classes
   ],
-  prefix: "",
+  darkMode: ["class"],
   theme: {
     container: {
       center: true,
@@ -34,6 +34,11 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+  safelist: [
+    {
+      pattern: /^(bg|text|w|h)-(.*)$/,
+    },
+  ],
+}
 
 export default config

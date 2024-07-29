@@ -26,7 +26,7 @@ async function getCategoryID(name: string): Promise<String | undefined> {
 			throw new Error(`No category by the name of ${name} found!`);
 
 		return category[0].categoryID;
-	} catch (error) {}
+	} catch (error) { }
 }
 /**
  * UpdateIRT difficulty offset for given student, topic and category combination.
@@ -174,11 +174,7 @@ export async function POST(request: NextRequest) {
 				console.info("Category ID: ", categoryID);
 
 				const normalizedDifficulty =
-					Math.abs(results[result]["b"]) <= 10
-						? (results[result]["b"] / 10) * 2
-						: results[result]["b"] > 0
-							? (2 / 10) * 2
-							: (-2 / 10) * 2;
+					Math.max(-10, Math.min(10, results[result]["b"]))
 
 				console.info(
 					`Difficulty: ${results[result]["b"]}\nNormalized Difficulty: ${(results[result]["b"] / 10) * 5}`

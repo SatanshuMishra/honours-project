@@ -109,6 +109,7 @@ export default function LogIn({ setSignIn, displaySignIn }: AuthProps) {
 						>
 							LOG IN
 						</button>
+						<a className="p-2 text-black text-center w-full" href="/forgotpassword">Forgot Password</a>
 					</form>
 				</div>
 				<p className="text-xl my-5 w-full text-center"> - OR - </p>
