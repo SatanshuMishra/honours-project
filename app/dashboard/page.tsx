@@ -201,7 +201,7 @@ function Dashboard() {
 									target="_blank"
 								>
 									<button className="text-lg p-2 mr-2 text-black rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-black transition-all duration-300 ease-in-out font-jetbrains-mono">
-										Questionnaire Consent Form
+										Feedback Questionnaire Consent Form
 									</button>
 								</a>
 								<a
@@ -209,7 +209,7 @@ function Dashboard() {
 									target="_blank"
 								>
 									<button className="text-lg p-2 mr-2 text-black rounded-[10px] w-fit font-medium border-[2px] border-black transition-all duration-300 ease-in-out font-jetbrains-mono">
-										Questionnaire
+										Feedback Questionnaire
 									</button>
 								</a>
 							</div>
