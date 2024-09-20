@@ -62,7 +62,7 @@ export default function forgotpassword() {
 						<div className="w-full h-full p-8">
 							<h1 className="font-bold text-[40px] my-4">Register</h1>
 							<form className="w-full" onSubmit={formik.handleSubmit}>
-								<Input name="Full Name" htmlFor="name" onChangeFunction={formik.handleChange} />
+								<Input name="Full Name" htmlFor="fullname" onChangeFunction={formik.handleChange} />
 								<Input name="Username" htmlFor="username" onChangeFunction={formik.handleChange} />
 								<button className="w-full px-4 py-2 my-4 font-semibold text-xl text-white bg-blue-600 hover:bg-blue-700 rounded-lg" type="submit">Reset Password</button>
 							</form>
@@ -71,9 +71,9 @@ export default function forgotpassword() {
 							</div>
 						</div>
 					</div>
-					<div className="flex flex-row justify-evenly">
-						<span className="h-4 w-[80%] bg-blue-600 rounded-full"></span>
-						<span className="h-4 w-[80%] bg-pink-500 rounded-full"></span>
+					<div className="flex flex-row justify-evenly py-8">
+						<span className="h-4 w-[15rem] bg-blue-600 rounded-full"></span>
+						<span className="h-4 w-[15rem] bg-[#cccccc] rounded-full"></span>
 					</div>
 				</section>
 				<section className="hidden mobile:inline-block w-full h-full p-4">
