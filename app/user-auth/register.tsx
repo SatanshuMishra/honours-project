@@ -82,7 +82,7 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 							<ULearnLogo />
 						</div>
 						<div className="w-full h-full p-8">
-							<h1 className="font-bold text-[40px] my-4">Register</h1>
+							<h1 className="font-bold text-[40px] my-4 text-black">Register</h1>
 							<form className="w-full" onSubmit={formik.handleSubmit}>
 								<Input name="Full Name" htmlFor="name" onChangeFunction={formik.handleChange} />
 								<Input name="Username" htmlFor="username" onChangeFunction={formik.handleChange} description="This username should have been pre-assigned to you by your instructor. No other usernames will be accepted." />
@@ -93,7 +93,7 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 						</div>
 					</div>
 					<div className="w-full p-8">
-						<p className="w-auto text-lg font-light py-2">
+						<p className="w-auto text-lg font-light py-2 text-black">
 							Already have an account?
 						</p>
 						<a

@@ -6,7 +6,7 @@ export default function ULearnLogo() {
 		<a href="./dashboard" className="cursor-pointer">
 			<div className="flex flex-row justify-start items-center w-full h-fit z-50">
 			<Image src={uLogo} alt="uLearn Logo" width={45} height={45} />
-			<p className="font-bold text-3xl">uLearn</p>
+			<p className="font-bold text-3xl text-black">uLearn</p>
 			</div>
 		</a>
 	);

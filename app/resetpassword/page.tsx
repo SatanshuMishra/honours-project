@@ -13,7 +13,7 @@ type Props = {
   confirmpassword: string;
 };
 
-export default function resetpassword() {
+export default function ResetPassword() {
   const [token, setToken] = useState<String>();
 
   const searchParams = useSearchParams();

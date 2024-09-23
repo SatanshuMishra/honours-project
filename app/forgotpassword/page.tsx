@@ -13,7 +13,7 @@ type SubmitProps = {
 	username: string;
 };
 
-export default function forgotpassword() {
+export default function ForgotPassword() {
 	const router = useRouter();
 	const formik = useFormik({
 		initialValues: {

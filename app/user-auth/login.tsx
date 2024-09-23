@@ -56,14 +56,14 @@ export default function LogIn({ setSignIn, displaySignIn }: AuthProps) {
 							<ULearnLogo />
 						</div>
 						<div className="w-full h-full p-8">
-							<h1 className="font-bold text-[40px] my-4">Log In</h1>
+							<h1 className="font-bold text-[40px] my-4 text-black">Log In</h1>
 							<form className="w-full" onSubmit={formik.handleSubmit}>
 								<Input name="Username" htmlFor="username" onChangeFunction={formik.handleChange} description="This username should have been pre-assigned to you by your instructor." />
 								<Input name="Password" htmlFor="password" onChangeFunction={formik.handleChange} />
 								<button className="w-full px-4 py-2 my-4 font-semibold text-xl text-white bg-blue-600 hover:bg-blue-700 rounded-lg" type="submit">Start Learning</button>
 							</form>
 							<div className="w-full">
-								<p className="w-auto text-lg font-light py-2">
+								<p className="w-auto text-lg font-light py-2 text-black">
 									Don't remember your password?
 								</p>
 								<a
@@ -76,7 +76,7 @@ export default function LogIn({ setSignIn, displaySignIn }: AuthProps) {
 						</div>
 					</div>
 					<div className="w-full px-8 py-4">
-						<p className="w-auto text-lg font-light py-2">
+						<p className="w-auto text-lg font-light py-2 text-black">
 							First time? Create an account to get started!
 						</p>
 						<a
