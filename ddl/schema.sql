@@ -38,7 +38,7 @@ CREATE TABLE question (
 	questionID BINARY(16) NOT NULL PRIMARY KEY,
 	topicID BINARY(16) NOT NULL,
 	assignedDifficulty SMALLINT NOT NULL CHECK (assignedDifficulty BETWEEN 1 AND 5),
-	modifiedDifficulty SMALLINT NOT NULL (modifiedDifficulty BETWEEN 1 AND 5),
+	modifiedDifficulty SMALLINT NOT NULL CHECK (modifiedDifficulty BETWEEN 1 AND 5),
 	categoryID BINARY(16) NOT NULL,
 	-- assignedCompletionTime DECIMAL(5, 2) NOT NULL,
 	-- modifiedCompletionTime DECIMAL(5, 2) NOT NULL,
