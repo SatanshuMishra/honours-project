@@ -77,6 +77,7 @@ CREATE TABLE studentKnowledge (
 	categoryID BINARY(16) NOT NULL,
 	mastery DECIMAL(5, 2) DEFAULT 0.5 NOT NULL,
 	difficultyOffset DECIMAL(5, 2) DEFAULT 0 NOT NULL,
+	idealDifficulty SMALLINT DEFAULT 3 NOT NULL,
 	FOREIGN KEY (studentID) REFERENCES student(studentID),
 	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
 	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)

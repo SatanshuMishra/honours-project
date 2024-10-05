@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
 			assignedDifficulty: number;
 			question: string;
 			taxonomyCategory: string;
-			assignedCompletionTime: number;
+			// assignedCompletionTime: number;
 			code?: string;
 		} = JSON.parse(requestText);
 
@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
 
 		//  DOCUMENTATION: INSERT QUESTION
 
-		await prisma.$queryRaw`INSERT INTO question (questionID, topicID, assignedDifficulty, modifiedDifficulty, question, categoryID, assignedCompletionTime, modifiedCompletionTime, code) VALUES (UUID_TO_BIN(${questionID}), UUID_TO_BIN(${topicID}), ${requestBody.assignedDifficulty}, ${requestBody.assignedDifficulty}, ${requestBody.question}, UUID_TO_BIN(${taxonomyCategoryID}), ${requestBody.assignedCompletionTime}, ${requestBody.assignedCompletionTime}, ${requestBody.code})`;
+		await prisma.$queryRaw`INSERT INTO question (questionID, topicID, assignedDifficulty, modifiedDifficulty, question, categoryID, code) VALUES (UUID_TO_BIN(${questionID}), UUID_TO_BIN(${topicID}), ${requestBody.assignedDifficulty}, ${requestBody.assignedDifficulty}, ${requestBody.question}, UUID_TO_BIN(${taxonomyCategoryID}), ${requestBody.code})`;
 
 		//  DOCUMENTATION: INSERT INITIAL DIFFICULTY INTO LOGS
 

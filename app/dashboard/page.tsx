@@ -6,13 +6,13 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import "remixicon/fonts/remixicon.css";
 import QuestionTopic from "../types/questionTopic";
-import { useToast } from "@/components/ui/use-toast";
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@/components/ui/tooltip";
+// import { useToast } from "@/components/ui/use-toast";
+// import {
+// 	Tooltip,
+// 	TooltipContent,
+// 	TooltipProvider,
+// 	TooltipTrigger,
+// } from "@/components/ui/tooltip";
 
 // CUSTOM SCRIPT IMPORTS
 import parseJSON from "../scripts/parseJSON";
@@ -47,7 +47,7 @@ function Dashboard() {
 		}[]
 		| null
 	>(null);
-	const { toast } = useToast();
+	// const { toast } = useToast();
 
 	// TEMPORARY TEST VARIABLES
 	const [_, setStatistics] = useState<any[]>();
@@ -105,7 +105,7 @@ function Dashboard() {
 				},
 				body: JSON.stringify({
 					studentID: studentID,
-					topicID: "e990eeba-5d43-4251-a2ce-d1c43c294048",
+					topicID: "E8984B2CFC1A4805ACE7C34A6E4EF33A",
 				}),
 				cache: "no-cache",
 				credentials: "include",
@@ -269,48 +269,6 @@ function Dashboard() {
 											<h4 className="font-light my-2 text-xl font-jetbrains-mono">
 												{topic.name}
 											</h4>
-											<div className="flex flex-row items-center justify-evenly w-full">
-												<TooltipProvider>
-													<Tooltip
-														delayDuration={100}
-													>
-														<TooltipTrigger>
-															<i className="ri-question-fill text-xl text-black"></i>{" "}
-															{
-																topic.quizzesCompleted
-															}
-														</TooltipTrigger>
-														<TooltipContent>
-															<p>
-																Number of
-																Quizzes
-																Completed
-															</p>
-														</TooltipContent>
-													</Tooltip>
-												</TooltipProvider>
-												{topic.bonusReq == "1" && (
-													<TooltipProvider>
-														<Tooltip
-															delayDuration={100}
-														>
-															<TooltipTrigger>
-																<i className="ri-checkbox-circle-fill text-xl text-[#0066ff]"></i>
-															</TooltipTrigger>
-															<TooltipContent>
-																<p className="text-center">
-																	You have
-																	completed
-																	the bonus
-																	requirements
-																	<br /> for
-																	this topic.
-																</p>
-															</TooltipContent>
-														</Tooltip>
-													</TooltipProvider>
-												)}
-											</div>
 										</div>
 									</a>
 								);

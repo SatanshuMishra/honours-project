@@ -9,7 +9,7 @@ import javascript from "highlight.js/lib/languages/javascript";
 import "highlight.js/styles/github.css";
 import "remixicon/fonts/remixicon.css";
 import SVGQuiz from "@/public/SVG-Quiz.svg";
-import { useToast } from "@/components/ui/use-toast";
+// import { useToast } from "@/components/ui/use-toast";
 
 //  DOCUMENTATION: TYPES
 
@@ -91,7 +91,7 @@ const CodeBlock = ({ code }: Code) => {
 
 function Questionnaire({ params }: { params: { slug: string } }) {
 	const router = useRouter();
-	const { toast } = useToast();
+	/* const { toast } = useToast(); */
 
 	//  DOCUMENTATION: INITIALIZE LANGUAGE HIGHLIGHTING FOR CODE BLOCK
 
@@ -160,11 +160,11 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 					state.selectedOptionIdx === null ||
 					state.startTime === null
 				) {
-					toast({
-						title: "Submission Error",
-						description: "Please select an option before submitting! If this is an error, please report it.",
-						variant: "destructive",
-					});
+					// toast({
+					// 	title: "Submission Error",
+					// 	description: "Please select an option before submitting! If this is an error, please report it.",
+					// 	variant: "destructive",
+					// });
 					return state;
 				}
 
@@ -253,7 +253,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 	//  DOCUMENTATION: UPDATE QUESTION AND ANSWER CHOICES EACH TIME	CURRENT INDEX CHANGES
 
 	useEffect(() => {
-		if (quizState && quizState.questions.length !== 20) {
+		if (quizState && quizState.questions.length !== 5) {
 			dispatch({
 				type: "SET_ERROR",
 				payload: "Questions array has not been initialized yet.",
@@ -261,7 +261,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 			return;
 		}
 
-		if (quizState.currentQuestionIndex >= 20) {
+		if (quizState.currentQuestionIndex >= 5) {
 			dispatch({
 				type: "FINISH_QUIZ",
 				payload: null,
@@ -357,7 +357,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 
 	const onContinue = () => {
 		if (quizState.submitted) {
-			if (quizState.currentQuestionIndex < 20) dispatch({ type: "NEXT_QUESTION", payload: null });
+			if (quizState.currentQuestionIndex < 5) dispatch({ type: "NEXT_QUESTION", payload: null });
 		}
 	};
 
@@ -468,9 +468,10 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 											useGrouping: false,
 										})}
 									</span>
-									<span className="text-slate-700">/20</span>
+									<span className="text-slate-700">/5</span>
 								</h1>
 								<ProgressBar
+									size={quizState.questions.length}
 									currentIdx={quizState.currentQuestionIndex}
 								/>
 								<h2 className="text-white text-3xl font-bold font-jetbrains-mono py-4">
