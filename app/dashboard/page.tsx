@@ -189,11 +189,28 @@ function Dashboard() {
 		<section className="w-full h-full bg-white">
 			{studentID && studentName && studentUsername ? (
 				<main className="h-full flex flex-col w-full p-6 overflow-hidden">
-					<ULearnLogo />
+					<section className="h-fit w-full flex flex-row justify-between" style={{ paddingBottom: "1rem"}}>
+						<ULearnLogo />
+						<div>
+							<button
+								className="shadow border border-[#db1640] text-black hover:bg-[#db1640] hover:text-white py-2 px-4 rounded-lg mr-2 transition-all ease-in-out duration-300 flex flex-row justify-between items-center flex-nowrap"
+								style={{
+									margin: "0.25rem 0.5rem 0 0",
+								}}
+								onClick={() => handleSignOut()}
+							>
+								Sign Out
+							</button>
+						</div>
+					</section>
 					<section className="w-full flex-1 flex flex-row justify-between overflow-hidden">
-						<section className="w-fit h-full p-10" style={{
-							width: windowWidth > 1050 ? "fit-content" : "100%"
-							}}>
+						<section
+							className="w-fit h-full p-10"
+							style={{
+								width:
+									windowWidth > 1050 ? "fit-content" : "100%",
+							}}
+						>
 							<div
 								className="w-full"
 								style={{
@@ -232,7 +249,7 @@ function Dashboard() {
 																	(parseFloat(
 																		topic.quizzesCompleted
 																	) /
-																		80) *
+																		4) *
 																	100
 																).toPrecision(
 																	3
@@ -246,7 +263,7 @@ function Dashboard() {
 																	(parseFloat(
 																		topic.quizzesCompleted
 																	) /
-																		80) *
+																		4) *
 																	100
 																).toPrecision(
 																	3
