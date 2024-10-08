@@ -31,7 +31,7 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.ts" />
         <link rel="icon" href="/favicon.ico?v=2" />
       </head>
-      <body className={`${rubik.className} w-screen h-screen max-h-screen overflow-y-scroll`}>
+      <body className={`${rubik.className} w-screen h-screen max-h-screen overflow-hidden`}>
         {children}
         {/*HANDLES THE TOAST MESSAGE*/}
 		{/* <Toaster /> */}

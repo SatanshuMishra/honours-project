@@ -84,7 +84,6 @@ export default function LogIn({ setSignIn, displaySignIn }: AuthProps) {
 						>
 							Register	
 						</a>
-
 					</div>
 				</section>
 				<section className="hidden mobile:inline-block w-full h-full p-4">
