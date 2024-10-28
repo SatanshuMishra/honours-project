@@ -13,6 +13,7 @@ const config: Config = {
 			},
 			colors: {
 				peach: "#fbcfb8",
+				blue: "#0083ff",
 			},
 		},
 	},

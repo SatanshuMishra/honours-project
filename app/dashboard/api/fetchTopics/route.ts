@@ -29,8 +29,8 @@ export async function POST(request: NextRequest) {
 SELECT 
     BIN_TO_UUID(qt.topicID) AS topicID,
     qt.name AS name,
-    FLOOR(COALESCE(COUNT(st.statID), 0) / 20) AS quizzesCompleted,
-    CASE WHEN FLOOR(COALESCE(COUNT(st.statID), 0) / 20) >= 4 THEN TRUE ELSE FALSE END AS bonusReq
+    FLOOR(COALESCE(COUNT(st.statID), 0) / 4) AS quizzesCompleted,
+    CASE WHEN FLOOR(COALESCE(COUNT(st.statID), 0) / 4) >= 4 THEN TRUE ELSE FALSE END AS bonusReq
 FROM 
     questionTopic qt
 LEFT JOIN 

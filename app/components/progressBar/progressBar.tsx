@@ -1,5 +1,7 @@
 //  NOTE: THIS COMPONENT REPRESENTING THE PROGRESS BAR IN THE QUIZ UI
 
+import React from "react";
+
 interface Props {
 	size: number;
 	currentIdx: number;
@@ -22,7 +24,8 @@ export default function ProgressBar({ size = 20, currentIdx }: Props) {
 			) : (
 				<div
 					key={index}
-					className={`h-2 p-1.5 rounded bg-white flex-1`}
+					className={`h-2 p-1.5 rounded flex-1 bg-gr`}
+						style={{background: '#d9d9d9'}}
 				></div>
 			);
 		});

@@ -1,7 +1,7 @@
 "use client";
 
 //  DOCUMENTATION: IMPORTS
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import hljs from "highlight.js/lib/core";
@@ -23,6 +23,8 @@ import ProgressBar from "../../components/progressBar/progressBar";
 import QuizOption from "../../components/quizComponents/QuizOption";
 import Loading from "../../components/loading/loading";
 import Results from "../../components/results/results";
+import ULearnLogo from "../../components/uLearnLogo/ULearnLogo.tsx";
+import TipAccordion from "../../components/accordion/TipAccordion.tsx";
 
 //  DOCUMENTATION: SCRIPTS
 
@@ -81,8 +83,8 @@ const CodeBlock = ({ code }: Code) => {
 	}, []);
 
 	return (
-		<pre className="bg-black p-4 px-8">
-			<code className="javascript text-xl !bg-black !text-white select-none !font-jetbrains-mono">
+		<pre className="bg-black p-4 px-8 rounded-lg flex-1 flex flex-col justify-center items-start overflow-y-scroll overflow-x-auto w-full">
+			<code className="block javascript text-lg !bg-black !text-white w-full break-words whitespace-pre-wrap select-none !font-jetbrains-mono">
 				{code}
 			</code>
 		</pre>
@@ -91,17 +93,14 @@ const CodeBlock = ({ code }: Code) => {
 
 function Questionnaire({ params }: { params: { slug: string } }) {
 	const router = useRouter();
-	/* const { toast } = useToast(); */
 
 	//  DOCUMENTATION: INITIALIZE LANGUAGE HIGHLIGHTING FOR CODE BLOCK
-
 	hljs.registerLanguage("javascript", javascript);
 
 	//  DEBUG:
 	console.info(`Slug: ${params.slug}`);
 
 	//  DOCUMENTATION: INITIALIZE STATE FOR QUIZ STATE
-
 	const initialState: QuizState = {
 		loading: true,
 		error: null,
@@ -123,10 +122,9 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 	};
 
 	//  DOCUMENTATION: DEFINE ACTIONS FOR QUIZ STATE
-
 	const quizReducer: React.Reducer<QuizState, QuizAction> = (
 		state: any,
-		action: any
+		action: any,
 	) => {
 		switch (action.type) {
 			case "SET_LOADING":
@@ -224,7 +222,9 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 
 				if (typeof studentInfo === "string") {
 					const student: Student = JSON.parse(studentInfo);
-					console.info(`VERIFIED. LOGGED IN AS ${student.name?.toUpperCase()}.`);
+					console.info(
+						`VERIFIED. LOGGED IN AS ${student.name?.toUpperCase()}.`,
+					);
 					dispatch({ type: "SET_STUDENT_INFO", payload: student });
 					return fetchQuestions(student.studentID, params.slug);
 				}
@@ -234,7 +234,6 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 				Cookies.remove("token");
 				router.push("/user-auth");
 			})
-
 			//  DOCUMENTATION: FETCH QUESTIONS ONCE TOKEN IS VALIDATED
 
 			.then((questions) => {
@@ -270,13 +269,15 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 		}
 
 		fetchAnswers(
-			quizState.questions[quizState.currentQuestionIndex].questionID as string
+			quizState.questions[quizState.currentQuestionIndex]
+				.questionID as string,
 		)
 			.then((answers) => {
 				dispatch({ type: "SET_ANSWERS", payload: answers as Answer[] });
 			})
 			.then(() => {
-				quizState.currentQuestionIndex === 0 && dispatch({ type: "START_QUIZ_DURATION", payload: null });
+				quizState.currentQuestionIndex === 0 &&
+					dispatch({ type: "START_QUIZ_DURATION", payload: null });
 			})
 			.catch((error) => {
 				dispatch({
@@ -297,21 +298,22 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 	//  DOCUMENTATION: ADD STATS FOR CURRENT QUESTION
 	async function addStatistics() {
 		try {
-			if (!quizState.submitted)
+			if (!quizState.submitted) {
 				throw new Error("No submission detected!");
+			}
 
 			if (
 				!quizState.questions ||
 				!quizState.answers ||
 				quizState.selectedOptionIdx === null
-			)
+			) {
 				throw new Error("[AS] Missing values!");
+			}
 
 			let values = {
 				studentID: quizState.studentInfo.studentID,
-				questionID:
-					quizState.questions[quizState.currentQuestionIndex]
-						.questionID,
+				questionID: quizState.questions[quizState.currentQuestionIndex]
+					.questionID,
 				chosenAnswerID:
 					quizState.answers[quizState.selectedOptionIdx].answerID,
 				isCorrect:
@@ -329,7 +331,7 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 					body: JSON.stringify(values),
 					cache: "no-cache",
 					credentials: "include",
-				}
+				},
 			);
 
 			let resBody: {
@@ -357,7 +359,9 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 
 	const onContinue = () => {
 		if (quizState.submitted) {
-			if (quizState.currentQuestionIndex < 5) dispatch({ type: "NEXT_QUESTION", payload: null });
+			if (quizState.currentQuestionIndex < 5) {
+				dispatch({ type: "NEXT_QUESTION", payload: null });
+			}
 		}
 	};
 
@@ -367,8 +371,9 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 	 */
 	async function processResults(): Promise<any> {
 		try {
-			if (!quizState.quizDurationEnd)
+			if (!quizState.quizDurationEnd) {
 				throw new Error("No submission detected!");
+			}
 
 			let values = {
 				studentID: quizState.studentInfo.studentID,
@@ -401,191 +406,221 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 	}
 
 	useEffect(() => {
-		console.info("Start Time: ", quizState.quizDurationStart, "End Time: ", quizState.quizDurationEnd, "Duration:", quizState.quizDurationEnd - quizState.quizDurationStart);
+		console.info(
+			"Start Time: ",
+			quizState.quizDurationStart,
+			"End Time: ",
+			quizState.quizDurationEnd,
+			"Duration:",
+			quizState.quizDurationEnd - quizState.quizDurationStart,
+		);
 		processResults();
 	}, [quizState.quizDurationEnd]);
 
+	const [seconds, setSeconds] = useState(0);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setSeconds((prev) => prev + 1);
+		}, 1000);
+
+		// Cleanup on unmount
+		return () => clearInterval(interval);
+	}, []);
+
 	return (
 		<>
-			{!quizState.loading ? (
-				<>
-					<main className="bg-[#141A33] h-full max-h-screen w-full flex flex-col p-10 transition-all duration-300 ease-in-out">
-						{/*  DOCUMENTATION: BACK TO DASHBOARD BUTTON */}
-						<a
-							className="flex flex-row justify-center items-baseline w-fit my-2 text-[#5E6580] text-lg hover:cursor-pointer hover:text-white transition-all duration-300 ease-in-out"
-							href="/dashboard"
-						>
-							<i className="ri-arrow-left-line py-2 px-1 text-xl"></i>
-							<p className="px-1 py-2 font-jetbrains-mono">
-								Back to Dashboard
-							</p>
-						</a>
-						<section
-							className="flex-1 w-full max-h-[86vh] flex flex-row justify-evenly"
-							style={
-								{
-									"--bg": quizState.questions[
+			{!quizState.loading
+				? (
+					<main className="bg-white h-screen w-screen p-6 overflow-hidden flex flex-col">
+						<section className="flex-1 flex flex-col">
+							<ULearnLogo />
+							<section className="p-2 flex-1 flex flex-col">
+								<section className="flex flex-row justify-evenly flex-1">
+									{quizState.questions[
 										quizState.currentQuestionIndex
-									].code
-										? "#000000"
-										: "transparent",
-								} as any
-							}
-						>
-							<section className="p-2 bg-[--bg] w-full flex flex-col justify-center h-full mr-4 rounded-[10px] overflow-y-scroll">
-								{quizState.questions[
-									quizState.currentQuestionIndex
-								].code && (
-										<CodeBlock
-											code={
-												quizState.questions[
-													quizState.currentQuestionIndex
-												].code as string
-											}
-										/>
-									)}
-								{!quizState.questions[
-									quizState.currentQuestionIndex
-								].code && (
-										<img
-											src={SVGQuiz.src}
-											alt="Picture"
-											className="w-[90%]"
-										/>
-									)}
-							</section>
-							<section className="p-2 w-full ml-4 flex flex-col items-start border-[0px] border-dashed border-white">
-								<h4 className="text-slate-700 text-xl font-bold font-jetbrains-mono">
-									Recursion
-								</h4>
-								<h1 className="text-3xl text-white font-bold font-jetbrains-mono">
-									QUESTION{" "}
-									<span className="text-[40px]">
-										{(
-											quizState.currentQuestionIndex + 1
-										).toLocaleString("en-US", {
-											minimumIntegerDigits: 2,
-											useGrouping: false,
-										})}
-									</span>
-									<span className="text-slate-700">/5</span>
-								</h1>
-								<ProgressBar
-									size={quizState.questions.length}
-									currentIdx={quizState.currentQuestionIndex}
-								/>
-								<h2 className="text-white text-3xl font-bold font-jetbrains-mono py-4">
-									{
-										quizState.questions[
-											quizState.currentQuestionIndex
-										].question
-									}
-								</h2>
-								<section
-									className="w-full h-full flex flex-col justify-between overflow-y-scroll"
-									style={
-										{
-											"--bg-color": quizState.submitted
-												? quizState.answers[
+									].code && (
+										<section
+											className="h-full flex flex-col w-full"
+											style={{
+												gap: "1rem",
+												padding: "1rem 1rem 0 1rem",
+											}}
+										>
+											<TipAccordion />
+											<CodeBlock
+												code={quizState.questions[
 													quizState
-														.selectedOptionIdx
-												].isCorrect
-													? "#19AC9B"
-													: "#AA1755"
-												: "#0185FF",
-											"--hover-color": quizState.submitted
-												? quizState.answers[
-													quizState
-														.selectedOptionIdx
-												].isCorrect
-													? "#37e2ce"
-													: "#e4357f"
-												: "#1a91ff",
-											"--gap": quizState.submitted
-												? "0.5rem"
-												: "0.5rem",
-										} as any
-									}
-								>
-									<div className="w-full overflow-y-scroll">
-										{quizState.answers.map(
-											(answer, answerIdx) => {
-												return (
-													<QuizOption
-														key={answerIdx}
-														// ANSWER INDEX
-														answerIdx={
-															answerIdx as
-															| 0
-															| 1
-															| 2
-															| 3
-														}
-														// ANSWER TEXT
-														answerText={
-															answer.answerDescription as string
-														}
-														// HANLDE SELECTED OPTION
-														handleSelectOption={
-															handleSelectOption
-														}
-														isSelectedAnswer={
-															quizState.selectedOptionIdx ===
-															answerIdx
-														}
-														answerExplanation={
-															answer.answerExplanation as string
-														}
-														blockChange={
-															quizState.submitted
-														}
-														isCorrectChoice={
-															quizState.answers[
-																answerIdx
-															].isCorrect as boolean
-														}
-													/>
-												);
-											}
-										)}
-									</div>
-									<div>
-										{!quizState.submitted && (
-											<button
-												className="font-jetbrains-mono w-full bg-[#0185FF] hover:bg-[#1c90fc] p-4 rounded-[10px] shadow border-black font-semibold text-white text-xl"
-												onClick={() => handleSubmit()}
+														.currentQuestionIndex
+												].code as string}
+											/>
+										</section>
+									)}
+									<section
+										className="w-full h-full flex flex-col p-6 rounded-lg"
+										style={{ background: "#f1f1f7" }}
+									>
+										<div className="w-full flex flex-row flex-between">
+											<div className="flex-1">
+												<h4 className="text-slate-700 text-xl font-bold font-jetbrains-mono">
+													Recursion
+												</h4>
+												<h1 className="text-3xl text-black font-bold font-jetbrains-mono">
+													QUESTION{" "}
+													<span className="text-[40px]">
+														{(
+															quizState
+																.currentQuestionIndex +
+															1
+														).toLocaleString(
+															"en-US",
+															{
+																minimumIntegerDigits:
+																	2,
+																useGrouping:
+																	false,
+															},
+														)}
+													</span>
+													<span className="text-slate-700">
+														/{quizState.questions
+															.length}
+													</span>
+												</h1>
+											</div>
+											<div
+												id="secondsCounter"
+												className="text-xl text-black font-normal border-2 w-fit h-fit border-black p-2 rounded-full"
 											>
-												Submit
-											</button>
-										)}
-										{quizState.submitted && (
-											<button
-												className="font-jetbrains-mono w-full bg-[--bg-color] hover:bg-[--hover-color] p-4 rounded-[10px] shadow border-black font-semibold text-white text-xl"
-												onClick={() => onContinue()}
+												{seconds}
+											</div>
+										</div>
+										<ProgressBar
+											size={quizState.questions.length}
+											currentIdx={quizState
+												.currentQuestionIndex}
+										/>
+										<h2 className="text-black text-3xl font-bold font-jetbrains-mono py-4">
+											{quizState.questions[
+												quizState.currentQuestionIndex
+											].question}
+										</h2>
+										<section
+											className="w-full h-full flex flex-col justify-between overflow-y-scroll"
+											style={{
+												"--bg-color":
+													quizState.submitted
+														? quizState.answers[
+																quizState
+																	.selectedOptionIdx
+															].isCorrect
+															? "#70c678"
+															: "#0185FF"
+														: "#0185FF",
+												"--hover-color":
+													quizState.submitted
+														? quizState.answers[
+																quizState
+																	.selectedOptionIdx
+															].isCorrect
+															? "#5ebf67"
+															: "#1a91ff"
+														: "#1a91ff",
+												"--gap": quizState.submitted
+													? "0.5rem"
+													: "0.5rem",
+											} as any}
+										>
+											<div
+												className="w-full overflow-y-scroll flex flex-col"
+												style={{ gap: "1rem" }}
 											>
-												Continue
-											</button>
-										)}
-									</div>
+												{quizState.answers.map(
+													(answer, answerIdx) => {
+														return (
+															<QuizOption
+																key={answerIdx}
+																// ANSWER INDEX
+																answerIdx={answerIdx as
+																	| 0
+																	| 1
+																	| 2
+																	| 3}
+																// ANSWER TEXT
+																answerText={answer
+																	.answerDescription as string}
+																// HANLDE SELECTED OPTION
+																handleSelectOption={handleSelectOption}
+																isSelectedAnswer={quizState
+																	.selectedOptionIdx ===
+																	answerIdx}
+																answerExplanation={answer
+																	.answerExplanation as string}
+																blockChange={quizState
+																	.submitted}
+																isCorrectChoice={quizState
+																	.answers[
+																		answerIdx
+																	].isCorrect as boolean}
+															/>
+														);
+													},
+												)}
+											</div>
+											<div
+												className="flex flex-row w-full"
+												style={{ gap: "1rem" }}
+											>
+												{!quizState.submitted && (
+													<button
+														className="font-jetbrains-mono w-full bg-[#0185FF] hover:bg-[#1c90fc] p-4 rounded-[10px] shadow border-black font-semibold text-white text-xl flex-1"
+														onClick={() =>
+															handleSubmit()}
+													>
+														Submit
+													</button>
+												)}
+												{quizState.submitted && (
+													<>
+														<button
+															className="font-jetbrains-mono bg-[--bg-color] hover:bg-[--hover-color] p-4 rounded-[10px] shadow border-black font-semibold text-white text-xl flex-1"
+															onClick={() =>
+																onContinue()}
+														>
+															Continue
+														</button>
+														<button
+															className="font-jetbrains-mono p-4 rounded-[10px] shadow border-black font-semibold text-white text-xl"
+															style={{
+																cursor:
+																	"not-allowed",
+																background:
+																	"#dc2626",
+															}}
+														>
+															<i className="ri-flag-fill">
+															</i>
+														</button>
+													</>
+												)}
+											</div>
+										</section>
+									</section>
 								</section>
 							</section>
 						</section>
 					</main>
-				</>
-			) : !quizState.quizDurationEnd ? (
-				<Loading />
-			) : (
-				<>
+				)
+				: !quizState.quizDurationEnd
+				? <Loading />
+				: (
 					<Results
 						topicID={params.slug}
 						score={quizState.score}
-						duration={
-							quizState.quizDurationEnd -
-							quizState.quizDurationStart
-						}
+						duration={quizState.quizDurationEnd -
+							quizState.quizDurationStart}
 					/>
-				</>
-			)}
+				)}
 		</>
 	);
 }
