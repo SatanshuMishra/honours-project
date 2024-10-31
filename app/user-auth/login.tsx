@@ -34,7 +34,7 @@ export default function LogIn({ setSignIn, displaySignIn }: AuthProps) {
 			body: JSON.stringify(values),
 			cache: "no-cache",
 		});
-		let res: {
+		const res: {
 			data: string | null;
 			status: number;
 			message: string;
@@ -64,7 +64,7 @@ export default function LogIn({ setSignIn, displaySignIn }: AuthProps) {
 							</form>
 							<div className="w-full">
 								<p className="w-auto text-lg font-light py-2 text-black">
-									Don't remember your password?
+									Don&apos;t remember your password?
 								</p>
 								<a
 									className="inline-block w-full px-4 py-2 font-semibold text-xl text-center text-white bg-pink-600 hover:bg-pink-700 rounded-lg"

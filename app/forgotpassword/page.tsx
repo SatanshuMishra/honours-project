@@ -36,7 +36,7 @@ export default function ForgotPassword() {
 			cache: "no-cache",
 		});
 
-		let validateUserResponse: {
+		const validateUserResponse: {
 			status: HttpStatusCode;
 			data: {
 				validated: boolean,

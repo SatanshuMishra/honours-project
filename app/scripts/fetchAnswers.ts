@@ -14,7 +14,7 @@ export default async function fetchAnswers(questionID: string) {
       credentials: "include",
     });
 
-    let resBody: {
+    const resBody: {
       data: Answer[];
       status: number;
     } = JSON.parse(await res.text());

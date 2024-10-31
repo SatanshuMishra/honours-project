@@ -17,16 +17,18 @@ interface ParameterData {
  * @returns {Promise<String | undefined>} Returns categoryID else undefined if not found.
  */
 
-async function getCategoryID(name: string): Promise<String | undefined> {
+async function getCategoryID(name: string): Promise<string | undefined> {
 	try {
-		let category: TaxonomyCategory[] =
+		const category: TaxonomyCategory[] =
 			await prisma.$queryRaw`SELECT BIN_TO_UUID(categoryID) AS categoryID FROM taxonomyCategory WHERE name = ${name}`;
 
 		if (category.length === 0)
 			throw new Error(`No category by the name of ${name} found!`);
 
 		return category[0].categoryID;
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+	}
 }
 /**
  * UpdateIRT difficulty offset for given student, topic and category combination.
@@ -43,7 +45,7 @@ async function updateIRTDifficulty(
 	categoryID: string,
 	difficultyOffset: number,
 	idealDifficulty: number
-): Promise<Boolean> {
+): Promise<boolean> {
 	try {
 		await prisma.$queryRaw`UPDATE studentKnowledge SET difficultyOffset = ${difficultyOffset}, idealDifficulty = ${idealDifficulty} WHERE studentID = UUID_TO_BIN(${studentID}) AND topicID = UUID_TO_BIN(${topicID}) AND categoryID = UUID_TO_BIN(${categoryID})`;
 
@@ -72,7 +74,7 @@ export async function POST(request: NextRequest) {
 
 		//  DOCUMENTATION: FETCH STATISTICS FOR IRT MODEL
 
-		let statistics: {
+		const statistics: {
 			isCorrect: number;
 			categoryName: string;
 		}[] =
@@ -167,7 +169,7 @@ export async function POST(request: NextRequest) {
 				console.log(`Category: ${result}`);
 				console.log(results[result]);
 
-				let categoryID = await getCategoryID(result);
+				const categoryID = await getCategoryID(result);
 
 				if (!categoryID) throw new Error("No Category ID removed");
 
@@ -182,7 +184,7 @@ export async function POST(request: NextRequest) {
 
 					console.log(requestBody.studentID, requestBody.topicID, categoryID);
 
-				let studentParameters: [{
+				const studentParameters: [{
 					mastery: number;
 				}] =
 					await prisma.$queryRaw`SELECT mastery FROM studentKnowledge WHERE studentID = UUID_TO_BIN(${requestBody.studentID}) AND topicID = UUID_TO_BIN(${requestBody.topicID}) AND categoryID = UUID_TO_BIN(${categoryID})`;
@@ -199,7 +201,7 @@ export async function POST(request: NextRequest) {
 
 				console.log("Ideal Diff:", idealDifficulty, "NotRoundedIdealDiff: ", 1 + (weightedRawDifficulty * 4));
 
-				let updateStatus = await updateIRTDifficulty(
+				const updateStatus = await updateIRTDifficulty(
 					requestBody.studentID,
 					requestBody.topicID,
 					categoryID,

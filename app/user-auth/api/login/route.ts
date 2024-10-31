@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import Student from "@/app/types/student";
 import jwt from "jsonwebtoken";
 import CryptoJS from "crypto-js";
-const DOMPurify = require("isomorphic-dompurify");
+import DOMPurify from "isomorphic-dompurify";
 const HmacSHA256 = CryptoJS.HmacSHA256;
 import verifyJWT from "@/app/scripts/verifyJWT";
 
@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
 				username: student[0].username,
 			};
 
-			let token = jwt.sign(payload, process.env.JWT_SECRET, {
+			const token = jwt.sign(payload, process.env.JWT_SECRET, {
 				expiresIn: "2h",
 			});
 

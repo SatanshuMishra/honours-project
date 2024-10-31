@@ -59,7 +59,7 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 			body: JSON.stringify(values),
 			cache: "no-cache",
 		});
-		let res: {
+		const res: {
 			data: string | null;
 			status: number;
 			message: string;

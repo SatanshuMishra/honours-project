@@ -2,22 +2,20 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import "remixicon/fonts/remixicon.css";
 import QuestionTopic from "../types/questionTopic";
 
 // CUSTOM SCRIPT IMPORTS
-import parseJSON from "../scripts/parseJSON";
 import verifyJWT from "../scripts/verifyJWT";
 import signOut from "../scripts/signOut";
 
 // IMAGE IMPORTS
 import Recursion from "@/public/Recursion.svg";
-import IOSvg from "@/public/IO.svg";
-import ErrorHandling from "@/public/ErrorHandle.svg";
-import SVGTopic from "@/public/SVG-Topic.svg";
-import ListSvg from "@/public/Lists.svg";
+// import IOSvg from "@/public/IO.svg";
+// import ErrorHandling from "@/public/ErrorHandle.svg";
+// import SVGTopic from "@/public/SVG-Topic.svg";
+// import ListSvg from "@/public/Lists.svg";
 import ULearnLogo from "../components/uLearnLogo/ULearnLogo";
 import CircularProgressBar from "@/app/components/progressBar/CircularProgressBar";
 import "remixicon/fonts/remixicon.css";
@@ -46,10 +44,11 @@ function Dashboard() {
 	const [activeTab, setActiveTab] = useState<number>(0);
 
 	// TEMPORARY TEST VARIABLES
-	const [_, setStatistics] = useState<any[]>();
+	// const [_, setStatistics] = useState<any[]>();
 
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const [windowWidth, setWindowWidth] = useState<number>();
 
+	useEffect(() => setWindowWidth(window.innerWidth), []);
 	useEffect(() => console.log(windowWidth), [windowWidth]);
 	useEffect(() => {
 		const handleResize = () => {
@@ -100,6 +99,7 @@ function Dashboard() {
 	/**
 	 * This function processes the data for the signed-in student and given topicID. Used within the Developer Bar.
 	 */
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async function processData() {
 		try {
 			const res = await fetch("./questionnaire/api/processResults", {
@@ -114,7 +114,7 @@ function Dashboard() {
 				cache: "no-cache",
 				credentials: "include",
 			});
-			let resBody: {
+			const resBody: {
 				data: any;
 				status: number;
 			} = JSON.parse(await res.text());
@@ -123,9 +123,9 @@ function Dashboard() {
 					"An error occured during the pre-processing and fetching of statistics.",
 				);
 			}
-			setStatistics(resBody.data);
+			// setStatistics(resBody.data);
 		} catch (error) {
-			throw new Error("IRT model failed to process results.");
+			throw new Error(`IRT model failed to process results. ${error}`);
 		}
 	}
 
@@ -146,7 +146,7 @@ function Dashboard() {
 				cache: "no-cache",
 				credentials: "include",
 			});
-			let responseBody: {
+			const responseBody: {
 				data: {
 					topicID: QuestionTopic["topicID"];
 					name: QuestionTopic["name"];
@@ -164,6 +164,7 @@ function Dashboard() {
 			}
 			setTopics(responseBody.data);
 		} catch (error: any) {
+			console.log(error);
 			// toast({
 			// 	title: "Error",
 			// 	description: "There was an error fetching the topics.",

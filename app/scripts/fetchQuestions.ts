@@ -15,7 +15,7 @@ export default async function fetchQuestions(
 			credentials: "include",
 		});
 
-		let response: {
+		const response: {
 			data: Question[];
 			status: number;
 			message: string;

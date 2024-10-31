@@ -3,7 +3,7 @@ import { SignJWT } from "jose";
 import { createSecretKey } from "crypto";
 import prisma from "../../../lib/prisma";
 import Student from "@/app/types/student";
-const DOMPurify = require("isomorphic-dompurify");
+import DOMPurify from "isomorphic-dompurify";
 
 export async function POST(request: NextRequest) {
 

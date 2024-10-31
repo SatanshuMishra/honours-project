@@ -88,7 +88,7 @@ async function handleKnowledge(
 		knowledgeID = uuidv4();
 		await prisma.$queryRaw`INSERT INTO studentKnowledge (knowledgeID, studentID, topicID, categoryID) VALUES (UUID_TO_BIN(${knowledgeID}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${taxonomyCategoryID}))`;
 
-		let studentLogIDA = uuidv4(),
+		const studentLogIDA = uuidv4(),
 			studentLogIDB = uuidv4();
 
 		await prisma.$queryRaw`INSERT INTO studentLogMastery (studentLogID, studentID, topicID, categoryID, mastery) VALUES (UUID_TO_BIN(${studentLogIDA}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${taxonomyCategoryID}), 0.5)`;
@@ -150,7 +150,7 @@ export async function POST(request: NextRequest) {
 
 		//  DOCUMENTATION: INSERT INITIAL DIFFICULTY INTO LOGS
 
-		let questionLogID = uuidv4();
+		const questionLogID = uuidv4();
 
 		await prisma.$queryRaw`INSERT INTO questionLogsDifficulty (questionLogID, questionID, difficulty) VALUES (UUID_TO_BIN(${questionLogID}), UUID_TO_BIN(${questionID}), ${requestBody.assignedDifficulty})`;
 

@@ -11,7 +11,7 @@ import { NextRequest } from "next/server";
 async function validateStudentKnowledge(studentID: string, topicID: string) {
 	try {
 		//  NOTE: CHECK IF ENTRIES EXISTS IN STUDENT KNOWLEDGE
-		let entries: { hasEntries: string }[] = await prisma.$queryRaw`
+		const entries: { hasEntries: string }[] = await prisma.$queryRaw`
 	SELECT IF(COUNT(*) = 6, true, false) AS hasEntries
 	FROM studentKnowledge
 	WHERE studentID = UUID_TO_BIN(${studentID})
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
 
 // NOTE: VERIFY IF STUDENT HAS KNOWLEDGE PARAMETERS
 
-		let validated = validateStudentKnowledge(
+		const validated = validateStudentKnowledge(
 			requestBody.studentID,
 			requestBody.topicID
 		);
@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
 
 		if (questions.length < 5) {
 			let bracket = 1;
-			let maxBracket = 2;
+			const maxBracket = 2;
 
 			while (questions.length < 5 && bracket <= maxBracket) {
 				console.log(

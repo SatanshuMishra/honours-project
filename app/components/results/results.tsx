@@ -1,6 +1,7 @@
 import SVGResults from "@/public/SVGResults.svg";
 import React from "react";
 import ULearnLogo from "../uLearnLogo/ULearnLogo.tsx";
+import Image from "next/image.js";
 
 // NOTE: THIS COMPONENT REPRESENTS THE RESULTS SCREEN OF THE QUIZ -> WHERE STUDENTS GET THEIR PERFORMANCE OF THE QUIZ THEY JUST TOOK
 
@@ -43,11 +44,7 @@ export default function Results({ topicID, score, duration }: Prop) {
 					{getTitle()}
 				</h2>
 				<div className="flex-1 flex flex-col justify-center items-center w-full">
-					<img
-						src={SVGResults.src}
-						alt="Results SVG"
-						className="w-[35rem] py-10"
-					/>
+					<Image className="w-[35rem] py-10" src={SVGResults} alt="Results" />
 					<div className="flex flex-row justify-center items-start flex-wrap w-fit py-10">
 						<div style={{paddingRight: "3rem"}}>
 							<h4 className="text-black text-lg font-bold">

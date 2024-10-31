@@ -12,6 +12,8 @@ export async function POST(request: NextRequest) {
 		} = JSON.parse(requestText);
 
 		//  NOTE: CUSTOM INTERFACE TO ALLOW CONVERSION OF BIGINT TO STRING IN THE FORM OF JSON.stringify().
+		
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		interface BigInt {
 			toJSON: () => string;
 		}
@@ -20,7 +22,7 @@ export async function POST(request: NextRequest) {
 			return this.toString();
 		};
 
-		let topics: {
+		const topics: {
 			topicID: QuestionTopic["topicID"];
 			name: QuestionTopic["name"];
 			quizzesCompleted: string;

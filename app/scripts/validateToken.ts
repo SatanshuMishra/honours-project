@@ -24,7 +24,7 @@ export default async function validateToken(
 			cache: "no-cache",
 			credentials: "include",
 		});
-		let resBody: TokenRes = JSON.parse(await res.text());
+		const resBody: TokenRes = JSON.parse(await res.text());
 		if (resBody.status === 401) return false;
 
 		if (data)

@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@prisma/client": "^5.8.1",
@@ -20,21 +22,28 @@
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.364.0",
-    "next": "14.2.12",
+    "next": "^15.0.2",
     "pino": "^8.19.0",
     "python-shell": "^5.0.0",
-    "react": "^18",
+    "react": "^18.3.1",
     "react-circular-progressbar": "^2.1.0",
-    "react-dom": "^18",
+    "react-dom": "^18.3.1",
     "remixicon": "^4.3.0",
     "tailwind-merge": "^2.5.3",
     "uuid": "^9.0.1",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@swc/core": "^1.7.42",
+    "@swc/jest": "^0.2.37",
     "@tailwindcss/typography": "^0.5.15",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
     "@types/bcrypt": "^5.0.2",
     "@types/crypto-js": "^4.2.1",
+    "@types/jest": "^29.5.14",
     "@types/js-cookie": "^3.0.6",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20",
@@ -43,13 +52,16 @@
     "@types/uuid": "^9.0.7",
     "autoprefixer": "^10.4.20",
     "eslint": "^8",
-    "eslint-config-next": "14.2.12",
+    "eslint-config-next": "^15.0.2",
     "eslint-config-prettier": "^9.1.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.4.47",
     "postcss-safe-parser": "^7.0.0",
     "prettier": "^3.2.5",
     "prisma": "^5.9.1",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
