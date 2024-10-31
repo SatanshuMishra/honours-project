@@ -1,5 +1,6 @@
 import SVGResults from "@/public/SVGResults.svg";
 import React from "react";
+import ULearnLogo from "../uLearnLogo/ULearnLogo.tsx";
 
 // NOTE: THIS COMPONENT REPRESENTS THE RESULTS SCREEN OF THE QUIZ -> WHERE STUDENTS GET THEIR PERFORMANCE OF THE QUIZ THEY JUST TOOK
 
@@ -31,6 +32,9 @@ export default function Results({ topicID, score, duration }: Prop) {
 
 	return (
 		<section className="w-full h-full bg-white p-10 flex flex-col overflow-y-scroll overflow-x-hidden">
+			<div style={{paddingBottom: "1rem"}}>
+			<ULearnLogo />
+			</div>
 			<section className="flex-1 bg-[#f1f1f7] shadow-lg p-10 rounded-lg flex flex-col">
 				<h4 className="text-slate-700 text-xl font-bold">
 					QUIZ RESULTS
@@ -72,7 +76,7 @@ export default function Results({ topicID, score, duration }: Prop) {
 								POINTS EARNED:
 							</h4>
 							<h2 className="text-[#0285FF] text-[60px] font-bold">
-								50
+								N/A
 							</h2>
 						</div>
 					</div>
