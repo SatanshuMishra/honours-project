@@ -7,6 +7,9 @@ DROP TABLE IF EXISTS question;
 DROP TABLE IF EXISTS answer;
 DROP TABLE IF EXISTS statistic;
 DROP TABLE IF EXISTS studentKnowledge;
+DROP TABLE IF EXISTS studentLogMastery;
+DROP TABLE IF EXISTS studentLogOffset;
+DROP TABLE IF EXISTS questionLogsDifficulty;
 SET foreign_key_checks = 1;
 
 CREATE TABLE studentCode (
@@ -83,12 +86,13 @@ CREATE TABLE studentKnowledge (
 	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
 ) ENGINE = InnoDB;
 
-CREATE TABLE studentLogMastery (
-	studentLogID BINARY(16) NOT NULL PRIMARY KEY,
+CREATE TABLE mastery_logs (
+	mastery_log_id BINARY(16) NOT NULL PRIMARY KEY,
 	studentID BINARY(16) NOT NULL,
 	topicID BINARY(16) NOT NULL,
 	categoryID BINARY(16) NOT NULL,
-	mastery DECIMAL(5, 2) NOT NULL,
+	mastery_change DECIMAL(5, 2) NOT NULL,
+	mastery_value DECIMAL(5, 2) NOT NULL,
 	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (studentID) REFERENCES student(studentID) ON DELETE CASCADE,
 	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),

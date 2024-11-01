@@ -8,6 +8,7 @@ import QuestionTopic from "../types/questionTopic";
 
 // CUSTOM SCRIPT IMPORTS
 import verifyJWT from "../scripts/verifyJWT";
+import parseJSON from "../scripts/parseJSON";
 import signOut from "../scripts/signOut";
 
 // IMAGE IMPORTS
@@ -19,6 +20,7 @@ import Recursion from "@/public/Recursion.svg";
 import ULearnLogo from "../components/uLearnLogo/ULearnLogo";
 import CircularProgressBar from "@/app/components/progressBar/CircularProgressBar";
 import "remixicon/fonts/remixicon.css";
+import PerfomanceChart from "../components/performanceChart/PerformanceChart";
 
 const LoadingComponent = dynamic(
 	() => import("@/app/components/loading/loading"),
@@ -482,9 +484,12 @@ function Dashboard() {
 									</div>
 									<div className="bg-white rounded-lg flex-1 flex flex-row justify-start items-start text-black p-10 overflow-y-scroll">
 										{activeTab === 0 && (
-											<h1 className="text-3xl">
-												Activity Board
-											</h1>
+											<div className="w-full">
+												<h1 className="text-3xl">
+													Activity Board
+												</h1>
+												<PerfomanceChart />
+											</div>
 										)}
 										{activeTab === 1 && (
 											<h1 className="text-3xl">
@@ -566,6 +571,31 @@ function Dashboard() {
 								</div>
 							</section>
 						</section>
+						{/*  NOTE: THIS COMPONENT IS THE DEVELOPER TOOL BAR. IT ALLOWS YOU TO INSERT NEW QUESTIONS FROM JSON. CHANGE studentUsername === CONDITION TO MATCH YOUR USERNAME*/}
+						{studentUsername === "SystemAdmin" && (
+							<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2 translate-y-0.5 hover:-translate-y-0.5 transition-all duration-300 ease-in-out">
+								<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2 select-none font-jetbrains-mono">
+									Developer Tools
+								</p>
+								<div className="flex-1 flex flex-row justify-center mx-1">
+									<button
+										className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800 hover:cursor-pointer"
+										onClick={() => parseJSON()}
+									>
+										<i className="ri-database-2-fill"></i>
+									</button>
+									<button
+										className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800 hover:cursor-pointer"
+										onClick={() => processData()}
+									>
+										<i className="ri-bard-fill"></i>
+									</button>
+									<button className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800 hover:cursor-not-allowed">
+										<i className="ri-graduation-cap-fill"></i>
+									</button>
+								</div>
+							</div>
+						)}
 					</main>
 				)
 				: <LoadingComponent />}
