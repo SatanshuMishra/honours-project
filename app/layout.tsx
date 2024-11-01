@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-import { Rubik, Noto_Sans } from 'next/font/google';
+import { Rubik } from 'next/font/google';
 
 export const metadata: Metadata = {
   title: "uLearn",
@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 };
 
 const rubik = Rubik({subsets: ['latin']});
-const noto_sans = Noto_Sans({subsets: ['latin']});
 
 export default function RootLayout({
   children,
@@ -31,7 +30,7 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.ts" />
         <link rel="icon" href="/favicon.ico?v=2" />
       </head>
-      <body className={`${rubik.className} w-screen h-screen max-h-screen overflow-y-scroll`}>
+      <body className={`${rubik.className} w-screen h-screen max-h-screen overflow-hidden`}>
         {children}
         {/*HANDLES THE TOAST MESSAGE*/}
 		{/* <Toaster /> */}

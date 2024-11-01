@@ -1,18 +1,22 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {
-		screens: {
-				'mobile':'1000px',
-			}
-    },
-  },
-  plugins: [],
+	content: [
+		"./pages/**/*.{js,ts,jsx,tsx,mdx}",
+		"./components/**/*.{js,ts,jsx,tsx,mdx}",
+		"./app/**/*.{js,ts,jsx,tsx,mdx}",
+	],
+	theme: {
+		extend: {
+			screens: {
+				mobile: "1100px",
+			},
+			colors: {
+				peach: "#fbcfb8",
+				blue: "#0083ff",
+			},
+		},
+	},
+	plugins: [],
 };
 export default config;

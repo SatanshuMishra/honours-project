@@ -1,6 +1,6 @@
 "use client";
 import { useFormik } from "formik";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ResetPasswordSVG from "@/public/unDraw_ResetPassword.svg";
 import ULearnLogo from "../components/uLearnLogo/ULearnLogo";
@@ -14,12 +14,12 @@ type Props = {
 };
 
 export default function ResetPassword() {
-  const [token, setToken] = useState<String>();
+  const [token, setToken] = useState<string>();
 
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const token: String = searchParams.get(`token`) || ``;
+    const token: string = searchParams.get(`token`) || ``;
 
     // if(!token) {
     // 	console.log(`Missing token. Redirecting...`);
@@ -28,7 +28,6 @@ export default function ResetPassword() {
     setToken(token);
   }, []);
 
-  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       password: "",
@@ -56,7 +55,7 @@ export default function ResetPassword() {
       cache: "no-cache",
     });
 
-    let res: {
+    const res: {
       status: number;
       data: null;
       message: string;

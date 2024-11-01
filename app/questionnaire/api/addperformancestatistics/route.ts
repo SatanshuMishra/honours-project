@@ -54,6 +54,7 @@ export async function POST(request: NextRequest) {
 			correctAttemptsFraction: string;
 		}[] = await prisma.$queryRaw`SELECT COUNT(questionID) AS numberOfAttempts, CAST(COALESCE(SUM(CASE WHEN isCorrect = 1 THEN 1 ELSE 0 END) / COUNT(questionID), 0.0) AS DECIMAL(10,5)) AS correctAttemptsFraction FROM statistic WHERE statistic.questionID = UUID_TO_BIN(${requestBody.questionID}) LIMIT 1`;
 
+		//eslint-disable-next-line @typescript-eslint/no-unused-vars
 		interface BigInt {
 			/** Convert to BigInt to string form in JSON.stringify */
 			toJSON: () => string;
@@ -66,13 +67,15 @@ export async function POST(request: NextRequest) {
 		//  DOCUMENTATION: CALCULATE NEW QUESTION DIFFICULTY
 		const sigmoid = 1 / (1 + Math.exp(10 - parseInt(questionAttempts[0].numberOfAttempts)));
 		console.log(`Correct Attempts Fraction: ${parseFloat(questionAttempts[0].correctAttemptsFraction)}`);
-		let difficulty = parseFloat(question.modifiedDifficulty) / (1 - sigmoid) + parseFloat(questionAttempts[0].correctAttemptsFraction) * sigmoid;
+		const rawDifficulty = parseFloat(question.modifiedDifficulty) * (1 - sigmoid) + ((1 - parseFloat(questionAttempts[0].correctAttemptsFraction)) * 5 * sigmoid);
 
-		if(difficulty > 0)
-			difficulty = Math.min(difficulty, 10.0);
+		const difficulty = Math.round(rawDifficulty);
 
-		if(difficulty < 0)
-			difficulty = Math.max(difficulty, -10.0);
+		// if(difficulty > 0)
+		// 	difficulty = Math.min(difficulty, 10.0);
+		//
+		// if(difficulty < 0)
+		// 	difficulty = Math.max(difficulty, -10.0);
 
 		//  DEBUG:
 		console.log(`QuestionID: ${requestBody.questionID}\nNew Difficulty: ${difficulty}`);
@@ -91,8 +94,8 @@ export async function POST(request: NextRequest) {
 
 		const masteryUpdate = requestBody.isCorrect ? 0.05 : -0.04;
 		await prisma.$queryRaw`UPDATE studentKnowledge SET mastery = CASE
-                 WHEN mastery + ${masteryUpdate} > 1.7 THEN 1.7
-                 WHEN mastery + ${masteryUpdate} < -1.7 THEN -1.7
+                 WHEN mastery + ${masteryUpdate} > 1 THEN 1
+                 WHEN mastery + ${masteryUpdate} < 0 THEN 0
                  ELSE mastery + ${masteryUpdate} 
              END WHERE studentID = UUID_TO_BIN(${requestBody.studentID}) AND topicID = UUID_TO_BIN(${question.topicID}) AND categoryID = UUID_TO_BIN(${question.categoryID})`;
 
@@ -101,7 +104,7 @@ export async function POST(request: NextRequest) {
 		const questionLogID = uuidv4(), studentLogID = uuidv4();
 		await prisma.$queryRaw`INSERT INTO questionLogsDifficulty (questionLogID, questionID, difficulty) VALUES (UUID_TO_BIN(${questionLogID}), UUID_TO_BIN(${requestBody.questionID}), ${difficulty})`;
 
-		let masteryLog = masteryUpdate > 1.7 ? 1.7 : masteryUpdate < -1.7 ? -1.7 : masteryUpdate;
+		const masteryLog = masteryUpdate > 1 ? 1 : masteryUpdate < 0 ? 0 : masteryUpdate;
 
 		// DOCUMENTATION: ADD MASTERY CHANGE LOG
 

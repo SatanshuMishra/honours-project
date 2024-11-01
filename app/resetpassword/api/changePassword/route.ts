@@ -2,8 +2,8 @@ import { NextRequest } from "next/server";
 import prisma from "../../../lib/prisma";
 import {HmacSHA256} from "crypto-js";
 import { createSecretKey } from "crypto";
-import { compactVerify, jwtVerify } from "jose";
-const DOMPurify = require("isomorphic-dompurify");
+import { jwtVerify } from "jose";
+import DOMPurify from "isomorphic-dompurify";
 
 
 export async function POST(request: NextRequest) {
@@ -34,6 +34,7 @@ export async function POST(request: NextRequest) {
 	}
 	try {
 		const secret = createSecretKey(process.env.JWT_SECRET || "Wee", 'utf-8');
+		//eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { payload, _ } = await jwtVerify(requestBody.token, secret)
 
 		console.log(`Payload Data: `, payload)
@@ -75,7 +76,7 @@ export async function POST(request: NextRequest) {
 			JSON.stringify({
 				status: 403,
 				data: null,
-				message: `JWT Error`
+				message: `JWT Error. ${error}`
 			})
 		)
 

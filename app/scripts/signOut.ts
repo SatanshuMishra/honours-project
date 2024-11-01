@@ -10,7 +10,7 @@ export default async function signOut(): Promise<boolean> {
 			credentials: "include",
 		});
 
-		let response: {
+		const response: {
 			data: null;
 			status: number;
 			message: string;

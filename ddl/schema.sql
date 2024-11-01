@@ -20,7 +20,7 @@ CREATE TABLE student (
   username VARCHAR(255) UNIQUE NOT NULL,
   password VARCHAR(255) NOT NULL,
   completedBonusContent BOOLEAN NOT NULL DEFAULT FALSE,
-  FOREIGN KEY (username) REFERENCES studentCode(code)
+  FOREIGN KEY (username) REFERENCES studentCode(code) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE questionTopic (
@@ -37,11 +37,11 @@ CREATE TABLE taxonomyCategory (
 CREATE TABLE question (
 	questionID BINARY(16) NOT NULL PRIMARY KEY,
 	topicID BINARY(16) NOT NULL,
-	assignedDifficulty DECIMAL(4, 1) NOT NULL,
-	modifiedDifficulty DECIMAL(4, 1) NOT NULL,
+	assignedDifficulty SMALLINT NOT NULL CHECK (assignedDifficulty BETWEEN 1 AND 5),
+	modifiedDifficulty SMALLINT NOT NULL CHECK (modifiedDifficulty BETWEEN 1 AND 5),
 	categoryID BINARY(16) NOT NULL,
-	assignedCompletionTime DECIMAL(5, 2) NOT NULL,
-	modifiedCompletionTime DECIMAL(5, 2) NOT NULL,
+	-- assignedCompletionTime DECIMAL(5, 2) NOT NULL,
+	-- modifiedCompletionTime DECIMAL(5, 2) NOT NULL,
 	question TEXT NOT NULL,
 	code TEXT,
 	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
@@ -65,7 +65,7 @@ CREATE TABLE statistic (
 	isCorrect BOOLEAN NOT NULL,
 	timeToAnswer DECIMAL(10, 3) NOT NULL,
 	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY (studentID) REFERENCES student(studentID),
+	FOREIGN KEY (studentID) REFERENCES student(studentID) ON DELETE CASCADE,
 	FOREIGN KEY (questionID) REFERENCES question(questionID),
 	FOREIGN KEY (chosenAnswerID) REFERENCES answer(answerID)
 ) ENGINE = InnoDB;
@@ -77,7 +77,8 @@ CREATE TABLE studentKnowledge (
 	categoryID BINARY(16) NOT NULL,
 	mastery DECIMAL(5, 2) DEFAULT 0.5 NOT NULL,
 	difficultyOffset DECIMAL(5, 2) DEFAULT 0 NOT NULL,
-	FOREIGN KEY (studentID) REFERENCES student(studentID),
+	idealDifficulty SMALLINT DEFAULT 3 NOT NULL,
+	FOREIGN KEY (studentID) REFERENCES student(studentID) ON DELETE CASCADE,
 	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
 	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
 ) ENGINE = InnoDB;
@@ -89,7 +90,7 @@ CREATE TABLE studentLogMastery (
 	categoryID BINARY(16) NOT NULL,
 	mastery DECIMAL(5, 2) NOT NULL,
 	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY (studentID) REFERENCES student(studentID),
+	FOREIGN KEY (studentID) REFERENCES student(studentID) ON DELETE CASCADE,
 	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
 	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
 ) ENGINE = InnoDB;
@@ -101,7 +102,7 @@ CREATE TABLE studentLogOffset (
 	categoryID BINARY(16) NOT NULL,
 	difficultyOffset DECIMAL(5, 2) NOT NULL,
 	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY (studentID) REFERENCES student(studentID),
+	FOREIGN KEY (studentID) REFERENCES student(studentID) ON DELETE CASCADE,
 	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
 	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
 

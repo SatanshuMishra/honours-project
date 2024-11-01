@@ -3,7 +3,7 @@ import UserAuth from "./user-auth/page";
 
 export default function Home() {
   return (
-    <main className="h-screen w-screen">
+    <main className="h-full w-full">
       <UserAuth />
     </main>
   );

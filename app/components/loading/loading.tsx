@@ -8,22 +8,21 @@ export default function Loading() {
 		"Sit tight while we get everything set up for you!"
 	);
 
-	//  INFO: THIS ARRAY CONTROLS THE LOADING SCREEN MESSAGES SHOWN TO THE USER
-	const loadingPhrases: string[] = [
-		"Sit tight while we get everything set up for you!",
-		"Compiling your personalized learning path...",
-		"Debugging your knowledge gaps...",
-		"Syntax check in progress...",
-		"Optimizing your learning experience...",
-		"Booting up your coding potential...",
-		"Downloading essential algorithms...",
-		"Fetching fascinating coding facts...",
-		"Building your computational toolkit...",
-		"Accessing the world of computer science...",
-		"Preparing for your coding journey...",
-	];
-
 	useEffect(() => {
+		//  INFO: THIS ARRAY CONTROLS THE LOADING SCREEN MESSAGES SHOWN TO THE USER
+		const loadingPhrases: string[] = [
+			"Sit tight while we get everything set up for you!",
+			"Compiling your personalized learning path...",
+			"Debugging your knowledge gaps...",
+			"Syntax check in progress...",
+			"Optimizing your learning experience...",
+			"Booting up your coding potential...",
+			"Downloading essential algorithms...",
+			"Fetching fascinating coding facts...",
+			"Building your computational toolkit...",
+			"Accessing the world of computer science...",
+			"Preparing for your coding journey...",
+		];
 		const randomIndex = Math.floor(Math.random() * loadingPhrases.length);
 		setLoadingPhrase(loadingPhrases[randomIndex]);
 	}, []);

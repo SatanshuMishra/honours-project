@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 
 		//  NOTE: FETCH ANSWERS GIVEN A QUESTION ID
 
-		let answers: Answer[] =
+		const answers: Answer[] =
 			await prisma.$queryRaw`SELECT * FROM (SELECT BIN_TO_UUID(answerID) AS answerID, BIN_TO_UUID(questionID) AS questionID, answerDescription, answerExplanation, isCorrect FROM answer) AS ans WHERE ans.questionID = ${requestBody.questionID}`;
 		if (!answers || answers.length !== 4)
 			throw new Error(

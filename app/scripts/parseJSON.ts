@@ -19,7 +19,7 @@ export default function parseJSON() {
 				if (!studentID)
 					throw new Error("No Student Information returned.");
 				// NOTE: ADD EACH QUESTION AND ANSWERS PAIR INDIVIDUALLY
-				let questionID = await insertQuestion(
+				const questionID = await insertQuestion(
 					studentID,
 					el.topic,
 					el.difficulty,
@@ -70,7 +70,7 @@ async function insertQuestion(
 		cache: "no-cache",
 	});
 	console.info("Data Returned: ", response);
-	let res: {
+	const res: {
 		data: {
 			questionID: string;
 		} | null;
@@ -103,7 +103,7 @@ async function insertAnswer(
 		cache: "no-cache",
 	});
 
-	let res: {
+	const res: {
 		data: null;
 		status: number;
 	} = JSON.parse(await response.text());

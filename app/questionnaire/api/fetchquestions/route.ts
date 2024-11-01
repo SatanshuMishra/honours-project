@@ -11,7 +11,7 @@ import { NextRequest } from "next/server";
 async function validateStudentKnowledge(studentID: string, topicID: string) {
 	try {
 		//  NOTE: CHECK IF ENTRIES EXISTS IN STUDENT KNOWLEDGE
-		let entries: { hasEntries: string }[] = await prisma.$queryRaw`
+		const entries: { hasEntries: string }[] = await prisma.$queryRaw`
 	SELECT IF(COUNT(*) = 6, true, false) AS hasEntries
 	FROM studentKnowledge
 	WHERE studentID = UUID_TO_BIN(${studentID})
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
 
 // NOTE: VERIFY IF STUDENT HAS KNOWLEDGE PARAMETERS
 
-		let validated = validateStudentKnowledge(
+		const validated = validateStudentKnowledge(
 			requestBody.studentID,
 			requestBody.topicID
 		);
@@ -99,21 +99,21 @@ export async function POST(request: NextRequest) {
 			question: Question["question"];
 			code: Question["code"];
 		}[] =
-			await prisma.$queryRaw`SELECT BIN_TO_UUID(q.questionID) AS questionID, q.modifiedDifficulty, q.question, q.code FROM question q JOIN studentKnowledge sk ON q.topicID = sk.topicID AND q.categoryID = sk.categoryID WHERE q.topicID = UUID_TO_BIN(${requestBody.topicID}) AND sk.studentID = UUID_TO_BIN(${requestBody.studentID}) AND q.modifiedDifficulty BETWEEN sk.mastery + sk.difficultyOffset - 0.2 AND sk.mastery + sk.difficultyOffset + 0.2 ORDER BY RAND() LIMIT 20`;
+			await prisma.$queryRaw`SELECT BIN_TO_UUID(q.questionID) AS questionID, q.modifiedDifficulty, q.question, q.code FROM question q JOIN studentKnowledge sk ON q.topicID = sk.topicID AND q.categoryID = sk.categoryID WHERE q.topicID = UUID_TO_BIN(${requestBody.topicID}) AND sk.studentID = UUID_TO_BIN(${requestBody.studentID}) AND q.modifiedDifficulty BETWEEN sk.idealDifficulty - 1 AND sk.idealDifficulty + 1 ORDER BY RAND() LIMIT 5`;
 
 		// NOTE: IF NOT ENOUGH QUESTIONS FETCHED WITHIN STUDENT KNOWLEDGE PARAMETERS, THEN LOOP INCREASE THE BRACKET TILL ENOUGH QUESTIONS ARE FETCHED.
 
-		if (questions.length < 20) {
-			let bracket = 0.2;
-			let maxBracket = 10;
+		if (questions.length < 5) {
+			let bracket = 1;
+			const maxBracket = 2;
 
-			while (questions.length < 20 && bracket <= maxBracket) {
+			while (questions.length < 5 && bracket <= maxBracket) {
 				console.log(
 					`Entered Adaptive Bracket Loop. Bracket: ${bracket}`
 				);
-				bracket += 0.05;
+				bracket += 1;
 				questions =
-					await prisma.$queryRaw`SELECT BIN_TO_UUID(q.questionID) AS questionID, q.modifiedDifficulty, q.question, q.code FROM question q JOIN studentKnowledge sk ON q.topicID = sk.topicID AND q.categoryID = sk.categoryID WHERE q.topicID = UUID_TO_BIN(${requestBody.topicID}) AND sk.studentID = UUID_TO_BIN(${requestBody.studentID}) AND q.modifiedDifficulty BETWEEN sk.mastery + sk.difficultyOffset - ${bracket} AND sk.mastery + sk.difficultyOffset + ${bracket} ORDER BY RAND() LIMIT 20`;
+					await prisma.$queryRaw`SELECT BIN_TO_UUID(q.questionID) AS questionID, q.modifiedDifficulty, q.question, q.code FROM question q JOIN studentKnowledge sk ON q.topicID = sk.topicID AND q.categoryID = sk.categoryID WHERE q.topicID = UUID_TO_BIN(${requestBody.topicID}) AND sk.studentID = UUID_TO_BIN(${requestBody.studentID}) AND q.modifiedDifficulty BETWEEN ${bracket} + sk.idealDifficulty AND sk.idealDifficulty - ${bracket} ORDER BY RAND() LIMIT 5`;
 			}
 
 			// If even after reaching maxBracket, you couldn't get 20 questions

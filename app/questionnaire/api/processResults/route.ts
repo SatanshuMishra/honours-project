@@ -17,16 +17,18 @@ interface ParameterData {
  * @returns {Promise<String | undefined>} Returns categoryID else undefined if not found.
  */
 
-async function getCategoryID(name: string): Promise<String | undefined> {
+async function getCategoryID(name: string): Promise<string | undefined> {
 	try {
-		let category: TaxonomyCategory[] =
+		const category: TaxonomyCategory[] =
 			await prisma.$queryRaw`SELECT BIN_TO_UUID(categoryID) AS categoryID FROM taxonomyCategory WHERE name = ${name}`;
 
 		if (category.length === 0)
 			throw new Error(`No category by the name of ${name} found!`);
 
 		return category[0].categoryID;
-	} catch (error) { }
+	} catch (error) {
+		console.log(error);
+	}
 }
 /**
  * UpdateIRT difficulty offset for given student, topic and category combination.
@@ -41,10 +43,11 @@ async function updateIRTDifficulty(
 	studentID: string,
 	topicID: string,
 	categoryID: string,
-	difficultyOffset: number
-): Promise<Boolean> {
+	difficultyOffset: number,
+	idealDifficulty: number
+): Promise<boolean> {
 	try {
-		await prisma.$queryRaw`UPDATE studentKnowledge SET difficultyOffset = ${difficultyOffset} WHERE studentID = UUID_TO_BIN(${studentID}) AND topicID = UUID_TO_BIN(${topicID}) AND categoryID = UUID_TO_BIN(${categoryID})`;
+		await prisma.$queryRaw`UPDATE studentKnowledge SET difficultyOffset = ${difficultyOffset}, idealDifficulty = ${idealDifficulty} WHERE studentID = UUID_TO_BIN(${studentID}) AND topicID = UUID_TO_BIN(${topicID}) AND categoryID = UUID_TO_BIN(${categoryID})`;
 
 		await prisma.$queryRaw`INSERT INTO studentLogOffset (studentLogID, studentID, topicID, categoryID, difficultyOffset) VALUES (UUID_TO_BIN(${uuidv4()}), UUID_TO_BIN(${studentID}), UUID_TO_BIN(${topicID}), UUID_TO_BIN(${categoryID}), ${difficultyOffset})`;
 
@@ -71,7 +74,7 @@ export async function POST(request: NextRequest) {
 
 		//  DOCUMENTATION: FETCH STATISTICS FOR IRT MODEL
 
-		let statistics: {
+		const statistics: {
 			isCorrect: number;
 			categoryName: string;
 		}[] =
@@ -139,7 +142,7 @@ export async function POST(request: NextRequest) {
 		const options = {
 			pythonOptions: ["-u"],
 			args: [JSON.stringify(irtData)],
-			pythonPath: "./app/questionnaire/api/irt/venv37/bin/python",
+			pythonPath: "./app/questionnaire/api/irt/venv39/bin/python",
 		};
 
 		//  DOCUMENTATION: IRT MODEL
@@ -166,25 +169,44 @@ export async function POST(request: NextRequest) {
 				console.log(`Category: ${result}`);
 				console.log(results[result]);
 
-				let categoryID = await getCategoryID(result);
+				const categoryID = await getCategoryID(result);
 
 				if (!categoryID) throw new Error("No Category ID removed");
 
 				//  DEBUG:
 				console.info("Category ID: ", categoryID);
 
-				const normalizedDifficulty =
-					Math.max(-10, Math.min(10, results[result]["b"]))
-
-				console.info(
-					`Difficulty: ${results[result]["b"]}\nNormalized Difficulty: ${(results[result]["b"] / 10) * 5}`
+				const normalizedDifficulty = Math.max(
+					-4,
+					Math.min(4, results[result]["b"])
 				);
 
-				let updateStatus = await updateIRTDifficulty(
+
+					console.log(requestBody.studentID, requestBody.topicID, categoryID);
+
+				const studentParameters: [{
+					mastery: number;
+				}] =
+					await prisma.$queryRaw`SELECT mastery FROM studentKnowledge WHERE studentID = UUID_TO_BIN(${requestBody.studentID}) AND topicID = UUID_TO_BIN(${requestBody.topicID}) AND categoryID = UUID_TO_BIN(${categoryID})`;
+
+
+				if(studentParameters.length !== 1)
+					throw new Error("More than one mastery for one topic and category pair. This is not right.");
+
+				console.log(studentParameters);
+
+				const scaledDifficulty = (normalizedDifficulty + 4) / 8;
+				const weightedRawDifficulty = (0.7 * scaledDifficulty)+(0.3 * parseFloat(studentParameters[0].mastery));
+				const idealDifficulty = Math.round(1 + (weightedRawDifficulty * 4));
+
+				console.log("Ideal Diff:", idealDifficulty, "NotRoundedIdealDiff: ", 1 + (weightedRawDifficulty * 4));
+
+				const updateStatus = await updateIRTDifficulty(
 					requestBody.studentID,
 					requestBody.topicID,
 					categoryID,
-					normalizedDifficulty
+					normalizedDifficulty,
+					idealDifficulty
 				);
 				if (!updateStatus)
 					throw new Error("Updating difficultyOffset failed.");
