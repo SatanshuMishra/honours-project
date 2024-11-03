@@ -7,6 +7,9 @@ DROP TABLE IF EXISTS question;
 DROP TABLE IF EXISTS answer;
 DROP TABLE IF EXISTS statistic;
 DROP TABLE IF EXISTS studentKnowledge;
+DROP TABLE IF EXISTS studentLogMastery;
+DROP TABLE IF EXISTS studentLogOffset;
+DROP TABLE IF EXISTS questionLogsDifficulty;
 SET foreign_key_checks = 1;
 
 CREATE TABLE studentCode (
@@ -43,7 +46,7 @@ CREATE TABLE question (
 	-- assignedCompletionTime DECIMAL(5, 2) NOT NULL,
 	-- modifiedCompletionTime DECIMAL(5, 2) NOT NULL,
 	question TEXT NOT NULL,
-	code TEXT,
+	code TEXT DEFAULT NULL,
 	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
 	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
 ) ENGINE = InnoDB;
@@ -76,36 +79,68 @@ CREATE TABLE studentKnowledge (
 	topicID BINARY(16) NOT NULL,
 	categoryID BINARY(16) NOT NULL,
 	mastery DECIMAL(5, 2) DEFAULT 0.5 NOT NULL,
-	difficultyOffset DECIMAL(5, 2) DEFAULT 0 NOT NULL,
+	scaledDifficulty DECIMAL(5, 2) DEFAULT 0 NOT NULL,
 	idealDifficulty SMALLINT DEFAULT 3 NOT NULL,
 	FOREIGN KEY (studentID) REFERENCES student(studentID) ON DELETE CASCADE,
 	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
 	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
 ) ENGINE = InnoDB;
 
-CREATE TABLE studentLogMastery (
-	studentLogID BINARY(16) NOT NULL PRIMARY KEY,
+CREATE TABLE mastery_logs (
+	mastery_log_id BINARY(16) NOT NULL PRIMARY KEY,
 	studentID BINARY(16) NOT NULL,
 	topicID BINARY(16) NOT NULL,
 	categoryID BINARY(16) NOT NULL,
-	mastery DECIMAL(5, 2) NOT NULL,
+	mastery_change DECIMAL(5, 2) NOT NULL,
+	mastery_value DECIMAL(5, 2) NOT NULL,
 	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (studentID) REFERENCES student(studentID) ON DELETE CASCADE,
 	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
 	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
 ) ENGINE = InnoDB;
 
-CREATE TABLE studentLogOffset (
+CREATE TABLE student_topic_category_difficulty_log (
 	studentLogID BINARY(16) NOT NULL PRIMARY KEY,
 	studentID BINARY(16) NOT NULL,
 	topicID BINARY(16) NOT NULL,
 	categoryID BINARY(16) NOT NULL,
-	difficultyOffset DECIMAL(5, 2) NOT NULL,
+	scaledDifficulty DECIMAL(5, 2) NOT NULL,
 	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (studentID) REFERENCES student(studentID) ON DELETE CASCADE,
 	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
 	FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
+) ENGINE = InnoDB;
 
+CREATE TABLE student_topic_difficulty_log (
+	studentLogID BINARY(16) NOT NULL PRIMARY KEY,
+	studentID BINARY(16) NOT NULL,
+	topicID BINARY(16) NOT NULL,
+	scaledDifficulty DECIMAL(5, 2) NOT NULL,
+	createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (studentID) REFERENCES student(studentID) ON DELETE CASCADE,
+	FOREIGN KEY (topicID) REFERENCES questionTopic(topicID)
+) ENGINE = InnoDB;
+
+CREATE TABLE weighted_topic_performance_log (
+	performance_log_id BINARY(16) NOT NULL PRIMARY KEY,
+	student_id BINARY(16) NOT NULL,
+	topic_id BINARY(16) NOT NULL,
+	weighted_performance_score DECIMAL(5, 2) NOT NULL,
+	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (student_id) REFERENCES student(studentID) ON DELETE CASCADE,
+	FOREIGN KEY (topic_id) REFERENCES questionTopic(topicID)
+) ENGINE = InnoDB;
+
+CREATE TABLE weighted_topic_category_performance_log (
+	performance_log_id BINARY(16) NOT NULL PRIMARY KEY,
+	student_id BINARY(16) NOT NULL,
+	topic_id BINARY(16) NOT NULL,
+	category_id BINARY(16) NOT NULL,
+	weighted_performance_score DECIMAL(5, 2) NOT NULL,
+	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (student_id) REFERENCES student(studentID) ON DELETE CASCADE,
+	FOREIGN KEY (topic_id) REFERENCES questionTopic(topicID),
+	FOREIGN KEY (category_id) REFERENCES taxonomyCategory(categoryID)
 ) ENGINE = InnoDB;
 
 CREATE TABLE questionLogsDifficulty (

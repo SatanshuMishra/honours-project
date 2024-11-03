@@ -167,7 +167,7 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 								/>
 								<button
 									className="w-full px-4 py-2 my-4 font-semibold text-xl text-white bg-blue-600 hover:bg-blue-700 rounded-lg"
-									type="submit"
+									type="submit" style={{background: "#165EF0"}}
 								>
 									Start your Learning Journey
 								</button>

@@ -15,7 +15,7 @@ const verifyToken = (token: any, secret: any) => {
 
 export async function POST() {
   try {
-    const headersInstance = headers();
+    const headersInstance = await headers();
     const authHeader = headersInstance.get("authorization") ?? "";
 
     const token = authHeader.split(" ")[1];
