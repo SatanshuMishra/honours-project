@@ -1,9 +1,59 @@
-import { dummyData } from "../data/dummyData";
+// Type definition for each question in the recursion data
+interface QuestionData {
+	topic: string;
+	bloomTaxonomyCategory: string;
+	difficulty: number;
+	question: string;
+	code?: string;
+	answersList: string[];
+	correctAnswerIndex: number;
+	explanationsList: string[];
+}
+
+import recursion from "../data/RecursionData";
+import dataStructures from "../data/DataStructures";
 import verifyJWT from "./verifyJWT";
 
 export default function parseJSON() {
 	let studentID: string | null = null;
-	// NOTE: VERIFY USER IS LOGGED IN (DON'T ADD QUESTIONS IF NOT AUTHENTICATED)
+
+	// Verify that each question object matches the required structure
+	const isValidQuestionData = (el: any): el is QuestionData => {
+		const requiredFields: (keyof QuestionData)[] = [
+			"topic",
+			"bloomTaxonomyCategory",
+			"difficulty",
+			"question",
+			"answersList",
+			"correctAnswerIndex",
+			"explanationsList",
+		];
+
+		// Check for required fields
+		for (const field of requiredFields) {
+			if (!(field in el)) {
+				console.error(`Missing required field: ${field}`);
+				return false;
+			}
+		}
+
+		// Additional type checks for arrays and index bounds
+		if (!Array.isArray(el.answersList) || el.answersList.length === 0) {
+			console.error("Invalid or empty answersList.");
+			return false;
+		}
+		if (!Array.isArray(el.explanationsList) || el.explanationsList.length !== el.answersList.length) {
+			console.error("explanationsList length must match answersList length.");
+			return false;
+		}
+		if (typeof el.correctAnswerIndex !== "number" || el.correctAnswerIndex < 0 || el.correctAnswerIndex >= el.answersList.length) {
+			console.error("Invalid correctAnswerIndex.");
+			return false;
+		}
+
+		return true;
+	};
+
 	verifyJWT(true).then(async (studentInfo) => {
 		if (!studentInfo) throw new Error("No Student Information returned.");
 		const student: {
@@ -12,31 +62,37 @@ export default function parseJSON() {
 			username: string;
 		} = JSON.parse(studentInfo);
 		studentID = student.studentID;
-		console.log("Student: ", student);
-		
-		for (const el of dummyData) {
+		console.log("Student:", student);
+
+		for (const el of dataStructures) {
 			try {
-				if (!studentID)
-					throw new Error("No Student Information returned.");
-				// NOTE: ADD EACH QUESTION AND ANSWERS PAIR INDIVIDUALLY
+				if (!studentID) throw new Error("No Student Information returned.");
+
+				if (!isValidQuestionData(el)) {
+					console.error("Invalid question format, skipping question:", el);
+					continue;
+				}
+
+				// Insert question and answers
 				const questionID = await insertQuestion(
 					studentID,
 					el.topic,
 					el.difficulty,
 					el.question,
-					el.bloomTaxonomy,
-					el.timeTakenSeconds,
+					el.bloomTaxonomyCategory,
 					el.code
 				);
-				console.log("QuestionID: " + questionID);
-				el.answers.forEach((answer, idx) => {
-					insertAnswer(
-						questionID,
-						answer,
-						el.explanations[idx],
-						el.correct == idx ? true : false
-					);
-				});
+				if (questionID) {
+					console.log("QuestionID:", questionID);
+					el.answersList.forEach((answer, idx) => {
+						insertAnswer(
+							questionID,
+							answer,
+							el.explanationsList[idx],
+							idx === el.correctAnswerIndex
+						);
+					});
+				}
 			} catch (error) {
 				console.error("Error processing element:", error);
 			}
@@ -50,7 +106,6 @@ async function insertQuestion(
 	assignedDifficulty: number,
 	question: string,
 	bloomTaxonomy: string,
-	assignedCompletionTime: number,
 	code?: string
 ): Promise<string | void> {
 	const values = {
@@ -59,28 +114,26 @@ async function insertQuestion(
 		assignedDifficulty,
 		question,
 		taxonomyCategory: bloomTaxonomy,
-		assignedCompletionTime,
 		code,
 	};
-	console.log(values);
-	const response = await fetch(`./questionnaire/api/addquestion`, {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(values),
-		cache: "no-cache",
-	});
-	console.info("Data Returned: ", response);
-	const res: {
-		data: {
-			questionID: string;
-		} | null;
-		status: number;
-	} = JSON.parse(await response.text());
-	console.info("Data Returned: ", res.data);
-	if (res.data) {
-		return res.data.questionID;
-	} else {
-		return;
+
+	try {
+		const response = await fetch(`./questionnaire/api/addquestion`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(values),
+			cache: "no-cache",
+		});
+		const res = await response.json();
+
+		if (res?.data?.questionID) {
+			console.info("Question ID returned:", res.data.questionID);
+			return res.data.questionID;
+		} else {
+			console.warn("No question ID returned from the server.");
+		}
+	} catch (error) {
+		console.error("Error inserting question:", error);
 	}
 }
 
@@ -96,22 +149,20 @@ async function insertAnswer(
 		explanation,
 		isCorrect,
 	};
-	const response = await fetch(`./questionnaire/api/addanswer`, {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(values),
-		cache: "no-cache",
-	});
 
-	const res: {
-		data: null;
-		status: number;
-	} = JSON.parse(await response.text());
-	if (res.status == 201) {
-		return;
-	} else {
-		console.log(
-			`Error Inserting Answer for Question with ID ${questionID}.`
-		);
+	try {
+		const response = await fetch(`./questionnaire/api/addanswer`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(values),
+			cache: "no-cache",
+		});
+		const res = await response.json();
+
+		if (res.status !== 201) {
+			console.warn(`Error inserting answer for question ID ${questionID}.`);
+		}
+	} catch (error) {
+		console.error(`Failed to insert answer for question ID ${questionID}:`, error);
 	}
 }

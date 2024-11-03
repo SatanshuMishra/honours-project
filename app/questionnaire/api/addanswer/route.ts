@@ -1,38 +1,54 @@
 import prisma from "../../../lib/prisma";
 import { NextRequest } from "next/server";
 import { v4 as uuidv4 } from "uuid";
+import { z } from "zod";
 
+// Define schema for request body validation
+const requestBodySchema = z.object({
+	questionID: z.string().uuid(),
+	answer: z.string(),
+	explanation: z.string(),
+	isCorrect: z.boolean(),
+});
+
+/**
+ * Handles POST request to insert a new answer for a question
+ * @param request HTTP request
+ * @returns HTTP response with status 201 on success or an error status
+ */
 export async function POST(request: NextRequest) {
 	try {
-		//  NOTE: PARSE REQUEST DATA
 		const requestText = await request.text();
-		const requestBody: {
-			questionID: string;
-			answer: string;
-			explanation: string;
-			isCorrect: string;
-		} = JSON.parse(requestText);
+		const requestBody = requestBodySchema.parse(JSON.parse(requestText));
 
-		//  NOTE: GENERATE UUID TO INSERT ANSWER
-		const uuid = uuidv4();
+		const answerID = uuidv4();
 
-		//  NOTE: USE PRISMA TO INSERT ANSWER
-		await prisma.$queryRaw`INSERT INTO answer (answerID, questionID, answerDescription, answerExplanation, isCorrect) VALUES (UUID_TO_BIN(${uuid}), UUID_TO_BIN(${requestBody.questionID}), ${requestBody.answer}, ${requestBody.explanation}, ${requestBody.isCorrect})`;
+		await prisma.$queryRawUnsafe(
+			`INSERT INTO answer (answerID, questionID, answerDescription, answerExplanation, isCorrect)
+			 VALUES (UUID_TO_BIN(?), UUID_TO_BIN(?), ?, ?, ?)`,
+			answerID,
+			requestBody.questionID,
+			requestBody.answer,
+			requestBody.explanation,
+			requestBody.isCorrect
+		);
 
-		//  NOTE: RETURN 201 IF SUCCESSFUL
 		return new Response(
 			JSON.stringify({
 				data: null,
 				status: 201,
 			}),
+			{ status: 201 }
 		);
-	} catch (e) {
-		console.log(e);
+	} catch (error) {
+		console.error(error);
+		const statusCode = error instanceof z.ZodError ? 400 : 500;
 		return new Response(
 			JSON.stringify({
 				data: null,
-				status: 501,
+				status: statusCode,
 			}),
+			{ status: statusCode }
 		);
 	}
 }

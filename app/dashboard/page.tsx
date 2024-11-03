@@ -486,7 +486,7 @@ function Dashboard() {
 										{activeTab === 0 && (
 											<div className="w-full">
 												<h1 className="text-3xl">
-													Activity Board
+													Performance Trends
 												</h1>
 												<PerfomanceChart />
 											</div>
