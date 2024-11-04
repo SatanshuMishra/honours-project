@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useReducer, useState } from "react";
+import React, { use, useEffect, useReducer, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import hljs from "highlight.js/lib/core";
@@ -21,6 +21,16 @@ import Drawer from "@/app/components/drawer/Drawer";
 import fetchQuestions from "../../scripts/fetchQuestions";
 import fetchAnswers from "../../scripts/fetchAnswers";
 import verifyJWT from "../../scripts/verifyJWT";
+
+import { useFormik } from "formik";
+
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select"
 
 const QUESTIONS_PER_QUIZ = 5;
 const API_ENDPOINTS = {
@@ -403,7 +413,44 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 	const router = useRouter();
 
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-	
+
+	const formik = useFormik({
+		initialValues: {
+			reason: "",
+			details: "",
+		},
+		onSubmit: (values) => {
+			handleSubmitReport(values);
+		},
+	});
+
+	const handleSubmitReport = async (values: {
+		reason: string;
+		details: string;
+	}) => {
+		const response = await fetch(`/questionnaire/api/reportquestion`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				studentID: quizState.studentInfo.studentID,
+				questionID: quizState.questions[quizState.currentQuestionIndex].questionID,
+				reason: values.reason,
+				details: values.details
+			}),
+			cache: "no-cache",
+		});
+		const res: {
+			data: null;
+			status: number;
+		} = await response.json();
+		if (res.status === 201) {
+			setIsDrawerOpen(false);
+			// TODO: TOAST COFIRMING REPORT
+		} else {
+			console.log("Something went wrong with the report");
+		}
+	};
+
 	useEffect(() => {
 		console.log(isDrawerOpen);
 	}, [isDrawerOpen]);
@@ -587,9 +634,52 @@ function Questionnaire({ params }: { params: { slug: string } }) {
 				isOpen={isDrawerOpen}
 				onClose={() => setIsDrawerOpen(false)}
 			>
-				<div className="bg-red-500 p-4 text-white rounded-lg mb-4">
+				<div className="p-4 text-black rounded-lg mb-4">
 					<h1 className="text-3xl font-bold mb-4">Report Question</h1>
-					<p className="mb-4">If you believe this question contains an error or is unclear, please let us know.</p>
+					<p className="mb-4">If you believe this question contains an error or is unclear, please let me know.</p>
+					<form className="flex flex-col justify-start items-start gap-4 z-10" onSubmit={formik.handleSubmit}>
+						<div className="w-full">
+							<label htmlFor="reason" className="block mb-2">
+								Why are you reporting this question?
+							</label>
+							<Select
+								name="reason"
+								onValueChange={(value) => formik.setFieldValue("reason", value)}
+							>
+								<SelectTrigger className="w-full">
+									<SelectValue placeholder="Select a reason" />
+								</SelectTrigger>
+								<SelectContent position="popper" className="bg-white z-50" style={{ zIndex: 50000 }}>
+									<SelectItem value="unclear">Question is unclear</SelectItem>
+									<SelectItem value="out-of-scope">Question is out-of-scope for the course</SelectItem>
+									<SelectItem value="unreasonable">Question is unreasonable for this type of quiz</SelectItem>
+									<SelectItem value="other">Something else</SelectItem>
+								</SelectContent>
+							</Select>
+						</div>
+
+						<div className="w-full">
+							<label htmlFor="details" className="block mb-2">
+								Can you provide further details?
+							</label>
+							<textarea
+								id="details"
+								name="details"
+								className="w-full p-2 border rounded-md min-h-[100px]"
+								value={formik.values.details}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+							/>
+						</div>
+
+						<button
+							type="submit"
+							className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue"
+							style={{ background: "#0083FF" }}
+						>
+							Submit Report
+						</button>
+					</form>
 				</div>
 			</Drawer>
 		</>
