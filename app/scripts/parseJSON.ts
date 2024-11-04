@@ -10,7 +10,7 @@ interface QuestionData {
 	explanationsList: string[];
 }
 
-import recursion from "../data/RecursionData";
+// import recursion from "../data/RecursionData";
 import dataStructures from "../data/DataStructures";
 import verifyJWT from "./verifyJWT";
 
@@ -101,68 +101,97 @@ export default function parseJSON() {
 }
 
 async function insertQuestion(
-	studentID: string,
-	topic: string,
-	assignedDifficulty: number,
-	question: string,
-	bloomTaxonomy: string,
-	code?: string
-): Promise<string | void> {
-	const values = {
-		studentID,
-		topic,
-		assignedDifficulty,
-		question,
-		taxonomyCategory: bloomTaxonomy,
-		code,
-	};
+    studentID: string,
+    topic: string,
+    assignedDifficulty: number,
+    question: string,
+    bloomTaxonomy: string,
+    code?: string
+): Promise<string> {
+    const values = {
+        studentID,
+        topic,
+        assignedDifficulty,
+        question,
+        taxonomyCategory: bloomTaxonomy,
+        code: code || null
+    };
 
-	try {
-		const response = await fetch(`./questionnaire/api/addquestion`, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(values),
-			cache: "no-cache",
-		});
-		const res = await response.json();
+    try {
+        const response = await fetch(`/questionnaire/api/addquestion`, {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+            cache: "no-cache",
+        });
 
-		if (res?.data?.questionID) {
-			console.info("Question ID returned:", res.data.questionID);
-			return res.data.questionID;
-		} else {
-			console.warn("No question ID returned from the server.");
-		}
-	} catch (error) {
-		console.error("Error inserting question:", error);
-	}
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || `Server error: ${response.status}`);
+        }
+
+        const result = await response.json();
+        
+        if (!result?.data?.questionID) {
+            throw new Error("No question ID returned from server");
+        }
+
+        console.log("Question inserted successfully:", result.data.questionID);
+        return result.data.questionID;
+
+    } catch (error) {
+        // If it's a parsing error, log the response
+        if (error instanceof SyntaxError) {
+            console.error("Failed to parse server response:", error);
+        }
+        console.error("Error inserting question:", error);
+        throw error;
+    }
 }
 
 async function insertAnswer(
-	questionID: string,
-	answer: string,
-	explanation: string,
-	isCorrect: boolean
-) {
-	const values = {
-		questionID,
-		answer,
-		explanation,
-		isCorrect,
-	};
+    questionID: string,
+    answer: string,
+    explanation: string,
+    isCorrect: boolean
+): Promise<string> {
+    const values = {
+        questionID,
+        answer,
+        explanation,
+        isCorrect
+    };
 
-	try {
-		const response = await fetch(`./questionnaire/api/addanswer`, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(values),
-			cache: "no-cache",
-		});
-		const res = await response.json();
+    try {
+        const response = await fetch(`/questionnaire/api/addanswer`, {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+            cache: "no-cache",
+        });
 
-		if (res.status !== 201) {
-			console.warn(`Error inserting answer for question ID ${questionID}.`);
-		}
-	} catch (error) {
-		console.error(`Failed to insert answer for question ID ${questionID}:`, error);
-	}
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || `Server error: ${response.status}`);
+        }
+
+        if (!result?.data?.answerID) {
+            throw new Error("No answer ID returned from server");
+        }
+
+        console.log("Answer inserted successfully:", result.data.answerID);
+        return result.data.answerID;
+
+    } catch (error) {
+        if (error instanceof SyntaxError) {
+            console.error("Failed to parse server response");
+        }
+        console.error("Error inserting answer:", error);
+        throw error;
+    }
 }
