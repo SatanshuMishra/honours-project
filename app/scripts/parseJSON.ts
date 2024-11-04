@@ -10,8 +10,8 @@ interface QuestionData {
 	explanationsList: string[];
 }
 
-// import recursion from "../data/RecursionData";
-import dataStructures from "../data/DataStructures";
+import recursion from "../data/RecursionData";
+// import dataStructures from "../data/DataStructures";
 import verifyJWT from "./verifyJWT";
 
 export default function parseJSON() {
@@ -64,7 +64,7 @@ export default function parseJSON() {
 		studentID = student.studentID;
 		console.log("Student:", student);
 
-		for (const el of dataStructures) {
+		for (const el of recursion) {
 			try {
 				if (!studentID) throw new Error("No Student Information returned.");
 
