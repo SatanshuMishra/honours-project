@@ -24,7 +24,6 @@ const CircularProgressBar = ({ percentage, image }) => {
 				<Image
 					src={image}
 					alt="Recursion Icon"
-					className=""
 					priority
 				/>
 			</div>

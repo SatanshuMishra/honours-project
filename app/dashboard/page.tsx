@@ -44,10 +44,6 @@ function Dashboard() {
 		| null
 	>(null);
 	const [activeTab, setActiveTab] = useState<number>(0);
-
-	// TEMPORARY TEST VARIABLES
-	// const [_, setStatistics] = useState<any[]>();
-
 	const [windowWidth, setWindowWidth] = useState<number>();
 
 	useEffect(() => setWindowWidth(window.innerWidth), []);
@@ -244,7 +240,9 @@ function Dashboard() {
 									<h2 className="text-3xl text-black font-medium">
 										Topic Quizzes
 									</h2>
-									<section className="w-full h-full py-2 flex flex-col overflow-y-scroll overflow-x-scroll">
+									<section className="w-full h-full py-2 flex flex-col overflow-y-scroll no-scrollbar" style={{
+										gap: "1.25rem", minWidth: windowWidth > 1050 ? "35rem" : "20rem"
+									}}>
 										{topics &&
 											topics.map((topic, _) => {
 												return (
@@ -253,7 +251,7 @@ function Dashboard() {
 														key={_}
 													>
 														<div className="h-full w-fit p-2">
-															<p className="h-full flex flex-col justify-center items-center text-xl font-medium text-[#16db89]">
+															<div className="h-full flex flex-col justify-center items-center text-xl font-medium text-[#16db89]">
 																<CircularProgressBar
 																	percentage={(
 																		(parseFloat(
@@ -273,14 +271,20 @@ function Dashboard() {
 																			topic
 																				.quizzesCompleted,
 																		) /
+																			1) *
+																		100
+																	) < 100 ? (
+																		(parseFloat(
+																			topic
+																				.quizzesCompleted,
+																		) /
 																			4) *
 																		100
 																	).toPrecision(
 																		3,
-																	)}
-																	&nbsp;%
+																	) + " %" : "Done"}
 																</span>
-															</p>
+															</div>
 														</div>
 														<div className="p-2 flex-1">
 															<h4
@@ -572,7 +576,7 @@ function Dashboard() {
 							</section>
 						</section>
 						{/*  NOTE: THIS COMPONENT IS THE DEVELOPER TOOL BAR. IT ALLOWS YOU TO INSERT NEW QUESTIONS FROM JSON. CHANGE studentUsername === CONDITION TO MATCH YOUR USERNAME*/}
-						{studentUsername === "SystemAdmin" && (
+						{studentUsername === "SatanshuMishra" && (
 							<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2 translate-y-0.5 hover:-translate-y-0.5 transition-all duration-300 ease-in-out">
 								<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2 select-none font-jetbrains-mono">
 									Developer Tools

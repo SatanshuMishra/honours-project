@@ -2,6 +2,17 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
     darkMode: ["class"],
+	purge: false,
+	safelist: [
+		'fixed',
+		'inset-0',
+		'bg-black/50',
+		'transition-opacity',
+		'duration-300',
+		'transform',
+		'translate-y-0',
+		'translate-y-full'
+	  ],
     content: [
 		"./pages/**/*.{js,ts,jsx,tsx,mdx}",
 		"./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,6 +20,9 @@ const config: Config = {
 	],
 	theme: {
     	extend: {
+			zIndex: {
+				'100': '100',
+			  },
     		screens: {
     			mobile: '1100px'
     		},
@@ -63,6 +77,6 @@ const config: Config = {
     		}
     	}
     },
-	plugins: [require("tailwindcss-animate")],
+	plugins: [require("tailwindcss-animate"), require("@tailwindcss/forms")],
 };
 export default config;

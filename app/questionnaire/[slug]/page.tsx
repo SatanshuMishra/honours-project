@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
+// import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import hljs from "highlight.js/lib/core";
@@ -17,14 +18,25 @@ import Loading from "../../components/loading/loading";
 import Results from "../../components/results/results";
 import ULearnLogo from "../../components/uLearnLogo/ULearnLogo";
 import TipAccordion from "../../components/accordion/TipAccordion";
+import { Drawer } from "@/app/components/drawer/Drawer";
 import fetchQuestions from "../../scripts/fetchQuestions";
 import fetchAnswers from "../../scripts/fetchAnswers";
 import verifyJWT from "../../scripts/verifyJWT";
 
+import { useFormik } from "formik";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 const QUESTIONS_PER_QUIZ = 5;
 const API_ENDPOINTS = {
-  ADD_STATISTICS: '/questionnaire/api/addperformancestatistics',
-  PROCESS_RESULTS: '/questionnaire/api/processResults'
+  ADD_STATISTICS: "/questionnaire/api/addperformancestatistics",
+  PROCESS_RESULTS: "/questionnaire/api/processResults",
 } as const;
 
 interface StudentInfo {
@@ -99,10 +111,10 @@ const useQuizState = (initialState: QuizState) => {
     switch (action.type) {
       case "SET_LOADING":
         return { ...state, loading: action.payload };
-      
+
       case "SET_ERROR":
         return { ...state, error: action.payload };
-      
+
       case "SET_STUDENT_INFO":
         return {
           ...state,
@@ -112,10 +124,10 @@ const useQuizState = (initialState: QuizState) => {
             username: action.payload.username,
           },
         };
-      
+
       case "SET_QUESTIONS":
         return { ...state, questions: action.payload };
-      
+
       case "SET_ANSWERS":
         return {
           ...state,
@@ -123,13 +135,13 @@ const useQuizState = (initialState: QuizState) => {
           loading: false,
           startTime: Date.now(),
         };
-      
+
       case "SET_CURRENT_QUESTION_INDEX":
         return { ...state, currentQuestionIndex: action.payload };
-      
+
       case "SELECT_OPTION":
         return { ...state, selectedOptionIdx: action.payload };
-      
+
       case "SUBMIT_ANSWER":
         if (state.selectedOptionIdx === null || state.startTime === null) {
           return state;
@@ -142,7 +154,7 @@ const useQuizState = (initialState: QuizState) => {
             : state.score,
           submitted: true,
         };
-      
+
       case "NEXT_QUESTION":
         return {
           ...state,
@@ -155,13 +167,13 @@ const useQuizState = (initialState: QuizState) => {
           selectedOptionIdx: null,
           submitted: false,
         };
-      
+
       case "START_QUIZ_DURATION":
         return { ...state, quizDurationStart: Date.now() };
-      
+
       case "FINISH_QUIZ":
         return { ...state, quizDurationEnd: Date.now() };
-      
+
       default:
         return state;
     }
@@ -170,22 +182,21 @@ const useQuizState = (initialState: QuizState) => {
   return useReducer(quizReducer, initialState);
 };
 
-
 const quizService = {
   async addStatistics(payload: StatisticsPayload): Promise<any> {
     try {
       const res = await fetch(API_ENDPOINTS.ADD_STATISTICS, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-        cache: 'no-cache',
-        credentials: 'include',
+        cache: "no-cache",
+        credentials: "include",
       });
-      
+
       const resBody: APIResponse<any> = await res.json();
       return resBody.status === 400 ? false : resBody.data;
     } catch (error) {
-      console.error('Error in addStatistics:', error);
+      console.error("Error in addStatistics:", error);
       throw error;
     }
   },
@@ -193,20 +204,20 @@ const quizService = {
   async processResults(payload: ResultsPayload): Promise<any> {
     try {
       const res = await fetch(API_ENDPOINTS.PROCESS_RESULTS, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-        cache: 'no-cache',
-        credentials: 'include',
+        cache: "no-cache",
+        credentials: "include",
       });
-      
+
       const resBody: APIResponse<any> = await res.json();
       return resBody.status === 400 ? false : resBody.data;
     } catch (error) {
-      console.error('Error in processResults:', error);
+      console.error("Error in processResults:", error);
       throw error;
     }
-  }
+  },
 };
 
 interface CodeBlockProps {
@@ -240,7 +251,11 @@ interface QuizHeaderProps {
   seconds: number;
 }
 
-const QuizHeader = ({ currentIndex, totalQuestions, seconds }: QuizHeaderProps) => (
+const QuizHeader = ({
+  currentIndex,
+  totalQuestions,
+  seconds,
+}: QuizHeaderProps) => (
   <div className="w-full flex flex-row flex-between">
     <div className="flex-1">
       <h4 className="text-slate-700 text-xl font-bold font-jetbrains-mono">
@@ -281,8 +296,8 @@ const getQuizButtonStyles = (
   selectedAnswer: Answer | null
 ): QuizButtonStyles => {
   const defaultStyles = {
-    backgroundColor: '#0185FF',
-    hoverColor: '#1a91ff'
+    backgroundColor: "#0185FF",
+    hoverColor: "#1a91ff",
   };
 
   if (!isSubmitted || !selectedAnswer) {
@@ -291,20 +306,21 @@ const getQuizButtonStyles = (
 
   return selectedAnswer.isCorrect
     ? {
-        backgroundColor: '#70c678',
-        hoverColor: '#5ebf67'
+        backgroundColor: "#70c678",
+        hoverColor: "#5ebf67",
       }
     : defaultStyles;
 };
 
 interface QuizContentProps {
+  onToggle: any;
   quizState: QuizState;
   dispatch: React.Dispatch<QuizAction>;
 }
 
-const QuizContent = ({ quizState, dispatch }: QuizContentProps) => {
+const QuizContent = ({ onToggle, quizState, dispatch }: QuizContentProps) => {
   const seconds = useQuizTimer();
-  
+
   const handleSelectOption = (idx: 0 | 1 | 2 | 3 | null) => {
     dispatch({ type: "SELECT_OPTION", payload: idx });
   };
@@ -314,14 +330,18 @@ const QuizContent = ({ quizState, dispatch }: QuizContentProps) => {
   };
 
   const onContinue = () => {
-    if (quizState.submitted && quizState.currentQuestionIndex < QUESTIONS_PER_QUIZ) {
+    if (
+      quizState.submitted &&
+      quizState.currentQuestionIndex < QUESTIONS_PER_QUIZ
+    ) {
       dispatch({ type: "NEXT_QUESTION", payload: null });
     }
   };
 
-  const selectedAnswer = quizState.selectedOptionIdx !== null 
-    ? quizState.answers[quizState.selectedOptionIdx] 
-    : null;
+  const selectedAnswer =
+    quizState.selectedOptionIdx !== null
+      ? quizState.answers[quizState.selectedOptionIdx]
+      : null;
 
   const buttonStyles = getQuizButtonStyles(quizState.submitted, selectedAnswer);
   const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
@@ -329,7 +349,9 @@ const QuizContent = ({ quizState, dispatch }: QuizContentProps) => {
   return (
     <section className="p-2 flex-1 flex flex-col">
       <section className="flex flex-row justify-evenly flex-1">
-        {currentQuestion.code && <CodeBlockSection code={currentQuestion.code} />}
+        {currentQuestion.code && (
+          <CodeBlockSection code={currentQuestion.code} />
+        )}
         <section className="w-full h-full flex flex-col p-6 rounded-lg bg-[#f1f1f7]">
           <QuizHeader
             currentIndex={quizState.currentQuestionIndex}
@@ -343,13 +365,15 @@ const QuizContent = ({ quizState, dispatch }: QuizContentProps) => {
           <h2 className="text-black text-3xl font-bold font-jetbrains-mono py-4">
             {currentQuestion.question}
           </h2>
-          <section 
+          <section
             className="w-full h-full flex flex-col justify-between overflow-y-scroll"
-            style={{
-              '--bg-color': buttonStyles.backgroundColor,
-              '--hover-color': buttonStyles.hoverColor,
-              '--gap': '0.5rem'
-            } as React.CSSProperties}
+            style={
+              {
+                "--bg-color": buttonStyles.backgroundColor,
+                "--hover-color": buttonStyles.hoverColor,
+                "--gap": "0.5rem",
+              } as React.CSSProperties
+            }
           >
             <div className="w-full overflow-y-scroll flex flex-col gap-4">
               {quizState.answers.map((answer, answerIdx) => (
@@ -382,7 +406,8 @@ const QuizContent = ({ quizState, dispatch }: QuizContentProps) => {
                     Continue
                   </button>
                   <button
-                    className="font-jetbrains-mono p-4 rounded-[10px] shadow border-black font-semibold text-white text-xl cursor-not-allowed bg-[#dc2626]"
+                    className="font-jetbrains-mono p-4 rounded-[10px] shadow border-black font-semibold text-white text-xl bg-[#dc2626]"
+                    onClick={onToggle}
                   >
                     <i className="ri-flag-fill"></i>
                   </button>
@@ -398,9 +423,75 @@ const QuizContent = ({ quizState, dispatch }: QuizContentProps) => {
 
 function Questionnaire({ params }: { params: { slug: string } }) {
   const router = useRouter();
-  
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      reason: "",
+      details: "",
+    },
+    onSubmit: (values) => {
+      handleSubmitReport(values);
+    },
+  });
+
+  const handleSubmitReport = async (values: {
+    reason: string;
+    details: string;
+  }) => {
+    const response = await fetch(`/questionnaire/api/reportquestion`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        studentID: quizState.studentInfo.studentID,
+        questionID:
+          quizState.questions[quizState.currentQuestionIndex].questionID,
+        reason: values.reason,
+        details: values.details,
+      }),
+      cache: "no-cache",
+    });
+    const res: {
+      data: null;
+      status: number;
+    } = await response.json();
+    if (res.status === 201) {
+      setIsDrawerOpen(false);
+      // TODO: TOAST COFIRMING REPORT
+    } else {
+      console.log("Something went wrong with the report");
+    }
+  };
+
+  // Debug state changes
+  useEffect(() => {
+    console.log("Page level isDrawerOpen changed to:", isDrawerOpen);
+  }, [isDrawerOpen]);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const toggleDrawer = useCallback(() => {
+    console.log("Toggle drawer called, current state:", isDrawerOpen);
+    setIsDrawerOpen((prev) => {
+      const newState = !prev;
+      console.log("Setting drawer state to:", newState);
+      return newState;
+    });
+  }, []);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const closeDrawer = useCallback(() => {
+    console.log("Close drawer called");
+    setIsDrawerOpen(false);
+  }, []);
+
+  // Force re-render on drawer state change
+  useEffect(() => {
+    const drawerState = isDrawerOpen;
+    console.log("Drawer state effect:", drawerState);
+  }, [isDrawerOpen]);
+
   hljs.registerLanguage("javascript", javascript);
-  
+
   const initialState: QuizState = {
     loading: true,
     error: null,
@@ -432,14 +523,14 @@ function Questionnaire({ params }: { params: { slug: string } }) {
     const initializeQuiz = async () => {
       try {
         const studentInfo = await verifyJWT(true);
-        if (!studentInfo || typeof studentInfo !== 'string') {
+        if (!studentInfo || typeof studentInfo !== "string") {
           handleAuthFailure();
           return;
         }
 
         const student: Student = JSON.parse(studentInfo);
         dispatch({ type: "SET_STUDENT_INFO", payload: student });
-        
+
         const questions = await fetchQuestions(student.studentID, params.slug);
         dispatch({ type: "SET_QUESTIONS", payload: questions });
         dispatch({ type: "SET_ERROR", payload: null });
@@ -451,128 +542,200 @@ function Questionnaire({ params }: { params: { slug: string } }) {
     initializeQuiz();
   }, []);
 
-useEffect(() => {
-  const fetchQuestionAnswers = async () => {
-    if (quizState.questions.length !== QUESTIONS_PER_QUIZ) {
-      dispatch({
-        type: "SET_ERROR",
-        payload: "Questions array has not been initialized yet.",
-      });
-      return;
-    }
-
-    if (quizState.currentQuestionIndex >= QUESTIONS_PER_QUIZ) {
-      dispatch({ type: "FINISH_QUIZ", payload: null });
-      return;
-    }
-
-    try {
-      const answers = await fetchAnswers(
-        quizState.questions[quizState.currentQuestionIndex].questionID
-      );
-      dispatch({ type: "SET_ANSWERS", payload: answers });
-      
-      if (quizState.currentQuestionIndex === 0) {
-        dispatch({ type: "START_QUIZ_DURATION", payload: null });
-      }
-    } catch (error) {
-      dispatch({
-        type: "SET_ERROR",
-        payload: `Error fetching answers: ${error}`,
-      });
-    }
-  };
-
-  fetchQuestionAnswers();
-}, [quizState.questions, quizState.currentQuestionIndex]);
-
-useEffect(() => {
-  const submitStatistics = async () => {
-    if (!quizState.submitted) return;
-    
-    try {
-      if (
-        !quizState.questions ||
-        !quizState.answers ||
-        quizState.selectedOptionIdx === null
-      ) {
-        throw new Error("Missing required values for statistics submission");
+  useEffect(() => {
+    const fetchQuestionAnswers = async () => {
+      if (quizState.questions.length !== QUESTIONS_PER_QUIZ) {
+        dispatch({
+          type: "SET_ERROR",
+          payload: "Questions array has not been initialized yet.",
+        });
+        return;
       }
 
-      const statisticsPayload: StatisticsPayload = {
-        studentID: quizState.studentInfo.studentID,
-        questionID: quizState.questions[quizState.currentQuestionIndex].questionID,
-        chosenAnswerID: quizState.answers[quizState.selectedOptionIdx].answerID,
-        isCorrect: quizState.answers[quizState.selectedOptionIdx].isCorrect,
-        timeToAnswer: quizState.duration,
-      };
+      if (quizState.currentQuestionIndex >= QUESTIONS_PER_QUIZ) {
+        dispatch({ type: "FINISH_QUIZ", payload: null });
+        return;
+      }
 
-      await quizService.addStatistics(statisticsPayload);
-    } catch (error) {
-      console.error("Failed to submit statistics:", error);
+      try {
+        const answers = await fetchAnswers(
+          quizState.questions[quizState.currentQuestionIndex].questionID
+        );
+        dispatch({ type: "SET_ANSWERS", payload: answers });
+
+        if (quizState.currentQuestionIndex === 0) {
+          dispatch({ type: "START_QUIZ_DURATION", payload: null });
+        }
+      } catch (error) {
+        dispatch({
+          type: "SET_ERROR",
+          payload: `Error fetching answers: ${error}`,
+        });
+      }
+    };
+
+    fetchQuestionAnswers();
+  }, [quizState.questions, quizState.currentQuestionIndex]);
+
+  useEffect(() => {
+    const submitStatistics = async () => {
+      if (!quizState.submitted) return;
+
+      try {
+        if (
+          !quizState.questions ||
+          !quizState.answers ||
+          quizState.selectedOptionIdx === null
+        ) {
+          throw new Error("Missing required values for statistics submission");
+        }
+
+        const statisticsPayload: StatisticsPayload = {
+          studentID: quizState.studentInfo.studentID,
+          questionID:
+            quizState.questions[quizState.currentQuestionIndex].questionID,
+          chosenAnswerID:
+            quizState.answers[quizState.selectedOptionIdx].answerID,
+          isCorrect: quizState.answers[quizState.selectedOptionIdx].isCorrect,
+          timeToAnswer: quizState.duration,
+        };
+
+        await quizService.addStatistics(statisticsPayload);
+      } catch (error) {
+        console.error("Failed to submit statistics:", error);
+      }
+    };
+
+    submitStatistics();
+  }, [quizState.submitted]);
+
+  useEffect(() => {
+    const processQuizResults = async () => {
+      if (!quizState.quizDurationEnd) return;
+
+      try {
+        const resultsPayload: ResultsPayload = {
+          studentID: quizState.studentInfo.studentID,
+          topicID: params.slug,
+        };
+
+        await quizService.processResults(resultsPayload);
+      } catch (error) {
+        console.error("Failed to process quiz results:", error);
+      }
+    };
+
+    processQuizResults();
+  }, [quizState.quizDurationEnd]);
+
+  useEffect(() => {
+    const verifyToken = async () => {
+      const isValid = await verifyJWT();
+      if (!isValid) {
+        handleAuthFailure();
+      }
+    };
+
+    if (quizState.submitted) {
+      verifyToken();
     }
-  };
+  }, [quizState.submitted]);
 
-  submitStatistics();
-}, [quizState.submitted]);
-
-useEffect(() => {
-  const processQuizResults = async () => {
-    if (!quizState.quizDurationEnd) return;
-
-    try {
-      const resultsPayload: ResultsPayload = {
-        studentID: quizState.studentInfo.studentID,
-        topicID: params.slug,
-      };
-
-      await quizService.processResults(resultsPayload);
-    } catch (error) {
-      console.error("Failed to process quiz results:", error);
-    }
-  };
-
-  processQuizResults();
-}, [quizState.quizDurationEnd]);
-
-useEffect(() => {
-  const verifyToken = async () => {
-    const isValid = await verifyJWT();
-    if (!isValid) {
-      handleAuthFailure();
-    }
-  };
-
-  if (quizState.submitted) {
-    verifyToken();
+  if (quizState.loading && !quizState.quizDurationEnd) {
+    return <Loading />;
   }
-}, [quizState.submitted]);
 
-if (quizState.loading && !quizState.quizDurationEnd) {
-  return <Loading />;
-}
-
-if (quizState.quizDurationEnd) {
-  return (
-    <Results
-      topicID={params.slug}
-      score={quizState.score}
-      duration={quizState.quizDurationEnd - quizState.quizDurationStart!}
-    />
-  );
-}
-
-return (
-  <main className="bg-white h-screen w-screen p-6 overflow-y-scroll flex flex-col">
-    <section className="flex-1 flex flex-col">
-      <ULearnLogo />
-      <QuizContent 
-        quizState={quizState} 
-        dispatch={dispatch}
+  if (quizState.quizDurationEnd) {
+    return (
+      <Results
+        topicID={params.slug}
+        score={quizState.score}
+        duration={quizState.quizDurationEnd - quizState.quizDurationStart!}
       />
-    </section>
-  </main>
-);
+    );
+  }
+
+  return (
+    <>
+      <main className="bg-white h-screen w-screen p-6 overflow-y-scroll flex flex-col">
+        <section className="flex-1 flex flex-col">
+          <ULearnLogo />
+          <QuizContent
+            onToggle={() => setIsDrawerOpen(true)}
+            quizState={quizState}
+            dispatch={dispatch}
+          />
+        </section>
+      </main>
+      <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
+        <div className="p-4 text-black rounded-lg mb-4 relative z-50">
+          <h1 className="text-3xl font-bold mb-4">Report Question</h1>
+          <p className="mb-4">
+            If you believe this question contains an error or is unclear, please
+            let me know.
+          </p>
+          <form
+            className="flex flex-col justify-start items-start gap-4"
+            onSubmit={formik.handleSubmit}
+          >
+            <div className="w-full">
+              <label htmlFor="reason" className="block mb-2">
+                Why are you reporting this question?
+              </label>
+              <Select
+                name="reason"
+                onValueChange={(value) => formik.setFieldValue("reason", value)}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a reason" />
+                </SelectTrigger>
+                <SelectContent
+                  ref={(ref) => {
+                    if (ref) {
+                      ref.style.zIndex = "100";
+                    }
+                  }}
+                  position="popper"
+                  className="bg-white"
+                  style={{ zIndex: 100 }}
+                >
+                  <SelectItem value="unclear">Question is unclear</SelectItem>
+                  <SelectItem value="out-of-scope">
+                    Question is out-of-scope for the course
+                  </SelectItem>
+                  <SelectItem value="unreasonable">
+                    Question is unreasonable for this type of quiz
+                  </SelectItem>
+                  <SelectItem value="other">Something else</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="w-full">
+              <label htmlFor="details" className="block mb-2">
+                Can you provide further details?
+              </label>
+              <textarea
+                id="details"
+                name="details"
+                className="w-full p-2 border rounded-md min-h-[100px]"
+                value={formik.values.details}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue"
+              style={{ background: "#0083FF" }}
+            >
+              Submit Report
+            </button>
+          </form>
+        </div>
+      </Drawer>
+    </>
+  );
 }
 
 export default Questionnaire;

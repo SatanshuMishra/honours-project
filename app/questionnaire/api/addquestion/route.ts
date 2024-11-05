@@ -10,7 +10,7 @@ const requestBodySchema = z.object({
 	assignedDifficulty: z.number().min(1).max(5),
 	question: z.string(),
 	taxonomyCategory: z.string(),
-	code: z.string().optional(),
+	code: z.string().nullable().optional(),
 });
 
 // Custom error for not found cases
@@ -65,52 +65,125 @@ async function fetchOrCreateTopic(topicName: string): Promise<string> {
  * @param taxonomyCategoryID Taxonomy Category ID
  * @returns Knowledge ID
  */
+/**
+ * Fetches or creates a Knowledge ID based on studentID, topicID, and taxonomyCategoryID
+ * @param studentID Student ID
+ * @param topicID Topic ID
+ * @param taxonomyCategoryID Taxonomy Category ID
+ * @returns Knowledge ID
+ */
 async function fetchOrCreateKnowledge(
-	studentID: string,
-	topicID: string,
-	taxonomyCategoryID: string
+    studentID: string,
+    topicID: string,
+    taxonomyCategoryID: string
 ): Promise<string> {
-	const knowledgeRows = await prisma.$queryRawUnsafe<{ knowledgeID: string }[]>(
-		`SELECT BIN_TO_UUID(knowledgeID) AS knowledgeID
-		 FROM studentKnowledge
-		 WHERE studentID = UUID_TO_BIN(?) AND topicID = UUID_TO_BIN(?) AND categoryID = UUID_TO_BIN(?)`,
-		studentID,
-		topicID,
-		taxonomyCategoryID
-	);
+    try {
+        // First, check if knowledge entry exists
+        const knowledgeRows = await prisma.$queryRawUnsafe<{ knowledgeID: string }[]>(
+            `SELECT BIN_TO_UUID(knowledgeID) AS knowledgeID
+             FROM studentKnowledge
+             WHERE studentID = UUID_TO_BIN(?)
+             AND topicID = UUID_TO_BIN(?)
+             AND categoryID = UUID_TO_BIN(?)`,
+            studentID,
+            topicID,
+            taxonomyCategoryID
+        );
 
-	if (knowledgeRows.length === 0) {
-		const knowledgeID = uuidv4();
-		await prisma.$transaction([
-			prisma.$queryRawUnsafe(
-				`INSERT INTO studentKnowledge (knowledgeID, studentID, topicID, categoryID) 
-				VALUES (UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?))`,
-				knowledgeID,
-				studentID,
-				topicID,
-				taxonomyCategoryID
-			),
-			prisma.$queryRawUnsafe(
-				`INSERT INTO mastery_logs (mastery_log_id, studentID, topicID, categoryID, mastery_change, mastery_value)
-				 VALUES (UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), 0.0, 0.5)`,
-				uuidv4(),
-				studentID,
-				topicID,
-				taxonomyCategoryID
-			),
-			prisma.$queryRawUnsafe(
-				`INSERT INTO student_topic_category_difficulty_log (studentLogID, studentID, topicID, categoryID, scaledDifficulty)
-				 VALUES (UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), UUID_TO_BIN(?), 0)`,
-				uuidv4(),
-				studentID,
-				topicID,
-				taxonomyCategoryID
-			),
-		]);
-		return knowledgeID;
-	}
-	if (knowledgeRows.length > 1) throw new Error("Multiple knowledge rows found.");
-	return knowledgeRows[0].knowledgeID;
+        // If exists, return existing ID
+        if (knowledgeRows.length === 1) {
+            return knowledgeRows[0].knowledgeID;
+        }
+
+        // If multiple found (shouldn't happen due to unique constraint), throw error
+        if (knowledgeRows.length > 1) {
+            throw new Error("Data integrity error: Multiple knowledge entries found");
+        }
+
+        // If not found, create new entries in transaction
+        const knowledgeID = uuidv4();
+        const masteryLogID = uuidv4();
+        const difficultyLogID = uuidv4();
+
+        await prisma.$transaction([
+            // Insert studentKnowledge entry
+            prisma.$executeRawUnsafe(
+                `INSERT INTO studentKnowledge (
+                    knowledgeID,
+                    studentID,
+                    topicID,
+                    categoryID,
+                    mastery,
+                    scaledDifficulty,
+                    idealDifficulty
+                ) VALUES (
+                    UUID_TO_BIN(?),
+                    UUID_TO_BIN(?),
+                    UUID_TO_BIN(?),
+                    UUID_TO_BIN(?),
+                    0.5,
+                    0.0,
+                    3
+                )`,
+                knowledgeID,
+                studentID,
+                topicID,
+                taxonomyCategoryID
+            ),
+
+            // Insert initial mastery log
+            prisma.$executeRawUnsafe(
+                `INSERT INTO mastery_logs (
+                    mastery_log_id,
+                    studentID,
+                    topicID,
+                    categoryID,
+                    mastery_change,
+                    mastery_value
+                ) VALUES (
+                    UUID_TO_BIN(?),
+                    UUID_TO_BIN(?),
+                    UUID_TO_BIN(?),
+                    UUID_TO_BIN(?),
+                    0.0,
+                    0.5
+                )`,
+                masteryLogID,
+                studentID,
+                topicID,
+                taxonomyCategoryID
+            ),
+
+            // Insert initial difficulty log
+            prisma.$executeRawUnsafe(
+                `INSERT INTO student_topic_category_difficulty_log (
+                    studentLogID,
+                    studentID,
+                    topicID,
+                    categoryID,
+                    scaledDifficulty
+                ) VALUES (
+                    UUID_TO_BIN(?),
+                    UUID_TO_BIN(?),
+                    UUID_TO_BIN(?),
+                    UUID_TO_BIN(?),
+                    0.0
+                )`,
+                difficultyLogID,
+                studentID,
+                topicID,
+                taxonomyCategoryID
+            )
+        ]);
+
+        // Return the new knowledge ID
+        return knowledgeID;
+    } catch (error) {
+        console.error('Error in fetchOrCreateKnowledge:', error);
+        throw new Error(
+            `Failed to fetch or create knowledge entry: ${error instanceof Error ? error.message : 'Unknown error'}`
+        );
+    }
 }
 
 /**
@@ -126,7 +199,7 @@ export async function POST(request: NextRequest) {
 		const questionID = uuidv4();
 		const taxonomyCategoryID = await fetchTaxonomyCategory(requestBody.taxonomyCategory);
 		const topicID = await fetchOrCreateTopic(requestBody.topic);
-		const knowledgeID = await fetchOrCreateKnowledge(requestBody.studentID, topicID, taxonomyCategoryID);
+		await fetchOrCreateKnowledge(requestBody.studentID, topicID, taxonomyCategoryID);
 
 		await prisma.$queryRawUnsafe(
 			`INSERT INTO question (questionID, topicID, assignedDifficulty, modifiedDifficulty, question, categoryID, code)
@@ -140,10 +213,24 @@ export async function POST(request: NextRequest) {
 			requestBody.code ?? null
 		);
 
-		return new Response(JSON.stringify({ data: { questionID }, status: 201 }), { status: 201 });
-	} catch (error) {
+		return new Response(JSON.stringify({ data: { questionID }, status: 201 }), { 
+			status: 201,
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+	} catch (error : any) {
 		console.error(error);
 		const statusCode = error instanceof NotFoundError ? 404 : 500;
-		return new Response(JSON.stringify({ data: null, status: statusCode }), { status: statusCode });
+		return new Response(JSON.stringify({ 
+			error: error instanceof NotFoundError ? "Not Found" : "Internal Server Error",
+			message: error.message,
+			status: statusCode 
+		}), { 
+			status: statusCode,
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
 	}
 }
