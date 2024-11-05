@@ -2,137 +2,133 @@ import { NextRequest } from "next/server";
 import { SignJWT } from "jose";
 import { createSecretKey } from "crypto";
 import prisma from "../../../lib/prisma";
-import Student from "@/app/types/student";
 import DOMPurify from "isomorphic-dompurify";
+import { z } from "zod";
+
+const credentialsSchema = z.object({
+  fullname: z.string()
+    .min(1, "Full name is required")
+    .max(100, "Full name is too long")
+    .regex(/^[a-zA-Z\s-']+$/, "Full name contains invalid characters"),
+  username: z.string()
+    .min(1, "Username is required")
+    .max(50, "Username is too long")
+    .regex(/^[a-zA-Z0-9_-]+$/, "Username contains invalid characters")
+});
 
 export async function POST(request: NextRequest) {
+  try {
+    const rawBody = await request.text();
+    let requestBody;
+    
+    try {
+      requestBody = JSON.parse(rawBody);
+    } catch {
+      return createResponse(422, false, null, "Invalid JSON payload");
+    }
 
-	//  NOTE: VALIDATE REQUEST BODY
+    const validationResult = credentialsSchema.safeParse(requestBody);
+    if (!validationResult.success) {
+      return createResponse(
+        422,
+        false,
+        null,
+        `Validation failed: ${validationResult.error.issues[0].message}`
+      );
+    }
 
-	const requestText = await request.text();
-	const requestBody: {
-		fullname: string;
-		username: string;
-	} = JSON.parse(requestText);
+    const { fullname, username } = validationResult.data;
 
-	if (!requestBody.fullname) return new Response(
-		JSON.stringify({
-			status: 422,
-			data: {
-				validated: false,
-				token: null,
-			},
-			message: `Missing student fullname.`
-		})
-	)
+    const sanitizationConfig = { 
+      ALLOWED_TAGS: [], 
+      KEEP_CONTENT: false,
+      ALLOWED_ATTR: [] 
+    };
 
-	if (!requestBody.username) return new Response(
-		JSON.stringify({
-			status: 422,
-			data: {
-				validated: false,
-				token: null,
-			},
-			message: `Missing student username.`
-		})
-	)
+    const pureUsername = DOMPurify.sanitize(username, sanitizationConfig).trim();
+    const pureFullName = DOMPurify.sanitize(fullname, sanitizationConfig).trim();
 
-	//  NOTE:: PURIFY REQUEST BODY
+    if (!pureUsername || pureUsername !== username) {
+      return createResponse(403, false, null, "Malicious text detected in username");
+    }
 
-	const sanitizationConfig = { ALLOWED_TAGS: [], KEEP_CONTENT: false };
-	const pureUsername = DOMPurify.sanitize(
-		requestBody.username,
-		sanitizationConfig
-	);
+    if (!pureFullName || pureFullName !== fullname) {
+      return createResponse(403, false, null, "Malicious text detected in full name");
+    }
 
-	const pureFullName = DOMPurify.sanitize(
-		requestBody.fullname,
-		sanitizationConfig
-	);
+    const student = await prisma.student.findFirst({
+      where: {
+        AND: [
+          { username: pureUsername },
+          { name: pureFullName }
+        ]
+      },
+      select: {
+        studentID: true
+      }
+    });
 
-	if (!pureUsername) return new Response(
-		JSON.stringify({
-			status: 403,
-			data: {
-				validated: false,
-				token: null,
-			},
-			message: "Malicious text detected in student username."
-		})
-	)
+    if (!student) {
+      return createResponse(
+        400, 
+        false, 
+        null, 
+        "No student matching the provided credentials was found"
+      );
+    }
 
+    const secret = createSecretKey(
+      process.env.JWT_SECRET || "", 
+      'utf-8'
+    );
 
-	if (!pureFullName) return new Response(
-		JSON.stringify({
-			status: 403,
-			data: {
-				validate: false,
-				token: null,
-			},
-			message: "Malicious text detected in student fullname."
-		})
-	)
+    if (!process.env.JWT_SECRET) {
+      console.error("JWT_SECRET is not set");
+      return createResponse(500, false, null, "Server configuration error");
+    }
 
-	const student = await prisma.$queryRaw<
-		Student[]
-	>`SELECT BIN_TO_UUID(studentID) AS studentID FROM student WHERE username = ${pureUsername} AND name = ${pureFullName}`;
+    const jws = await new SignJWT({
+      fullname: pureFullName,
+      username: pureUsername
+    })
+      .setProtectedHeader({ alg: 'HS256' })
+      .setIssuedAt()
+      .setSubject('Password Reset Claim')
+      .setExpirationTime('5m')
+      .sign(secret);
 
-	if (student.length !== 0) {
-		if (student.length === 1) {
-			//  NOTE: CREATE JWT TOKEN & SET SESSION
+    if (!jws) {
+      return createResponse(400, false, null, "Token failed to generate");
+    }
 
-			const secret = createSecretKey(process.env.JWT_SECRET || "Wee", 'utf-8');
+    return createResponse(202, true, jws, "User was successfully verified");
 
-			const jws = await new SignJWT(
-				{
-					fullname: pureFullName,
-					username: pureUsername
-				}
-			).setProtectedHeader({alg: `HS256`})
-			.setIssuedAt()
-			.setSubject('Password Reset Claim')
-			.setExpirationTime('5m')
-			.sign(secret);
+  } catch (error) {
+    console.error('Validation error:', error);
+    return createResponse(
+      500, 
+      false, 
+      null, 
+      "An unexpected error occurred while processing your request"
+    );
+  }
+}
 
-			console.log(jws);
-
-			//  NOTE: CHECK IF JWS GENERATED
-
-			if (!jws) return new Response(
-				JSON.stringify({
-					status: 400,
-					data: {
-						validated: false,
-						token: null,
-					},
-					message: "Token failed to generate."
-				})
-			)
-
-			return new Response
-				(
-					JSON.stringify({
-						status: 202,
-						data: {
-							validated: true,
-							token: jws,
-						},
-						message: "User was successfully verified."
-					})
-				)
-		} else {
-			// Make note of system breaking error in database
-		}
-	} else {
-		return new Response(
-			JSON.stringify({
-				status: 400,
-				data: {
-					validated: false,
-					token: null,
-				},
-				message: "No student matching the provided credentials was found."
-			})
-		)
-	}
+// Helper function to create consistent response objects
+function createResponse(
+  status: number,
+  validated: boolean,
+  token: string | null,
+  message: string
+) {
+  return new Response(
+    JSON.stringify({
+      status,
+      data: {
+        validated,
+        token,
+      },
+      message
+    })
+  );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Rubik } from 'next/font/google';
-// import { Providers } from "./providers";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
 	title: "uLearn",
@@ -33,8 +33,7 @@ export default function RootLayout({
 			</head>
 			<body className={`${rubik.className} w-screen h-screen max-h-screen overflow-hidden`}>
 				{children}
-				{/*HANDLES THE TOAST MESSAGE*/}
-				{/* <Toaster /> */}
+				<Toaster />
 			</body>
 		</html>
 	);
