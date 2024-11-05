@@ -282,7 +282,7 @@ function Dashboard() {
 																		100
 																	).toPrecision(
 																		3,
-																	) + " %" : "Done"}	
+																	) + " %" : "Done"}
 																</span>
 															</div>
 														</div>

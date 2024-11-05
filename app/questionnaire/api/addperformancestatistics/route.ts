@@ -22,9 +22,9 @@ interface QuestionStatistics {
 	correctAttemptsFraction: string;
 }
 
-interface MasteryValue {
-	mastery: number;
-}
+// interface MasteryValue {
+// 	mastery: number;
+// }
 
 const MASTERY_CONFIG = {
 	CORRECT_INCREASE: 0.05,
@@ -55,25 +55,25 @@ const calculateNewDifficulty = (
 	return Math.round(rawDifficulty);
 };
 
-async function getCurrentMastery(
-	studentID: string,
-	topicID: string,
-	categoryID: string
-): Promise<number> {
-	const result = await prisma.$queryRaw<MasteryValue[]>`
-    SELECT mastery
-    FROM studentKnowledge
-    WHERE studentID = UUID_TO_BIN(${studentID})
-    AND topicID = UUID_TO_BIN(${topicID})
-    AND categoryID = UUID_TO_BIN(${categoryID})
-  `;
-
-	if (!result.length) {
-		throw new Error("No mastery value found for student");
-	}
-
-	return result[0].mastery;
-}
+// async function getCurrentMastery(
+// 	studentID: string,
+// 	topicID: string,
+// 	categoryID: string
+// ): Promise<number> {
+// 	const result = await prisma.$queryRaw<MasteryValue[]>`
+//     SELECT mastery
+//     FROM studentKnowledge
+//     WHERE studentID = UUID_TO_BIN(${studentID})
+//     AND topicID = UUID_TO_BIN(${topicID})
+//     AND categoryID = UUID_TO_BIN(${categoryID})
+//   `;
+//
+// 	if (!result.length) {
+// 		throw new Error("No mastery value found for student");
+// 	}
+//
+// 	return result[0].mastery;
+// }
 
 async function getQuestionInfo(questionID: string): Promise<QuestionInfo> {
 	const questions = await prisma.$queryRaw<QuestionInfo[]>`

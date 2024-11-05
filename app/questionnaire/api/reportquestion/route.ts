@@ -33,6 +33,7 @@ export async function POST(request: NextRequest) {
 			}
 		});
 	} catch (error) {
+		console.log(error);
 		return new Response(JSON.stringify({ data: null, status: 500 }), {
 			status: 500,
 			headers: {
