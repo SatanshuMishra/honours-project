@@ -6,53 +6,54 @@ import RegisterSVG from "../../public/unDraw_Register.svg";
 import Input from "../components/formElements/Input";
 import ULearnLogo from "../components/uLearnLogo/ULearnLogo";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
+import { toFormikValidationSchema } from "zod-formik-adapter";
+import { ToastAction } from "@/components/ui/toast";
 
 type AuthProps = {
 	setSignIn: (arg0: boolean) => void;
 	displaySignIn: boolean;
 };
 
+const registerSchema = z.object({
+	name: z.string().min(1, "Full name is required"),
+	username: z.string().min(1, "Username is required"),
+	password: z.string()
+		.min(8, "Password must be at least 8 characters"),
+	confpassword: z.string()
+		.min(1, "Please confirm your password"),
+}).refine((data) => data.password === data.confpassword, {
+	message: "Passwords must match",
+	path: ["confpassword"],
+});
+
+type RegisterFormValues = z.infer<typeof registerSchema>;
+
 function SignUp({ setSignIn, displaySignIn }: AuthProps) {
+	const { toast } = useToast();
 	const [isMatching, setIsMatching] = useState(false);
 
-	const validationSchema = Yup.object().shape({
-		password: Yup.string()
-			.min(8, "Password must be at least 8 characters")
-			.required("Requied"),
-		confpassword: Yup.string()
-			.oneOf([Yup.ref("password"), null], "Passwords must match")
-			.required("Required"),
-	});
-
-	const formik = useFormik({
+	const formik = useFormik<RegisterFormValues>({
 		initialValues: {
 			name: "",
 			username: "",
 			password: "",
 			confpassword: "",
 		},
-		validationSchema: validationSchema,
+		validationSchema: toFormikValidationSchema(registerSchema),
 		onSubmit: (values) => {
 			handleSignUp(values);
 		},
 	});
 
 	useEffect(() => {
-		if (formik.isValid) {
-			// Passwords match and other validation passes
-			setIsMatching(true);
-		} else {
-			setIsMatching(false);
+		if (formik.values.password && formik.values.confpassword) {
+			setIsMatching(formik.values.password === formik.values.confpassword);
 		}
-	}, [formik.isValid, formik.values.password, formik.values.confPassword]);
+	}, [formik.values.password, formik.values.confpassword]);
 
-	const handleSignUp = async (values: {
-		name: string;
-		username: string;
-		password: string;
-		confpassword: string;
-	}) => {
+	const handleSignUp = async (values: RegisterFormValues) => {
 		const response = await fetch(`./user-auth/api/register`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -66,36 +67,42 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 			pgErrorObject: any | null;
 		} = JSON.parse(await response.text());
 
-		console.info("Sign-Up Respnse: ", res);
+		console.info("Sign-Up Response: ", res);
 
 		if (res.status === 201) {
-			console.debug("Entered Router Container.");
-			// toast({
-			// 	title: "Sign-Up Succesful",
-			// 	description: "You were signed up successfully! Please login to access the quiz.",
-			// 	variant: "default",
-			// })
+			toast({
+				title: "Sign-Up Successful",
+				description: "You were signed up successfully! Please login to access the quiz.",
+				action: <ToastAction altText="Try again">Try again</ToastAction>
+			});
 			setSignIn(true);
 		} else {
 			if (res.status === 422) {
-				// toast({
-				// 	title: "Security Risks Detected",
-				// 	description: "Possible security risks detected in your inputs for name, username or password. Please review your inputs and try again!",
-				// 	variant: "destructive",
-				// });
+				toast({
+					title: "Security Risks Detected",
+					description: "Possible security risks detected in your inputs for name, username or password. Please review your inputs and try again!",
+					variant: "destructive",
+					action: <ToastAction altText="Try again">Try again</ToastAction>
+				});
 			}
-			if (res.status === 500) {
-				if (
-					res.pgErrorObject.name === "PrismaClientKnownRequestError"
-				) {
-					// toast({
-					// 	title: "Sign-Up Failed",
-					// 	description: "You are using the same student code as another student. Please use an unique code.",
-					// 	variant: "destructive",
-					// });
-				}
+			if (res.status === 500 && res.pgErrorObject?.name === "PrismaClientKnownRequestError") {
+				toast({
+					title: "Sign-Up Failed",
+					description: "You are using the same student code as another student. Please use a unique code.",
+					variant: "destructive",
+					action: <ToastAction altText="Try again">Try again</ToastAction>
+				});
 			}
 		}
+	};
+
+	const getPasswordFieldStyle = (fieldName: "password" | "confpassword") => {
+		if (formik.touched[fieldName] && formik.touched.confpassword) {
+			return isMatching
+				? "border-teal-600 focus:!border-teal-600"
+				: "border-pink-600 focus:!border-pink-600";
+		}
+		return "focus:border-black";
 	};
 
 	return (
@@ -110,15 +117,13 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 							<h1 className="font-bold text-[40px] my-4 text-black">
 								Register
 							</h1>
-							<form
-								className="w-full"
-								onSubmit={formik.handleSubmit}
-							>
+							<form className="w-full" onSubmit={formik.handleSubmit}>
 								<Input
 									name="Full Name"
 									htmlFor="name"
 									onChangeFunction={formik.handleChange}
 									handleOnBlur={formik.handleBlur}
+									error={formik.touched.name && formik.errors.name}
 								/>
 								<Input
 									name="Username"
@@ -126,6 +131,7 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 									onChangeFunction={formik.handleChange}
 									handleOnBlur={formik.handleBlur}
 									description="This username should have been pre-assigned to you by your instructor. No other usernames will be accepted."
+									error={formik.touched.username && formik.errors.username}
 								/>
 								<Input
 									name="Password"
@@ -134,21 +140,14 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 									onChangeFunction={formik.handleChange}
 									handleOnBlur={formik.handleBlur}
 									description={
-										formik.touched.password &&
-										formik.touched.confpassword
+										formik.touched.password && formik.touched.confpassword
 											? isMatching
 												? `Passwords match!`
 												: `Passwords do not match.`
 											: ``
 									}
-									additionalCSS={
-										formik.touched.password &&
-										formik.touched.confpassword
-											? isMatching
-												? `border-teal-600 focus:!border-teal-600`
-												: `border-pink-600 focus:!border-pink-600`
-											: `focus:border-black`
-									}
+									additionalCSS={getPasswordFieldStyle("password")}
+									error={formik.touched.password && formik.errors.password}
 								/>
 								<Input
 									name="Confirm Password"
@@ -156,18 +155,13 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 									htmlFor="confpassword"
 									onChangeFunction={formik.handleChange}
 									handleOnBlur={formik.handleBlur}
-									additionalCSS={
-										formik.touched.password &&
-										formik.touched.confpassword
-											? isMatching
-												? `border-teal-600 focus:border-teal-600`
-												: `border-pink-600 focus:border-pink-600`
-											: ``
-									}
+									additionalCSS={getPasswordFieldStyle("confpassword")}
+									error={formik.touched.confpassword && formik.errors.confpassword}
 								/>
 								<button
 									className="w-full px-4 py-2 my-4 font-semibold text-xl text-white bg-blue-600 hover:bg-blue-700 rounded-lg"
-									type="submit" style={{background: "#165EF0"}}
+									type="submit"
+									style={{ background: "#165EF0" }}
 								>
 									Start your Learning Journey
 								</button>
