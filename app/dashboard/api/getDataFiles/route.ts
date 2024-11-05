@@ -9,6 +9,7 @@ export async function GET() {
 		const tsFiles = files.filter(file => file.endsWith('.ts'));
 		return NextResponse.json({ files: tsFiles });
 	} catch (error) {
+		console.log(error);
 		return NextResponse.json(
 			{ error: 'Failed to read directory' },
 			{ status: 500 }

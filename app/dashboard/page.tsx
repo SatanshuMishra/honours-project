@@ -8,7 +8,6 @@ import QuestionTopic from "../types/questionTopic";
 
 // CUSTOM SCRIPT IMPORTS
 import verifyJWT from "../scripts/verifyJWT";
-import parseJSON from "../scripts/parseJSON";
 import signOut from "../scripts/signOut";
 
 // IMAGE IMPORTS

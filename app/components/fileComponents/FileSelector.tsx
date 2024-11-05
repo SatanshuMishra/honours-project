@@ -18,6 +18,7 @@ const FileSelector = ({ onClose }: { onClose: () => void }) => {
       const data = await response.json();
       setFiles(data.files);
     } catch (error) {
+			console.log(error);
       toast({
         variant: "destructive",
         title: "Error",
