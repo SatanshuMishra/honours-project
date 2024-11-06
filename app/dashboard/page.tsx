@@ -19,7 +19,7 @@ import Recursion from "@/public/Recursion.svg";
 import ULearnLogo from "../components/uLearnLogo/ULearnLogo";
 import CircularProgressBar from "@/app/components/progressBar/CircularProgressBar";
 import "remixicon/fonts/remixicon.css";
-import PerfomanceChart from "../components/performanceChart/PerformanceChart";
+// import PerfomanceChart from "../components/performanceChart/PerformanceChart";
 import { Drawer } from "../components/drawer/Drawer";
 import FileSelector from "../components/fileComponents/FileSelector";
 import AdminToolbar from "../components/administratorComponents/AdminToolbar";
