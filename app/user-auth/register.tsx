@@ -73,7 +73,7 @@ function SignUp({ setSignIn, displaySignIn }: AuthProps) {
 			toast({
 				title: "Sign-Up Successful",
 				description: "You were signed up successfully! Please login to access the quiz.",
-				action: <ToastAction altText="Try again">Try again</ToastAction>
+				action: <ToastAction altText="Try again">Ok</ToastAction>
 			});
 			setSignIn(true);
 		} else {

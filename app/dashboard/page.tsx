@@ -23,6 +23,7 @@ import PerfomanceChart from "../components/performanceChart/PerformanceChart";
 import { Drawer } from "../components/drawer/Drawer";
 import FileSelector from "../components/fileComponents/FileSelector";
 import AdminToolbar from "../components/administratorComponents/AdminToolbar";
+import Resources from "../components/informationCompoents/Resources";
 
 const LoadingComponent = dynamic(
 	() => import("@/app/components/loading/loading"),
@@ -274,14 +275,14 @@ function Dashboard() {
 																			topic
 																				.quizzesCompleted,
 																		) /
-																			1) *
+																			process.env.NEXT_PUBLIC_BONUS_REQUIREMENT) *
 																		100
 																	) < 100 ? (
 																		(parseFloat(
 																			topic
 																				.quizzesCompleted,
 																		) /
-																			4) *
+																			process.env.NEXT_PUBLIC_BONUS_REQUIREMENT) *
 																		100
 																	).toPrecision(
 																		3,
@@ -342,36 +343,6 @@ function Dashboard() {
 																</span>
 															</div>
 															<div className="py-2 flex flex-row justify-start items-start">
-																<button
-																	className="shadow border border-[#db1640] text-black hover:bg-[#db1640] hover:text-white py-2 px-4 rounded-lg mr-2 transition-all ease-in-out duration-300 flex flex-row justify-between items-center flex-nowrap"
-																	style={{
-																		margin:
-																			"0.25rem 0.5rem 0.5rem 0",
-																	}}
-																>
-																	<span
-																		style={{
-																			display:
-																				windowWidth >
-																					580
-																					? "inline-block"
-																					: "none",
-																		}}
-																	>
-																		Feedback
-																	</span>{" "}
-																	<i
-																		className="ri-alarm-warning-fill"
-																		style={{
-																			paddingLeft:
-																				windowWidth >
-																					580
-																					? "0.5rem"
-																					: "0rem",
-																		}}
-																	>
-																	</i>
-																</button>
 																<a
 																	href={`/questionnaire/${topic.topicID}`}
 																>
@@ -495,13 +466,17 @@ function Dashboard() {
 												<h1 className="text-3xl">
 													Performance Trends
 												</h1>
-												<PerfomanceChart />
+												{/* <PerfomanceChart /> */}
+												<p className="text-xl font-light">Coming Soon</p>
 											</div>
 										)}
 										{activeTab === 1 && (
-											<h1 className="text-3xl">
-												Leaderboard
-											</h1>
+											<div className="w-full">
+												<h1 className="text-3xl">
+													Leaderboard
+												</h1>
+												<p className="text-xl font-light">Coming Soon</p>
+											</div>
 										)}
 										{activeTab === 2 && (
 											<div className="w-full overflow-scroll">
@@ -513,65 +488,7 @@ function Dashboard() {
 												>
 													Resources
 												</h1>
-												<div
-													className="flex flex-col"
-													style={{ gap: "1rem" }}
-												>
-													<a
-														className="block p-10 rounded-lg hover:cursor-pointer hover:bg-[#F7F7F7] transition-all duration-300 ease-in-out"
-														href="https://ubc.ca1.qualtrics.com/jfe/form/SV_0iatNPaGA9vrtNs"
-													>
-														<h2 className="text-xl font-normal">
-															Learning Tool
-															Consent Form
-														</h2>
-														<p className="text-xl font-light">
-															If you want to
-															participate in the
-															study, please
-															carefully read and
-															fill out this
-															consent form.
-														</p>
-													</a>
-													<a
-														className="block p-10 rounded-lg hover:cursor-pointer hover:bg-[#F7F7F7] transition-all duration-300 ease-in-out"
-														href="https://ubc.ca1.qualtrics.com/jfe/form/SV_8dJXEAiEY8taLK6"
-													>
-														<h2 className="text-xl font-normal">
-															Questionnaire
-															Consent Form
-														</h2>
-														<p className="text-xl font-light">
-															If consented to
-															participating in the
-															study, please
-															carefully read and
-															fill out this work
-															to answer the
-															questionnaire about
-															your experience
-															using the tool.
-														</p>
-													</a>
-													<a
-														className="block p-10 rounded-lg hover:cursor-pointer hover:bg-[#F7F7F7] transition-all duration-300 ease-in-out"
-														href="https://ubc.ca1.qualtrics.com/jfe/form/SV_9GH46OEAUicbf4a"
-													>
-														<h2 className="text-xl font-normal">
-															Questionnaire
-														</h2>
-														<p className="text-xl font-light">
-															Fill out the
-															following
-															questionnaire to
-															tell me about your
-															experience using the
-															tool and it’s
-															effectiveness.
-														</p>
-													</a>
-												</div>
+												<Resources />
 											</div>
 										)}
 									</div>
