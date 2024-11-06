@@ -2,35 +2,34 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import "remixicon/fonts/remixicon.css";
 import QuestionTopic from "../types/questionTopic";
-import { useToast } from "@/components/ui/use-toast";
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 // CUSTOM SCRIPT IMPORTS
-import parseJSON from "../scripts/parseJSON";
 import verifyJWT from "../scripts/verifyJWT";
 import signOut from "../scripts/signOut";
 
 // IMAGE IMPORTS
 import Recursion from "@/public/Recursion.svg";
-import IOSvg from "@/public/IO.svg";
-import ErrorHandling from "@/public/ErrorHandle.svg";
-import SVGTopic from "@/public/SVG-Topic.svg";
-import ListSvg from "@/public/Lists.svg";
+// import IOSvg from "@/public/IO.svg";
+// import ErrorHandling from "@/public/ErrorHandle.svg";
+// import SVGTopic from "@/public/SVG-Topic.svg";
+// import ListSvg from "@/public/Lists.svg";
+import ULearnLogo from "../components/uLearnLogo/ULearnLogo";
+import CircularProgressBar from "@/app/components/progressBar/CircularProgressBar";
+import "remixicon/fonts/remixicon.css";
+import PerfomanceChart from "../components/performanceChart/PerformanceChart";
+import { Drawer } from "../components/drawer/Drawer";
+import FileSelector from "../components/fileComponents/FileSelector";
+import AdminToolbar from "../components/administratorComponents/AdminToolbar";
+import Resources from "../components/informationCompoents/Resources";
 
 const LoadingComponent = dynamic(
 	() => import("@/app/components/loading/loading"),
 	{
 		ssr: false,
-	}
+	},
 );
 
 function Dashboard() {
@@ -38,6 +37,7 @@ function Dashboard() {
 	const [studentID, setStudentID] = useState<any>();
 	const [studentName, setStudentName] = useState("");
 	const [studentUsername, setStudentUsername] = useState("");
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [topics, setTopics] = useState<
 		| {
 			topicID: QuestionTopic["topicID"];
@@ -47,17 +47,23 @@ function Dashboard() {
 		}[]
 		| null
 	>(null);
-	const { toast } = useToast();
+	const [activeTab, setActiveTab] = useState<number>(0);
+	const [windowWidth, setWindowWidth] = useState<number>();
 
-	// TEMPORARY TEST VARIABLES
-	const [_, setStatistics] = useState<any[]>();
+	useEffect(() => setWindowWidth(window.innerWidth), []);
+	useEffect(() => console.log(windowWidth), [windowWidth]);
+	useEffect(() => {
+		const handleResize = () => {
+			setWindowWidth(window.innerWidth);
+		};
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, []);
 
 	useEffect(() => {
-
 		//  INFORMATION: VALIDATE TOKEN AND SET PARSED STUDENT ID
 
 		verifyJWT(true).then((response) => {
-
 			//  INFORMATION: IF JWT IS NOT VALID, RETURN USER TO AUTH
 
 			if (response === false) {
@@ -78,7 +84,7 @@ function Dashboard() {
 
 				//  DEBUG:
 				console.info(
-					`VERIFIED. LOGGED IN AS ${res.name?.toUpperCase()}.`
+					`VERIFIED. LOGGED IN AS ${res.name?.toUpperCase()}.`,
 				);
 
 				setStudentID(res.studentID);
@@ -92,10 +98,10 @@ function Dashboard() {
 		});
 	}, []);
 
-
 	/**
-	* This function processes the data for the signed-in student and given topicID. Used within the Developer Bar.
-	*/
+	 * This function processes the data for the signed-in student and given topicID. Used within the Developer Bar.
+	 */
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async function processData() {
 		try {
 			const res = await fetch("./questionnaire/api/processResults", {
@@ -105,28 +111,29 @@ function Dashboard() {
 				},
 				body: JSON.stringify({
 					studentID: studentID,
-					topicID: "e990eeba-5d43-4251-a2ce-d1c43c294048",
+					topicID: "E8984B2CFC1A4805ACE7C34A6E4EF33A",
 				}),
 				cache: "no-cache",
 				credentials: "include",
 			});
-			let resBody: {
+			const resBody: {
 				data: any;
 				status: number;
 			} = JSON.parse(await res.text());
-			if (resBody.status === 400)
+			if (resBody.status === 400) {
 				throw new Error(
-					"An error occured during the pre-processing and fetching of statistics."
+					"An error occured during the pre-processing and fetching of statistics.",
 				);
-			setStatistics(resBody.data);
+			}
+			// setStatistics(resBody.data);
 		} catch (error) {
-			throw new Error("IRT model failed to process results.");
+			throw new Error(`IRT model failed to process results. ${error}`);
 		}
 	}
 
 	/**
-	* This function fetches the topics displayed on the Dashboard.
-	*/
+	 * This function fetches the topics displayed on the Dashboard.
+	 */
 
 	async function fetchTopics() {
 		try {
@@ -141,7 +148,7 @@ function Dashboard() {
 				cache: "no-cache",
 				credentials: "include",
 			});
-			let responseBody: {
+			const responseBody: {
 				data: {
 					topicID: QuestionTopic["topicID"];
 					name: QuestionTopic["name"];
@@ -152,17 +159,19 @@ function Dashboard() {
 				message: string;
 				pgErrorObject: any | null;
 			} = JSON.parse(await response.text());
-			if (responseBody.status === 400)
+			if (responseBody.status === 400) {
 				throw new Error(
-					"An error occured during the pre-processing and fetching of statistics."
+					"An error occured during the pre-processing and fetching of statistics.",
 				);
+			}
 			setTopics(responseBody.data);
 		} catch (error: any) {
-			toast({
-				title: "Error",
-				description: "There was an error fetching the topics.",
-				variant: "destructive",
-			});
+			console.log(error);
+			// toast({
+			// 	title: "Error",
+			// 	description: "There was an error fetching the topics.",
+			// 	variant: "destructive",
+			// });
 		}
 	}
 
@@ -173,8 +182,8 @@ function Dashboard() {
 	}, [studentID]);
 
 	/**
-	* This function handles signing the user out of their account. Removed JWT token and re-directes to user-auth. 
-	*/
+	 * This function handles signing the user out of their account. Removed JWT token and re-directes to user-auth.
+	 */
 	async function handleSignOut(): Promise<void> {
 		await signOut();
 		Cookies.remove("token");
@@ -182,179 +191,318 @@ function Dashboard() {
 	}
 
 	return (
-		<section className="w-full h-full bg-[#f0f4f9]">
-			{studentID && studentName && studentUsername ? (
-				<>
-					<section className="p-10">
-						<section className="flex flex-row justify-between w-full mr-4 sticky">
-							<div>
-								<a
-									href="https://ubc.ca1.qualtrics.com/jfe/form/SV_0iatNPaGA9vrtNs"
-									target="_blank"
-								>
-									<button className="text-lg p-2 mr-2 text-black rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-black transition-all duration-300 ease-in-out  font-jetbrains-mono">
-										Learning Tool Consent Form
-									</button>
-								</a>
-								<a
-									href="https://ubc.ca1.qualtrics.com/jfe/form/SV_8dJXEAiEY8taLK6"
-									target="_blank"
-								>
-									<button className="text-lg p-2 mr-2 text-black rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-black transition-all duration-300 ease-in-out font-jetbrains-mono">
-										Questionnaire Consent Form
-									</button>
-								</a>
-								<a
-									href="https://ubc.ca1.qualtrics.com/jfe/form/SV_9GH46OEAUicbf4a"
-									target="_blank"
-								>
-									<button className="text-lg p-2 mr-2 text-black rounded-[10px] w-fit font-medium border-[2px] border-black transition-all duration-300 ease-in-out font-jetbrains-mono">
-										Questionnaire
-									</button>
-								</a>
-							</div>
+		<section className="w-full h-full bg-white">
+			{studentID && studentName && studentUsername
+				? (
+					<main className="h-full flex flex-col w-full p-6 overflow-hidden">
+						<section
+							className="h-fit w-full flex flex-row justify-between"
+							style={{ paddingBottom: "1rem" }}
+						>
+							<ULearnLogo />
 							<div>
 								<button
-									className="text-lg p-2 mr-2 text-[#00a65e] rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-[#00a65e] hover:bg-[#00a65e] transition-all duration-300 ease-in-out hover:text-white font-jetbrains-mono"
+									className="shadow border border-[#db1640] text-black hover:bg-[#db1640] hover:text-white py-2 px-4 rounded-lg mr-2 transition-all ease-in-out duration-300 flex flex-row justify-between items-center flex-nowrap"
+									style={{
+										margin: "0.25rem 0.5rem 0 0",
+									}}
 									onClick={() => handleSignOut()}
 								>
 									Sign Out
 								</button>
-								<a
-									href="https://forms.gle/PCn5L91D3ihFBALw8"
-									target="_blank"
-								>
-									<button className="text-lg p-2 mr-2 text-[#de2f4f] rounded-[10px] w-fit font-medium bg-transparent border-[2px] border-[#de2f4f] hover:bg-[#de2f4f] transition-all duration-300 ease-in-out hover:text-white font-jetbrains-mono">
-										Report an Issue
-									</button>
-								</a>
 							</div>
 						</section>
-						<div>
-							<h1 className="font-bold text-[40px] font-jetbrains-mono">
-								Welcome,
-								<br />
-								<span className="font-normal font-jetbrains-mono">
-									{studentName}
-								</span>
-							</h1>
-						</div>
-					</section>
-					<section className="m-10 p-2 flex flex-row flex-wrap">
-						<div></div>
-						{topics &&
-							topics.map((topic, _) => {
-								return (
-									<a
-										key={_}
-										href={`/questionnaire/${topic.topicID}`}
-										className="block w-fit mr-2"
-									>
-										<div className="bg-white shadow-lg drop-shadow-md hover:shadow-2xl transition-all duration-300 w-fit p-8 rounded-xl flex flex-col justify-between items-center cursor-pointer">
-											<Image
-												src={
-													topic.name === "Recursion"
-														? Recursion
-														: topic.name === "I/O"
-															? IOSvg
-															: topic.name ===
-																"Error Handling"
-																? ErrorHandling
-																: ListSvg
-												}
-												alt="Recursion Icon"
-												className="w-[146px] h-[146px] my-2"
-												priority
-											/>
-											<h4 className="font-light my-2 text-xl font-jetbrains-mono">
-												{topic.name}
-											</h4>
-											<div className="flex flex-row items-center justify-evenly w-full">
-												<TooltipProvider>
-													<Tooltip
-														delayDuration={100}
+						<section className="w-full flex-1 flex flex-row justify-between overflow-hidden">
+							<section
+								className="w-fit h-full p-10"
+								style={{
+									width: windowWidth > 1050
+										? "fit-content"
+										: "100%",
+								}}
+							>
+								<div
+									className="w-full"
+									style={{
+										paddingTop: "0px",
+										paddingBottom: "1rem",
+									}}
+								>
+									<h1 className="font-semibold text-[40px] font-jetbrains-mono text-black">
+										Welcome,&nbsp;
+										<br />
+										<span className="font-light font-jetbrains-mono text-black">
+											{studentName}&nbsp;👋
+										</span>
+									</h1>
+									<p className="text-xl font-normal font-jetbrains-mono text-black">
+										Nice to have you back! Time to do some
+										lessons.
+									</p>
+								</div>
+								<div className="w-full py-4">
+									<h2 className="text-3xl text-black font-medium">
+										Topic Quizzes
+									</h2>
+									<section className="w-full h-full py-2 flex flex-col overflow-y-scroll no-scrollbar" style={{
+										gap: "1.25rem", minWidth: windowWidth > 1050 ? "35rem" : "20rem"
+									}}>
+										{topics &&
+											topics.map((topic, _) => {
+												return (
+													<div
+														className="h-full w-full flex flex-row items-center shadow-lg px-4 py-2 rounded-lg border border-black bg-white"
+														key={_}
 													>
-														<TooltipTrigger>
-															<i className="ri-question-fill text-xl text-black"></i>{" "}
-															{
-																topic.quizzesCompleted
-															}
-														</TooltipTrigger>
-														<TooltipContent>
-															<p>
-																Number of
-																Quizzes
-																Completed
-															</p>
-														</TooltipContent>
-													</Tooltip>
-												</TooltipProvider>
-												{topic.bonusReq == "1" && (
-													<TooltipProvider>
-														<Tooltip
-															delayDuration={100}
-														>
-															<TooltipTrigger>
-																<i className="ri-checkbox-circle-fill text-xl text-[#0066ff]"></i>
-															</TooltipTrigger>
-															<TooltipContent>
-																<p className="text-center">
-																	You have
-																	completed
-																	the bonus
-																	requirements
-																	<br /> for
-																	this topic.
-																</p>
-															</TooltipContent>
-														</Tooltip>
-													</TooltipProvider>
-												)}
+														<div className="h-full w-fit p-2">
+															<div className="h-full flex flex-col justify-center items-center text-xl font-medium text-[#16db89]">
+																<CircularProgressBar
+																	percentage={(
+																		(parseFloat(
+																			topic
+																				.quizzesCompleted,
+																		) /
+																			4) *
+																		100
+																	).toPrecision(
+																		3,
+																	)}
+																	image={Recursion}
+																/>
+																<span className="py-2">
+																	{(
+																		(parseFloat(
+																			topic
+																				.quizzesCompleted,
+																		) /
+																			process.env.NEXT_PUBLIC_BONUS_REQUIREMENT) *
+																		100
+																	) < 100 ? (
+																		(parseFloat(
+																			topic
+																				.quizzesCompleted,
+																		) /
+																			process.env.NEXT_PUBLIC_BONUS_REQUIREMENT) *
+																		100
+																	).toPrecision(
+																		3,
+																	) + " %" : "Done"}
+																</span>
+															</div>
+														</div>
+														<div className="p-2 flex-1">
+															<h4
+																className="text-black font-semibold"
+																style={{
+																	fontSize:
+																		window
+																			.innerWidth >
+																			1050
+																			? "1.6rem"
+																			: "1.4rem",
+																	paddingBottom:
+																		"0.5rem",
+																}}
+															>
+																{topic.name}
+															</h4>
+															<div>
+																<span className="text-black">
+																	<i className="ri-book-2-fill text-black pr-2">
+																	</i>
+																	{topic
+																		.quizzesCompleted}
+																	{" "}
+																	<span
+																		style={{
+																			display:
+																				windowWidth >
+																					580
+																					? "inline-block"
+																					: "none",
+																		}}
+																	>
+																		Lessons
+																	</span>
+																</span>
+																<span className="text-black">
+																	<i className="ri-brain-fill text-black px-2">
+																	</i>
+																	?{" "}
+																	<span
+																		style={{
+																			display:
+																				windowWidth >
+																					580
+																					? "inline-block"
+																					: "none",
+																		}}
+																	>
+																		Difficulty
+																	</span>
+																</span>
+															</div>
+															<div className="py-2 flex flex-row justify-start items-start">
+																<a
+																	href={`/questionnaire/${topic.topicID}`}
+																>
+																	<button
+																		className="shadow border border-[#16db89] text-white bg-[#16db89] hover:bg-[#14c46c] py-2 px-4 rounded-lg ml-[0.5rem] transition-all ease-in-out duration-300 flex flex-row justify-center items-center flex-nowrap"
+																		style={{
+																			margin:
+																				"0.25rem 0.5rem 0.5rem 0",
+																		}}
+																	>
+																		<span
+																			style={{
+																				display:
+																					windowWidth >
+																						580
+																						? "inline-block"
+																						: "none",
+																			}}
+																		>
+																			Continue
+																		</span>
+																		<i
+																			className="ri-play-large-fill"
+																			style={{
+																				paddingLeft:
+																					windowWidth >
+																						580
+																						? "0.5rem"
+																						: "0rem",
+																			}}
+																		>
+																		</i>
+																	</button>
+																</a>
+															</div>
+														</div>
+													</div>
+												);
+											})}
+									</section>
+								</div>
+							</section>
+							{/*Information Plane*/}
+							<section
+								className="overflow-hidden w-full h-full"
+								style={{
+									display: windowWidth > 1050
+										? "inline-block"
+										: "none",
+								}}
+							>
+								<div
+									className="w-full h-full flex flex-col rounded-lg p-6"
+									style={{ background: "#F1F1F7" }}
+								>
+									<div
+										className="p-4 bg-white rounded-lg flex flex-row w-full"
+										style={{ marginBottom: "1rem" }}
+									>
+										<span
+											className="flex flex-row justify-center items-center text-white p-2 rounded-lg flex-1 hover:cursor-pointer"
+											style={{
+												margin: "0 0.25rem 0 0.25rem",
+												flex: activeTab === 0
+													? "1 1 0%"
+													: "0 0 0%",
+												background: activeTab === 0
+													? "#2563eb"
+													: "#FFFFFF",
+												color: activeTab === 0
+													? "#FFFFFF"
+													: "#000000",
+												transformOrigin: "left",
+											}}
+											onClick={() => setActiveTab(0)}
+										>
+											Activity
+										</span>
+										<span
+											className="flex flex-row justify-center items-center text-black p-2 hover:cursor-pointer rounded-lg hover:bg-[#db1640] hover:text-white transition-all duration-300"
+											style={{
+												margin: "0 0.25rem 0 0.25rem",
+												flex: activeTab === 1
+													? "1 1 0%"
+													: "0 0 0%",
+												background: activeTab === 1
+													? "#db1640"
+													: "#FFFFFF",
+												color: activeTab === 1
+													? "#FFFFFF"
+													: "#000000",
+												transformOrigin: "center",
+											}}
+											onClick={() => setActiveTab(1)}
+										>
+											Leaderboard
+										</span>
+										<span
+											className="hover:bg-[#14c46c] hover:text-white transition-all duration-300 flex flex-row justify-center items-center text-black p-2 hover:cursor-pointer rounded-lg"
+											style={{
+												margin: "0 0.25rem 0 0.25rem",
+												flex: activeTab === 2
+													? "1 1 0%"
+													: "0 0 0%",
+												background: activeTab === 2
+													? "#14c46c"
+													: "#FFFFFF",
+												color: activeTab === 2
+													? "#FFFFFF"
+													: "#000000",
+												transformOrigin: "right",
+											}}
+											onClick={() => setActiveTab(2)}
+										>
+											Resources
+										</span>
+									</div>
+									<div className="bg-white rounded-lg flex-1 flex flex-row justify-start items-start text-black p-10 overflow-y-scroll">
+										{activeTab === 0 && (
+											<div className="w-full">
+												<h1 className="text-3xl">
+													Performance Trends
+												</h1>
+												{/* <PerfomanceChart /> */}
+												<p className="text-xl font-light">Coming Soon</p>
 											</div>
-										</div>
-									</a>
-								);
-							})}
-						{!topics && (
-							<div className="flex flex-row w-full justify-center items-center">
-								<Image
-									src={SVGTopic}
-									alt="Recursion Icon"
-									className="w-[400px] h-[400px] my-2"
-									priority
-								/>
-							</div>
+										)}
+										{activeTab === 1 && (
+											<div className="w-full">
+												<h1 className="text-3xl">
+													Leaderboard
+												</h1>
+												<p className="text-xl font-light">Coming Soon</p>
+											</div>
+										)}
+										{activeTab === 2 && (
+											<div className="w-full overflow-scroll">
+												<h1
+													className="text-3xl"
+													style={{
+														paddingBottom: "1rem",
+													}}
+												>
+													Resources
+												</h1>
+												<Resources />
+											</div>
+										)}
+									</div>
+								</div>
+							</section>
+						</section>
+						{/*  NOTE: THIS COMPONENT IS THE DEVELOPER TOOL BAR. IT ALLOWS YOU TO INSERT NEW QUESTIONS FROM JSON. CHANGE studentUsername === CONDITION TO MATCH YOUR USERNAME*/}
+						{studentUsername === "SatanshuMishra" && (
+							<AdminToolbar toggleDrawer={() => setIsDrawerOpen(true)} />
 						)}
-					</section>
-					{/*  NOTE: THIS COMPONENT IS THE DEVELOPER TOOL BAR. IT ALLOWS YOU TO INSERT NEW QUESTIONS FROM JSON. CHANGE studentUsername === CONDITION TO MATCH YOUR USERNAME*/}
-					{studentUsername === "SystemAdmin" && (
-						<div className="rounded-full flex flex-row justify-between items-center absolute left-1/2 bottom-10 bg-black w-fit -translate-x-1/2 py-1 px-2 translate-y-0.5 hover:-translate-y-0.5 transition-all duration-300 ease-in-out">
-							<p className="bg-gradient-to-r from-blue-400 to-white text-transparent bg-clip-text text-lg font-medium mx-2 select-none font-jetbrains-mono">
-								Developer Tools
-							</p>
-							<div className="flex-1 flex flex-row justify-center mx-1">
-								<button
-									className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800 hover:cursor-pointer"
-									onClick={() => parseJSON()}
-								>
-									<i className="ri-database-2-fill"></i>
-								</button>
-								<button
-									className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800 hover:cursor-pointer"
-									onClick={() => processData()}
-								>
-									<i className="ri-bard-fill"></i>
-								</button>
-								<button className="text-lg w-10 h-10 text-white rounded-full font-normal bg-black hover:bg-gray-800 hover:cursor-not-allowed">
-									<i className="ri-graduation-cap-fill"></i>
-								</button>
-							</div>
-						</div>
-					)}
-				</>
-			) : (
-				<LoadingComponent />
-			)}
+					</main>
+				)
+				: <LoadingComponent />}
+			<Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}><FileSelector onClose={() => setIsDrawerOpen(false)} /></Drawer>
 		</section>
 	);
 }

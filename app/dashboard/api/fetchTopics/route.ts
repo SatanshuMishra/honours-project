@@ -12,6 +12,8 @@ export async function POST(request: NextRequest) {
 		} = JSON.parse(requestText);
 
 		//  NOTE: CUSTOM INTERFACE TO ALLOW CONVERSION OF BIGINT TO STRING IN THE FORM OF JSON.stringify().
+		
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		interface BigInt {
 			toJSON: () => string;
 		}
@@ -20,7 +22,7 @@ export async function POST(request: NextRequest) {
 			return this.toString();
 		};
 
-		let topics: {
+		const topics: {
 			topicID: QuestionTopic["topicID"];
 			name: QuestionTopic["name"];
 			quizzesCompleted: string;
@@ -29,8 +31,8 @@ export async function POST(request: NextRequest) {
 SELECT 
     BIN_TO_UUID(qt.topicID) AS topicID,
     qt.name AS name,
-    FLOOR(COALESCE(COUNT(st.statID), 0) / 20) AS quizzesCompleted,
-    CASE WHEN FLOOR(COALESCE(COUNT(st.statID), 0) / 20) >= 4 THEN TRUE ELSE FALSE END AS bonusReq
+    FLOOR(COALESCE(COUNT(st.statID), 0) / ${process.env.NEXT_PUBLIC_NUMBER_OF_QUESTIONS}) AS quizzesCompleted,
+    CASE WHEN FLOOR(COALESCE(COUNT(st.statID), 0) / ${process.env.NEXT_PUBLIC_BONUS_REQUIREMENT}) >= ${process.env.NEXT_PUBLIC_BONUS_REQUIREMENT} THEN TRUE ELSE FALSE END AS bonusReq
 FROM 
     questionTopic qt
 LEFT JOIN 

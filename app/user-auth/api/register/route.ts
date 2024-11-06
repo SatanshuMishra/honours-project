@@ -2,7 +2,7 @@ import prisma from "../../../lib/prisma";
 import { NextRequest } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import CryptoJS from "crypto-js";
-const DOMPurify = require("isomorphic-dompurify");
+import DOMPurify from "isomorphic-dompurify";
 const HmacSHA256 = CryptoJS.HmacSHA256;
 import verifyJWT from "@/app/scripts/verifyJWT";
 import TaxonomyCategory from "@/app/types/taxonomyCategory";
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
 						message:
 							"A valid token already exists. Registration failed.",
 						pgErrorObject: null,
-					})
+					}),
 				);
 			}
 		});
@@ -34,15 +34,15 @@ export async function POST(request: NextRequest) {
 		const sanitizationConfig = { ALLOWED_TAGS: [], KEEP_CONTENT: false };
 		const pureName = DOMPurify.sanitize(
 			requestBody.name,
-			sanitizationConfig
+			sanitizationConfig,
 		);
 		const pureUsername = DOMPurify.sanitize(
 			requestBody.username,
-			sanitizationConfig
+			sanitizationConfig,
 		);
 		const purePassword = DOMPurify.sanitize(
 			requestBody.password,
-			sanitizationConfig
+			sanitizationConfig,
 		);
 
 		if (pureName === "") {
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
 					message:
 						"Your input for 'Name' could not be processed due to security concerns. Please simplify your entries and resubmit.",
 					pgErrorObject: null,
-				})
+				}),
 			);
 		}
 
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
 					message:
 						"Your input for 'Username' could not be processed due to security concerns. Please simplify your entries and resubmit.",
 					pgErrorObject: null,
-				})
+				}),
 			);
 		}
 
@@ -77,55 +77,58 @@ export async function POST(request: NextRequest) {
 					message:
 						"Your input for 'Password' could not be processed due to security concerns. Please simplify your entries and resubmit.",
 					pgErrorObject: null,
-				})
+				}),
 			);
 		}
 
 		const code: {
 			isRegistered: boolean;
-		}[] =
-			await prisma.$queryRaw`SELECT isRegistered FROM studentCode WHERE code = ${pureUsername}`;
+		}[] = await prisma
+			.$queryRaw`SELECT isRegistered FROM studentCode WHERE code = ${pureUsername}`;
 
-		if (code.length != 1)
+		if (code.length != 1) {
 			throw new Error(
-				`Something went wrong with fetching student code. Length Error.`
+				`Something went wrong with fetching student code. Length Error.`,
 			);
+		}
 
 		console.log(code[0].isRegistered);
 
-		if (code[0].isRegistered)
-			throw new Error(`Student Code is already in use!`);
+		if (code[0].isRegistered) {
+			throw new Error(`Student code is already in use!`);
+		}
 
 		const uuid = uuidv4();
 
-		const result =
-			await prisma.$queryRaw`INSERT INTO student (studentID, name, username, password, completedBonusContent) VALUES (UUID_TO_BIN(${uuid}), ${pureName}, ${pureUsername}, 
+		const result = await prisma
+			.$queryRaw`INSERT INTO student (studentID, name, username, password, completedBonusContent) VALUES (UUID_TO_BIN(${uuid}), ${pureName}, ${pureUsername}, 
 				${HmacSHA256(
-					purePassword,
-					process.env.PASSWORD_ENCRYPTION_KEY || "Weee"
-				).toString()}, 0)`;
+				purePassword,
+				process.env.PASSWORD_ENCRYPTION_KEY || "Weee",
+			).toString()
+			}, 0)`;
 
 		const topics: {
 			topicID: QuestionTopic["topicID"];
-		}[] =
-			await prisma.$queryRaw`SELECT BIN_TO_UUID(topicID) AS topicID FROM questionTopic`;
-
-		
+		}[] = await prisma
+			.$queryRaw`SELECT BIN_TO_UUID(topicID) AS topicID FROM questionTopic`;
 
 		const taxonomyCategories: {
 			categoryID: TaxonomyCategory["categoryID"];
-		}[] =
-			await prisma.$queryRaw`SELECT BIN_TO_UUID(categoryID) AS categoryID FROM taxonomyCategory`;
+		}[] = await prisma
+			.$queryRaw`SELECT BIN_TO_UUID(categoryID) AS categoryID FROM taxonomyCategory`;
 
-		for (let topic of topics) {
-			for (let category of taxonomyCategories) {
+		for (const topic of topics) {
+			for (const category of taxonomyCategories) {
 				console.log(`Topic: ${topic}, Category: ${category}`);
-				let knowledgeID = uuidv4();
-				await prisma.$queryRaw`INSERT INTO studentKnowledge (knowledgeID, studentID, topicID, categoryID) VALUES (UUID_TO_BIN(${knowledgeID}), UUID_TO_BIN(${uuid}), UUID_TO_BIN(${topic.topicID}), UUID_TO_BIN(${category.categoryID}))`;
+				const knowledgeID = uuidv4();
+				await prisma
+					.$queryRaw`INSERT INTO studentKnowledge (knowledgeID, studentID, topicID, categoryID) VALUES (UUID_TO_BIN(${knowledgeID}), UUID_TO_BIN(${uuid}), UUID_TO_BIN(${topic.topicID}), UUID_TO_BIN(${category.categoryID}))`;
 			}
 		}
 
-		await prisma.$queryRaw`UPDATE studentCode SET isRegistered = 1 WHERE code = ${pureUsername}`;
+		await prisma
+			.$queryRaw`UPDATE studentCode SET isRegistered = 1 WHERE code = ${pureUsername}`;
 
 		return new Response(
 			JSON.stringify({
@@ -133,7 +136,11 @@ export async function POST(request: NextRequest) {
 				status: 201,
 				message: `${pureUsername} was signed-up successfully.`,
 				pgErrorObject: null,
-			})
+			}),
+			{
+				status: 201,
+				headers: { "Content-Type": "application/json" },
+			},
 		);
 	} catch (error: any) {
 		console.log(error);
@@ -141,11 +148,15 @@ export async function POST(request: NextRequest) {
 			JSON.stringify({
 				data: null,
 				status: 500,
-				message: `Sign-up failed.`,
+				message: `Registration failed. ${error}`,
 				pgErrorObject: {
 					...error,
 				},
-			})
+			}),
+			{
+				status: 500,
+				headers: { "Content-Type": "application/json" },
+			},
 		);
 	}
 }

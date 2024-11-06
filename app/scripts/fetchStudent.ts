@@ -15,7 +15,7 @@ export default async function fetchStudent(studentID: string) {
       credentials: "include",
     });
 
-    let resBody: {
+    const resBody: {
       data: Student;
       status: number;
     } = JSON.parse(await res.text());
