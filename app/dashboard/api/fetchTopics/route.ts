@@ -31,8 +31,8 @@ export async function POST(request: NextRequest) {
 SELECT 
     BIN_TO_UUID(qt.topicID) AS topicID,
     qt.name AS name,
-    FLOOR(COALESCE(COUNT(st.statID), 0) / 4) AS quizzesCompleted,
-    CASE WHEN FLOOR(COALESCE(COUNT(st.statID), 0) / 4) >= 4 THEN TRUE ELSE FALSE END AS bonusReq
+    FLOOR(COALESCE(COUNT(st.statID), 0) / ${process.env.NEXT_PUBLIC_NUMBER_OF_QUESTIONS}) AS quizzesCompleted,
+    CASE WHEN FLOOR(COALESCE(COUNT(st.statID), 0) / ${process.env.NEXT_PUBLIC_BONUS_REQUIREMENT}) >= ${process.env.NEXT_PUBLIC_BONUS_REQUIREMENT} THEN TRUE ELSE FALSE END AS bonusReq
 FROM 
     questionTopic qt
 LEFT JOIN 

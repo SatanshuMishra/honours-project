@@ -59,12 +59,24 @@ CREATE TABLE question (
     categoryID BINARY(16) NOT NULL,
     question TEXT NOT NULL,
     code TEXT DEFAULT NULL,
+    isHidden BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    last_modified TIMESTAMP NULL,
     INDEX idx_topic_difficulty_category (topicID, modifiedDifficulty, categoryID),
     INDEX idx_difficulty (modifiedDifficulty),
+    INDEX idx_hidden (isHidden),
     FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
     FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
+) ENGINE = InnoDB ROW_FORMAT=COMPRESSED;
+
+CREATE TABLE question_attempt_history (
+    historyID BINARY(16) NOT NULL PRIMARY KEY,
+    studentID BINARY(16) NOT NULL,
+    questionID BINARY(16) NOT NULL,
+    lastAttempted TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_student_question (studentID, questionID),
+    INDEX idx_student_attempted (studentID, lastAttempted),
+    FOREIGN KEY (studentID) REFERENCES student(studentID) ON DELETE CASCADE,
+    FOREIGN KEY (questionID) REFERENCES question(questionID)
 ) ENGINE = InnoDB ROW_FORMAT=COMPRESSED;
 
 CREATE TABLE answer (

@@ -33,6 +33,7 @@ export async function POST(request: NextRequest) {
 		if (!Array.isArray(questionSet)) {
 			throw new Error('Invalid question set format: not an array');
 		}
+		console.log(`QSet: ${questionSet}\nStudentInfo: ${studentInfo}`);
 		parseJSON(questionSet, studentInfo);
 		return NextResponse.json({ success: true });
 	} catch (error) {
