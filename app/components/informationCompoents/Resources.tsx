@@ -31,7 +31,7 @@ export default function Resources() {
           <CardHeader>
             <CardTitle className="text-xl font-normal">Questionnaire</CardTitle>
             <CardDescription className="text-base">
-              Fill out the following questionnaire to tell me about your experience using the tool and it's effectiveness.
+              Fill out the following questionnaire to tell me about your experience using the tool and it&apos;s effectiveness.
             </CardDescription>
           </CardHeader>
         </Card>
