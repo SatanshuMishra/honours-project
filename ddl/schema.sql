@@ -57,8 +57,8 @@ CREATE TABLE question (
     assignedDifficulty TINYINT NOT NULL CHECK (assignedDifficulty BETWEEN 1 AND 5),
     modifiedDifficulty TINYINT NOT NULL CHECK (modifiedDifficulty BETWEEN 1 AND 5),
     categoryID BINARY(16) NOT NULL,
-    question TEXT NOT NULL,
-    code TEXT DEFAULT NULL,
+    question TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    code TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
     isHidden BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_topic_difficulty_category (topicID, modifiedDifficulty, categoryID),
@@ -66,7 +66,7 @@ CREATE TABLE question (
     INDEX idx_hidden (isHidden),
     FOREIGN KEY (topicID) REFERENCES questionTopic(topicID),
     FOREIGN KEY (categoryID) REFERENCES taxonomyCategory(categoryID)
-) ENGINE = InnoDB ROW_FORMAT=COMPRESSED;
+) ENGINE = InnoDB ROW_FORMAT=COMPRESSED DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE question_attempt_history (
     historyID BINARY(16) NOT NULL PRIMARY KEY,
@@ -82,13 +82,13 @@ CREATE TABLE question_attempt_history (
 CREATE TABLE answer (
     answerID BINARY(16) NOT NULL PRIMARY KEY,
     questionID BINARY(16) NOT NULL,
-    answerDescription TEXT NOT NULL,
-    answerExplanation TEXT NOT NULL,
+    answerDescription TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    answerExplanation TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     isCorrect BOOLEAN NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_question_correct (questionID, isCorrect),
     FOREIGN KEY (questionID) REFERENCES question(questionID)
-) ENGINE = InnoDB ROW_FORMAT=COMPRESSED;
+) ENGINE = InnoDB ROW_FORMAT=COMPRESSED DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE statistic (
     statID BINARY(16) NOT NULL PRIMARY KEY,
